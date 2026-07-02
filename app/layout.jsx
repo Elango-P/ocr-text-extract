@@ -8,6 +8,12 @@ const inter = Inter({
   display: "swap",
 });
 
+export const viewport = {
+  themeColor: "#06b6d4",
+  width: "device-width",
+  initialScale: 1,
+};
+
 export const metadata = {
   metadataBase: new URL("https://ocr.elangodev.com"),
   title: {
@@ -24,14 +30,27 @@ export const metadata = {
     "convert image to text",
     "Tesseract OCR",
     "screenshot to text",
+    "image to text converter",
+    "picture to text",
   ],
+  authors: [{ name: "Elango P", url: "https://elangodev.com" }],
+  creator: "Elango P",
+  publisher: "Elango P",
   openGraph: {
-    title: "OCR Text Extractor — Free Image to Text",
+    title: "OCR Text Extractor — Free Image to Text Online",
     description:
-      "Extract text from images in your browser. Private, free, and supports 12+ languages.",
+      "Extract text from images in your browser. Private, free, and supports 12+ languages. 100% browser-side processing.",
     type: "website",
     url: "https://ocr.elangodev.com",
     siteName: "OCR Text Extractor",
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "OCR Text Extractor — Free Image to Text Online",
+    description:
+      "Extract text from images instantly in your browser. Private, free, and supports 12+ languages.",
+    creator: "@elango_dev",
   },
   alternates: {
     canonical: "https://ocr.elangodev.com",
@@ -39,6 +58,13 @@ export const metadata = {
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
 };
 

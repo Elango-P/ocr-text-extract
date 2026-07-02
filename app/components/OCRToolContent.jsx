@@ -1,15 +1,17 @@
 "use client";
 
 import React, { useState, useRef, useCallback } from "react";
-import AppLayout from "./AppLayout";
 import { useDragAndDrop } from "../hooks/useDragAndDrop";
 import {
     Upload,
-    FileText,
     Copy,
     Download,
     Loader2,
     ScanText,
+    Shield,
+    Languages,
+    Sparkles,
+    ImageIcon,
 } from "lucide-react";
 import { toast } from "react-hot-toast";
 import { createWorker, OEM, PSM } from "tesseract.js";
@@ -21,7 +23,7 @@ export default function OCRTool() {
     const [isProcessing, setIsProcessing] = useState(false);
     const [progress, setProgress] = useState(0);
     const [language, setLanguage] = useState("eng");
-    const [cleanMode, setCleanMode] = useState(true);
+    const [cleanMode, setCleanMode] = useState(false);
     const [confidence, setConfidence] = useState(null);
     const fileInputRef = useRef(null);
 
@@ -196,6 +198,45 @@ export default function OCRTool() {
         resolve({ canvas, ctx, width, height });
       };
     });
+
+  const cloneScaled = (scaled) => {
+    const canvas = document.createElement("canvas");
+    canvas.width = scaled.width;
+    canvas.height = scaled.height;
+    const ctx = canvas.getContext("2d");
+    ctx.drawImage(scaled.canvas, 0, 0);
+    return { canvas, ctx, width: scaled.width, height: scaled.height };
+  };
+
+  const estimateMeanLuminance = (imageData) => {
+    const { data } = imageData;
+    let sum = 0;
+    const pixels = data.length / 4;
+    for (let i = 0; i < data.length; i += 4) {
+      sum += 0.299 * data[i] + 0.587 * data[i + 1] + 0.114 * data[i + 2];
+    }
+    return sum / pixels;
+  };
+
+  const invertScaled = (scaled) => {
+    const copy = cloneScaled(scaled);
+    const imageData = copy.ctx.getImageData(0, 0, copy.width, copy.height);
+    const { data } = imageData;
+    for (let i = 0; i < data.length; i += 4) {
+      data[i] = 255 - data[i];
+      data[i + 1] = 255 - data[i + 1];
+      data[i + 2] = 255 - data[i + 2];
+    }
+    copy.ctx.putImageData(imageData, 0, 0);
+    return copy;
+  };
+
+  const scaledToPass = (scaled, kind) => ({
+    dataUrl: scaled.canvas.toDataURL("image/png"),
+    width: scaled.width,
+    height: scaled.height,
+    kind,
+  });
 
   const detectModalRegion = (imageData, width, height) => {
     const { data } = imageData;
@@ -673,6 +714,12 @@ export default function OCRTool() {
 
     const totalWords = countAllWords(blocks);
     const isSimpleImage = totalWords <= 6;
+
+    if (isSimpleImage) {
+      const entries = buildLineEntries(blocks, 0);
+      return lineEntriesToText(entries, false);
+    }
+
     const minConfidence = adaptiveConfidenceThreshold(pageConfidence, totalWords);
 
     const focusedBlocks =
@@ -815,6 +862,8 @@ export default function OCRTool() {
               scaled.width,
               scaled.height
             );
+            const meanLuminance = estimateMeanLuminance(sourceImageData);
+            const isDarkImage = meanLuminance < 115;
             const modalCrop = detectModalRegion(
               sourceImageData,
               scaled.width,
@@ -822,7 +871,19 @@ export default function OCRTool() {
             );
 
             const enhancedFull = preprocessFromScaled(scaled, "enhanced");
-            const passes = [{ ...enhancedFull, kind: "enhanced" }];
+            const passes = [
+              scaledToPass(scaled, "original"),
+              { ...enhancedFull, kind: "enhanced" },
+            ];
+
+            if (isDarkImage) {
+              const inverted = invertScaled(scaled);
+              passes.push(
+                scaledToPass(inverted, "inverted"),
+                { ...preprocessFromScaled(inverted, "enhanced"), kind: "inverted-enhanced" },
+                { ...preprocessFromScaled(inverted, "binary"), kind: "inverted-binary" }
+              );
+            }
 
             if (modalCrop) {
               passes.unshift({
@@ -833,11 +894,13 @@ export default function OCRTool() {
 
             setProgress(40);
 
-            const recognize = (image) =>
-                worker.recognize(
+            const recognize = (image, psm = PSM.AUTO) =>
+                worker.setParameters({ tessedit_pageseg_mode: psm }).then(() =>
+                  worker.recognize(
                     image,
                     { rotateAuto: true },
                     { text: true, blocks: true }
+                  )
                 );
 
             let bestData = null;
@@ -853,37 +916,59 @@ export default function OCRTool() {
                 if (pass.kind === "focused") {
                     passScore += 8;
                 }
+                if (pass.kind.startsWith("inverted")) {
+                    passScore += 4;
+                }
+                const hasText = Boolean(normalizeText(result.data.text || ""));
+                if (hasText) passScore += 12;
                 if (passScore > bestScore) {
                     bestScore = passScore;
                     bestData = result.data;
                     bestDims = { width: pass.width, height: pass.height };
                     bestPassKind = pass.kind;
                 }
-                setProgress(45 + Math.round(((i + 1) / passes.length) * 35));
+                setProgress(45 + Math.round(((i + 1) / passes.length) * 30));
             }
 
-            if (bestScore < 78) {
+            if (bestScore < 78 || !normalizeText(bestData?.text || "")) {
                 setProgress(82);
+                const binarySource = isDarkImage ? invertScaled(scaled) : scaled;
                 const binaryPass = preprocessFromScaled(
-                  scaled,
+                  binarySource,
                   "binary",
                   modalCrop ?? null
                 );
                 const fallback = await recognize(binaryPass.dataUrl);
                 const fallbackScore = scoreOcrResult(fallback.data).score;
-                if (fallbackScore > bestScore) {
+                const fallbackHasText = Boolean(normalizeText(fallback.data.text || ""));
+                const adjustedScore = fallbackScore + (fallbackHasText ? 12 : 0);
+                if (adjustedScore > bestScore) {
                     bestData = fallback.data;
-                    bestScore = fallbackScore;
+                    bestScore = adjustedScore;
                     bestDims = { width: binaryPass.width, height: binaryPass.height };
                     bestPassKind = modalCrop ? "focused" : "binary";
                 }
+            }
+
+            if (!normalizeText(bestData?.text || "")) {
+              setProgress(90);
+              const logoSource = isDarkImage ? invertScaled(scaled) : scaled;
+              const logoResult = await recognize(
+                logoSource.canvas.toDataURL("image/png"),
+                PSM.SINGLE_LINE
+              );
+              if (normalizeText(logoResult.data.text || "")) {
+                bestData = logoResult.data;
+                bestDims = { width: logoSource.width, height: logoSource.height };
+                bestPassKind = "single-line";
+              }
             }
 
             await worker.terminate();
 
             const metrics = scoreOcrResult(bestData);
             const usedModalFocus = hasModal || bestPassKind === "focused";
-            const finalText = formatOcrOutput(
+            let finalText = formatOcrOutput(
               bestData,
               cleanMode,
               bestDims.width,
@@ -891,12 +976,28 @@ export default function OCRTool() {
               usedModalFocus
             );
 
+            if (!finalText.trim() && cleanMode) {
+              finalText = formatOcrOutput(
+                bestData,
+                false,
+                bestDims.width,
+                bestDims.height,
+                false
+              );
+            }
+
+            if (!finalText.trim()) {
+              finalText = normalizeText(bestData.text || "");
+            }
+
             setExtractedText(finalText);
-            setConfidence(Math.round(metrics.score));
+            setConfidence(finalText.trim() ? Math.round(metrics.score) : null);
             setProgress(100);
 
             if (!finalText.trim()) {
-              toast.error("No text detected — try turning Clean Mode off");
+              toast.error(
+                "No text detected — try a clearer image or a different language setting."
+              );
             } else {
               toast.success(`Text extracted (${Math.round(metrics.score)}% confidence)`);
             }
@@ -934,21 +1035,50 @@ export default function OCRTool() {
     };
 
     return (
-        <AppLayout
-            title="OCR Text Extractor"
-            subtitle="Extract text from images using Tesseract.js — processed entirely in your browser"
-            icon={ScanText}
-            accent="cyan"
-            maxWidth="md"
-            hero
-        >
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <section id="ocr-tool" className="mx-auto max-w-6xl px-4 pb-6 pt-8 sm:px-6 sm:pt-12">
+            <div className="mb-8 text-center sm:mb-10">
+                <p className="mb-3 inline-flex items-center gap-2 rounded-full border border-cyan-200 bg-cyan-50 px-3 py-1 text-xs font-bold uppercase tracking-wider text-cyan-700">
+                    <Sparkles className="h-3.5 w-3.5" />
+                    Free · Private · No signup
+                </p>
+                <h1 className="text-3xl font-black tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
+                    Extract text from any image
+                </h1>
+                <p className="mx-auto mt-4 max-w-2xl text-base text-slate-600 sm:text-lg">
+                    Upload a screenshot, photo, or scan — get editable text in seconds.
+                    Powered by Tesseract.js, processed entirely in your browser.
+                </p>
+                <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 text-xs font-semibold text-slate-600 shadow-sm ring-1 ring-slate-200">
+                        <Shield className="h-3.5 w-3.5 text-teal-600" />
+                        Images never uploaded
+                    </span>
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 text-xs font-semibold text-slate-600 shadow-sm ring-1 ring-slate-200">
+                        <Languages className="h-3.5 w-3.5 text-cyan-600" />
+                        12+ languages
+                    </span>
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 text-xs font-semibold text-slate-600 shadow-sm ring-1 ring-slate-200">
+                        <ScanText className="h-3.5 w-3.5 text-sky-600" />
+                        Smart preprocessing
+                    </span>
+                </div>
+            </div>
+
+            <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-8">
                     {/* LEFT */}
-                    <div className="space-y-6">
+                    <div className="space-y-4">
+                        <div className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm">
+                            <label htmlFor="ocr-language" className="mb-2 block text-xs font-bold uppercase tracking-wider text-slate-500">
+                                Document language
+                            </label>
+                            <p className="mb-2 text-xs text-slate-500">
+                                Must match the text in your image (e.g. English for Latin letters).
+                            </p>
                         <select
+                            id="ocr-language"
                             value={language}
                             onChange={(e) => setLanguage(e.target.value)}
-                            className="w-full p-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full rounded-xl border border-slate-200 bg-slate-50 p-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-cyan-500"
                         >
                             {languages.map((l) => (
                                 <option key={l.code} value={l.code}>
@@ -956,22 +1086,23 @@ export default function OCRTool() {
                                 </option>
                             ))}
                         </select>
+                        </div>
 
                         {/* Clean Mode Toggle */}
-                        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4">
-                            <div className="flex items-center justify-between">
+                        <div className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm">
+                            <div className="flex items-center justify-between gap-4">
                                 <div>
-                                    <h3 className="font-bold text-sm text-slate-900 dark:text-slate-100">Clean Mode</h3>
-                                    <p className="text-xs text-slate-500 dark:text-slate-400">Smart layout for pages; modal focus for dialogs</p>
+                                    <h3 className="font-bold text-slate-900">Clean Mode</h3>
+                                    <p className="mt-1 text-xs text-slate-500">Best for screenshots &amp; documents — off for logos &amp; photos</p>
                                 </div>
                                 <button
                                     onClick={() => setCleanMode(!cleanMode)}
                                     role="switch"
                                     aria-checked={cleanMode}
                                     aria-label="Toggle clean mode"
-                                    className={`w-12 h-6 rounded-full transition-colors relative ${cleanMode ? "bg-green-500" : "bg-slate-300 dark:bg-slate-700"}`}
+                                    className={`relative h-7 w-12 shrink-0 rounded-full transition-colors ${cleanMode ? "bg-teal-500" : "bg-slate-300"}`}
                                 >
-                                    <div className={`absolute top-1 left-1 w-4 h-4 bg-white rounded-full transition-transform ${cleanMode ? "translate-x-6" : ""}`} />
+                                    <div className={`absolute top-1 left-1 h-5 w-5 rounded-full bg-white shadow transition-transform ${cleanMode ? "translate-x-5" : ""}`} />
                                 </button>
                             </div>
                         </div>
@@ -979,22 +1110,28 @@ export default function OCRTool() {
                         <div
                             onClick={() => fileInputRef.current?.click()}
                             {...dragProps}
-                            className={`border-2 border-dashed p-8 rounded-xl text-center cursor-pointer transition-colors bg-white dark:bg-slate-900 ${
+                            className={`cursor-pointer rounded-2xl border-2 border-dashed p-8 text-center transition-all bg-white shadow-sm ${
                                 isDragging
-                                    ? "border-blue-500 bg-blue-50 dark:bg-blue-900/20"
-                                    : "border-slate-300 dark:border-slate-700 hover:border-blue-500"
+                                    ? "border-cyan-500 bg-cyan-50/50 scale-[1.01]"
+                                    : "border-slate-300 hover:border-cyan-400 hover:bg-cyan-50/30"
                             }`}
                         >
                             {imagePreview ? (
+                                <div className="space-y-3">
                                 <img
                                     src={imagePreview}
                                     alt="Uploaded image preview for OCR text extraction"
-                                    className="max-h-64 mx-auto rounded-lg"
+                                    className="mx-auto max-h-64 rounded-xl shadow-md ring-1 ring-slate-200"
                                 />
+                                <p className="text-xs font-medium text-slate-500">Click or drop to replace image</p>
+                                </div>
                             ) : (
                                 <>
-                                    <Upload className="mx-auto w-12 h-12 text-slate-400 dark:text-slate-500" />
-                                    <p className="text-slate-600 dark:text-slate-400 mt-2">Click or drop image</p>
+                                    <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-cyan-50 text-cyan-600">
+                                        <Upload className="h-7 w-7" />
+                                    </div>
+                                    <p className="mt-4 font-bold text-slate-800">Drop your image here</p>
+                                    <p className="mt-1 text-sm text-slate-500">or click to browse · PNG, JPG, WEBP</p>
                                 </>
                             )}
                         </div>
@@ -1010,53 +1147,72 @@ export default function OCRTool() {
                         <div className="flex gap-3">
                             <button
                                 onClick={extractText}
-                                disabled={isProcessing}
-                                className="flex-1 bg-blue-600 hover:bg-blue-700 disabled:bg-slate-400 dark:disabled:bg-slate-700 text-white p-3 rounded-xl font-bold transition-colors"
+                                disabled={isProcessing || !image}
+                                className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-cyan-600 to-teal-600 p-3.5 font-bold text-white shadow-lg shadow-cyan-500/20 transition hover:brightness-110 disabled:cursor-not-allowed disabled:from-slate-400 disabled:to-slate-400 disabled:shadow-none"
                             >
                                 {isProcessing ? (
                                     <>
-                                        <Loader2 className="inline animate-spin mr-2 w-5 h-5" />
-                                        {progress}%
+                                        <Loader2 className="h-5 w-5 animate-spin" />
+                                        Processing {progress}%
                                     </>
                                 ) : (
-                                    "Extract Text"
+                                    <>
+                                        <ScanText className="h-5 w-5" />
+                                        Extract Text
+                                    </>
                                 )}
                             </button>
                             <button
                                 onClick={clearAll}
-                                className="bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 px-6 rounded-xl transition-colors"
+                                disabled={!image && !extractedText}
+                                className="rounded-xl border border-slate-200 bg-white px-6 font-semibold text-slate-700 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-40"
                             >
                                 Clear
                             </button>
                         </div>
+
+                        {isProcessing && (
+                            <div className="overflow-hidden rounded-full bg-slate-200">
+                                <div
+                                    className="h-1.5 rounded-full bg-gradient-to-r from-cyan-500 to-teal-500 transition-all duration-300"
+                                    style={{ width: `${progress}%` }}
+                                />
+                            </div>
+                        )}
                     </div>
 
                     {/* RIGHT */}
-                    <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-6">
-                        <div className="flex justify-between mb-3">
+                    <div className="flex flex-col rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm sm:p-6">
+                        <div className="mb-4 flex items-start justify-between gap-3">
                             <div>
-                                <h3 className="font-bold text-slate-900 dark:text-slate-100">Extracted Text</h3>
+                                <div className="flex items-center gap-2">
+                                    <ImageIcon className="h-4 w-4 text-cyan-600" />
+                                    <h3 className="font-bold text-slate-900">Extracted Text</h3>
+                                </div>
                                 {confidence !== null && (
-                                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                                        Confidence: {confidence}%
+                                    <p className="mt-1 text-xs text-slate-500">
+                                        Confidence score:{" "}
+                                        <span className={`font-bold ${confidence >= 80 ? "text-teal-600" : confidence >= 60 ? "text-amber-600" : "text-rose-600"}`}>
+                                            {confidence}%
+                                        </span>
                                     </p>
                                 )}
                             </div>
                             {extractedText && (
-                                <div className="flex gap-2">
+                                <div className="flex gap-1">
                                     <button
                                         onClick={copyToClipboard}
-                                        className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors"
+                                        className="rounded-lg p-2 text-slate-600 transition hover:bg-slate-100"
                                         title="Copy to clipboard"
                                     >
-                                        <Copy className="w-4 h-4 text-slate-600 dark:text-slate-400" />
+                                        <Copy className="h-4 w-4" />
                                     </button>
                                     <button
                                         onClick={downloadText}
-                                        className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors"
+                                        className="rounded-lg p-2 text-slate-600 transition hover:bg-slate-100"
                                         title="Download as .txt"
                                     >
-                                        <Download className="w-4 h-4 text-slate-600 dark:text-slate-400" />
+                                        <Download className="h-4 w-4" />
                                     </button>
                                 </div>
                             )}
@@ -1065,43 +1221,11 @@ export default function OCRTool() {
                         <textarea
                             value={extractedText}
                             readOnly
-                            className="w-full h-[420px] p-4 font-mono text-sm rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            placeholder="Extracted text will appear here..."
+                            className="min-h-[420px] w-full flex-1 resize-none rounded-xl border border-slate-200 bg-slate-50 p-4 font-mono text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                            placeholder="Your extracted text will appear here after processing..."
                         />
                     </div>
                 </div>
-
-                {/* Technical Architecture Section (AdSense Value) */}
-                <div className="mt-20 p-8 md:p-16 rounded-[3.5rem] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xl">
-                    <div className="flex items-center gap-4 mb-10">
-                        <div className="p-3 bg-blue-500/10 text-blue-600 rounded-2xl">
-                            <FileText className="w-6 h-6" />
-                        </div>
-                        <h2 className="text-3xl font-black uppercase tracking-widest">Technical Architecture</h2>
-                    </div>
-                    
-                    <div className="grid md:grid-cols-2 gap-12 text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
-                        <div className="space-y-4">
-                            <h3 className="text-slate-900 dark:text-white text-xl font-bold">Neural Engine Integration</h3>
-                            <p>
-                                This tool leverages <strong>Tesseract.js</strong>, a pure Javascript port of the legendary Tesseract OCR engine. It utilizes a <strong>WebAssembly (Wasm)</strong> worker thread to execute complex neural network models directly in the browser. This ensures that user data never leaves their local machine (Zero-Knowledge processing) while maintaining server-grade recognition accuracy.
-                            </p>
-                        </div>
-                        <div className="space-y-4">
-                            <h3 className="text-slate-900 dark:text-white text-xl font-bold">Image Preprocessing Pipeline</h3>
-                            <p>
-                                Images are analyzed with a dual-pass pipeline that picks the strongest result, similar to how AI OCR services compare multiple interpretations:
-                            </p>
-                            <ul className="list-disc pl-5 space-y-2 text-sm italic">
-                                <li><strong>Smart Upscaling:</strong> Small images are scaled up to improve character resolution.</li>
-                                <li><strong>Enhanced Pass:</strong> Grayscale, contrast stretch, and edge sharpening for screenshots and clean documents.</li>
-                                <li><strong>Binary Pass:</strong> Adaptive thresholding for scans with uneven lighting or faint text.</li>
-                                <li><strong>UI Focus Detection:</strong> Auto-crops centered modals and dialogs in app screenshots.</li>
-                                <li><strong>Region Filtering:</strong> Ignores sidebar and breadcrumb noise in complex layouts.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-        </AppLayout>
+        </section>
     );
 }

@@ -95,13 +95,15 @@ export default function RootLayout({ children }) {
 
   return (
     <html lang="en">
+      <head>
+        <AdSenseScript />
+      </head>
       <body className={`${inter.className} antialiased`}>
         <script
           id="site-json-ld"
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        <AdSenseScript />
         <SiteLayout>{children}</SiteLayout>
         <CookieConsent />
         <Toaster position="top-center" />

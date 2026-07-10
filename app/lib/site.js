@@ -6,6 +6,20 @@ export const CONTACT_EMAIL = "admin@elangodev.com";
 export const OPERATOR_NAME = "Elango P";
 export const OPERATOR_URL = "https://elangodev.com";
 
+/** Public social / trust profiles (used in footer + schema sameAs) */
+export const SOCIAL_LINKS = [
+  {
+    name: "X (Twitter)",
+    href: "https://x.com/BElango93",
+    label: "Follow on X",
+  },
+  {
+    name: "Website",
+    href: OPERATOR_URL,
+    label: "elangodev.com",
+  },
+];
+
 /**
  * Set NEXT_PUBLIC_ADSENSE_CLIENT_ID=ca-pub-XXXXXXXXXXXXXXXX in .env.local / hosting env.
  * Optional: NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION for Search Console / AdSense meta tag.

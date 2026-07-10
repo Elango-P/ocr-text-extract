@@ -10,6 +10,7 @@ import {
   OPERATOR_URL,
   GOOGLE_SITE_VERIFICATION,
 } from "./lib/site";
+import { buildSiteJsonLd } from "./lib/jsonLd";
 import "./globals.css";
 
 const inter = Inter({
@@ -90,9 +91,16 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+  const jsonLd = buildSiteJsonLd();
+
   return (
     <html lang="en">
       <body className={`${inter.className} antialiased`}>
+        <script
+          id="site-json-ld"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         <AdSenseScript />
         <SiteLayout>{children}</SiteLayout>
         <CookieConsent />

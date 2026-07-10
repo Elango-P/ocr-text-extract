@@ -4,7 +4,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ScanText, Menu, X } from "lucide-react";
 import { useState } from "react";
-import { CONTACT_EMAIL, SITE_DOMAIN } from "../lib/site";
+import { CONTACT_EMAIL, SITE_DOMAIN, SOCIAL_LINKS } from "../lib/site";
+import { openCookieSettings } from "./CookieConsent";
 
 const navLinks = [
   { href: "/", label: "OCR Tool" },
@@ -107,7 +108,7 @@ export default function SiteLayout({ children }) {
 
       <footer className="border-t border-slate-200 bg-white/80 backdrop-blur-sm">
         <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
             <div>
               <p className="text-sm font-black text-slate-900">OCR Text Extractor</p>
               <p className="mt-2 text-sm leading-relaxed text-slate-500">
@@ -134,6 +135,25 @@ export default function SiteLayout({ children }) {
             </div>
             <div>
               <p className="text-xs font-bold uppercase tracking-wider text-slate-400">
+                Social
+              </p>
+              <ul className="mt-3 space-y-2" aria-label="Social links">
+                {SOCIAL_LINKS.map((link) => (
+                  <li key={link.href}>
+                    <a
+                      href={link.href}
+                      className="text-sm font-medium text-slate-600 hover:text-cyan-700"
+                      rel="noopener noreferrer me"
+                      target="_blank"
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <p className="text-xs font-bold uppercase tracking-wider text-slate-400">
                 Contact
               </p>
               <p className="mt-3 text-sm text-slate-600">
@@ -152,6 +172,13 @@ export default function SiteLayout({ children }) {
                 </Link>
                 .
               </p>
+              <button
+                type="button"
+                onClick={openCookieSettings}
+                className="mt-3 text-sm font-semibold text-cyan-700 hover:underline"
+              >
+                Cookie Settings
+              </button>
               <p className="mt-4 text-xs text-slate-400">
                 © {new Date().getFullYear()} Elango P · {SITE_DOMAIN}
               </p>

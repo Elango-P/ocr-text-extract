@@ -88,6 +88,33 @@ const useCases = [
   },
 ];
 
+const searchTopics = [
+  {
+    title: "JPG and PNG to text",
+    text: "Convert JPG, JPEG, and PNG images into editable text for notes, emails, spreadsheets, and documents. Clear screenshots and high-contrast photos usually give the best OCR results.",
+  },
+  {
+    title: "Screenshot to text",
+    text: "Extract text from app screenshots, browser errors, chat images, settings pages, and UI dialogs when the original text cannot be selected or copied.",
+  },
+  {
+    title: "Scanned document OCR",
+    text: "Turn scanned letters, forms, invoices, receipts, and printed pages into searchable text. Crop the image around the document for cleaner recognition.",
+  },
+  {
+    title: "Photo to text converter",
+    text: "Take a phone photo of a label, menu, sign, book page, or handwritten note and recover the wording as text you can copy, translate, or save.",
+  },
+  {
+    title: "Multi-language OCR",
+    text: "Choose the matching language before extraction to improve results for English, Spanish, French, German, Arabic, Hindi, Chinese, Japanese, Korean, and more.",
+  },
+  {
+    title: "Free OCR without signup",
+    text: "Use the OCR converter directly in your browser. AI OCR handles difficult images first, and the browser fallback keeps basic image-to-text conversion available.",
+  },
+];
+
 const faqPreview = [
   {
     q: "Is this OCR tool really free?",
@@ -100,6 +127,10 @@ const faqPreview = [
   {
     q: "What image formats are supported?",
     a: "You can upload common image formats including PNG, JPG, JPEG, WEBP, and GIF.",
+  },
+  {
+    q: "How can I improve OCR accuracy?",
+    a: "Use a sharp, well-lit image, crop closely around the text, choose the correct language, and enable Clean Mode for screenshots or document-style captures.",
   },
 ];
 
@@ -282,6 +313,30 @@ export default function HomeSections() {
                 <h3 className="font-bold text-slate-900">{item.title}</h3>
                 <p className="mt-1 text-sm leading-relaxed text-slate-600">{item.text}</p>
               </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section
+        aria-labelledby="seo-topics-heading"
+        className="rounded-3xl border border-slate-200 bg-white p-6 sm:p-10"
+      >
+        <div className="mb-8">
+          <h2 id="seo-topics-heading" className="text-2xl font-black text-slate-900 sm:text-3xl">
+            Image to text tools for common OCR searches
+          </h2>
+          <p className="mt-2 max-w-3xl text-slate-600">
+            Whether you need JPG to text, PNG to text, screenshot OCR, receipt OCR, or scanned
+            document text extraction, the workflow is the same: upload the image, choose the
+            language, and copy the recognized text.
+          </p>
+        </div>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {searchTopics.map((topic) => (
+            <article key={topic.title} className="rounded-2xl bg-slate-50 p-5 ring-1 ring-slate-200">
+              <h3 className="font-bold text-slate-900">{topic.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-slate-600">{topic.text}</p>
             </article>
           ))}
         </div>

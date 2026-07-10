@@ -1254,7 +1254,7 @@ export default function OCRTool() {
                             Extract Text uses cloud AI OCR first (max 10 AI uses per visitor per
                             day). If that fails or the limit is reached, it falls back to browser
                             OCR. Provider details are in our{" "}
-                            <Link href="/privacy" className="font-semibold text-cyan-700 hover:underline">
+                            <Link href="/privacy-policy" className="font-semibold text-cyan-700 hover:underline">
                               Privacy Policy
                             </Link>
                             .

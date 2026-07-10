@@ -62,7 +62,7 @@ export default function AboutPage() {
             Your privacy matters. AI OCR sends the image to Google Gemini only for that extraction
             request; we do not permanently store your uploads. If AI OCR is unavailable, the
             browser fallback keeps that attempt on your device. Read our full{" "}
-            <a href="/privacy" className="font-semibold text-cyan-700 hover:underline">
+            <a href="/privacy-policy" className="font-semibold text-cyan-700 hover:underline">
               Privacy Policy
             </a>{" "}
             for details.
@@ -100,7 +100,7 @@ export default function AboutPage() {
             development costs. Ads are served by Google and are subject to Google&apos;s advertising
             policies. We aim to keep ads unobtrusive so the OCR tool remains easy to use. Details
             are in our{" "}
-            <a href="/privacy" className="font-semibold text-cyan-700 hover:underline">
+            <a href="/privacy-policy" className="font-semibold text-cyan-700 hover:underline">
               Privacy Policy
             </a>
             .

@@ -69,7 +69,7 @@ export default function CookieConsent() {
         <p className="flex-1 text-sm leading-relaxed text-slate-600">
           We use cookies for essential site functions and Google AdSense advertising. Extracting
           text uses cloud AI OCR (see our{" "}
-          <Link href="/privacy" className="font-semibold text-cyan-700 hover:underline">
+          <Link href="/privacy-policy" className="font-semibold text-cyan-700 hover:underline">
             Privacy Policy
           </Link>
           ). You can change ad personalization at{" "}

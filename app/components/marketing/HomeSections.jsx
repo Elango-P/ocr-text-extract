@@ -300,7 +300,7 @@ export default function HomeSections() {
             stronger on complex layouts, mixed fonts, and lower-quality photos. The image is sent
             through our server to the AI provider only for that extraction request. We do not keep
             a permanent archive of your uploads. Provider details are listed in the{" "}
-            <Link href="/privacy" className="font-semibold text-cyan-700 hover:underline">
+            <Link href="/privacy-policy" className="font-semibold text-cyan-700 hover:underline">
               Privacy Policy
             </Link>
             .
@@ -417,7 +417,7 @@ export default function HomeSections() {
             installing desktop software. If you need maximum privacy for a sensitive document, prefer
             the browser fallback path when available and avoid uploading confidential material to any
             cloud service — including this one&apos;s AI OCR path. When in doubt, review the{" "}
-            <Link href="/privacy" className="font-semibold text-cyan-700 hover:underline">
+            <Link href="/privacy-policy" className="font-semibold text-cyan-700 hover:underline">
               Privacy Policy
             </Link>{" "}
             and use local tools for highly sensitive files.

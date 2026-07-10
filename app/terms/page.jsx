@@ -75,7 +75,7 @@ export default function TermsPage() {
             By using Extract Text, you understand that your image may be transmitted to Google
             Gemini for OCR. Do not submit images you are not allowed to process or that contain
             sensitive data you do not want sent to a third-party AI service. See our{" "}
-            <a href="/privacy" className="font-semibold text-cyan-700 hover:underline">
+            <a href="/privacy-policy" className="font-semibold text-cyan-700 hover:underline">
               Privacy Policy
             </a>{" "}
             for details.

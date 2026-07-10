@@ -8,6 +8,7 @@ import {
   SITE_NAME,
   OPERATOR_NAME,
   OPERATOR_URL,
+  ADSENSE_CLIENT_ID,
   GOOGLE_SITE_VERIFICATION,
 } from "./lib/site";
 import { buildSiteJsonLd } from "./lib/jsonLd";
@@ -96,6 +97,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
+        {ADSENSE_CLIENT_ID ? (
+          <meta name="google-adsense-account" content={ADSENSE_CLIENT_ID} />
+        ) : null}
         <AdSenseScript />
       </head>
       <body className={`${inter.className} antialiased`}>

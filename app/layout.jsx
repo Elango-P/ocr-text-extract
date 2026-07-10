@@ -30,7 +30,7 @@ export const metadata = {
     template: `%s | ${SITE_NAME}`,
   },
   description:
-    "Free online OCR tool to extract text from images instantly. Multi-language support, smart preprocessing, and 100% browser-side privacy — no uploads, no signup.",
+    "Free online OCR tool to extract text from images instantly. AI OCR with browser fallback, multi-language support, and no signup.",
   keywords: [
     "OCR",
     "image to text",
@@ -48,7 +48,7 @@ export const metadata = {
   openGraph: {
     title: "OCR Text Extractor — Free Image to Text Online",
     description:
-      "Extract text from images in your browser. Private, free, and supports 12+ languages. 100% browser-side processing.",
+      "Extract text from images with AI OCR and a browser fallback. Free, multi-language, no signup.",
     type: "website",
     url: SITE_URL,
     siteName: SITE_NAME,
@@ -66,7 +66,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "OCR Text Extractor — Free Image to Text Online",
     description:
-      "Extract text from images instantly in your browser. Private, free, and supports 12+ languages.",
+      "Extract text from images with AI OCR and browser fallback. Free and supports 12+ languages.",
     creator: "@elango_dev",
     images: ["/opengraph-image"],
   },

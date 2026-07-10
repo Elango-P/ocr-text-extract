@@ -30,9 +30,11 @@ export default function TermsPage() {
         <section>
           <h2 className="text-xl font-bold text-slate-900">Description of service</h2>
           <p className="mt-3 leading-relaxed">
-            OCR Text Extractor provides a free browser-based tool to extract text from images using
-            optical character recognition (OCR). The service is provided &quot;as is&quot; for
-            personal and commercial use, subject to the limitations below.
+            OCR Text Extractor provides a free web tool to extract text from images using optical
+            character recognition (OCR). Extraction uses cloud AI OCR first (Google Gemini). If that
+            request fails, the tool falls back to browser-based Tesseract.js OCR. The service is
+            provided &quot;as is&quot; for personal and commercial use, subject to the limitations
+            below.
           </p>
         </section>
 
@@ -61,8 +63,22 @@ export default function TermsPage() {
           <h2 className="text-xl font-bold text-slate-900">Intellectual property</h2>
           <p className="mt-3 leading-relaxed">
             The site design, branding, and original content are owned by the site operator. You
-            retain all rights to images you process and text you extract. Tesseract.js is open
-            source under the Apache License 2.0.
+            retain all rights to images you process and text you extract. AI OCR is provided via
+            Google Gemini and is subject to Google&apos;s terms. Tesseract.js (used for the
+            browser fallback) is open source under the Apache License 2.0.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-xl font-bold text-slate-900">Third-party AI processing</h2>
+          <p className="mt-3 leading-relaxed">
+            By using Extract Text, you understand that your image may be transmitted to Google
+            Gemini for OCR. Do not submit images you are not allowed to process or that contain
+            sensitive data you do not want sent to a third-party AI service. See our{" "}
+            <a href="/privacy" className="font-semibold text-cyan-700 hover:underline">
+              Privacy Policy
+            </a>{" "}
+            for details.
           </p>
         </section>
 

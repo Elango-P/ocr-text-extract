@@ -42,7 +42,7 @@ export default function ContactPage() {
           <MessageSquare className="h-5 w-5 text-cyan-600" />
           <h2 className="mt-3 text-sm font-bold text-slate-900">Operator</h2>
           <p className="mt-2 text-sm text-slate-600">
-            {OPERATOR_NAME} — privacy-first web tools.
+            {OPERATOR_NAME} — practical web tools.
           </p>
         </div>
       </div>
@@ -54,8 +54,9 @@ export default function ContactPage() {
           <li>Browser and device details if you are reporting a technical issue</li>
           <li>Steps to reproduce the problem when possible</li>
           <li>
-            Do <strong className="text-slate-800">not</strong> send sensitive personal documents —
-            OCR runs in your browser and we do not need your images to help with most issues
+            Do <strong className="text-slate-800">not</strong> email sensitive personal documents —
+            for support we usually do not need your images. Note that using Extract Text sends the
+            image to a cloud AI OCR provider (see Privacy Policy).
           </li>
         </ul>
       </section>

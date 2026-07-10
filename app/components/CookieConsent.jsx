@@ -49,12 +49,12 @@ export default function CookieConsent() {
     >
       <div className="mx-auto flex max-w-3xl flex-col gap-4 rounded-2xl border border-slate-200 bg-white p-4 shadow-xl shadow-slate-900/10 sm:flex-row sm:items-center sm:p-5">
         <p className="flex-1 text-sm leading-relaxed text-slate-600">
-          We use cookies and similar technologies for essential site functions and, when
-          enabled, Google AdSense advertising. See our{" "}
+          We use cookies for essential site functions and Google AdSense advertising. Extracting
+          text uses cloud AI OCR (see our{" "}
           <Link href="/privacy" className="font-semibold text-cyan-700 hover:underline">
             Privacy Policy
-          </Link>{" "}
-          for details. You can change ad personalization at{" "}
+          </Link>
+          ). You can change ad personalization at{" "}
           <a
             href="https://adssettings.google.com"
             className="font-semibold text-cyan-700 hover:underline"

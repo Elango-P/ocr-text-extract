@@ -3,7 +3,7 @@ import { SITE_URL } from "../lib/site";
 export const metadata = {
   title: "About",
   description:
-    "Learn about OCR Text Extractor — a free, privacy-first online tool to convert images into editable text using Tesseract.js.",
+    "Learn about OCR Text Extractor — free image-to-text with AI OCR and a Tesseract.js browser fallback.",
   alternates: { canonical: `${SITE_URL}/about` },
 };
 
@@ -18,23 +18,25 @@ export default function AboutPage() {
         <p className="text-lg leading-relaxed">
           OCR Text Extractor is a free online tool that helps you convert images into editable
           text. Whether you have a screenshot, a photo of a document, or a scanned receipt, you
-          can extract the text in seconds — directly in your web browser.
+          can extract the text in seconds using AI OCR, with a browser fallback if AI is
+          unavailable.
         </p>
 
         <section>
           <h2 className="text-xl font-bold text-slate-900">Our mission</h2>
           <p className="mt-3 leading-relaxed">
             We built this tool to make optical character recognition (OCR) accessible to everyone.
-            Many OCR services require account creation, file uploads to remote servers, or paid
-            subscriptions. OCR Text Extractor takes a different approach: powerful recognition
-            that runs entirely on your device, with no data leaving your browser.
+            OCR Text Extractor tries cloud AI OCR for high-accuracy extraction first. If that
+            request fails, it falls back to Tesseract.js running in your browser so the tool still
+            works without relying only on the cloud.
           </p>
         </section>
 
         <section>
           <h2 className="text-xl font-bold text-slate-900">How the technology works</h2>
           <p className="mt-3 leading-relaxed">
-            The tool is powered by{" "}
+            The primary path is cloud AI OCR (provider details in the Privacy Policy). As a fallback,
+            the tool uses{" "}
             <a
               href="https://tesseract.projectnaptha.com/"
               className="font-semibold text-cyan-700 hover:underline"
@@ -43,24 +45,23 @@ export default function AboutPage() {
             >
               Tesseract.js
             </a>
-            , a JavaScript port of the open-source Tesseract OCR engine originally developed by
-            Hewlett-Packard and now maintained by Google. Tesseract uses machine learning models
-            to recognize characters in images. We run it via WebAssembly in a background worker so
-            your page stays responsive while processing.
+            , a JavaScript port of the open-source Tesseract OCR engine. The browser fallback runs
+            via WebAssembly in a background worker and includes preprocessing (upscaling, contrast,
+            adaptive thresholding) to improve accuracy on screenshots and scans.
           </p>
           <p className="mt-3 leading-relaxed">
-            Before recognition, images go through a preprocessing pipeline — including smart
-            upscaling, contrast enhancement, and adaptive thresholding — to improve accuracy on
-            real-world photos, screenshots, and scans with uneven lighting.
+            Before the browser fallback runs recognition, images go through a preprocessing
+            pipeline — including smart upscaling, contrast enhancement, and adaptive thresholding —
+            to improve accuracy on real-world photos, screenshots, and scans with uneven lighting.
           </p>
         </section>
 
         <section>
           <h2 className="text-xl font-bold text-slate-900">Privacy first</h2>
           <p className="mt-3 leading-relaxed">
-            Your privacy matters. Unlike cloud-based OCR services, we do not upload, store, or
-            analyze your images on any server. All processing happens locally in your browser.
-            When you close the tab, your image data is gone. Read our full{" "}
+            Your privacy matters. AI OCR sends the image to Google Gemini only for that extraction
+            request; we do not permanently store your uploads. If AI OCR is unavailable, the
+            browser fallback keeps that attempt on your device. Read our full{" "}
             <a href="/privacy" className="font-semibold text-cyan-700 hover:underline">
               Privacy Policy
             </a>{" "}
@@ -80,7 +81,7 @@ export default function AboutPage() {
             >
               Elango P
             </a>
-            , a developer focused on practical, privacy-respecting web tools. If you have
+            , a developer focused on practical web tools. If you have
             feedback, bug reports, or feature suggestions, reach out at{" "}
             <a
               href="mailto:admin@elangodev.com"

@@ -55,7 +55,7 @@ export default function OpenGraphImage() {
             Extract text from any image
           </div>
           <div style={{ fontSize: 28, color: "#475569", maxWidth: 900 }}>
-            Free · Private · Browser-side OCR · 12+ languages
+            Free · AI OCR · Browser fallback · 12+ languages
           </div>
         </div>
 
@@ -68,9 +68,9 @@ export default function OpenGraphImage() {
             fontWeight: 700,
           }}
         >
-          <span>No uploads</span>
+          <span>AI OCR first</span>
           <span>·</span>
-          <span>No signup</span>
+          <span>Browser fallback</span>
           <span>·</span>
           <span>Copy-ready text</span>
         </div>

@@ -10,7 +10,7 @@ export default function HomePage() {
     name: SITE_NAME,
     url: SITE_URL,
     description:
-      "Free online OCR tool to extract text from images instantly. Multi-language support, smart preprocessing, and 100% browser-side privacy — no uploads, no signup.",
+      "Free online OCR tool to extract text from images instantly. AI OCR with browser fallback — no signup.",
     applicationCategory: "UtilityApplication",
     operatingSystem: "Any",
     offers: {

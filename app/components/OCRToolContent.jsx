@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useCallback } from "react";
+import Link from "next/link";
 import { useDragAndDrop } from "../hooks/useDragAndDrop";
 import {
     Upload,
@@ -25,6 +26,7 @@ export default function OCRTool() {
     const [language, setLanguage] = useState("eng");
     const [cleanMode, setCleanMode] = useState(false);
     const [confidence, setConfidence] = useState(null);
+    const [aiQuota, setAiQuota] = useState({ remaining: null, limit: 10 });
     const fileInputRef = useRef(null);
 
   const TARGET_LONG_EDGE = 2000;
@@ -825,6 +827,212 @@ export default function OCRTool() {
     };
 
     /* ---------------- OCR ---------------- */
+    const parseDataUrl = (dataUrl) => {
+        const match = /^data:([^;]+);base64,(.+)$/s.exec(dataUrl || "");
+        if (!match) return null;
+        return { mimeType: match[1], imageBase64: match[2] };
+    };
+
+    const tryGeminiOcr = async () => {
+        const parsed = parseDataUrl(imagePreview);
+        if (!parsed) throw new Error("Invalid image data");
+
+        setProgress(15);
+        const response = await fetch("/api/ocr", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                imageBase64: parsed.imageBase64,
+                mimeType: parsed.mimeType,
+                language,
+            }),
+        });
+
+        setProgress(55);
+        const payload = await response.json().catch(() => ({}));
+
+        if (typeof payload.remaining === "number" && typeof payload.limit === "number") {
+            setAiQuota({ remaining: payload.remaining, limit: payload.limit });
+        }
+
+        if (!response.ok) {
+            const err = new Error(payload.error || "AI OCR failed");
+            err.code = payload.code || "GEMINI_ERROR";
+            err.remaining = payload.remaining;
+            err.limit = payload.limit;
+            throw err;
+        }
+
+        const text = (payload.text || "").trim();
+        if (!text) {
+            const err = new Error("No text from AI OCR");
+            err.code = "NO_TEXT";
+            throw err;
+        }
+
+        return { text, remaining: payload.remaining, limit: payload.limit };
+    };
+
+    const extractWithTesseract = async () => {
+        setProgress(10);
+
+        const worker = await createWorker(language, OEM.LSTM_ONLY, {
+            logger: (message) => {
+                if (message.status === "recognizing text") {
+                    setProgress(55 + Math.round(message.progress * 40));
+                }
+            },
+        });
+
+        await worker.setParameters({
+            tessedit_pageseg_mode: PSM.AUTO,
+            preserve_interword_spaces: "1",
+            user_defined_dpi: OCR_DPI,
+        });
+
+        setProgress(20);
+
+        const scaled = await loadScaledCanvas(imagePreview);
+        const sourceImageData = scaled.ctx.getImageData(
+          0,
+          0,
+          scaled.width,
+          scaled.height
+        );
+        const meanLuminance = estimateMeanLuminance(sourceImageData);
+        const isDarkImage = meanLuminance < 115;
+        const modalCrop = detectModalRegion(
+          sourceImageData,
+          scaled.width,
+          scaled.height
+        );
+
+        const enhancedFull = preprocessFromScaled(scaled, "enhanced");
+        const passes = [
+          scaledToPass(scaled, "original"),
+          { ...enhancedFull, kind: "enhanced" },
+        ];
+
+        if (isDarkImage) {
+          const inverted = invertScaled(scaled);
+          passes.push(
+            scaledToPass(inverted, "inverted"),
+            { ...preprocessFromScaled(inverted, "enhanced"), kind: "inverted-enhanced" },
+            { ...preprocessFromScaled(inverted, "binary"), kind: "inverted-binary" }
+          );
+        }
+
+        if (modalCrop) {
+          passes.unshift({
+            ...preprocessFromScaled(scaled, "enhanced", modalCrop),
+            kind: "focused",
+          });
+        }
+
+        setProgress(40);
+
+        const recognize = (image, psm = PSM.AUTO) =>
+            worker.setParameters({ tessedit_pageseg_mode: psm }).then(() =>
+              worker.recognize(
+                image,
+                { rotateAuto: true },
+                { text: true, blocks: true }
+              )
+            );
+
+        let bestData = null;
+        let bestScore = -1;
+        let bestDims = { width: scaled.width, height: scaled.height };
+        let bestPassKind = "enhanced";
+        const hasModal = Boolean(modalCrop);
+
+        for (let i = 0; i < passes.length; i++) {
+            const pass = passes[i];
+            const result = await recognize(pass.dataUrl);
+            let passScore = scoreOcrResult(result.data).score;
+            if (pass.kind === "focused") {
+                passScore += 8;
+            }
+            if (pass.kind.startsWith("inverted")) {
+                passScore += 4;
+            }
+            const hasText = Boolean(normalizeText(result.data.text || ""));
+            if (hasText) passScore += 12;
+            if (passScore > bestScore) {
+                bestScore = passScore;
+                bestData = result.data;
+                bestDims = { width: pass.width, height: pass.height };
+                bestPassKind = pass.kind;
+            }
+            setProgress(45 + Math.round(((i + 1) / passes.length) * 30));
+        }
+
+        if (bestScore < 78 || !normalizeText(bestData?.text || "")) {
+            setProgress(82);
+            const binarySource = isDarkImage ? invertScaled(scaled) : scaled;
+            const binaryPass = preprocessFromScaled(
+              binarySource,
+              "binary",
+              modalCrop ?? null
+            );
+            const fallback = await recognize(binaryPass.dataUrl);
+            const fallbackScore = scoreOcrResult(fallback.data).score;
+            const fallbackHasText = Boolean(normalizeText(fallback.data.text || ""));
+            const adjustedScore = fallbackScore + (fallbackHasText ? 12 : 0);
+            if (adjustedScore > bestScore) {
+                bestData = fallback.data;
+                bestScore = adjustedScore;
+                bestDims = { width: binaryPass.width, height: binaryPass.height };
+                bestPassKind = modalCrop ? "focused" : "binary";
+            }
+        }
+
+        if (!normalizeText(bestData?.text || "")) {
+          setProgress(90);
+          const logoSource = isDarkImage ? invertScaled(scaled) : scaled;
+          const logoResult = await recognize(
+            logoSource.canvas.toDataURL("image/png"),
+            PSM.SINGLE_LINE
+          );
+          if (normalizeText(logoResult.data.text || "")) {
+            bestData = logoResult.data;
+            bestDims = { width: logoSource.width, height: logoSource.height };
+            bestPassKind = "single-line";
+          }
+        }
+
+        await worker.terminate();
+
+        const metrics = scoreOcrResult(bestData);
+        const usedModalFocus = hasModal || bestPassKind === "focused";
+        let finalText = formatOcrOutput(
+          bestData,
+          cleanMode,
+          bestDims.width,
+          bestDims.height,
+          usedModalFocus
+        );
+
+        if (!finalText.trim() && cleanMode) {
+          finalText = formatOcrOutput(
+            bestData,
+            false,
+            bestDims.width,
+            bestDims.height,
+            false
+          );
+        }
+
+        if (!finalText.trim()) {
+          finalText = normalizeText(bestData.text || "");
+        }
+
+        return {
+          text: finalText,
+          confidence: finalText.trim() ? Math.round(metrics.score) : null,
+        };
+    };
+
     const extractText = async () => {
         if (!imagePreview) {
             toast.error("Upload an image first");
@@ -837,161 +1045,29 @@ export default function OCRTool() {
         setConfidence(null);
 
         try {
-            setProgress(10);
-
-            const worker = await createWorker(language, OEM.LSTM_ONLY, {
-                logger: (message) => {
-                    if (message.status === "recognizing text") {
-                        setProgress(55 + Math.round(message.progress * 40));
-                    }
-                },
-            });
-
-            await worker.setParameters({
-                tessedit_pageseg_mode: PSM.AUTO,
-                preserve_interword_spaces: "1",
-                user_defined_dpi: OCR_DPI,
-            });
-
-            setProgress(20);
-
-            const scaled = await loadScaledCanvas(imagePreview);
-            const sourceImageData = scaled.ctx.getImageData(
-              0,
-              0,
-              scaled.width,
-              scaled.height
-            );
-            const meanLuminance = estimateMeanLuminance(sourceImageData);
-            const isDarkImage = meanLuminance < 115;
-            const modalCrop = detectModalRegion(
-              sourceImageData,
-              scaled.width,
-              scaled.height
-            );
-
-            const enhancedFull = preprocessFromScaled(scaled, "enhanced");
-            const passes = [
-              scaledToPass(scaled, "original"),
-              { ...enhancedFull, kind: "enhanced" },
-            ];
-
-            if (isDarkImage) {
-              const inverted = invertScaled(scaled);
-              passes.push(
-                scaledToPass(inverted, "inverted"),
-                { ...preprocessFromScaled(inverted, "enhanced"), kind: "inverted-enhanced" },
-                { ...preprocessFromScaled(inverted, "binary"), kind: "inverted-binary" }
-              );
-            }
-
-            if (modalCrop) {
-              passes.unshift({
-                ...preprocessFromScaled(scaled, "enhanced", modalCrop),
-                kind: "focused",
-              });
-            }
-
-            setProgress(40);
-
-            const recognize = (image, psm = PSM.AUTO) =>
-                worker.setParameters({ tessedit_pageseg_mode: psm }).then(() =>
-                  worker.recognize(
-                    image,
-                    { rotateAuto: true },
-                    { text: true, blocks: true }
-                  )
-                );
-
-            let bestData = null;
-            let bestScore = -1;
-            let bestDims = { width: scaled.width, height: scaled.height };
-            let bestPassKind = "enhanced";
-            const hasModal = Boolean(modalCrop);
-
-            for (let i = 0; i < passes.length; i++) {
-                const pass = passes[i];
-                const result = await recognize(pass.dataUrl);
-                let passScore = scoreOcrResult(result.data).score;
-                if (pass.kind === "focused") {
-                    passScore += 8;
-                }
-                if (pass.kind.startsWith("inverted")) {
-                    passScore += 4;
-                }
-                const hasText = Boolean(normalizeText(result.data.text || ""));
-                if (hasText) passScore += 12;
-                if (passScore > bestScore) {
-                    bestScore = passScore;
-                    bestData = result.data;
-                    bestDims = { width: pass.width, height: pass.height };
-                    bestPassKind = pass.kind;
-                }
-                setProgress(45 + Math.round(((i + 1) / passes.length) * 30));
-            }
-
-            if (bestScore < 78 || !normalizeText(bestData?.text || "")) {
-                setProgress(82);
-                const binarySource = isDarkImage ? invertScaled(scaled) : scaled;
-                const binaryPass = preprocessFromScaled(
-                  binarySource,
-                  "binary",
-                  modalCrop ?? null
-                );
-                const fallback = await recognize(binaryPass.dataUrl);
-                const fallbackScore = scoreOcrResult(fallback.data).score;
-                const fallbackHasText = Boolean(normalizeText(fallback.data.text || ""));
-                const adjustedScore = fallbackScore + (fallbackHasText ? 12 : 0);
-                if (adjustedScore > bestScore) {
-                    bestData = fallback.data;
-                    bestScore = adjustedScore;
-                    bestDims = { width: binaryPass.width, height: binaryPass.height };
-                    bestPassKind = modalCrop ? "focused" : "binary";
+            try {
+                const geminiResult = await tryGeminiOcr();
+                setExtractedText(geminiResult.text);
+                setConfidence(null);
+                setProgress(100);
+                const left =
+                  typeof geminiResult.remaining === "number"
+                    ? ` · ${geminiResult.remaining}/${geminiResult.limit ?? 10} AI left today`
+                    : "";
+                toast.success(`Text extracted with AI OCR${left}`);
+                return;
+            } catch (geminiErr) {
+                console.warn("Gemini OCR failed, falling back to Tesseract:", geminiErr);
+                if (geminiErr?.code === "RATE_LIMITED") {
+                  toast("AI OCR daily limit reached (10/day) — using browser OCR…");
+                } else {
+                  toast("AI OCR unavailable — using browser OCR…");
                 }
             }
 
-            if (!normalizeText(bestData?.text || "")) {
-              setProgress(90);
-              const logoSource = isDarkImage ? invertScaled(scaled) : scaled;
-              const logoResult = await recognize(
-                logoSource.canvas.toDataURL("image/png"),
-                PSM.SINGLE_LINE
-              );
-              if (normalizeText(logoResult.data.text || "")) {
-                bestData = logoResult.data;
-                bestDims = { width: logoSource.width, height: logoSource.height };
-                bestPassKind = "single-line";
-              }
-            }
-
-            await worker.terminate();
-
-            const metrics = scoreOcrResult(bestData);
-            const usedModalFocus = hasModal || bestPassKind === "focused";
-            let finalText = formatOcrOutput(
-              bestData,
-              cleanMode,
-              bestDims.width,
-              bestDims.height,
-              usedModalFocus
-            );
-
-            if (!finalText.trim() && cleanMode) {
-              finalText = formatOcrOutput(
-                bestData,
-                false,
-                bestDims.width,
-                bestDims.height,
-                false
-              );
-            }
-
-            if (!finalText.trim()) {
-              finalText = normalizeText(bestData.text || "");
-            }
-
+            const { text: finalText, confidence: score } = await extractWithTesseract();
             setExtractedText(finalText);
-            setConfidence(finalText.trim() ? Math.round(metrics.score) : null);
+            setConfidence(score);
             setProgress(100);
 
             if (!finalText.trim()) {
@@ -999,7 +1075,11 @@ export default function OCRTool() {
                 "No text detected — try a clearer image or a different language setting."
               );
             } else {
-              toast.success(`Text extracted (${Math.round(metrics.score)}% confidence)`);
+              toast.success(
+                score != null
+                  ? `Text extracted (${score}% confidence)`
+                  : "Text extracted"
+              );
             }
         } catch (err) {
             console.error(err);
@@ -1039,19 +1119,19 @@ export default function OCRTool() {
             <div className="mb-8 text-center sm:mb-10">
                 <p className="mb-3 inline-flex items-center gap-2 rounded-full border border-cyan-200 bg-cyan-50 px-3 py-1 text-xs font-bold uppercase tracking-wider text-cyan-700">
                     <Sparkles className="h-3.5 w-3.5" />
-                    Free · Private · No signup
+                    Free · AI + browser fallback · No signup
                 </p>
                 <h1 className="text-3xl font-black tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
                     Extract text from any image
                 </h1>
                 <p className="mx-auto mt-4 max-w-2xl text-base text-slate-600 sm:text-lg">
                     Upload a screenshot, photo, or scan — get editable text in seconds.
-                    Powered by Tesseract.js, processed entirely in your browser.
+                    Free online OCR with a browser fallback when needed.
                 </p>
                 <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
                     <span className="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 text-xs font-semibold text-slate-600 shadow-sm ring-1 ring-slate-200">
                         <Shield className="h-3.5 w-3.5 text-teal-600" />
-                        Images never uploaded
+                        Browser fallback if AI fails
                     </span>
                     <span className="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 text-xs font-semibold text-slate-600 shadow-sm ring-1 ring-slate-200">
                         <Languages className="h-3.5 w-3.5 text-cyan-600" />
@@ -1170,6 +1250,20 @@ export default function OCRTool() {
                                 Clear
                             </button>
                         </div>
+                        <p className="text-xs leading-relaxed text-slate-500">
+                            Extract Text uses cloud AI OCR first (max 10 AI uses per visitor per
+                            day). If that fails or the limit is reached, it falls back to browser
+                            OCR. Provider details are in our{" "}
+                            <Link href="/privacy" className="font-semibold text-cyan-700 hover:underline">
+                              Privacy Policy
+                            </Link>
+                            .
+                            {aiQuota.remaining != null && (
+                              <span className="mt-1 block font-medium text-slate-600">
+                                AI OCR: {aiQuota.remaining}/{aiQuota.limit} left today
+                              </span>
+                            )}
+                        </p>
 
                         {isProcessing && (
                             <div className="overflow-hidden rounded-full bg-slate-200">

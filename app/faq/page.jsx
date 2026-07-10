@@ -15,11 +15,23 @@ const faqs = [
   },
   {
     q: "Is OCR Text Extractor free?",
-    a: "Yes, completely free. There is no signup, no credit card, no watermarks, and no daily usage limit.",
+    a: "Yes, completely free. There is no signup, no credit card, and no watermarks. AI OCR is limited to 10 uses per visitor per day; browser OCR remains available after that.",
+  },
+  {
+    q: "Do you use cloud AI for OCR?",
+    a: "Yes. Extract Text uses cloud AI OCR first. If that request fails or returns no text, the tool automatically falls back to Tesseract.js in your browser. The AI provider is named in the Privacy Policy.",
+  },
+  {
+    q: "Is there a daily limit on AI OCR?",
+    a: "Yes. Each visitor can use AI OCR up to 10 times per day (UTC). When the limit is reached, Extract Text still works using browser-based Tesseract.js OCR.",
   },
   {
     q: "Are my images uploaded to your servers?",
-    a: "No. All OCR processing happens in your browser using Tesseract.js and WebAssembly. Your images never leave your device.",
+    a: "For AI OCR, yes temporarily: the image is sent through our server to a Google AI service to extract text. We do not permanently store your images. If AI OCR fails, the tool falls back to Tesseract.js in your browser for that attempt. See the Privacy Policy for the exact provider name.",
+  },
+  {
+    q: "What happens if AI OCR fails?",
+    a: "The tool automatically switches to the browser-based Tesseract.js OCR pipeline (with preprocessing) so you can still extract text.",
   },
   {
     q: "What image formats can I use?",
@@ -47,11 +59,11 @@ const faqs = [
   },
   {
     q: "Why is processing slow on the first run?",
-    a: "Tesseract.js downloads language model files on first use. Subsequent extractions in the same session are usually faster because models are cached in your browser.",
+    a: "AI OCR usually responds in a few seconds. If the tool falls back to browser OCR, Tesseract.js may download language model files on first use; later browser extractions in the same session are usually faster.",
   },
   {
     q: "Do you store my extracted text?",
-    a: "No. Extracted text exists only in your browser session until you copy, download, or clear the page.",
+    a: "No. Extracted text is shown in your browser session until you copy, download, or clear the page. We do not keep a permanent archive of your OCR results.",
   },
   {
     q: "Do you show ads?",

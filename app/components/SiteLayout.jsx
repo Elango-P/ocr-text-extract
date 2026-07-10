@@ -111,8 +111,8 @@ export default function SiteLayout({ children }) {
             <div>
               <p className="text-sm font-black text-slate-900">OCR Text Extractor</p>
               <p className="mt-2 text-sm leading-relaxed text-slate-500">
-                A free online tool to convert images into editable text. All processing
-                happens in your browser — your files are never uploaded to our servers.
+                A free online tool to convert images into editable text. AI OCR runs first;
+                if it fails, browser-side Tesseract OCR is used as a fallback.
               </p>
             </div>
             <div>

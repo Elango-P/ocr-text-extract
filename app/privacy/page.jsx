@@ -3,7 +3,7 @@ import { SITE_URL, SITE_DOMAIN, CONTACT_EMAIL } from "../lib/site";
 export const metadata = {
   title: "Privacy Policy",
   description:
-    "Privacy Policy for OCR Text Extractor. Learn how we handle your data — spoiler: your images never leave your browser.",
+    "Privacy Policy for OCR Text Extractor. How we handle images for AI OCR and browser fallback.",
   alternates: { canonical: `${SITE_URL}/privacy` },
 };
 
@@ -31,12 +31,25 @@ export default function PrivacyPage() {
         <section>
           <h2 className="text-xl font-bold text-slate-900">Images and OCR data</h2>
           <p className="mt-3 leading-relaxed">
-            <strong className="text-slate-800">
-              We do not upload, store, or transmit your images to our servers.
-            </strong>{" "}
-            All optical character recognition is performed locally in your web browser using
-            Tesseract.js and WebAssembly. Your images and extracted text remain on your device
-            unless you choose to copy, download, or share them yourself.
+            <strong className="text-slate-800">Primary path (AI OCR):</strong> When you
+            click Extract Text, your image is sent to our server and then to Google&apos;s Gemini
+            API solely to extract text. We do not permanently store your images on our servers.
+            Google&apos;s processing of the image is subject to{" "}
+            <a
+              href="https://policies.google.com/privacy"
+              className="text-cyan-700 hover:underline"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Google&apos;s Privacy Policy
+            </a>
+            .
+          </p>
+          <p className="mt-3 leading-relaxed">
+            <strong className="text-slate-800">Fallback path (browser OCR):</strong> If AI OCR
+            fails or is unavailable, recognition falls back to Tesseract.js running locally in
+            your browser via WebAssembly. That fallback pass does not upload the image to our
+            servers.
           </p>
         </section>
 
@@ -72,6 +85,20 @@ export default function PrivacyPage() {
           <h2 className="text-xl font-bold text-slate-900">Third-party services</h2>
           <p className="mt-3 leading-relaxed">We use third-party services including:</p>
           <ul className="mt-3 list-disc space-y-2 pl-5 leading-relaxed">
+            <li>
+              <strong className="text-slate-800">Google Gemini</strong> — to perform AI OCR when
+              you extract text. The image you submit for recognition is transmitted to Google for
+              that request. See{" "}
+              <a
+                href="https://ai.google.dev/gemini-api/terms"
+                className="text-cyan-700 hover:underline"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Gemini API terms
+              </a>
+              .
+            </li>
             <li>
               <strong className="text-slate-800">Google AdSense</strong> — to display
               advertisements that help cover hosting and development costs. Google may use cookies
@@ -139,8 +166,9 @@ export default function PrivacyPage() {
               .
             </li>
             <li>
-              Because images are processed locally, clearing your browser cache or closing the tab
-              removes local processing data from your session.
+              Extracted text and image previews in the page are kept in your browser session.
+              Closing the tab clears that local session data. Images sent for AI OCR are handled
+              by Google for that request and are not permanently stored by us.
             </li>
           </ul>
         </section>

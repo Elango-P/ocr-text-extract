@@ -6,7 +6,7 @@ import { SITE_URL } from "../lib/site";
 export const metadata = {
   title: "How It Works",
   description:
-    "Learn how OCR Text Extractor converts images to text — upload, preprocess, recognize, and export with browser-side privacy.",
+    "Learn how OCR Text Extractor converts images to text — AI OCR first, then browser Tesseract fallback.",
   alternates: { canonical: `${SITE_URL}/how-it-works` },
 };
 
@@ -27,8 +27,8 @@ export default function HowItWorksPage() {
         How OCR Text Extractor works
       </h1>
       <p className="mt-4 text-lg leading-relaxed text-slate-600">
-        A step-by-step look at how we turn your images into editable text — entirely inside your
-        browser.
+        A step-by-step look at how we turn your images into editable text — using AI OCR
+        first, with a browser fallback if needed.
       </p>
 
       <div className="mt-10 space-y-10">
@@ -44,10 +44,10 @@ export default function HowItWorksPage() {
         <section className="rounded-2xl border border-slate-200 bg-white p-6 sm:p-8">
           <h2 className="text-xl font-bold text-slate-900">Step 2: Configure options</h2>
           <p className="mt-3 leading-relaxed text-slate-600">
-            Choose the language of the text in your image. Tesseract loads the appropriate
-            language model into your browser. Enable <strong>Clean Mode</strong> when working with
-            app screenshots, web pages, or documents where layout matters — it helps reconstruct
-            reading order and focus on dialog boxes.
+            Choose the language of the text in your image so AI OCR and the browser fallback can
+            target the right script. Enable <strong>Clean Mode</strong> when working with app
+            screenshots, web pages, or documents where layout matters — it helps reconstruct
+            reading order and focus on dialog boxes in the browser fallback.
           </p>
         </section>
 
@@ -92,9 +92,9 @@ export default function HowItWorksPage() {
         <section className="rounded-2xl border border-slate-200 bg-white p-6 sm:p-8">
           <h2 className="text-xl font-bold text-slate-900">Step 4: OCR recognition</h2>
           <p className="mt-3 leading-relaxed text-slate-600">
-            Tesseract.js runs in a WebAssembly worker thread so your browser tab stays responsive.
-            The engine analyzes character shapes and returns text with a confidence score. Multiple
-            preprocessing passes may be compared to pick the best result.
+            The tool first sends the image to cloud AI OCR for extraction. If that request fails
+            or returns no text, it automatically falls back to Tesseract.js in a WebAssembly
+            worker so your browser tab stays responsive and you still get a result.
           </p>
         </section>
 

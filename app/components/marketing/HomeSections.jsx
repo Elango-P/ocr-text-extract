@@ -16,8 +16,8 @@ import {
 const features = [
   {
     icon: Lock,
-    title: "100% Private",
-    text: "OCR runs entirely in your browser with Tesseract.js. Images never leave your device.",
+    title: "AI first, private fallback",
+    text: "We try cloud AI OCR first for accuracy. If that fails, Tesseract.js runs entirely in your browser.",
   },
   {
     icon: Languages,
@@ -94,7 +94,7 @@ const faqPreview = [
   },
   {
     q: "Are my images uploaded to a server?",
-    a: "No. All recognition happens locally in your browser using WebAssembly. Your images stay on your device.",
+    a: "For AI OCR, the image is sent securely to a Google AI service to extract text and is not stored by us. If AI OCR fails, recognition falls back to Tesseract.js in your browser and that pass stays on your device. See the Privacy Policy for provider details.",
   },
   {
     q: "What image formats are supported?",
@@ -111,7 +111,7 @@ export default function HomeSections() {
             Why use our free OCR tool?
           </h2>
           <p className="mx-auto mt-3 max-w-2xl text-slate-600">
-            Built for students, freelancers, and anyone who needs fast, private image-to-text
+            Built for students, freelancers, and anyone who needs fast image-to-text
             conversion without installing software.
           </p>
         </div>
@@ -249,8 +249,8 @@ export default function HomeSections() {
           Ready to convert your image to text?
         </h2>
         <p className="mx-auto mt-3 max-w-xl text-slate-600">
-          Scroll up to the tool, upload an image, and get editable text in seconds — completely
-          free and private.
+          Scroll up to the tool, upload an image, and get editable text in seconds — free, with
+          AI OCR and a browser fallback.
         </p>
         <a
           href="#ocr-tool"

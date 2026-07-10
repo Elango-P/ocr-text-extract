@@ -1,6 +1,6 @@
 # OCR Text Extractor
 
-Free, privacy-first image-to-text tool powered by [Tesseract.js](https://tesseract.projectnaptha.com/). All OCR runs in the browser — images are never uploaded to a server.
+Free, image-to-text tool with cloud AI OCR and a [Tesseract.js](https://tesseract.projectnaptha.com/) browser fallback.
 
 **Live:** [https://imgtotext.in](https://imgtotext.in)
 
@@ -30,6 +30,8 @@ Open [http://localhost:3000](http://localhost:3000).
 |---|---|---|
 | `NEXT_PUBLIC_ADSENSE_CLIENT_ID` | For ads | Google AdSense publisher ID (`ca-pub-...`) |
 | `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` | Optional | Search Console / AdSense HTML verification token |
+| `GOOGLE_GENERATIVE_AI_API_KEY` | For AI OCR | Google AI API key (server-only) |
+| `GEMINI_MODEL` | Optional | Defaults to `gemini-2.5-flash` |
 
 With the AdSense client ID set, `/ads.txt` serves:
 

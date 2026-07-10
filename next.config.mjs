@@ -5,6 +5,15 @@ const nextConfig = {
   experimental: {
     optimizePackageImports: ["lucide-react"],
   },
+  async redirects() {
+    return [
+      {
+        source: "/privacy",
+        destination: "/privacy-policy",
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     // Practical CSP for Next.js + Google Fonts + AdSense + Tesseract CDN assets.
     // Avoid overly strict nonces so App Router / AdSense keep working.

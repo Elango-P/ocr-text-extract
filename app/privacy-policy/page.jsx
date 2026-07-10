@@ -4,7 +4,7 @@ export const metadata = {
   title: "Privacy Policy",
   description:
     "Privacy Policy for OCR Text Extractor. How we handle images for AI OCR and browser fallback.",
-  alternates: { canonical: `${SITE_URL}/privacy` },
+  alternates: { canonical: `${SITE_URL}/privacy-policy` },
 };
 
 export default function PrivacyPage() {

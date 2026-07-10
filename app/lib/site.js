@@ -31,6 +31,7 @@ export const GOOGLE_SITE_VERIFICATION =
 
 export function adsTxtLine(clientId = ADSENSE_CLIENT_ID) {
   if (!clientId) return null;
+  const publisherId = clientId.replace(/^ca-/, "");
   // Standard Google AdSense certified seller ID
-  return `google.com, ${clientId}, DIRECT, f08c47fec0942fa0`;
+  return `google.com, ${publisherId}, DIRECT, f08c47fec0942fa0`;
 }

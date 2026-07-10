@@ -35,7 +35,7 @@ Open [http://localhost:3000](http://localhost:3000).
 
 With the AdSense client ID set, `/ads.txt` serves:
 
-`google.com, ca-pub-XXXXXXXX, DIRECT, f08c47fec0942fa0`
+`google.com, pub-XXXXXXXX, DIRECT, f08c47fec0942fa0`
 
 ## Deploy
 

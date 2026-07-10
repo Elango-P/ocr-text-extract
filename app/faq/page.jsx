@@ -1,8 +1,11 @@
+import Script from "next/script";
+import { SITE_URL, CONTACT_EMAIL } from "../lib/site";
+
 export const metadata = {
   title: "FAQ",
   description:
     "Frequently asked questions about OCR Text Extractor — privacy, languages, accuracy, supported formats, and more.",
-  alternates: { canonical: "https://ocr.elangodev.com/faq" },
+  alternates: { canonical: `${SITE_URL}/faq` },
 };
 
 const faqs = [
@@ -51,14 +54,36 @@ const faqs = [
     a: "No. Extracted text exists only in your browser session until you copy, download, or clear the page.",
   },
   {
+    q: "Do you show ads?",
+    a: "Yes. We use Google AdSense to help cover hosting and development costs. Ads are kept unobtrusive. See our Privacy Policy for cookie and advertising details.",
+  },
+  {
     q: "How do I contact you?",
-    a: "Email admin@elangodev.com with questions, feedback, or bug reports. We read every message.",
+    a: `Email ${CONTACT_EMAIL} or use the Contact page. We read every message about questions, feedback, or bug reports.`,
   },
 ];
 
 export default function FAQPage() {
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.a,
+      },
+    })),
+  };
+
   return (
     <article className="mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-14">
+      <Script
+        id="faq-json-ld"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
       <p className="text-xs font-bold uppercase tracking-[0.2em] text-cyan-600">Help</p>
       <h1 className="mt-3 text-3xl font-black tracking-tight text-slate-900 sm:text-4xl">
         Frequently Asked Questions

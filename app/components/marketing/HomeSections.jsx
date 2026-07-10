@@ -186,6 +186,38 @@ export default function HomeSections() {
         </div>
       </section>
 
+      <section
+        aria-labelledby="accuracy-heading"
+        className="rounded-3xl border border-slate-200 bg-white p-6 sm:p-10"
+      >
+        <h2 id="accuracy-heading" className="text-2xl font-black text-slate-900 sm:text-3xl">
+          Accuracy, formats, and limitations
+        </h2>
+        <div className="mt-6 grid gap-6 md:grid-cols-3">
+          <div>
+            <h3 className="font-bold text-slate-900">Best results</h3>
+            <p className="mt-2 text-sm leading-relaxed text-slate-600">
+              Clear screenshots, high-contrast scans, and well-lit photos of printed text usually
+              work best. Choose the correct document language before extracting.
+            </p>
+          </div>
+          <div>
+            <h3 className="font-bold text-slate-900">Supported formats</h3>
+            <p className="mt-2 text-sm leading-relaxed text-slate-600">
+              Upload PNG, JPG, JPEG, WEBP, or GIF. Crop to the text area when possible, and keep
+              the image sharp enough that characters are readable by eye.
+            </p>
+          </div>
+          <div>
+            <h3 className="font-bold text-slate-900">What to expect</h3>
+            <p className="mt-2 text-sm leading-relaxed text-slate-600">
+              Handwriting, decorative fonts, blur, and heavy glare can reduce accuracy. Always
+              proofread before using OCR output for important work.
+            </p>
+          </div>
+        </div>
+      </section>
+
       <section aria-labelledby="faq-preview-heading" className="rounded-3xl bg-slate-900 px-6 py-10 text-white sm:px-10">
         <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>

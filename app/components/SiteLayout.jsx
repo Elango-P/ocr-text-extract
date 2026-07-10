@@ -4,19 +4,23 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ScanText, Menu, X } from "lucide-react";
 import { useState } from "react";
+import { CONTACT_EMAIL, SITE_DOMAIN } from "../lib/site";
 
 const navLinks = [
   { href: "/", label: "OCR Tool" },
   { href: "/how-it-works", label: "How It Works" },
   { href: "/faq", label: "FAQ" },
   { href: "/about", label: "About" },
+  { href: "/contact", label: "Contact" },
 ];
 
 const footerLinks = [
+  { href: "/how-it-works", label: "How It Works" },
+  { href: "/faq", label: "FAQ" },
+  { href: "/about", label: "About" },
+  { href: "/contact", label: "Contact" },
   { href: "/privacy", label: "Privacy Policy" },
   { href: "/terms", label: "Terms of Use" },
-  { href: "/about", label: "About" },
-  { href: "/faq", label: "FAQ" },
 ];
 
 export default function SiteLayout({ children }) {
@@ -135,14 +139,21 @@ export default function SiteLayout({ children }) {
               <p className="mt-3 text-sm text-slate-600">
                 Questions or feedback?{" "}
                 <a
-                  href="mailto:admin@elangodev.com"
+                  href={`mailto:${CONTACT_EMAIL}`}
                   className="font-semibold text-cyan-700 hover:underline"
                 >
-                  admin@elangodev.com
+                  {CONTACT_EMAIL}
                 </a>
               </p>
+              <p className="mt-2 text-sm text-slate-600">
+                Or visit our{" "}
+                <Link href="/contact" className="font-semibold text-cyan-700 hover:underline">
+                  Contact page
+                </Link>
+                .
+              </p>
               <p className="mt-4 text-xs text-slate-400">
-                © {new Date().getFullYear()} Elango P · ocr.elangodev.com
+                © {new Date().getFullYear()} Elango P · {SITE_DOMAIN}
               </p>
             </div>
           </div>

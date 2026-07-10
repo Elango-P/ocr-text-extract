@@ -1,11 +1,13 @@
 import Link from "next/link";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 
+import { SITE_URL } from "../lib/site";
+
 export const metadata = {
   title: "How It Works",
   description:
     "Learn how OCR Text Extractor converts images to text — upload, preprocess, recognize, and export with browser-side privacy.",
-  alternates: { canonical: "https://ocr.elangodev.com/how-it-works" },
+  alternates: { canonical: `${SITE_URL}/how-it-works` },
 };
 
 const tips = [

@@ -1,8 +1,10 @@
+import { SITE_URL } from "../lib/site";
+
 export const metadata = {
   title: "About",
   description:
     "Learn about OCR Text Extractor — a free, privacy-first online tool to convert images into editable text using Tesseract.js.",
-  alternates: { canonical: "https://ocr.elangodev.com/about" },
+  alternates: { canonical: `${SITE_URL}/about` },
 };
 
 export default function AboutPage() {
@@ -93,9 +95,14 @@ export default function AboutPage() {
         <section>
           <h2 className="text-xl font-bold text-slate-900">Advertising</h2>
           <p className="mt-3 leading-relaxed">
-            This site may display advertisements through Google AdSense to help cover hosting and
+            This site displays advertisements through Google AdSense to help cover hosting and
             development costs. Ads are served by Google and are subject to Google&apos;s advertising
-            policies. We aim to keep ads unobtrusive so the OCR tool remains easy to use.
+            policies. We aim to keep ads unobtrusive so the OCR tool remains easy to use. Details
+            are in our{" "}
+            <a href="/privacy" className="font-semibold text-cyan-700 hover:underline">
+              Privacy Policy
+            </a>
+            .
           </p>
         </section>
       </div>

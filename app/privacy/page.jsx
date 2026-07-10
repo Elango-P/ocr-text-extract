@@ -1,12 +1,14 @@
+import { SITE_URL, SITE_DOMAIN, CONTACT_EMAIL } from "../lib/site";
+
 export const metadata = {
   title: "Privacy Policy",
   description:
     "Privacy Policy for OCR Text Extractor. Learn how we handle your data — spoiler: your images never leave your browser.",
-  alternates: { canonical: "https://ocr.elangodev.com/privacy" },
+  alternates: { canonical: `${SITE_URL}/privacy` },
 };
 
 export default function PrivacyPage() {
-  const updated = "July 2, 2026";
+  const updated = "July 10, 2026";
 
   return (
     <article className="mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-14">
@@ -21,7 +23,7 @@ export default function PrivacyPage() {
           <h2 className="text-xl font-bold text-slate-900">Overview</h2>
           <p className="mt-3 leading-relaxed">
             OCR Text Extractor (&quot;we&quot;, &quot;our&quot;, or &quot;the site&quot;) is
-            operated at ocr.elangodev.com. This Privacy Policy explains what information we
+            operated at {SITE_DOMAIN}. This Privacy Policy explains what information we
             collect, how we use it, and your rights. We are committed to protecting your privacy.
           </p>
         </section>
@@ -39,24 +41,24 @@ export default function PrivacyPage() {
         </section>
 
         <section>
-          <h2 className="text-xl font-bold text-slate-900">Information we may collect</h2>
+          <h2 className="text-xl font-bold text-slate-900">Information we collect</h2>
           <ul className="mt-3 list-disc space-y-2 pl-5 leading-relaxed">
-            <li>
-              <strong className="text-slate-800">Usage analytics:</strong> We may use privacy-friendly
-              analytics (such as page views and general traffic patterns) to understand how the site
-              is used and improve the tool. Analytics data is aggregated and does not include your
-              images or extracted text.
-            </li>
             <li>
               <strong className="text-slate-800">Server logs:</strong> Our hosting provider may
               automatically log standard technical data such as IP address, browser type, referring
-              page, and access time. This is common for web hosting and security.
+              page, and access time. This is common for web hosting and security. We do not run a
+              separate third-party analytics product on this site today.
             </li>
             <li>
-              <strong className="text-slate-800">Cookies and advertising:</strong> If we display ads
-              through Google AdSense or similar services, those providers may use cookies and
-              similar technologies to serve and measure ads. See the &quot;Third-party services&quot;
-              section below.
+              <strong className="text-slate-800">Cookies and advertising:</strong> We use Google
+              AdSense to display advertisements. Google and its partners may use cookies and
+              similar technologies to serve, measure, and (where allowed) personalize ads. See the
+              &quot;Third-party services&quot; section below.
+            </li>
+            <li>
+              <strong className="text-slate-800">Consent preference:</strong> We store a small
+              local preference in your browser (localStorage) so we can remember whether you
+              accepted or limited non-essential cookies via our on-site notice.
             </li>
             <li>
               <strong className="text-slate-800">Contact email:</strong> If you email us, we receive
@@ -68,13 +70,12 @@ export default function PrivacyPage() {
 
         <section>
           <h2 className="text-xl font-bold text-slate-900">Third-party services</h2>
-          <p className="mt-3 leading-relaxed">
-            We may use third-party services including:
-          </p>
+          <p className="mt-3 leading-relaxed">We use third-party services including:</p>
           <ul className="mt-3 list-disc space-y-2 pl-5 leading-relaxed">
             <li>
               <strong className="text-slate-800">Google AdSense</strong> — to display
-              advertisements. Google may use cookies to personalize ads. Learn more at{" "}
+              advertisements that help cover hosting and development costs. Google may use cookies
+              to personalize ads where permitted. Learn more at{" "}
               <a
                 href="https://policies.google.com/privacy"
                 className="text-cyan-700 hover:underline"
@@ -121,6 +122,10 @@ export default function PrivacyPage() {
           <ul className="mt-3 list-disc space-y-2 pl-5 leading-relaxed">
             <li>You can stop using the site at any time — no account is required.</li>
             <li>
+              Use the on-site cookie notice to accept or limit non-essential cookies. You can also
+              clear site data in your browser to reset that preference.
+            </li>
+            <li>
               You can control cookies through your browser settings and opt out of personalized
               Google ads at{" "}
               <a
@@ -154,12 +159,16 @@ export default function PrivacyPage() {
           <p className="mt-3 leading-relaxed">
             Questions about this Privacy Policy? Email{" "}
             <a
-              href="mailto:admin@elangodev.com"
+              href={`mailto:${CONTACT_EMAIL}`}
               className="font-semibold text-cyan-700 hover:underline"
             >
-              admin@elangodev.com
-            </a>
-            .
+              {CONTACT_EMAIL}
+            </a>{" "}
+            or visit our{" "}
+            <a href="/contact" className="font-semibold text-cyan-700 hover:underline">
+              Contact
+            </a>{" "}
+            page.
           </p>
         </section>
       </div>

@@ -1,12 +1,14 @@
+import { SITE_URL, SITE_DOMAIN, CONTACT_EMAIL } from "../lib/site";
+
 export const metadata = {
   title: "Terms of Use",
   description:
     "Terms of Use for OCR Text Extractor — rules and disclaimers for using our free online OCR tool.",
-  alternates: { canonical: "https://ocr.elangodev.com/terms" },
+  alternates: { canonical: `${SITE_URL}/terms` },
 };
 
 export default function TermsPage() {
-  const updated = "July 2, 2026";
+  const updated = "July 10, 2026";
 
   return (
     <article className="mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-14">
@@ -20,7 +22,7 @@ export default function TermsPage() {
         <section>
           <h2 className="text-xl font-bold text-slate-900">Agreement</h2>
           <p className="mt-3 leading-relaxed">
-            By accessing or using OCR Text Extractor at ocr.elangodev.com (&quot;the site&quot;),
+            By accessing or using OCR Text Extractor at {SITE_DOMAIN} (&quot;the site&quot;),
             you agree to these Terms of Use. If you do not agree, please do not use the site.
           </p>
         </section>
@@ -67,9 +69,10 @@ export default function TermsPage() {
         <section>
           <h2 className="text-xl font-bold text-slate-900">Advertising</h2>
           <p className="mt-3 leading-relaxed">
-            The site may display third-party advertisements (including Google AdSense). We are not
-            responsible for the content of third-party ads or external sites linked from
-            advertisements.
+            The site displays third-party advertisements through Google AdSense to help cover
+            hosting and development costs. We are not responsible for the content of third-party
+            ads or external sites linked from advertisements. Ad delivery is subject to Google&apos;s
+            advertising policies and your cookie preferences.
           </p>
         </section>
 
@@ -96,12 +99,16 @@ export default function TermsPage() {
           <p className="mt-3 leading-relaxed">
             Questions about these terms? Email{" "}
             <a
-              href="mailto:admin@elangodev.com"
+              href={`mailto:${CONTACT_EMAIL}`}
               className="font-semibold text-cyan-700 hover:underline"
             >
-              admin@elangodev.com
-            </a>
-            .
+              {CONTACT_EMAIL}
+            </a>{" "}
+            or visit our{" "}
+            <a href="/contact" className="font-semibold text-cyan-700 hover:underline">
+              Contact
+            </a>{" "}
+            page.
           </p>
         </section>
       </div>

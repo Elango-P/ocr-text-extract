@@ -2,7 +2,7 @@
 
 Free, privacy-first image-to-text tool powered by [Tesseract.js](https://tesseract.projectnaptha.com/). All OCR runs in the browser — images are never uploaded to a server.
 
-**Live:** [ocr.elangodev.com](https://ocr.elangodev.com) (after deploy)
+**Live:** [https://imgtotext.in](https://imgtotext.in)
 
 ## Features
 
@@ -11,26 +11,40 @@ Free, privacy-first image-to-text tool powered by [Tesseract.js](https://tessera
 - Modal/dialog auto-focus for UI screenshots
 - Multi-column layout reconstruction for profile pages
 - Clean mode with confidence scoring
+- AdSense-ready setup (`ads.txt`, site-wide script, cookie notice)
 
 ## Development
 
 ```bash
 npm install
+cp .env.example .env.local
+# Set NEXT_PUBLIC_ADSENSE_CLIENT_ID=ca-pub-...
 npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000).
 
+## Environment
+
+| Variable | Required | Purpose |
+|---|---|---|
+| `NEXT_PUBLIC_ADSENSE_CLIENT_ID` | For ads | Google AdSense publisher ID (`ca-pub-...`) |
+| `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` | Optional | Search Console / AdSense HTML verification token |
+
+With the AdSense client ID set, `/ads.txt` serves:
+
+`google.com, ca-pub-XXXXXXXX, DIRECT, f08c47fec0942fa0`
+
 ## Deploy
 
-Deploy to Vercel, Netlify, or any static host that supports Next.js:
+Deploy to Vercel, Netlify, or any host that supports Next.js:
 
 ```bash
 npm run build
 npm start
 ```
 
-Point subdomain `ocr.elangodev.com` to the deployment.
+Point `imgtotext.in` to the deployment and set the env vars in your host dashboard.
 
 ## License
 

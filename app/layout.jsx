@@ -1,6 +1,15 @@
 import { Inter } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import SiteLayout from "./components/SiteLayout";
+import AdSenseScript from "./components/AdSenseScript";
+import CookieConsent from "./components/CookieConsent";
+import {
+  SITE_URL,
+  SITE_NAME,
+  OPERATOR_NAME,
+  OPERATOR_URL,
+  GOOGLE_SITE_VERIFICATION,
+} from "./lib/site";
 import "./globals.css";
 
 const inter = Inter({
@@ -15,10 +24,10 @@ export const viewport = {
 };
 
 export const metadata = {
-  metadataBase: new URL("https://ocr.elangodev.com"),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "OCR Text Extractor — Free Image to Text Online",
-    template: "%s | OCR Text Extractor",
+    template: `%s | ${SITE_NAME}`,
   },
   description:
     "Free online OCR tool to extract text from images instantly. Multi-language support, smart preprocessing, and 100% browser-side privacy — no uploads, no signup.",
@@ -33,17 +42,25 @@ export const metadata = {
     "image to text converter",
     "picture to text",
   ],
-  authors: [{ name: "Elango P", url: "https://elangodev.com" }],
-  creator: "Elango P",
-  publisher: "Elango P",
+  authors: [{ name: OPERATOR_NAME, url: OPERATOR_URL }],
+  creator: OPERATOR_NAME,
+  publisher: OPERATOR_NAME,
   openGraph: {
     title: "OCR Text Extractor — Free Image to Text Online",
     description:
       "Extract text from images in your browser. Private, free, and supports 12+ languages. 100% browser-side processing.",
     type: "website",
-    url: "https://ocr.elangodev.com",
-    siteName: "OCR Text Extractor",
+    url: SITE_URL,
+    siteName: SITE_NAME,
     locale: "en_US",
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "OCR Text Extractor — Free Image to Text Online",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
@@ -51,10 +68,14 @@ export const metadata = {
     description:
       "Extract text from images instantly in your browser. Private, free, and supports 12+ languages.",
     creator: "@elango_dev",
+    images: ["/opengraph-image"],
   },
   alternates: {
-    canonical: "https://ocr.elangodev.com",
+    canonical: SITE_URL,
   },
+  verification: GOOGLE_SITE_VERIFICATION
+    ? { google: GOOGLE_SITE_VERIFICATION }
+    : undefined,
   robots: {
     index: true,
     follow: true,
@@ -72,7 +93,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${inter.className} antialiased`}>
+        <AdSenseScript />
         <SiteLayout>{children}</SiteLayout>
+        <CookieConsent />
         <Toaster position="top-center" />
       </body>
     </html>

@@ -1,3 +1,4 @@
+import OCRToolHero from "./components/OCRToolHero";
 import OCRToolLazy from "./components/OCRToolLazy";
 import HomeSections from "./components/marketing/HomeSections";
 import { buildHomePageJsonLd } from "./lib/jsonLd";
@@ -12,6 +13,7 @@ export default function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+      <OCRToolHero />
       <OCRToolLazy />
       <HomeSections />
     </>

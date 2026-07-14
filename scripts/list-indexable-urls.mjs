@@ -14,6 +14,7 @@ const SITE_URL = "https://imgtotext.in";
 const staticRoutes = [
   "",
   "/about",
+  "/author/elango-p",
   "/contact",
   "/faq",
   "/how-it-works",
@@ -22,12 +23,17 @@ const staticRoutes = [
   "/terms",
   "/cookie-policy",
   "/disclaimer",
+  "/data-retention",
+  "/image-to-text",
+  "/jpg-to-text",
+  "/pdf-to-text",
+  "/handwriting-to-text",
 ];
 
 const blogDir = path.join(root, "content", "blog");
 const blogSlugs = fs
   .readdirSync(blogDir)
-  .filter((f) => f.endsWith(".md"))
+  .filter((f) => f.endsWith(".md") && !f.startsWith("_"))
   .map((f) => f.replace(/\.md$/, ""));
 
 const urls = [

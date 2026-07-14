@@ -8,7 +8,7 @@ export const posts = [
       "Step-by-step guide to converting screenshots, photos, and scans into editable text with free online OCR.",
     date: "2026-06-02",
     tags: ["Tutorial", "OCR"],
-    image: "/images/ocr-document-scan.webp",
+    image: "/images/ocr-tool-general.webp",
   },
   {
     slug: "ocr-vs-manual-typing",
@@ -17,7 +17,7 @@ export const posts = [
       "Compare optical character recognition with retyping documents by hand — speed, accuracy, and when OCR wins.",
     date: "2026-06-04",
     tags: ["Guides", "Productivity"],
-    image: "/images/ocr-screenshot-example.webp",
+    image: "/images/ocr-blog-accuracy.webp",
   },
   {
     slug: "best-ocr-tools-2026",
@@ -26,25 +26,7 @@ export const posts = [
       "A practical look at online and offline OCR options in 2026, including free image-to-text tools.",
     date: "2026-06-06",
     tags: ["Comparison", "Tools"],
-    image: "/images/ocr-phone-photo.webp",
-  },
-  {
-    slug: "jpg-to-text-converter",
-    title: "JPG to Text Converter: Extract Text from JPEG Images",
-    description:
-      "Convert JPG and JPEG photos into editable text online. Tips for clear extraction from camera shots.",
-    date: "2026-06-08",
-    tags: ["Formats", "JPG"],
-    image: "/images/ocr-phone-photo.webp",
-  },
-  {
-    slug: "png-to-text-converter",
-    title: "PNG to Text Converter: Turn Screenshots into Text",
-    description:
-      "Use PNG screenshots and UI captures with OCR to get clean, copyable text without retyping.",
-    date: "2026-06-10",
-    tags: ["Formats", "PNG"],
-    image: "/images/ocr-screenshot-example.webp",
+    image: "/images/ocr-blog-devtools.webp",
   },
   {
     slug: "pdf-ocr-guide",
@@ -53,7 +35,7 @@ export const posts = [
       "How to get text from scanned PDFs using page images and online OCR — workflow, tips, and limits.",
     date: "2026-06-12",
     tags: ["PDF", "Documents"],
-    image: "/images/ocr-document-scan.webp",
+    image: "/images/ocr-blog-pdf-pages.webp",
   },
   {
     slug: "handwriting-ocr",
@@ -62,7 +44,7 @@ export const posts = [
       "Realistic expectations for handwritten text recognition, photo tips, and how to improve results.",
     date: "2026-06-14",
     tags: ["Handwriting", "Accuracy"],
-    image: "/images/ocr-phone-photo.webp",
+    image: "/images/ocr-blog-handwriting.webp",
   },
   {
     slug: "ocr-accuracy-tips",
@@ -71,16 +53,7 @@ export const posts = [
       "Improve OCR results with lighting, crop, resolution, language settings, and Clean Mode.",
     date: "2026-06-16",
     tags: ["Accuracy", "Tips"],
-    image: "/images/ocr-document-scan.webp",
-  },
-  {
-    slug: "scan-documents-online",
-    title: "Scan Documents Online and Extract Text",
-    description:
-      "Turn phone photos of paper documents into searchable, editable text with free online OCR.",
-    date: "2026-06-18",
-    tags: ["Scanning", "Mobile"],
-    image: "/images/ocr-phone-photo.webp",
+    image: "/images/ocr-blog-accuracy.webp",
   },
   {
     slug: "ocr-for-students",
@@ -89,7 +62,7 @@ export const posts = [
       "How students use image-to-text for notes, whiteboard photos, textbooks excerpts, and study workflows.",
     date: "2026-06-20",
     tags: ["Education", "Students"],
-    image: "/images/ocr-screenshot-example.webp",
+    image: "/images/ocr-blog-whiteboard.webp",
   },
   {
     slug: "ocr-for-businesses",
@@ -98,7 +71,7 @@ export const posts = [
       "Practical business uses of OCR — digitizing receipts, forms, and paper archives without heavy software.",
     date: "2026-06-22",
     tags: ["Business", "Workflows"],
-    image: "/images/ocr-document-scan.webp",
+    image: "/images/ocr-blog-invoice.webp",
   },
   {
     slug: "ocr-api-guide",
@@ -107,7 +80,7 @@ export const posts = [
       "Overview of OCR APIs vs in-browser OCR, rate limits, privacy, and when a free web tool is enough.",
     date: "2026-06-24",
     tags: ["Developers", "API"],
-    image: "/images/ocr-screenshot-example.webp",
+    image: "/images/ocr-blog-devtools.webp",
   },
   {
     slug: "ocr-in-javascript",
@@ -119,22 +92,13 @@ export const posts = [
     image: "/images/ocr-screenshot-example.webp",
   },
   {
-    slug: "ocr-in-nodejs",
-    title: "OCR in Node.js: Server-Side Text Extraction",
-    description:
-      "Approaches to running OCR from Node.js backends, privacy trade-offs, and hybrid browser fallbacks.",
-    date: "2026-06-28",
-    tags: ["Node.js", "Developers"],
-    image: "/images/ocr-document-scan.webp",
-  },
-  {
     slug: "ocr-for-mobile",
     title: "OCR for Mobile: Extract Text from Phone Photos",
     description:
       "Use mobile browsers to photograph documents and convert them to editable text on the go.",
     date: "2026-06-30",
     tags: ["Mobile", "Tutorial"],
-    image: "/images/ocr-phone-photo.webp",
+    image: "/images/ocr-blog-mobile.webp",
   },
   {
     slug: "what-is-ocr",
@@ -146,22 +110,112 @@ export const posts = [
     image: "/images/ocr-document-scan.webp",
   },
   {
-    slug: "image-to-text-without-installing-software",
-    title: "Image to Text Without Installing Software",
-    description:
-      "Convert images to text in your browser — no desktop install, no account required.",
-    date: "2026-07-04",
-    tags: ["Browser", "Tutorial"],
-    image: "/images/ocr-screenshot-example.webp",
-  },
-  {
     slug: "convert-screenshots-to-editable-text",
     title: "How to Convert Screenshots to Editable Text",
     description:
       "Turn UI screenshots and error dialogs into copy-pasteable text with Clean Mode and OCR.",
     date: "2026-07-06",
     tags: ["Screenshots", "Tutorial"],
-    image: "/images/ocr-screenshot-example.webp",
+    image: "/images/ocr-blog-screenshot.webp",
+  },
+  {
+    slug: "ocr-vs-google-lens",
+    title: "OCR vs Google Lens: When to Use Each",
+    description:
+      "Compare Google Lens quick captures with dedicated online OCR for long extracts, exports, and desktop workflows.",
+    date: "2026-07-07",
+    tags: ["Comparison", "Mobile"],
+    image: "/images/ocr-phone-photo.webp",
+  },
+  {
+    slug: "ocr-security-privacy",
+    title: "OCR Security and Privacy: What to Watch For",
+    description:
+      "Practical privacy habits for online OCR—what to upload, crop, and avoid before extracting text.",
+    date: "2026-07-08",
+    tags: ["Privacy", "Security"],
+    image: "/images/ocr-blog-privacy.webp",
+  },
+  {
+    slug: "image-preprocessing-for-ocr",
+    title: "Image Preprocessing for Better OCR",
+    description:
+      "Crop, rotate, contrast, and Clean Mode tips that improve OCR accuracy before you hit extract.",
+    date: "2026-07-08",
+    tags: ["Accuracy", "Tips"],
+    image: "/images/ocr-blog-accuracy.webp",
+  },
+  {
+    slug: "digitize-old-books-ocr",
+    title: "Digitizing Old Books with OCR",
+    description:
+      "Capture and OCR aged print carefully—rights, fragile bindings, proofreading, and realistic limits.",
+    date: "2026-07-09",
+    tags: ["Scanning", "Documents"],
+    image: "/images/ocr-document-scan.webp",
+  },
+  {
+    slug: "extract-text-from-receipts",
+    title: "Extract Text from Receipts with OCR",
+    description:
+      "Photograph and convert receipts for expenses—thermal paper tips, verification, and privacy minimization.",
+    date: "2026-07-09",
+    tags: ["Business", "Receipts"],
+    image: "/images/ocr-blog-receipt.webp",
+  },
+  {
+    slug: "invoice-ocr-workflow",
+    title: "Invoice OCR Workflow for Small Teams",
+    description:
+      "A lightweight AP-friendly workflow: prepare invoices, OCR, verify totals, and file originals safely.",
+    date: "2026-07-10",
+    tags: ["Business", "Workflows"],
+    image: "/images/ocr-blog-invoice.webp",
+  },
+  {
+    slug: "ocr-for-developers-guide",
+    title: "OCR for Developers: Practical Patterns",
+    description:
+      "Prototype, client-side, server batch, hybrid routing, and verification patterns for OCR features.",
+    date: "2026-07-11",
+    tags: ["Developers", "Guides"],
+    image: "/images/ocr-blog-devtools.webp",
+  },
+  {
+    slug: "ocr-using-python",
+    title: "OCR Using Python: A Practical Overview",
+    description:
+      "Python OCR stacks, preprocessing, evaluation, and when to prototype with a free browser tool first.",
+    date: "2026-07-12",
+    tags: ["Python", "Developers"],
+    image: "/images/ocr-blog-devtools.webp",
+  },
+  {
+    slug: "passport-aadhaar-ocr-caution",
+    title: "Passport and ID OCR: Accuracy and Privacy Cautions",
+    description:
+      "Why casual ID OCR is risky—legal use only, verification requirements, and safer alternatives.",
+    date: "2026-07-12",
+    tags: ["Privacy", "Security"],
+    image: "/images/ocr-blog-privacy.webp",
+  },
+  {
+    slug: "whiteboard-ocr-tips",
+    title: "Whiteboard OCR Tips for Meetings and Classes",
+    description:
+      "Photograph whiteboards for cleaner OCR—glare control, crops, AI quota, and post-meeting review.",
+    date: "2026-07-13",
+    tags: ["Education", "Tips"],
+    image: "/images/ocr-blog-whiteboard.webp",
+  },
+  {
+    slug: "free-online-ocr-checklist",
+    title: "Free Online OCR Checklist Before You Trust the Output",
+    description:
+      "A six-gate checklist to verify OCR text before you paste it into email, tickets, or filings.",
+    date: "2026-07-14",
+    tags: ["Tips", "Guides"],
+    image: "/images/ocr-blog-accuracy.webp",
   },
 ];
 

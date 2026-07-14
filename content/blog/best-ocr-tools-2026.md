@@ -50,7 +50,7 @@ Learn the internals on [/how-it-works](/how-it-works). Common questions live on 
 
 Google Cloud Vision, AWS Textract, Azure Document Intelligence, and similar APIs suit product teams building OCR into apps. You pay for scale, get SLAs, and implement auth, quotas, and PII handling yourself. If you only need occasional human-driven extractions, a free site is simpler than wiring keys and billing alerts.
 
-Developers evaluating libraries should also read [/blog/ocr-in-javascript](/blog/ocr-in-javascript) and [/blog/ocr-in-nodejs](/blog/ocr-in-nodejs). For product architecture thoughts, see [/blog/ocr-api-guide](/blog/ocr-api-guide).
+Developers evaluating libraries should also read [/blog/ocr-in-javascript](/blog/ocr-in-javascript) and [/blog/ocr-for-developers-guide](/blog/ocr-for-developers-guide). For product architecture thoughts, see [/blog/ocr-api-guide](/blog/ocr-api-guide).
 
 ## Example Scenario: Freelancer Processing Client Scans
 
@@ -95,4 +95,4 @@ Compare your current habit against [imgtotext.in](https://imgtotext.in) on one r
 
 - [/blog/what-is-ocr](/blog/what-is-ocr) — fundamentals behind these tools
 - [/blog/how-to-extract-text-from-images](/blog/how-to-extract-text-from-images) — hands-on steps
-- [/blog/image-to-text-without-installing-software](/blog/image-to-text-without-installing-software) — browser-only workflows
+- [/blog/how-to-extract-text-from-images](/blog/how-to-extract-text-from-images) — browser-only workflows

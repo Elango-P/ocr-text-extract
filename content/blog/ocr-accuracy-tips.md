@@ -14,7 +14,7 @@ Use your phone’s document or perspective tools when available, then export a f
 
 Photographing a monitor introduces moiré, glare, and color casts. Capture a native screenshot instead (often PNG), then upload. Clean Mode on imgtotext.in is designed with screenshots and documents in mind—use it for these tidy inputs.
 
-See also [/blog/convert-screenshots-to-editable-text](/blog/convert-screenshots-to-editable-text) and [/blog/png-to-text-converter](/blog/png-to-text-converter).
+See also [/blog/convert-screenshots-to-editable-text](/blog/convert-screenshots-to-editable-text) and [/blog/convert-screenshots-to-editable-text](/blog/convert-screenshots-to-editable-text).
 
 ![Screenshot OCR example](/images/ocr-screenshot-example.webp)
 
@@ -109,4 +109,4 @@ Take a previously “bad” OCR image, apply three tips from this article (crop,
 
 - [/blog/how-to-extract-text-from-images](/blog/how-to-extract-text-from-images) — full beginner walkthrough
 - [/blog/handwriting-ocr](/blog/handwriting-ocr) — special case of difficult input
-- [/blog/scan-documents-online](/blog/scan-documents-online) — cleaner inputs from paper
+- [/blog/ocr-for-mobile](/blog/ocr-for-mobile) — cleaner inputs from paper

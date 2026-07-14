@@ -73,7 +73,7 @@ When in doubt for healthcare, legal, or finance regulated data, use approved ent
 
 ## Scanning Program Companion
 
-Pair this article with [/blog/scan-documents-online](/blog/scan-documents-online) when you digitize paper rooms. Accuracy habits in [/blog/ocr-accuracy-tips](/blog/ocr-accuracy-tips) prevent “fast wrong data” from entering your ERP.
+Pair this article with [/blog/ocr-for-mobile](/blog/ocr-for-mobile) when you digitize paper rooms. Accuracy habits in [/blog/ocr-accuracy-tips](/blog/ocr-accuracy-tips) prevent “fast wrong data” from entering your ERP.
 
 ## Measuring ROI
 
@@ -98,5 +98,5 @@ Document this in the SOP so staff do not assume the tool “broke” on the elev
 ## Related Reading
 
 - [/blog/ocr-vs-manual-typing](/blog/ocr-vs-manual-typing) — cost of retyping
-- [/blog/scan-documents-online](/blog/scan-documents-online) — paper capture tips
+- [/blog/ocr-for-mobile](/blog/ocr-for-mobile) — paper capture tips
 - [/blog/ocr-api-guide](/blog/ocr-api-guide) — when to automate programmatically

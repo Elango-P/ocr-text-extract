@@ -21,7 +21,7 @@ PNG is the usual lossless format; JPG screenshots are rarer but still accepted. 
 - Use system screenshot gestures, not a second phone filming the first.  
 - Crop status bars and notch areas if they create spurious characters.  
 
-More mobile guidance: [/blog/ocr-for-mobile](/blog/ocr-for-mobile). PNG-focused notes: [/blog/png-to-text-converter](/blog/png-to-text-converter).
+More mobile guidance: [/blog/ocr-for-mobile](/blog/ocr-for-mobile). PNG-focused notes: [/blog/convert-screenshots-to-editable-text](/blog/convert-screenshots-to-editable-text).
 
 ## Conversion Steps on imgtotext.in
 
@@ -109,6 +109,6 @@ Some users capture screens with assistive workflows or external keyboards. The O
 
 ## Related Reading
 
-- [/blog/png-to-text-converter](/blog/png-to-text-converter) — PNG-specific guidance
+- [/blog/convert-screenshots-to-editable-text](/blog/convert-screenshots-to-editable-text) — PNG-specific guidance
 - [/blog/ocr-accuracy-tips](/blog/ocr-accuracy-tips) — raise recognition quality
 - [/blog/how-to-extract-text-from-images](/blog/how-to-extract-text-from-images) — end-to-end basics

@@ -92,4 +92,4 @@ Avoid dumping entire copyrighted textbook scans into public Discords after OCR. 
 
 - [/blog/handwriting-ocr](/blog/handwriting-ocr) — notebook and board writing
 - [/blog/how-to-extract-text-from-images](/blog/how-to-extract-text-from-images) — step-by-step extraction
-- [/blog/image-to-text-without-installing-software](/blog/image-to-text-without-installing-software) — browser-only student setups
+- [/blog/how-to-extract-text-from-images](/blog/how-to-extract-text-from-images) — browser-only student setups

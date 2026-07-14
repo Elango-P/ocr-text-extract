@@ -174,6 +174,18 @@ export default function PrivacyPage() {
         </section>
 
         <section>
+          <h2 className="text-xl font-bold text-slate-900">Data retention</h2>
+          <p className="mt-3 leading-relaxed">
+            For timelines covering AI OCR processing, operational logs, cookies, and email
+            correspondence, see the dedicated{" "}
+            <a href="/data-retention" className="font-semibold text-cyan-700 hover:underline">
+              Data Retention Policy
+            </a>
+            .
+          </p>
+        </section>
+
+        <section>
           <h2 className="text-xl font-bold text-slate-900">Changes to this policy</h2>
           <p className="mt-3 leading-relaxed">
             We may update this Privacy Policy from time to time. The &quot;Last updated&quot; date

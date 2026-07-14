@@ -7,9 +7,11 @@ import {
   SOCIAL_LINKS,
 } from "./site";
 
+const AUTHOR_URL = `${SITE_URL}/author/elango-p`;
+
 /** Site-wide JSON-LD for SEO / trust scanners */
 export function buildSiteJsonLd() {
-  const sameAs = SOCIAL_LINKS.map((link) => link.href);
+  const sameAs = [OPERATOR_URL, ...SOCIAL_LINKS.map((link) => link.href)];
 
   return {
     "@context": "https://schema.org",
@@ -32,13 +34,23 @@ export function buildSiteJsonLd() {
       {
         "@type": "Organization",
         "@id": `${SITE_URL}/#organization`,
-        name: OPERATOR_NAME,
-        url: OPERATOR_URL,
+        name: SITE_NAME,
+        url: SITE_URL,
         email: CONTACT_EMAIL,
+        founder: { "@id": `${AUTHOR_URL}#person` },
         sameAs,
       },
       {
-        "@type": "WebApplication",
+        "@type": "Person",
+        "@id": `${AUTHOR_URL}#person`,
+        name: OPERATOR_NAME,
+        url: AUTHOR_URL,
+        email: CONTACT_EMAIL,
+        jobTitle: "Independent software developer",
+        sameAs,
+      },
+      {
+        "@type": "SoftwareApplication",
         "@id": `${SITE_URL}/#app`,
         name: SITE_NAME,
         url: SITE_URL,
@@ -60,6 +72,7 @@ export function buildSiteJsonLd() {
           price: "0",
           priceCurrency: "USD",
         },
+        author: { "@id": `${AUTHOR_URL}#person` },
         publisher: { "@id": `${SITE_URL}/#organization` },
         isPartOf: { "@id": `${SITE_URL}/#website` },
       },

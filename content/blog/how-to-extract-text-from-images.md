@@ -89,5 +89,5 @@ Ready to convert your next image? Open [OCR Text Extractor](https://imgtotext.in
 ## Related Reading
 
 - [/blog/ocr-accuracy-tips](/blog/ocr-accuracy-tips) — practical ways to improve recognition quality
-- [/blog/jpg-to-text-converter](/blog/jpg-to-text-converter) — JPG-specific workflow tips
-- [/blog/png-to-text-converter](/blog/png-to-text-converter) — PNG screenshots and transparent images
+- [/jpg-to-text](/jpg-to-text) — JPG-specific workflow tips
+- [/blog/convert-screenshots-to-editable-text](/blog/convert-screenshots-to-editable-text) — PNG screenshots and transparent images

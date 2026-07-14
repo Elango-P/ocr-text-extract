@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import Breadcrumbs from "../../components/Breadcrumbs";
 import { SITE_URL, SITE_NAME, OPERATOR_NAME } from "../../lib/site";
 import {
   getAllPosts,
@@ -11,8 +12,13 @@ import { getPostMarkdown } from "../../lib/blog/getPostMarkdown";
 import MarkdownContent from "../../components/blog/MarkdownContent";
 
 export function generateStaticParams() {
-  return getAllPosts().map((p) => ({ slug: p.slug }));
+  // Avoid prerendering every post during `next build` — Next static workers
+  // strip custom heap limits (~2GB) and can OOM on memory-constrained hosts.
+  // Posts still render via dynamicParams and are listed in sitemap.xml.
+  return [];
 }
+
+export const dynamicParams = true;
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;
@@ -67,6 +73,7 @@ export default async function BlogPostPage({ params }) {
     author: {
       "@type": "Person",
       name: OPERATOR_NAME,
+      url: `${SITE_URL}/author/elango-p`,
     },
     publisher: {
       "@type": "Organization",
@@ -84,13 +91,13 @@ export default async function BlogPostPage({ params }) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <nav className="text-sm text-slate-500">
-        <Link href="/blog" className="font-semibold text-cyan-700 hover:underline">
-          Blog
-        </Link>
-        <span className="mx-2">/</span>
-        <span className="text-slate-700">{post.title}</span>
-      </nav>
+      <Breadcrumbs
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Blog", href: "/blog" },
+          { name: post.title },
+        ]}
+      />
 
       <header className="mt-6">
         <p className="text-xs font-semibold text-slate-400">{formatDate(post.date)}</p>
@@ -98,6 +105,19 @@ export default async function BlogPostPage({ params }) {
           {post.title}
         </h1>
         <p className="mt-4 text-lg leading-relaxed text-slate-600">{post.description}</p>
+        <p className="mt-4 text-sm text-slate-600">
+          By{" "}
+          <Link
+            href="/author/elango-p"
+            className="font-semibold text-cyan-700 hover:underline"
+          >
+            {OPERATOR_NAME}
+          </Link>
+          {" · "}
+          <Link href="/about" className="text-slate-500 hover:text-cyan-700 hover:underline">
+            About this site
+          </Link>
+        </p>
         <div className="mt-4 flex flex-wrap gap-2">
           {post.tags.map((tag) => (
             <span
@@ -113,13 +133,25 @@ export default async function BlogPostPage({ params }) {
       <div className="relative mt-8 aspect-[16/9] overflow-hidden rounded-2xl border border-slate-200 bg-slate-100">
         <Image
           src={post.image}
-          alt=""
+          alt={`Illustration for article: ${post.title}`}
           fill
           priority
           className="object-cover"
           sizes="(max-width: 768px) 100vw, 720px"
         />
       </div>
+
+      <aside className="mt-8 rounded-2xl border border-slate-200 bg-slate-50 p-5 text-sm leading-relaxed text-slate-600">
+        <p>
+          <strong className="text-slate-900">{OPERATOR_NAME}</strong> builds and operates{" "}
+          {SITE_NAME}. This article reflects hands-on product guidance for free online OCR —
+          including accuracy limits and privacy trade-offs.{" "}
+          <Link href="/author/elango-p" className="font-semibold text-cyan-700 hover:underline">
+            View author profile
+          </Link>
+          .
+        </p>
+      </aside>
 
       <MarkdownContent source={markdown} />
 

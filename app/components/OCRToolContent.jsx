@@ -37,6 +37,10 @@ export default function OCRTool() {
     const activeItem = queue.find((q) => q.id === activeId) || queue[0] || null;
     const imagePreview = activeItem?.preview || null;
     const hasImages = queue.length > 0;
+    const characterCount = extractedText.length;
+    const wordCount = extractedText.trim()
+        ? extractedText.trim().split(/\s+/).filter(Boolean).length
+        : 0;
 
   const TARGET_LONG_EDGE = 2000;
   const MAX_LONG_EDGE = 3200;
@@ -1258,9 +1262,18 @@ export default function OCRTool() {
                         </div>
 
                         <div
+                            role="button"
+                            tabIndex={0}
+                            aria-label="Upload images for OCR. Drop files here or press Enter to browse."
                             onClick={() => fileInputRef.current?.click()}
+                            onKeyDown={(e) => {
+                                if (e.key === "Enter" || e.key === " ") {
+                                    e.preventDefault();
+                                    fileInputRef.current?.click();
+                                }
+                            }}
                             {...dragProps}
-                            className={`cursor-pointer rounded-2xl border-2 border-dashed p-8 text-center transition-all bg-white shadow-sm ${
+                            className={`cursor-pointer rounded-2xl border-2 border-dashed p-8 text-center transition-all bg-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-600 ${
                                 isDragging
                                     ? "border-cyan-500 bg-cyan-50/50 scale-[1.01]"
                                     : "border-slate-300 hover:border-cyan-400 hover:bg-cyan-50/30"
@@ -1335,13 +1348,16 @@ export default function OCRTool() {
                             accept="image/*"
                             multiple
                             onChange={handleImageUpload}
+                            aria-label="Choose image files for OCR"
                         />
 
                         <div className="flex gap-3">
                             <button
+                                type="button"
                                 onClick={extractText}
                                 disabled={isProcessing || !hasImages}
-                                className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-cyan-600 to-teal-600 p-3.5 font-bold text-white shadow-lg shadow-cyan-500/20 transition hover:brightness-110 disabled:cursor-not-allowed disabled:from-slate-400 disabled:to-slate-400 disabled:shadow-none"
+                                aria-busy={isProcessing}
+                                className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-cyan-600 to-teal-600 p-3.5 font-bold text-white shadow-lg shadow-cyan-500/20 transition hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-700 disabled:cursor-not-allowed disabled:from-slate-400 disabled:to-slate-400 disabled:shadow-none"
                             >
                                 {isProcessing ? (
                                     <>
@@ -1358,9 +1374,10 @@ export default function OCRTool() {
                                 )}
                             </button>
                             <button
+                                type="button"
                                 onClick={clearAll}
                                 disabled={!hasImages && !extractedText}
-                                className="rounded-xl border border-slate-200 bg-white px-6 font-semibold text-slate-700 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-40"
+                                className="rounded-xl border border-slate-200 bg-white px-6 font-semibold text-slate-700 transition hover:bg-slate-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-600 disabled:cursor-not-allowed disabled:opacity-40"
                             >
                                 Clear
                             </button>
@@ -1381,11 +1398,31 @@ export default function OCRTool() {
                         </p>
 
                         {isProcessing && (
-                            <div className="overflow-hidden rounded-full bg-slate-200">
+                            <div
+                                className="space-y-2"
+                                role="status"
+                                aria-live="polite"
+                                aria-busy="true"
+                            >
+                                <p className="text-xs font-medium text-slate-600">
+                                    OCR in progress — {progress}%
+                                    {progress < 55
+                                        ? " (preparing / AI path)"
+                                        : " (recognizing text)"}
+                                </p>
                                 <div
-                                    className="h-1.5 rounded-full bg-gradient-to-r from-cyan-500 to-teal-500 transition-all duration-300"
-                                    style={{ width: `${progress}%` }}
-                                />
+                                    className="overflow-hidden rounded-full bg-slate-200"
+                                    role="progressbar"
+                                    aria-valuenow={progress}
+                                    aria-valuemin={0}
+                                    aria-valuemax={100}
+                                    aria-label="OCR progress"
+                                >
+                                    <div
+                                        className="h-1.5 rounded-full bg-gradient-to-r from-cyan-500 to-teal-500 transition-all duration-300"
+                                        style={{ width: `${progress}%` }}
+                                    />
+                                </div>
                             </div>
                         )}
                     </div>
@@ -1395,7 +1432,7 @@ export default function OCRTool() {
                         <div className="mb-4 flex items-start justify-between gap-3">
                             <div>
                                 <div className="flex items-center gap-2">
-                                    <ImageIcon className="h-4 w-4 text-cyan-600" />
+                                    <ImageIcon className="h-4 w-4 text-cyan-600" aria-hidden="true" />
                                     <h3 className="font-bold text-slate-900">Extracted Text</h3>
                                 </div>
                                 {confidence !== null && (
@@ -1406,44 +1443,63 @@ export default function OCRTool() {
                                         </span>
                                     </p>
                                 )}
+                                {extractedText && (
+                                    <p className="mt-1 text-xs font-medium text-slate-500" aria-live="polite">
+                                        {wordCount.toLocaleString()} words ·{" "}
+                                        {characterCount.toLocaleString()} characters
+                                    </p>
+                                )}
                             </div>
                             {extractedText && (
                                 <div className="flex flex-wrap gap-1">
                                     <button
+                                        type="button"
                                         onClick={copyToClipboard}
-                                        className="rounded-lg p-2 text-slate-600 transition hover:bg-slate-100"
+                                        className="rounded-lg p-2 text-slate-600 transition hover:bg-slate-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-600"
                                         title="Copy to clipboard"
+                                        aria-label="Copy extracted text to clipboard"
                                     >
-                                        <Copy className="h-4 w-4" />
+                                        <Copy className="h-4 w-4" aria-hidden="true" />
                                     </button>
                                     <button
+                                        type="button"
                                         onClick={handleDownloadTxt}
-                                        className="rounded-lg p-2 text-slate-600 transition hover:bg-slate-100"
+                                        className="rounded-lg p-2 text-slate-600 transition hover:bg-slate-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-600"
                                         title="Download as .txt"
+                                        aria-label="Download extracted text as TXT"
                                     >
-                                        <Download className="h-4 w-4" />
+                                        <Download className="h-4 w-4" aria-hidden="true" />
                                     </button>
                                     <button
+                                        type="button"
                                         onClick={handleDownloadDocx}
-                                        className="rounded-lg p-2 text-slate-600 transition hover:bg-slate-100"
+                                        className="rounded-lg p-2 text-slate-600 transition hover:bg-slate-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-600"
                                         title="Download as .docx"
+                                        aria-label="Download extracted text as DOCX"
                                     >
-                                        <FileType className="h-4 w-4" />
+                                        <FileType className="h-4 w-4" aria-hidden="true" />
                                     </button>
                                     <button
+                                        type="button"
                                         onClick={handleDownloadPdf}
-                                        className="rounded-lg p-2 text-slate-600 transition hover:bg-slate-100"
+                                        className="rounded-lg p-2 text-slate-600 transition hover:bg-slate-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-600"
                                         title="Download as .pdf"
+                                        aria-label="Download extracted text as PDF"
                                     >
-                                        <FileText className="h-4 w-4" />
+                                        <FileText className="h-4 w-4" aria-hidden="true" />
                                     </button>
                                 </div>
                             )}
                         </div>
 
+                        <label htmlFor="extracted-text-output" className="sr-only">
+                            Extracted text output
+                        </label>
                         <textarea
+                            id="extracted-text-output"
                             value={extractedText}
                             readOnly
+                            aria-label="Extracted text output"
                             className="min-h-[420px] w-full flex-1 resize-none rounded-xl border border-slate-200 bg-slate-50 p-4 font-mono text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-cyan-500"
                             placeholder="Your extracted text will appear here after processing..."
                         />

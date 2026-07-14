@@ -120,6 +120,10 @@ export default function ContactPage() {
             <Link href="/disclaimer" className="font-semibold text-cyan-700 hover:underline">
               Disclaimer
             </Link>
+            , and{" "}
+            <Link href="/data-retention" className="font-semibold text-cyan-700 hover:underline">
+              Data Retention
+            </Link>
             . We will confirm receipt of privacy-related requests by email.
           </p>
         </div>

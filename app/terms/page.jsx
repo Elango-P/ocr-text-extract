@@ -83,6 +83,16 @@ export default function TermsPage() {
         </section>
 
         <section>
+          <h2 className="text-xl font-bold text-slate-900">Fees, payments, and refunds</h2>
+          <p className="mt-3 leading-relaxed">
+            OCR Text Extractor is offered as a free web utility. There are no paid plans, subscriptions,
+            or in-app purchases on {SITE_DOMAIN} at this time. Because no payments are collected for
+            the OCR tool itself, refunds do not apply. If that model changes in the future, purchase
+            terms and refund rules will be published before any paid product is offered.
+          </p>
+        </section>
+
+        <section>
           <h2 className="text-xl font-bold text-slate-900">Advertising</h2>
           <p className="mt-3 leading-relaxed">
             The site displays third-party advertisements through Google AdSense to help cover

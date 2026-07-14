@@ -12,38 +12,55 @@ import {
   Lock,
   Sparkles,
   ArrowRight,
+  GraduationCap,
+  Briefcase,
+  Code2,
+  Scale,
+  HeartPulse,
+  Landmark,
+  PenLine,
+  ScanSearch,
 } from "lucide-react";
+import { getAllPosts } from "../../lib/blog/posts";
+
+/** Lightweight tool link list — avoid importing full tool content modules on the homepage. */
+const relatedToolLinks = [
+  { href: "/image-to-text", label: "Image to Text Converter" },
+  { href: "/jpg-to-text", label: "JPG to Text Converter" },
+  { href: "/pdf-to-text", label: "PDF to Text (Scanned Pages)" },
+  { href: "/handwriting-to-text", label: "Handwriting to Text" },
+];
 
 const features = [
   {
     icon: Lock,
     title: "AI first, browser fallback",
-    text: "We try cloud AI OCR first for accuracy. If that fails or the daily AI limit is reached, Tesseract.js runs in your browser.",
+    text: "Cloud AI OCR runs first for tough layouts. If it fails or the daily AI cap is reached, Tesseract.js continues in your browser.",
   },
   {
     icon: Languages,
-    title: "12+ Languages",
-    text: "Extract text from English, Spanish, French, German, Chinese, Japanese, Arabic, Hindi, and more — pick the language that matches your document.",
+    title: "12+ languages",
+    text: "English, Spanish, French, German, Chinese, Japanese, Arabic, Hindi, and more — match the script before you extract.",
   },
   {
     icon: Sparkles,
-    title: "Smart Preprocessing",
-    text: "Dual-pass image enhancement and adaptive thresholding improve accuracy on screenshots, scans, and uneven lighting.",
+    title: "Smart preprocessing",
+    text: "Dual-pass enhancement and adaptive thresholding improve screenshots, scans, and uneven lighting on the fallback path.",
   },
   {
     icon: Zap,
-    title: "Instant Results",
-    text: "Upload an image, pick a language, and get copy-ready text in seconds — no account required.",
+    title: "Fast everyday results",
+    text: "Upload, choose a language, extract, then copy or download — built for minutes-long tasks, not enterprise batch farms.",
   },
   {
     icon: Globe,
-    title: "Works Everywhere",
-    text: "Use on desktop, tablet, or phone. No software install — open the page and start extracting.",
+    title: "Works on your devices",
+    text: "Desktop, tablet, or phone browser. No installers and no mandatory account wall.",
   },
   {
     icon: Shield,
     title: "Free to use",
-    text: "No subscriptions or watermarks. AI OCR has a fair daily cap; browser OCR remains available after that.",
+    text: "No subscriptions or watermarks on exported text. AI OCR has a fair daily cap; browser OCR remains available after that.",
   },
 ];
 
@@ -51,109 +68,211 @@ const steps = [
   {
     step: "01",
     title: "Upload your image",
-    text: "Drag and drop a PNG, JPG, WEBP, or GIF — or click to browse from your device. A clear preview shows exactly what will be processed.",
+    text: "Drag and drop PNG, JPG, WEBP, or GIF — or browse from your device. Preview confirms what will be processed.",
   },
   {
     step: "02",
     title: "Choose language & settings",
-    text: "Select the document language so recognition targets the right script. Turn on Clean Mode for screenshots and multi-column layouts.",
+    text: "Select the document language. Turn on Clean Mode for screenshots and multi-column layouts.",
   },
   {
     step: "03",
     title: "Extract and export",
-    text: "Click Extract Text, review the output, then copy to your clipboard or download a plain .txt file for editing elsewhere.",
+    text: "Review the output, copy it, or download TXT, DOCX, or PDF of the recognized text.",
   },
 ];
 
-const useCases = [
+const benefits = [
   {
-    icon: FileImage,
-    title: "Screenshots & UI text",
-    text: "Pull text from app dialogs, error messages, and software screenshots without retyping. Useful for bug reports, support tickets, and documentation.",
+    title: "Stop retyping trapped text",
+    text: "Screenshots, paper photos, and scans stop being dead pixels. You get characters you can search and edit.",
+  },
+  {
+    title: "Work without an installer",
+    text: "Open the site, drop a file, leave. Ideal when you cannot install desktop OCR on a locked work machine.",
+  },
+  {
+    title: "Hybrid accuracy path",
+    text: "AI handles many hard photos; browser OCR keeps you productive when cloud capacity is temporarily unavailable.",
+  },
+  {
+    title: "Exports that fit real workflows",
+    text: "Plain text for tickets, DOCX for editing, PDF when you need a shareable print of recovered wording.",
+  },
+];
+
+const fileTypes = [
+  { name: "PNG", note: "Best for lossless screenshots and UI dialogs." },
+  { name: "JPG / JPEG", note: "Default for phone photos of paper, signs, and receipts." },
+  { name: "WEBP", note: "Modern web captures and compressed stills." },
+  { name: "GIF", note: "Still frames from GIFs; animation is not read as video." },
+  {
+    name: "PDF pages (via images)",
+    note: "Export scanned PDF pages as images first — we do not ingest multi-page PDF containers yet.",
+  },
+];
+
+const languages = [
+  "English",
+  "Spanish",
+  "French",
+  "German",
+  "Italian",
+  "Portuguese",
+  "Russian",
+  "Chinese (Simplified)",
+  "Japanese",
+  "Korean",
+  "Arabic",
+  "Hindi",
+];
+
+const devices = [
+  {
+    title: "Laptops & desktops",
+    text: "Drag-and-drop from Finder, Explorer, or Downloads. Largest keyboard-friendly surface for proofreading.",
+  },
+  {
+    title: "Tablets",
+    text: "Upload from camera roll after photographing worksheets or whiteboards in class or workshops.",
+  },
+  {
+    title: "Phones",
+    text: "Shoot a page, open imgtotext.in in the mobile browser, extract, and paste into notes or translators.",
+  },
+];
+
+const audiences = [
+  {
+    icon: GraduationCap,
+    title: "Students",
+    text: "Capture textbook excerpts, homework boards, and lab notes into editable study material — then cite sources properly.",
+  },
+  {
+    icon: BookOpen,
+    title: "Teachers",
+    text: "Reuse printed worksheets as digital drafts, build accessible text alternatives, and save retyping time.",
+  },
+  {
+    icon: Code2,
+    title: "Developers",
+    text: "Pull stack traces and error dialogs from screenshots into tickets without transcription errors.",
+  },
+  {
+    icon: Briefcase,
+    title: "Businesses",
+    text: "Digitize short stacks of receipts, forms, and supplier letters for searchable internal notes.",
+  },
+  {
+    icon: Scale,
+    title: "Legal offices",
+    text: "Convenience drafts from non-confidential scans — verify every clause against originals before filing.",
+  },
+  {
+    icon: HeartPulse,
+    title: "Healthcare admin",
+    text: "Office paperwork convenience only; never treat OCR as a clinical dosage or records system of truth.",
+  },
+  {
+    icon: Landmark,
+    title: "Finance teams",
+    text: "Draft figures from invoice photos into spreadsheets, then reconcile totals by human review.",
   },
   {
     icon: Receipt,
     title: "Receipts & invoices",
-    text: "Digitize printed receipts, bills, and business documents for expense tracking, bookkeeping, or searchable records.",
+    text: "Thermal slips and printed invoices become text drafts for expenses — watch for faded ink and wrinkles.",
   },
   {
-    icon: BookOpen,
-    title: "Books & study notes",
-    text: "Convert photographed textbook pages, printed articles, or study handouts into editable text you can paste into notes or flashcards.",
+    icon: PenLine,
+    title: "Handwriting",
+    text: "Neat print works better than cursive. Expect proofreading; see the handwriting tool page for photo tips.",
   },
   {
-    icon: Smartphone,
-    title: "Photos of signs & labels",
-    text: "Read text from product labels, street signs, menus, and packaging when traveling, shopping, or comparing ingredients.",
-  },
-];
-
-const searchTopics = [
-  {
-    title: "JPG and PNG to text",
-    text: "Convert JPG, JPEG, and PNG images into editable text for notes, emails, spreadsheets, and documents. Clear screenshots and high-contrast photos usually give the best OCR results.",
-  },
-  {
-    title: "Screenshot to text",
-    text: "Extract text from app screenshots, browser errors, chat images, settings pages, and UI dialogs when the original text cannot be selected or copied.",
-  },
-  {
-    title: "Scanned document OCR",
-    text: "Turn scanned letters, forms, invoices, receipts, and printed pages into searchable text. Crop the image around the document for cleaner recognition.",
-  },
-  {
-    title: "Photo to text converter",
-    text: "Take a phone photo of a label, menu, sign, book page, or handwritten note and recover the wording as text you can copy, translate, or save.",
-  },
-  {
-    title: "Multi-language OCR",
-    text: "Choose the matching language before extraction to improve results for English, Spanish, French, German, Arabic, Hindi, Chinese, Japanese, Korean, and more.",
-  },
-  {
-    title: "Free OCR without signup",
-    text: "Use the OCR converter directly in your browser. AI OCR handles difficult images first, and the browser fallback keeps basic image-to-text conversion available.",
+    icon: ScanSearch,
+    title: "Research papers & books",
+    text: "Photograph or export page images to quote passages you have rights to use; respect copyright always.",
   },
 ];
 
-const faqPreview = [
+const comparisonRows = [
   {
-    q: "Is this OCR tool really free?",
-    a: "Yes. There is no signup and no watermarks. AI OCR is limited to 10 uses per visitor per day; browser OCR remains available after that.",
+    feature: "Install required",
+    us: "No",
+    desktop: "Yes",
+    phoneApp: "Usually",
   },
   {
-    q: "Are my images uploaded to a server?",
-    a: "For AI OCR, the image is sent securely to a Google AI service to extract text and is not stored by us. If AI OCR fails, recognition falls back to Tesseract.js in your browser. See the Privacy Policy for provider details.",
+    feature: "Account required",
+    us: "No",
+    desktop: "Sometimes",
+    phoneApp: "Often",
   },
   {
-    q: "What image formats are supported?",
-    a: "You can upload common image formats including PNG, JPG, JPEG, WEBP, and GIF.",
+    feature: "AI + browser fallback",
+    us: "Yes",
+    desktop: "Varies",
+    phoneApp: "Varies",
   },
   {
-    q: "How can I improve OCR accuracy?",
-    a: "Use a sharp, well-lit image, crop closely around the text, choose the correct language, and enable Clean Mode for screenshots or document-style captures.",
+    feature: "Best for",
+    us: "Quick one-off images",
+    desktop: "Huge archives",
+    phoneApp: "On-device camera OCR",
+  },
+  {
+    feature: "Privacy model",
+    us: "AI upload optional path (see Privacy)",
+    desktop: "Often local",
+    phoneApp: "Vendor-dependent",
+  },
+];
+
+const homeFaqs = [
+  {
+    q: "Is OCR Text Extractor free?",
+    a: "Yes. No signup and no watermarks. AI OCR is limited to 10 uses per visitor per day; browser OCR remains available after that.",
+  },
+  {
+    q: "Are my images stored forever?",
+    a: "No permanent archive of uploads. AI OCR sends images for a temporary extraction request to the provider named in the Privacy Policy. See also Data Retention.",
+  },
+  {
+    q: "What formats can I upload?",
+    a: "PNG, JPG, JPEG, WEBP, and GIF. For scanned PDFs, export each page as an image first.",
+  },
+  {
+    q: "How accurate is OCR?",
+    a: "Accuracy depends on sharpness, contrast, language, and print vs handwriting. Always proofread critical numbers and names.",
+  },
+  {
+    q: "Does the site show ads?",
+    a: "Yes. Google AdSense helps cover hosting. Cookie choices are explained in the Cookie Policy.",
   },
 ];
 
 const tipList = [
-  "Crop tightly around the text you need so the engine focuses on characters, not background clutter.",
-  "Prefer well-lit photos with the page flat and in focus — avoid heavy shadows and motion blur.",
-  "Match the language setting to the script in the image (for example, English for Latin letters).",
-  "Use Clean Mode for full-page screenshots and UI dialogs; turn it off for simple logos or single-line labels.",
-  "If AI OCR hits the daily limit, keep extracting with the browser fallback — it still works offline from the AI path.",
-  "Always proofread before using OCR output for legal, medical, financial, or graded work.",
+  "Crop tightly around the text so the engine focuses on characters, not clutter.",
+  "Prefer even light and a flat page — avoid glare and motion blur.",
+  "Match the language setting to the script in the image.",
+  "Use Clean Mode for full-page screenshots; turn it off for simple logos.",
+  "If AI hits the daily limit, continue with browser OCR.",
+  "Proofread before legal, medical, financial, or graded use.",
 ];
 
 export default function HomeSections() {
+  const latestPosts = getAllPosts().slice(0, 6);
+
   return (
     <div className="mx-auto max-w-6xl space-y-20 px-4 pb-20 sm:px-6">
       <section aria-labelledby="features-heading">
         <div className="mb-8 text-center">
           <h2 id="features-heading" className="text-2xl font-black text-slate-900 sm:text-3xl">
-            Why use our free OCR tool?
+            Features that keep extraction practical
           </h2>
           <p className="mx-auto mt-3 max-w-2xl text-slate-600">
-            Built for students, freelancers, and anyone who needs fast image-to-text
-            conversion without installing software.
+            Built for students, freelancers, and teams who need fast image-to-text without buying a
+            document-management suite for a five-minute job.
           </p>
         </div>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -163,7 +282,7 @@ export default function HomeSections() {
               className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
             >
               <div className="mb-4 inline-flex rounded-xl bg-cyan-50 p-2.5 text-cyan-600">
-                <item.icon className="h-5 w-5" />
+                <item.icon className="h-5 w-5" aria-hidden="true" />
               </div>
               <h3 className="font-bold text-slate-900">{item.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-slate-600">{item.text}</p>
@@ -172,73 +291,161 @@ export default function HomeSections() {
         </div>
       </section>
 
-      <section aria-labelledby="what-is-ocr-heading" className="rounded-3xl border border-slate-200 bg-white p-6 sm:p-10">
+      <section
+        aria-labelledby="what-is-ocr-heading"
+        className="rounded-3xl border border-slate-200 bg-white p-6 sm:p-10"
+      >
         <h2 id="what-is-ocr-heading" className="text-2xl font-black text-slate-900 sm:text-3xl">
-          What is OCR and when should you use it?
+          What is OCR?
         </h2>
         <div className="mt-6 space-y-4 text-base leading-relaxed text-slate-600">
           <p>
-            Optical Character Recognition (OCR) is the process of turning text that exists only as
-            pixels in an image into characters you can select, copy, search, and edit. Before OCR,
-            the only options were retyping by hand or keeping a static screenshot. With an online
-            image-to-text tool, you can recover wording from a photo, scan, or screen capture in
-            seconds and paste it into email, docs, spreadsheets, or code comments.
+            Optical Character Recognition (OCR) turns writing that exists only as pixels into
+            characters you can select, copy, search, and edit. Before OCR, your options were retyping
+            or keeping a static picture. With a free online converter, you recover wording from a
+            photo, scan, or screen capture and paste it into email, docs, spreadsheets, or code
+            comments.
           </p>
           <p>
-            People reach for OCR when the original file is not available as a document — for
-            example, a paper receipt, a textbook page photographed on a phone, a software error
-            dialog that cannot be copied, or a shipping label photographed in a warehouse. OCR is
-            also helpful when you need to translate printed text, archive paper records, or make
-            scanned PDFs searchable after exporting the recognized text.
+            People reach for OCR when the original editable file is missing: a paper receipt, a
+            textbook page on a phone, a software dialog that cannot be copied, or a shipping label
+            in a warehouse photo. OCR also helps when you need to translate printed words, archive
+            paper records, or make scanned page images searchable after export.
           </p>
           <p>
-            OCR Text Extractor is designed for those everyday cases. You stay on a single page:
-            upload an image, choose the language, extract, then copy or download. There is no
-            account wall and no desktop installer. Cloud AI OCR handles many difficult layouts
-            first; if that path is unavailable or you have reached the daily AI allowance, the
-            built-in browser engine continues the job locally so you are not blocked mid-task.
+            OCR Text Extractor keeps the workflow on one page: upload, choose language, extract,
+            then copy or download. Cloud AI handles many difficult layouts first; if that path is
+            unavailable or you reach the daily AI allowance, browser-based Tesseract.js continues so
+            you are not blocked mid-task. Deeper primers live in our{" "}
+            <Link href="/blog/what-is-ocr" className="font-semibold text-cyan-700 hover:underline">
+              What is OCR?
+            </Link>{" "}
+            article and the{" "}
+            <Link href="/how-it-works" className="font-semibold text-cyan-700 hover:underline">
+              How it works
+            </Link>{" "}
+            guide.
           </p>
         </div>
       </section>
 
-      <section aria-labelledby="how-heading" className="rounded-3xl border border-slate-200 bg-white p-6 sm:p-10">
+      <section
+        aria-labelledby="how-heading"
+        className="rounded-3xl border border-slate-200 bg-white p-6 sm:p-10"
+      >
         <div className="mb-8">
           <h2 id="how-heading" className="text-2xl font-black text-slate-900 sm:text-3xl">
-            How to extract text from an image
+            How OCR works on this site
           </h2>
           <p className="mt-2 text-slate-600">
-            Three simple steps — no technical skills needed. Most extractions finish in a few
-            seconds once the image is ready.
+            Three steps most people finish in under a minute once the image is ready.
           </p>
         </div>
         <div className="grid gap-6 md:grid-cols-3">
           {steps.map((item) => (
             <div key={item.step} className="relative">
-              <span className="text-4xl font-black text-cyan-100">{item.step}</span>
+              <span className="text-4xl font-black text-cyan-100" aria-hidden="true">
+                {item.step}
+              </span>
               <h3 className="mt-2 font-bold text-slate-900">{item.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-slate-600">{item.text}</p>
             </div>
           ))}
         </div>
-        <div className="mt-8">
-          <Link
-            href="/how-it-works"
-            className="inline-flex items-center gap-2 text-sm font-bold text-cyan-700 hover:text-cyan-800"
-          >
-            Read the full guide
-            <ArrowRight className="h-4 w-4" />
-          </Link>
+        <div className="mt-8 space-y-4 text-base leading-relaxed text-slate-600">
+          <p>
+            Behind the button, AI OCR attempts recognition via the provider listed in our Privacy
+            Policy. Images are not kept as a permanent personal archive. If AI fails or returns no
+            text, preprocessing (contrast, thresholding, and related steps) feeds Tesseract.js in
+            your browser. Clean Mode targets screenshots and document-style captures; turn it off
+            for logos and single-line stickers when raw output looks cleaner.
+          </p>
+        </div>
+      </section>
+
+      <section aria-labelledby="benefits-heading">
+        <h2 id="benefits-heading" className="text-2xl font-black text-slate-900 sm:text-3xl">
+          Benefits of free online OCR
+        </h2>
+        <div className="mt-6 grid gap-4 sm:grid-cols-2">
+          {benefits.map((b) => (
+            <article key={b.title} className="rounded-2xl border border-slate-200 bg-white p-5">
+              <h3 className="font-bold text-slate-900">{b.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-slate-600">{b.text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section
+        aria-labelledby="formats-heading"
+        className="rounded-3xl border border-slate-200 bg-white p-6 sm:p-10"
+      >
+        <h2 id="formats-heading" className="text-2xl font-black text-slate-900 sm:text-3xl">
+          Supported file types
+        </h2>
+        <p className="mt-3 max-w-3xl text-slate-600">
+          Upload common raster images. We are explicit about PDF: multi-page PDF containers are not
+          opened directly — export pages to images, then extract.
+        </p>
+        <ul className="mt-6 grid gap-3 sm:grid-cols-2">
+          {fileTypes.map((f) => (
+            <li
+              key={f.name}
+              className="rounded-xl bg-slate-50 px-4 py-3 text-sm text-slate-600 ring-1 ring-slate-200"
+            >
+              <span className="font-bold text-slate-900">{f.name}</span>
+              <span className="mt-1 block">{f.note}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section aria-labelledby="languages-heading">
+        <h2 id="languages-heading" className="text-2xl font-black text-slate-900 sm:text-3xl">
+          Supported languages
+        </h2>
+        <p className="mt-3 max-w-3xl text-slate-600">
+          Pick the language that matches the dominant script before extracting. Mixed-script pages
+          often need separate crops.
+        </p>
+        <ul className="mt-6 flex flex-wrap gap-2">
+          {languages.map((lang) => (
+            <li
+              key={lang}
+              className="rounded-lg bg-cyan-50 px-3 py-1.5 text-sm font-semibold text-cyan-800"
+            >
+              {lang}
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section
+        aria-labelledby="devices-heading"
+        className="rounded-3xl border border-slate-200 bg-white p-6 sm:p-10"
+      >
+        <h2 id="devices-heading" className="text-2xl font-black text-slate-900 sm:text-3xl">
+          Supported devices
+        </h2>
+        <div className="mt-6 grid gap-4 md:grid-cols-3">
+          {devices.map((d) => (
+            <article key={d.title}>
+              <h3 className="font-bold text-slate-900">{d.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-slate-600">{d.text}</p>
+            </article>
+          ))}
         </div>
       </section>
 
       <section aria-labelledby="examples-heading">
         <div className="mb-8">
           <h2 id="examples-heading" className="text-2xl font-black text-slate-900 sm:text-3xl">
-            Examples of images that work well
+            Examples of images that convert well
           </h2>
           <p className="mt-2 max-w-3xl text-slate-600">
-            OCR performs best when characters are sharp and high-contrast. These are the kinds of
-            inputs people convert most often with this tool.
+            OCR prefers sharp, high-contrast characters. These are the inputs people convert most
+            often here.
           </p>
         </div>
         <div className="grid gap-6 md:grid-cols-3">
@@ -253,8 +460,7 @@ export default function HomeSections() {
             <figcaption className="p-4 text-sm leading-relaxed text-slate-600">
               <span className="font-bold text-slate-900">UI screenshots</span>
               <br />
-              Capture error messages, settings panels, and dialogs, then extract the wording for
-              tickets or docs without retyping.
+              Error messages, settings panels, and dialogs for tickets or docs.
             </figcaption>
           </figure>
           <figure className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
@@ -268,8 +474,7 @@ export default function HomeSections() {
             <figcaption className="p-4 text-sm leading-relaxed text-slate-600">
               <span className="font-bold text-slate-900">Paper documents</span>
               <br />
-              Digitize invoices, forms, and printed letters so totals, dates, and addresses become
-              editable text.
+              Invoices, forms, and letters turned into editable drafts.
             </figcaption>
           </figure>
           <figure className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
@@ -283,95 +488,88 @@ export default function HomeSections() {
             <figcaption className="p-4 text-sm leading-relaxed text-slate-600">
               <span className="font-bold text-slate-900">Phone photos</span>
               <br />
-              Snap menus, labels, and signs on the go, then convert the photo into text you can
-              paste into notes or translators.
+              Menus, labels, and signs captured on the go.
             </figcaption>
           </figure>
         </div>
       </section>
 
-      <section aria-labelledby="usecases-heading">
-        <div className="mb-8">
-          <h2 id="usecases-heading" className="text-2xl font-black text-slate-900 sm:text-3xl">
-            Popular use cases
-          </h2>
-          <p className="mt-2 max-w-2xl text-slate-600">
-            OCR turns pixels into readable, editable text. Here are the most common ways people
-            use this free image-to-text converter.
-          </p>
-        </div>
-        <div className="grid gap-4 sm:grid-cols-2">
-          {useCases.map((item) => (
-            <article
-              key={item.title}
-              className="flex gap-4 rounded-2xl border border-slate-200 bg-white p-5"
-            >
-              <div className="shrink-0 rounded-xl bg-teal-50 p-2.5 text-teal-600">
-                <item.icon className="h-5 w-5" />
-              </div>
-              <div>
-                <h3 className="font-bold text-slate-900">{item.title}</h3>
-                <p className="mt-1 text-sm leading-relaxed text-slate-600">{item.text}</p>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section
-        aria-labelledby="seo-topics-heading"
-        className="rounded-3xl border border-slate-200 bg-white p-6 sm:p-10"
-      >
-        <div className="mb-8">
-          <h2 id="seo-topics-heading" className="text-2xl font-black text-slate-900 sm:text-3xl">
-            Image to text tools for common OCR searches
-          </h2>
-          <p className="mt-2 max-w-3xl text-slate-600">
-            Whether you need JPG to text, PNG to text, screenshot OCR, receipt OCR, or scanned
-            document text extraction, the workflow is the same: upload the image, choose the
-            language, and copy the recognized text.
-          </p>
-        </div>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {searchTopics.map((topic) => (
-            <article key={topic.title} className="rounded-2xl bg-slate-50 p-5 ring-1 ring-slate-200">
-              <h3 className="font-bold text-slate-900">{topic.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-slate-600">{topic.text}</p>
-            </article>
-          ))}
+      <section aria-labelledby="accuracy-heading">
+        <h2 id="accuracy-heading" className="text-2xl font-black text-slate-900 sm:text-3xl">
+          Accuracy: what to expect
+        </h2>
+        <div className="mt-6 grid gap-6 md:grid-cols-3">
+          <div className="rounded-2xl border border-slate-200 bg-white p-5">
+            <h3 className="font-bold text-slate-900">Usually strong</h3>
+            <p className="mt-2 text-sm leading-relaxed text-slate-600">
+              Clear screenshots, high-contrast scans, and well-lit photos of printed body text with
+              the correct language selected.
+            </p>
+          </div>
+          <div className="rounded-2xl border border-slate-200 bg-white p-5">
+            <h3 className="font-bold text-slate-900">Variable</h3>
+            <p className="mt-2 text-sm leading-relaxed text-slate-600">
+              Tables, multi-column magazines, faint thermal receipts, and low-light phone shots —
+              crop and retake before blaming the engine.
+            </p>
+          </div>
+          <div className="rounded-2xl border border-slate-200 bg-white p-5">
+            <h3 className="font-bold text-slate-900">Often weak</h3>
+            <p className="mt-2 text-sm leading-relaxed text-slate-600">
+              Messy cursive, decorative fonts, heavy glare, and tiny packaging legalese. Treat
+              output as a draft.
+            </p>
+          </div>
         </div>
       </section>
 
       <section
-        aria-labelledby="processing-heading"
+        aria-labelledby="privacy-security-heading"
         className="rounded-3xl border border-slate-200 bg-white p-6 sm:p-10"
       >
-        <h2 id="processing-heading" className="text-2xl font-black text-slate-900 sm:text-3xl">
-          How processing works (AI OCR and browser fallback)
+        <h2
+          id="privacy-security-heading"
+          className="text-2xl font-black text-slate-900 sm:text-3xl"
+        >
+          Privacy, security, and AI OCR technology
         </h2>
         <div className="mt-6 space-y-4 text-base leading-relaxed text-slate-600">
           <p>
-            When you click Extract Text, the tool first attempts cloud AI OCR. That path is often
-            stronger on complex layouts, mixed fonts, and lower-quality photos. The image is sent
-            through our server to the AI provider only for that extraction request. We do not keep
-            a permanent archive of your uploads. Provider details are listed in the{" "}
+            When AI OCR runs, the image is sent through our server to Google Gemini for that
+            extraction request. We do not market the product as “never leaves your device” for that
+            path — that would be misleading. Details, cookies, and advertising are covered in the{" "}
             <Link href="/privacy-policy" className="font-semibold text-cyan-700 hover:underline">
               Privacy Policy
+            </Link>
+            ,{" "}
+            <Link href="/cookie-policy" className="font-semibold text-cyan-700 hover:underline">
+              Cookie Policy
+            </Link>
+            , and{" "}
+            <Link
+              href="/data-retention"
+              className="font-semibold text-cyan-700 hover:underline"
+            >
+              Data Retention Policy
             </Link>
             .
           </p>
           <p>
-            To keep the service sustainable and fair, AI OCR is limited to ten uses per visitor
-            per day. If the AI request fails, returns no text, or you have reached the daily AI
-            allowance, the tool automatically switches to browser-based OCR powered by Tesseract.js.
-            That fallback runs in your browser with preprocessing steps such as upscaling, contrast
-            enhancement, and adaptive thresholding — especially helpful for screenshots and scans.
+            Browser fallback uses Tesseract.js with client-side preprocessing after AI failure or
+            quota exhaustion. Highly sensitive files (medical charts, sealed legal discovery,
+            sealed IDs) belong in offline, organization-approved tools — not a free public utility.
           </p>
           <p>
-            Clean Mode is aimed at screenshots and document-style captures. It can improve reading
-            order and focus on centered dialogs. For simple logos, single-line stickers, or artistic
-            type, turning Clean Mode off often produces a cleaner raw result. Either way, you can
-            copy the output or download a .txt file without creating an account.
+            Transport uses HTTPS. You are still responsible for what you upload and for verifying
+            OCR output before high-stakes use. The{" "}
+            <Link href="/disclaimer" className="font-semibold text-cyan-700 hover:underline">
+              Disclaimer
+            </Link>{" "}
+            and{" "}
+            <Link href="/terms" className="font-semibold text-cyan-700 hover:underline">
+              Terms of Use
+            </Link>{" "}
+            explain accuracy and acceptable-use limits.
           </p>
         </div>
       </section>
@@ -383,10 +581,6 @@ export default function HomeSections() {
         <h2 id="tips-heading" className="text-2xl font-black sm:text-3xl">
           Tips for better OCR accuracy
         </h2>
-        <p className="mt-3 max-w-3xl text-slate-300">
-          Small changes to the source image usually improve recognition more than changing tools.
-          Use this checklist before you extract.
-        </p>
         <ul className="mt-6 grid gap-3 sm:grid-cols-2">
           {tipList.map((tip) => (
             <li
@@ -397,106 +591,180 @@ export default function HomeSections() {
             </li>
           ))}
         </ul>
+        <p className="mt-6 text-sm text-slate-300">
+          More depth:{" "}
+          <Link href="/blog/ocr-accuracy-tips" className="font-semibold text-cyan-300 hover:underline">
+            OCR accuracy tips
+          </Link>
+          .
+        </p>
+      </section>
+
+      <section aria-labelledby="audiences-heading">
+        <h2 id="audiences-heading" className="text-2xl font-black text-slate-900 sm:text-3xl">
+          Use cases across roles and documents
+        </h2>
+        <p className="mt-3 max-w-3xl text-slate-600">
+          One tool, many intents — from students and developers to receipts, books, and research
+          page images.
+        </p>
+        <div className="mt-8 grid gap-4 sm:grid-cols-2">
+          {audiences.map((item) => (
+            <article
+              key={item.title}
+              className="flex gap-4 rounded-2xl border border-slate-200 bg-white p-5"
+            >
+              <div className="shrink-0 rounded-xl bg-teal-50 p-2.5 text-teal-600">
+                <item.icon className="h-5 w-5" aria-hidden="true" />
+              </div>
+              <div>
+                <h3 className="font-bold text-slate-900">{item.title}</h3>
+                <p className="mt-1 text-sm leading-relaxed text-slate-600">{item.text}</p>
+              </div>
+            </article>
+          ))}
+        </div>
       </section>
 
       <section
-        aria-labelledby="accuracy-heading"
+        aria-labelledby="compare-heading"
         className="rounded-3xl border border-slate-200 bg-white p-6 sm:p-10"
       >
-        <h2 id="accuracy-heading" className="text-2xl font-black text-slate-900 sm:text-3xl">
-          Accuracy, formats, and limitations
+        <h2 id="compare-heading" className="text-2xl font-black text-slate-900 sm:text-3xl">
+          Comparison: when to choose this tool
         </h2>
-        <p className="mt-4 max-w-3xl text-base leading-relaxed text-slate-600">
-          No OCR engine is perfect. Results depend on resolution, contrast, language, font style,
-          and whether the text is printed or handwritten. Treat extracted text as a draft: verify
-          names, numbers, and critical wording before you rely on them.
+        <p className="mt-3 max-w-3xl text-slate-600">
+          Not every job needs the same product. Use this honest snapshot — not a paid ranking.
         </p>
-        <div className="mt-6 grid gap-6 md:grid-cols-3">
-          <div>
-            <h3 className="font-bold text-slate-900">Best results</h3>
-            <p className="mt-2 text-sm leading-relaxed text-slate-600">
-              Clear screenshots, high-contrast scans, and well-lit photos of printed text usually
-              work best. Choose the correct document language before extracting. Straight-on photos
-              of flat pages outperform angled shots of curved surfaces.
-            </p>
-          </div>
-          <div>
-            <h3 className="font-bold text-slate-900">Supported formats</h3>
-            <p className="mt-2 text-sm leading-relaxed text-slate-600">
-              Upload PNG, JPG, JPEG, WEBP, or GIF. Crop to the text area when possible, and keep
-              the image sharp enough that characters are readable by eye. Extremely large files may
-              need resizing for faster AI OCR.
-            </p>
-          </div>
-          <div>
-            <h3 className="font-bold text-slate-900">What to expect</h3>
-            <p className="mt-2 text-sm leading-relaxed text-slate-600">
-              Handwriting, decorative fonts, blur, heavy glare, and dense tables can reduce
-              accuracy. Multi-column magazines and low-light phone photos may need a second pass or
-              a tighter crop. Always proofread before important use.
-            </p>
-          </div>
-        </div>
-        <div className="mt-8 space-y-4 text-base leading-relaxed text-slate-600">
-          <p>
-            If recognition looks incomplete, try a higher-resolution crop, switch languages, toggle
-            Clean Mode, or re-photograph under brighter light. When AI OCR is unavailable, the
-            browser fallback still applies preprocessing and can recover text from many everyday
-            screenshots and scans — it may simply take longer on the first run while language data
-            loads.
-          </p>
-          <p>
-            This site is a practical utility, not a replacement for professional document
-            digitization services used in regulated industries. For archival projects with thousands
-            of pages, dedicated scanning hardware may still help. For everyday batches (up to 10
-            images), receipts, screenshots, and one-off conversions — the receipt in your wallet,
-            the error on your screen, the page in your textbook — a browser OCR tool is usually
-            enough.
-          </p>
+        <div className="mt-6 overflow-x-auto">
+          <table className="min-w-full text-left text-sm">
+            <caption className="sr-only">
+              Comparison of OCR Text Extractor versus typical desktop OCR and phone OCR apps
+            </caption>
+            <thead>
+              <tr className="border-b border-slate-200 text-slate-900">
+                <th scope="col" className="py-3 pr-4 font-bold">
+                  Topic
+                </th>
+                <th scope="col" className="py-3 pr-4 font-bold">
+                  imgtotext.in
+                </th>
+                <th scope="col" className="py-3 pr-4 font-bold">
+                  Desktop OCR suites
+                </th>
+                <th scope="col" className="py-3 font-bold">
+                  Phone OCR apps
+                </th>
+              </tr>
+            </thead>
+            <tbody className="text-slate-600">
+              {comparisonRows.map((row) => (
+                <tr key={row.feature} className="border-b border-slate-100">
+                  <th scope="row" className="py-3 pr-4 font-semibold text-slate-800">
+                    {row.feature}
+                  </th>
+                  <td className="py-3 pr-4">{row.us}</td>
+                  <td className="py-3 pr-4">{row.desktop}</td>
+                  <td className="py-3">{row.phoneApp}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </section>
 
-      <section aria-labelledby="who-heading" className="rounded-3xl border border-slate-200 bg-white p-6 sm:p-10">
-        <h2 id="who-heading" className="text-2xl font-black text-slate-900 sm:text-3xl">
-          Who this tool is for
+      <section aria-labelledby="why-us-heading">
+        <h2 id="why-us-heading" className="text-2xl font-black text-slate-900 sm:text-3xl">
+          Why choose OCR Text Extractor
         </h2>
         <div className="mt-6 space-y-4 text-base leading-relaxed text-slate-600">
           <p>
-            Students use image-to-text conversion to capture quotes from printed materials and move
-            them into study notes. Freelancers and support teams extract wording from client
-            screenshots when building tickets or reproducing bugs. Travelers photograph menus and
-            signs, then paste the text into translators. Small-business owners digitize receipts
-            for expense reports without buying a dedicated scanner.
-          </p>
-          <p>
-            If you only need occasional conversions, a free online OCR page is often simpler than
-            installing desktop software. If you need maximum privacy for a sensitive document, prefer
-            the browser fallback path when available and avoid uploading confidential material to any
-            cloud service — including this one&apos;s AI OCR path. When in doubt, review the{" "}
-            <Link href="/privacy-policy" className="font-semibold text-cyan-700 hover:underline">
-              Privacy Policy
+            The product is operated by{" "}
+            <Link href="/author/elango-p" className="font-semibold text-cyan-700 hover:underline">
+              Elango P
+            </Link>
+            , with a clear{" "}
+            <Link href="/about" className="font-semibold text-cyan-700 hover:underline">
+              About
             </Link>{" "}
-            and use local tools for highly sensitive files.
-          </p>
-          <p>
-            Questions, feedback, or bug reports are welcome on the{" "}
+            page,{" "}
             <Link href="/contact" className="font-semibold text-cyan-700 hover:underline">
               Contact
             </Link>{" "}
-            page. For step-by-step detail on preprocessing and Clean Mode, see{" "}
-            <Link href="/how-it-works" className="font-semibold text-cyan-700 hover:underline">
-              How it works
-            </Link>
-            . Broader product questions are covered in the{" "}
-            <Link href="/faq" className="font-semibold text-cyan-700 hover:underline">
-              FAQ
-            </Link>
-            .
+            email, and public legal policies. We explain AI uploads instead of hiding them behind
+            vague “100% private” slogans. Format-specific guides — PNG, JPG, PDF page images,
+            handwriting — give actionable tips without cloning the same paragraph across URLs.
+          </p>
+          <p>
+            You also get practical exports (TXT, DOCX, PDF), batch upload up to ten images,
+            Clean Mode for screenshots, and a documented daily AI fair-use limit so capacity stays
+            available for more visitors.
           </p>
         </div>
       </section>
 
-      <section aria-labelledby="faq-preview-heading" className="rounded-3xl bg-slate-900 px-6 py-10 text-white sm:px-10">
+      <section aria-labelledby="related-tools-heading">
+        <h2 id="related-tools-heading" className="text-2xl font-black text-slate-900 sm:text-3xl">
+          Related tools
+        </h2>
+        <p className="mt-3 text-slate-600">
+          Same extractor, different guides — pick the page that matches your file or capture style.
+        </p>
+        <ul className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {relatedToolLinks.map((t) => (
+            <li key={t.href}>
+              <Link
+                href={t.href}
+                className="block rounded-xl border border-slate-200 bg-white px-4 py-3 font-semibold text-cyan-700 shadow-sm hover:border-cyan-200 hover:bg-cyan-50"
+              >
+                {t.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section aria-labelledby="latest-articles-heading">
+        <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <h2
+              id="latest-articles-heading"
+              className="text-2xl font-black text-slate-900 sm:text-3xl"
+            >
+              Latest articles
+            </h2>
+            <p className="mt-2 text-slate-600">Guides from the blog — practical, not fluff.</p>
+          </div>
+          <Link
+            href="/blog"
+            className="inline-flex items-center gap-2 text-sm font-bold text-cyan-700 hover:text-cyan-800"
+          >
+            View all posts
+            <ArrowRight className="h-4 w-4" aria-hidden="true" />
+          </Link>
+        </div>
+        <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {latestPosts.map((post) => (
+            <li
+              key={post.slug}
+              className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
+            >
+              <Link
+                href={`/blog/${post.slug}`}
+                className="font-bold text-slate-900 hover:text-cyan-700"
+              >
+                {post.title}
+              </Link>
+              <p className="mt-2 text-sm leading-relaxed text-slate-600">{post.description}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section
+        aria-labelledby="faq-preview-heading"
+        className="rounded-3xl bg-slate-900 px-6 py-10 text-white sm:px-10"
+      >
         <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <h2 id="faq-preview-heading" className="text-2xl font-black sm:text-3xl">
@@ -509,11 +777,11 @@ export default function HomeSections() {
             className="inline-flex items-center gap-2 text-sm font-bold text-cyan-300 hover:text-cyan-200"
           >
             View all FAQs
-            <ArrowRight className="h-4 w-4" />
+            <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </Link>
         </div>
-        <div className="grid gap-4 md:grid-cols-3">
-          {faqPreview.map((item) => (
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {homeFaqs.map((item) => (
             <div key={item.q} className="rounded-2xl bg-white/5 p-5 ring-1 ring-white/10">
               <h3 className="font-bold text-white">{item.q}</h3>
               <p className="mt-2 text-sm leading-relaxed text-slate-300">{item.a}</p>
@@ -527,8 +795,8 @@ export default function HomeSections() {
           Ready to convert your image to text?
         </h2>
         <p className="mx-auto mt-3 max-w-xl text-slate-600">
-          Scroll up to the tool, upload an image, and get editable text in seconds — free, with
-          AI OCR and a browser fallback when you need it.
+          Scroll up to the tool, upload an image, and get editable text in seconds — free, with AI
+          OCR and a browser fallback when you need it.
         </p>
         <a
           href="#ocr-tool"

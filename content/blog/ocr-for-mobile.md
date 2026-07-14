@@ -40,7 +40,7 @@ The abstract lands almost clean. She pastes into her CRM note with the speaker�
 
 ## Mobile Screenshots Are First-Class Citizens
 
-UI text on your phone is often sharper as a screenshot than as a photograph of another device. On iOS and Android, use built-in screenshot gestures, crop status bars if they distract, and upload the PNG. Clean Mode usually helps. Deep dive: [/blog/convert-screenshots-to-editable-text](/blog/convert-screenshots-to-editable-text) and [/blog/png-to-text-converter](/blog/png-to-text-converter).
+UI text on your phone is often sharper as a screenshot than as a photograph of another device. On iOS and Android, use built-in screenshot gestures, crop status bars if they distract, and upload the PNG. Clean Mode usually helps. Deep dive: [/blog/convert-screenshots-to-editable-text](/blog/convert-screenshots-to-editable-text) and [/blog/convert-screenshots-to-editable-text](/blog/convert-screenshots-to-editable-text).
 
 ## Data-Friendly Habits
 
@@ -91,5 +91,5 @@ Create a home-screen bookmark to https://imgtotext.in for one-tap access. Pair i
 ## Related Reading
 
 - [/blog/how-to-extract-text-from-images](/blog/how-to-extract-text-from-images) — general steps
-- [/blog/image-to-text-without-installing-software](/blog/image-to-text-without-installing-software) — zero-install philosophy
-- [/blog/jpg-to-text-converter](/blog/jpg-to-text-converter) — camera JPG specifics
+- [/blog/how-to-extract-text-from-images](/blog/how-to-extract-text-from-images) — zero-install philosophy
+- [/jpg-to-text](/jpg-to-text) — camera JPG specifics

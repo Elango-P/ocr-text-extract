@@ -57,7 +57,7 @@ On-device generative multimodal models are emerging but still heavy for general 
 Use the free web tool to show stakeholders what “good” looks like without a sprint of engineering. Then decide:
 
 - Browser-only MVP  
-- Backend Node service ([/blog/ocr-in-nodejs](/blog/ocr-in-nodejs))  
+- Backend Node service ([/blog/ocr-for-developers-guide](/blog/ocr-for-developers-guide))  
 - Vendor API ([/blog/ocr-api-guide](/blog/ocr-api-guide))  
 
 Accuracy discipline still applies: [/blog/ocr-accuracy-tips](/blog/ocr-accuracy-tips). Conceptual OCR primer: [/blog/what-is-ocr](/blog/what-is-ocr).
@@ -97,6 +97,6 @@ Tesseract’s licensing and traineddata attributions differ from commercial AI A
 
 ## Related Reading
 
-- [/blog/ocr-in-nodejs](/blog/ocr-in-nodejs) — server-side JavaScript OCR
+- [/blog/ocr-for-developers-guide](/blog/ocr-for-developers-guide) — server-side JavaScript OCR
 - [/blog/ocr-api-guide](/blog/ocr-api-guide) — API product decisions
 - [/blog/what-is-ocr](/blog/what-is-ocr) — concepts behind the code

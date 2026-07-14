@@ -17,6 +17,43 @@ const nextConfig = {
         destination: "/cookie-policy",
         permanent: true,
       },
+      // Thin tool cluster consolidation (AdSense low-value / duplicate intent)
+      {
+        source: "/png-to-text",
+        destination: "/image-to-text",
+        permanent: true,
+      },
+      {
+        source: "/extract-text-from-image",
+        destination: "/image-to-text",
+        permanent: true,
+      },
+      // Overlapping blog→canonical tool / stronger article redirects
+      {
+        source: "/blog/jpg-to-text-converter",
+        destination: "/jpg-to-text",
+        permanent: true,
+      },
+      {
+        source: "/blog/png-to-text-converter",
+        destination: "/blog/convert-screenshots-to-editable-text",
+        permanent: true,
+      },
+      {
+        source: "/blog/image-to-text-without-installing-software",
+        destination: "/blog/how-to-extract-text-from-images",
+        permanent: true,
+      },
+      {
+        source: "/blog/scan-documents-online",
+        destination: "/blog/ocr-for-mobile",
+        permanent: true,
+      },
+      {
+        source: "/blog/ocr-in-nodejs",
+        destination: "/blog/ocr-for-developers-guide",
+        permanent: true,
+      },
     ];
   },
   async headers() {

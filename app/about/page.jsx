@@ -101,28 +101,31 @@ export default function AboutPage() {
           <h2 className="text-xl font-bold text-slate-900">Who built this?</h2>
           <p className="mt-3 leading-relaxed">
             {SITE_NAME} is built and maintained by{" "}
+            <Link href="/author/elango-p" className="font-semibold text-cyan-700 hover:underline">
+              {OPERATOR_NAME}
+            </Link>
+            , an independent developer focused on practical web tools (
             <a
               href={OPERATOR_URL}
               className="font-semibold text-cyan-700 hover:underline"
               rel="noopener noreferrer"
               target="_blank"
             >
-              {OPERATOR_NAME}
+              {OPERATOR_URL.replace(/^https?:\/\//, "")}
             </a>
-            , a developer focused on practical web tools. The project is independently operated —
-            there is no large corporation behind the scenes. If you have feedback, bug reports, or
-            feature suggestions, reach out at{" "}
+            ). The project is independently operated — there is no large corporation behind the
+            scenes. Read the full{" "}
+            <Link href="/author/elango-p" className="font-semibold text-cyan-700 hover:underline">
+              author profile
+            </Link>{" "}
+            for mission and contact details, or email{" "}
             <a
               href={`mailto:${CONTACT_EMAIL}`}
               className="font-semibold text-cyan-700 hover:underline"
             >
               {CONTACT_EMAIL}
-            </a>{" "}
-            or visit the{" "}
-            <Link href="/contact" className="font-semibold text-cyan-700 hover:underline">
-              Contact
-            </Link>{" "}
-            page.
+            </a>
+            .
           </p>
           <p className="mt-3 leading-relaxed">
             You can also read our{" "}

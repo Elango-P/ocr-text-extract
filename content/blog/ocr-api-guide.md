@@ -97,7 +97,7 @@ Developers often start in JavaScript or Node:
 - Browser: Tesseract.js or call your backend  
 - Server: official SDKs for cloud OCR  
 
-Follow-up reads: [/blog/ocr-in-javascript](/blog/ocr-in-javascript), [/blog/ocr-in-nodejs](/blog/ocr-in-nodejs). Product context: [/blog/ocr-for-businesses](/blog/ocr-for-businesses).
+Follow-up reads: [/blog/ocr-in-javascript](/blog/ocr-in-javascript), [/blog/ocr-for-developers-guide](/blog/ocr-for-developers-guide). Product context: [/blog/ocr-for-businesses](/blog/ocr-for-businesses).
 
 ## Fallback Strategies
 
@@ -121,5 +121,5 @@ Pin OCR model or API versions in production. Silent vendor upgrades can change f
 ## Related Reading
 
 - [/blog/ocr-in-javascript](/blog/ocr-in-javascript) — browser-side approaches
-- [/blog/ocr-in-nodejs](/blog/ocr-in-nodejs) — server-side approaches
+- [/blog/ocr-for-developers-guide](/blog/ocr-for-developers-guide) — server-side approaches
 - [/blog/best-ocr-tools-2026](/blog/best-ocr-tools-2026) — landscape context

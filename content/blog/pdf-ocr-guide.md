@@ -87,7 +87,7 @@ You will not get a polished “searchable PDF” wrapper from an image-only web 
 
 If your week involves fifty 100-page image PDFs, graduate to batch PDF OCR software or a cloud document API. Image-by-image in a browser remains ideal for short, selective, or occasional work—aligned with how imgtotext.in is designed.
 
-Developers automating pipelines should read [/blog/ocr-api-guide](/blog/ocr-api-guide). Teams standardizing intake can skim [/blog/ocr-for-businesses](/blog/ocr-for-businesses) and [/blog/scan-documents-online](/blog/scan-documents-online).
+Developers automating pipelines should read [/blog/ocr-api-guide](/blog/ocr-api-guide). Teams standardizing intake can skim [/blog/ocr-for-businesses](/blog/ocr-for-businesses) and [/blog/ocr-for-mobile](/blog/ocr-for-mobile).
 
 ## Quality Checklist for PDF Page Images
 
@@ -104,6 +104,6 @@ Open an image-only PDF you already have, export or screenshot one page, and conv
 
 ## Related Reading
 
-- [/blog/scan-documents-online](/blog/scan-documents-online) — turning paper into images for OCR
+- [/blog/ocr-for-mobile](/blog/ocr-for-mobile) — turning paper into images for OCR
 - [/blog/how-to-extract-text-from-images](/blog/how-to-extract-text-from-images) — core image workflow
 - [/blog/ocr-accuracy-tips](/blog/ocr-accuracy-tips) — raise recognition quality

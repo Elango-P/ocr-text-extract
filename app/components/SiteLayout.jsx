@@ -9,6 +9,7 @@ import { openCookieSettings } from "./CookieConsent";
 
 const navLinks = [
   { href: "/", label: "OCR Tool" },
+  { href: "/image-to-text", label: "Tools", matchPrefix: "tools" },
   { href: "/blog", label: "Blog" },
   { href: "/how-it-works", label: "How It Works" },
   { href: "/faq", label: "FAQ" },
@@ -16,16 +17,37 @@ const navLinks = [
   { href: "/contact", label: "Contact" },
 ];
 
+const TOOL_PATHS = [
+  "/image-to-text",
+  "/jpg-to-text",
+  "/pdf-to-text",
+  "/handwriting-to-text",
+];
+
+function isNavActive(pathname, link) {
+  if (link.matchPrefix === "tools") {
+    return TOOL_PATHS.some((p) => pathname === p || pathname.startsWith(`${p}/`));
+  }
+  if (link.href === "/") return pathname === "/";
+  return pathname === link.href || pathname.startsWith(`${link.href}/`);
+}
+
 const footerLinks = [
+  { href: "/image-to-text", label: "Image to Text" },
+  { href: "/jpg-to-text", label: "JPG to Text" },
+  { href: "/pdf-to-text", label: "PDF to Text" },
+  { href: "/handwriting-to-text", label: "Handwriting OCR" },
   { href: "/blog", label: "Blog" },
   { href: "/how-it-works", label: "How It Works" },
   { href: "/faq", label: "FAQ" },
   { href: "/about", label: "About" },
+  { href: "/author/elango-p", label: "Author" },
   { href: "/contact", label: "Contact" },
   { href: "/privacy-policy", label: "Privacy Policy" },
   { href: "/terms", label: "Terms of Use" },
   { href: "/cookie-policy", label: "Cookie Policy" },
   { href: "/disclaimer", label: "Disclaimer" },
+  { href: "/data-retention", label: "Data Retention" },
 ];
 
 export default function SiteLayout({ children }) {
@@ -58,15 +80,12 @@ export default function SiteLayout({ children }) {
 
           <nav className="hidden items-center gap-1 md:flex">
             {navLinks.map((link) => {
-              const active =
-                link.href === "/"
-                  ? pathname === "/"
-                  : pathname === link.href || pathname.startsWith(`${link.href}/`);
+              const active = isNavActive(pathname, link);
               return (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`rounded-lg px-3 py-2 text-sm font-semibold transition ${
+                  className={`rounded-lg px-3 py-2 text-sm font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-600 ${
                     active
                       ? "bg-cyan-50 text-cyan-700"
                       : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
@@ -81,8 +100,9 @@ export default function SiteLayout({ children }) {
           <button
             type="button"
             onClick={() => setMobileOpen((v) => !v)}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-700 md:hidden"
-            aria-label="Toggle menu"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-600 md:hidden"
+            aria-label={mobileOpen ? "Close menu" : "Open menu"}
+            aria-expanded={mobileOpen}
           >
             {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
@@ -92,16 +112,13 @@ export default function SiteLayout({ children }) {
           <nav className="border-t border-slate-200 bg-white px-4 py-3 md:hidden">
             <div className="flex flex-col gap-1">
               {navLinks.map((link) => {
-                const active =
-                  link.href === "/"
-                    ? pathname === "/"
-                    : pathname === link.href || pathname.startsWith(`${link.href}/`);
+                const active = isNavActive(pathname, link);
                 return (
                   <Link
                     key={link.href}
                     href={link.href}
                     onClick={() => setMobileOpen(false)}
-                    className={`rounded-lg px-3 py-2.5 text-sm font-semibold ${
+                    className={`rounded-lg px-3 py-2.5 text-sm font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-600 ${
                       active ? "bg-cyan-50 text-cyan-700" : "text-slate-600"
                     }`}
                   >

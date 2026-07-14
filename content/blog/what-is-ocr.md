@@ -64,7 +64,7 @@ Running frontier AI on every upload has cost. Fair free tiers are normal. On img
 
 ## Who Uses OCR?
 
-Students ([/blog/ocr-for-students](/blog/ocr-for-students)), businesses ([/blog/ocr-for-businesses](/blog/ocr-for-businesses)), developers ([/blog/ocr-api-guide](/blog/ocr-api-guide), [/blog/ocr-in-javascript](/blog/ocr-in-javascript), [/blog/ocr-in-nodejs](/blog/ocr-in-nodejs)), and anyone who prefers not to type ([/blog/ocr-vs-manual-typing](/blog/ocr-vs-manual-typing)).
+Students ([/blog/ocr-for-students](/blog/ocr-for-students)), businesses ([/blog/ocr-for-businesses](/blog/ocr-for-businesses)), developers ([/blog/ocr-api-guide](/blog/ocr-api-guide), [/blog/ocr-in-javascript](/blog/ocr-in-javascript), [/blog/ocr-for-developers-guide](/blog/ocr-for-developers-guide)), and anyone who prefers not to type ([/blog/ocr-vs-manual-typing](/blog/ocr-vs-manual-typing)).
 
 ## What OCR Does Not Do
 

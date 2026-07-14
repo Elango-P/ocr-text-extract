@@ -4,11 +4,11 @@ import { useState, useCallback } from "react";
 
 /**
  * Reusable drag-and-drop handlers for file upload zones.
- * @param {(file: File) => void} onFileDrop
- * @param {{ accept?: string }} [options]
+ * @param {(fileOrFiles: File | File[]) => void} onFileDrop
+ * @param {{ accept?: string, multiple?: boolean }} [options]
  */
 export function useDragAndDrop(onFileDrop, options = {}) {
-    const { accept } = options;
+    const { accept, multiple = false } = options;
     const [isDragging, setIsDragging] = useState(false);
 
     const isAccepted = useCallback(
@@ -43,12 +43,12 @@ export function useDragAndDrop(onFileDrop, options = {}) {
             e.preventDefault();
             e.stopPropagation();
             setIsDragging(false);
-            const file = e.dataTransfer?.files?.[0];
-            if (file && isAccepted(file)) {
-                onFileDrop(file);
-            }
+            const list = Array.from(e.dataTransfer?.files || []).filter(isAccepted);
+            if (!list.length) return;
+            if (multiple) onFileDrop(list);
+            else onFileDrop(list[0]);
         },
-        [onFileDrop, isAccepted]
+        [onFileDrop, isAccepted, multiple]
     );
 
     return {

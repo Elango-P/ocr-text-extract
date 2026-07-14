@@ -9,6 +9,7 @@ import { openCookieSettings } from "./CookieConsent";
 
 const navLinks = [
   { href: "/", label: "OCR Tool" },
+  { href: "/blog", label: "Blog" },
   { href: "/how-it-works", label: "How It Works" },
   { href: "/faq", label: "FAQ" },
   { href: "/about", label: "About" },
@@ -16,12 +17,15 @@ const navLinks = [
 ];
 
 const footerLinks = [
+  { href: "/blog", label: "Blog" },
   { href: "/how-it-works", label: "How It Works" },
   { href: "/faq", label: "FAQ" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
   { href: "/privacy-policy", label: "Privacy Policy" },
   { href: "/terms", label: "Terms of Use" },
+  { href: "/cookie-policy", label: "Cookie Policy" },
+  { href: "/disclaimer", label: "Disclaimer" },
 ];
 
 export default function SiteLayout({ children }) {
@@ -54,7 +58,10 @@ export default function SiteLayout({ children }) {
 
           <nav className="hidden items-center gap-1 md:flex">
             {navLinks.map((link) => {
-              const active = pathname === link.href;
+              const active =
+                link.href === "/"
+                  ? pathname === "/"
+                  : pathname === link.href || pathname.startsWith(`${link.href}/`);
               return (
                 <Link
                   key={link.href}
@@ -85,7 +92,10 @@ export default function SiteLayout({ children }) {
           <nav className="border-t border-slate-200 bg-white px-4 py-3 md:hidden">
             <div className="flex flex-col gap-1">
               {navLinks.map((link) => {
-                const active = pathname === link.href;
+                const active =
+                  link.href === "/"
+                    ? pathname === "/"
+                    : pathname === link.href || pathname.startsWith(`${link.href}/`);
                 return (
                   <Link
                     key={link.href}

@@ -12,6 +12,11 @@ const nextConfig = {
         destination: "/privacy-policy",
         permanent: true,
       },
+      {
+        source: "/cookies",
+        destination: "/cookie-policy",
+        permanent: true,
+      },
     ];
   },
   async headers() {

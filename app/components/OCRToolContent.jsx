@@ -13,13 +13,21 @@ import {
     Languages,
     Sparkles,
     ImageIcon,
+    FileText,
+    FileType,
 } from "lucide-react";
 import { toast } from "react-hot-toast";
-import { createWorker, OEM, PSM } from "tesseract.js";
+import {
+    downloadTxt,
+    downloadDocx,
+    downloadPdf,
+} from "../lib/export/downloadTextFormats";
+
+const MAX_BATCH_IMAGES = 10;
 
 export default function OCRTool() {
-    const [image, setImage] = useState(null);
-    const [imagePreview, setImagePreview] = useState(null);
+    const [queue, setQueue] = useState([]);
+    const [activeId, setActiveId] = useState(null);
     const [extractedText, setExtractedText] = useState("");
     const [isProcessing, setIsProcessing] = useState(false);
     const [progress, setProgress] = useState(0);
@@ -28,6 +36,10 @@ export default function OCRTool() {
     const [confidence, setConfidence] = useState(null);
     const [aiQuota, setAiQuota] = useState({ remaining: null, limit: 10 });
     const fileInputRef = useRef(null);
+
+    const activeItem = queue.find((q) => q.id === activeId) || queue[0] || null;
+    const imagePreview = activeItem?.preview || null;
+    const hasImages = queue.length > 0;
 
   const TARGET_LONG_EDGE = 2000;
   const MAX_LONG_EDGE = 3200;
@@ -804,26 +816,69 @@ export default function OCRTool() {
     ];
 
     /* ---------------- IMAGE UPLOAD ---------------- */
-    const loadImageFile = useCallback((file) => {
-        if (!file || !file.type.startsWith("image/")) {
+    const readFileAsDataUrl = (file) =>
+        new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = reject;
+            reader.readAsDataURL(file);
+        });
+
+    const loadImageFiles = useCallback(async (filesInput) => {
+        const list = (Array.isArray(filesInput) ? filesInput : [filesInput]).filter(
+            (f) => f && f.type?.startsWith("image/")
+        );
+        if (!list.length) {
             toast.error("Please upload an image");
             return;
         }
-        setImage(file);
-        const reader = new FileReader();
-        reader.onload = (e) => setImagePreview(e.target.result);
-        reader.readAsDataURL(file);
+
+        const entries = await Promise.all(
+            list.slice(0, MAX_BATCH_IMAGES).map(async (file) => ({
+                id: `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`,
+                file,
+                name: file.name || "image",
+                preview: await readFileAsDataUrl(file),
+            }))
+        );
+
+        setQueue((prev) => {
+            const room = MAX_BATCH_IMAGES - prev.length;
+            if (room <= 0) {
+                toast.error(`Maximum ${MAX_BATCH_IMAGES} images per batch`);
+                return prev;
+            }
+            const accepted = entries.slice(0, room);
+            if (entries.length > room || list.length > MAX_BATCH_IMAGES) {
+                toast(`Added ${accepted.length} image(s) (max ${MAX_BATCH_IMAGES})`);
+            }
+            return [...prev, ...accepted];
+        });
+        setActiveId((prev) => prev || entries[0]?.id);
         setExtractedText("");
         setProgress(0);
         setConfidence(null);
     }, []);
 
-    const { isDragging, dragProps } = useDragAndDrop(loadImageFile, { accept: "image/*" });
+    const { isDragging, dragProps } = useDragAndDrop(loadImageFiles, {
+        accept: "image/*",
+        multiple: true,
+    });
 
     const handleImageUpload = (e) => {
-        const file = e.target.files[0];
-        if (file) loadImageFile(file);
+        const files = Array.from(e.target.files || []);
+        if (files.length) loadImageFiles(files);
         e.target.value = "";
+    };
+
+    const removeQueueItem = (id) => {
+        setQueue((prev) => {
+            const next = prev.filter((q) => q.id !== id);
+            if (activeId === id) setActiveId(next[0]?.id || null);
+            return next;
+        });
+        setExtractedText("");
+        setConfidence(null);
     };
 
     /* ---------------- OCR ---------------- */
@@ -833,8 +888,8 @@ export default function OCRTool() {
         return { mimeType: match[1], imageBase64: match[2] };
     };
 
-    const tryGeminiOcr = async () => {
-        const parsed = parseDataUrl(imagePreview);
+    const tryGeminiOcr = async (previewDataUrl) => {
+        const parsed = parseDataUrl(previewDataUrl);
         if (!parsed) throw new Error("Invalid image data");
 
         setProgress(15);
@@ -873,8 +928,11 @@ export default function OCRTool() {
         return { text, remaining: payload.remaining, limit: payload.limit };
     };
 
-    const extractWithTesseract = async () => {
+    const extractWithTesseract = async (previewDataUrl) => {
         setProgress(10);
+
+        // Lazy-load Tesseract only when browser fallback is needed
+        const { createWorker, OEM, PSM } = await import("tesseract.js");
 
         const worker = await createWorker(language, OEM.LSTM_ONLY, {
             logger: (message) => {
@@ -892,7 +950,7 @@ export default function OCRTool() {
 
         setProgress(20);
 
-        const scaled = await loadScaledCanvas(imagePreview);
+        const scaled = await loadScaledCanvas(previewDataUrl);
         const sourceImageData = scaled.ctx.getImageData(
           0,
           0,
@@ -1033,8 +1091,28 @@ export default function OCRTool() {
         };
     };
 
+    const extractSinglePreview = async (previewDataUrl) => {
+        try {
+            const geminiResult = await tryGeminiOcr(previewDataUrl);
+            return {
+                text: geminiResult.text,
+                confidence: null,
+                engine: "ai",
+                remaining: geminiResult.remaining,
+                limit: geminiResult.limit,
+            };
+        } catch (geminiErr) {
+            console.warn("Gemini OCR failed, falling back to Tesseract:", geminiErr);
+            if (geminiErr?.code === "RATE_LIMITED") {
+                toast("AI OCR daily limit reached (10/day) — using browser OCR…");
+            }
+            const { text, confidence: score } = await extractWithTesseract(previewDataUrl);
+            return { text, confidence: score, engine: "browser" };
+        }
+    };
+
     const extractText = async () => {
-        if (!imagePreview) {
+        if (!queue.length) {
             toast.error("Upload an image first");
             return;
         }
@@ -1045,41 +1123,49 @@ export default function OCRTool() {
         setConfidence(null);
 
         try {
-            try {
-                const geminiResult = await tryGeminiOcr();
-                setExtractedText(geminiResult.text);
-                setConfidence(null);
-                setProgress(100);
-                const left =
-                  typeof geminiResult.remaining === "number"
-                    ? ` · ${geminiResult.remaining}/${geminiResult.limit ?? 10} AI left today`
-                    : "";
-                toast.success(`Text extracted with AI OCR${left}`);
-                return;
-            } catch (geminiErr) {
-                console.warn("Gemini OCR failed, falling back to Tesseract:", geminiErr);
-                if (geminiErr?.code === "RATE_LIMITED") {
-                  toast("AI OCR daily limit reached (10/day) — using browser OCR…");
-                } else {
-                  toast("AI OCR unavailable — using browser OCR…");
-                }
+            const parts = [];
+            let lastConfidence = null;
+            let usedAi = false;
+
+            for (let i = 0; i < queue.length; i++) {
+                const item = queue[i];
+                setActiveId(item.id);
+                setProgress(Math.round((i / queue.length) * 100));
+                const result = await extractSinglePreview(item.preview);
+                if (result.engine === "ai") usedAi = true;
+                if (result.confidence != null) lastConfidence = result.confidence;
+                const header =
+                    queue.length > 1
+                        ? `----- ${item.name || `Image ${i + 1}`} -----\n`
+                        : "";
+                parts.push(`${header}${result.text}`.trim());
             }
 
-            const { text: finalText, confidence: score } = await extractWithTesseract();
-            setExtractedText(finalText);
-            setConfidence(score);
+            const combined = parts.filter(Boolean).join("\n\n");
+            setExtractedText(combined);
+            setConfidence(queue.length === 1 ? lastConfidence : null);
             setProgress(100);
 
-            if (!finalText.trim()) {
-              toast.error(
-                "No text detected — try a clearer image or a different language setting."
-              );
+            if (!combined.trim()) {
+                toast.error(
+                    "No text detected — try a clearer image or a different language setting."
+                );
+            } else if (queue.length > 1) {
+                toast.success(
+                    `Batch complete: ${queue.length} images${usedAi ? " (AI + fallback as needed)" : ""}`
+                );
+            } else if (usedAi) {
+                const left =
+                    aiQuota.remaining != null
+                        ? ` · ${aiQuota.remaining}/${aiQuota.limit ?? 10} AI left today`
+                        : "";
+                toast.success(`Text extracted with AI OCR${left}`);
             } else {
-              toast.success(
-                score != null
-                  ? `Text extracted (${score}% confidence)`
-                  : "Text extracted"
-              );
+                toast.success(
+                    lastConfidence != null
+                        ? `Text extracted (${lastConfidence}% confidence)`
+                        : "Text extracted"
+                );
             }
         } catch (err) {
             console.error(err);
@@ -1095,23 +1181,38 @@ export default function OCRTool() {
         toast.success("Copied");
     };
 
-    const downloadText = () => {
-        const blob = new Blob([extractedText], { type: "text/plain" });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = "extracted-text.txt";
-        a.click();
-        URL.revokeObjectURL(url);
+    const handleDownloadTxt = () => {
+        downloadTxt(extractedText);
+        toast.success("Downloaded TXT");
+    };
+
+    const handleDownloadDocx = () => {
+        try {
+            downloadDocx(extractedText);
+            toast.success("Downloaded DOCX");
+        } catch (err) {
+            console.error(err);
+            toast.error("DOCX export failed");
+        }
+    };
+
+    const handleDownloadPdf = () => {
+        try {
+            downloadPdf(extractedText);
+            toast.success("Downloaded PDF");
+        } catch (err) {
+            console.error(err);
+            toast.error("PDF export failed");
+        }
     };
 
     const clearAll = () => {
-        setImage(null);
-        setImagePreview(null);
+        setQueue([]);
+        setActiveId(null);
         setExtractedText("");
         setProgress(0);
         setConfidence(null);
-        fileInputRef.current.value = "";
+        if (fileInputRef.current) fileInputRef.current.value = "";
     };
 
     return (
@@ -1125,8 +1226,8 @@ export default function OCRTool() {
                     Extract text from any image
                 </h1>
                 <p className="mx-auto mt-4 max-w-2xl text-base text-slate-600 sm:text-lg">
-                    Upload a screenshot, photo, or scan — get editable text in seconds.
-                    Free online OCR with a browser fallback when needed.
+                    Upload one image or a batch — get editable text in seconds.
+                    Free online OCR with copy, TXT, DOCX, and PDF export.
                 </p>
                 <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
                     <span className="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 text-xs font-semibold text-slate-600 shadow-sm ring-1 ring-slate-200">
@@ -1139,7 +1240,7 @@ export default function OCRTool() {
                     </span>
                     <span className="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 text-xs font-semibold text-slate-600 shadow-sm ring-1 ring-slate-200">
                         <ScanText className="h-3.5 w-3.5 text-sky-600" />
-                        Smart preprocessing
+                        Batch OCR · up to {MAX_BATCH_IMAGES}
                     </span>
                 </div>
             </div>
@@ -1203,31 +1304,74 @@ export default function OCRTool() {
                                     alt="Uploaded image preview for OCR text extraction"
                                     className="mx-auto max-h-64 rounded-xl shadow-md ring-1 ring-slate-200"
                                 />
-                                <p className="text-xs font-medium text-slate-500">Click or drop to replace image</p>
+                                <p className="text-xs font-medium text-slate-500">
+                                    {queue.length > 1
+                                        ? `${queue.length} images selected · click or drop to add more`
+                                        : "Click or drop to add more images"}
+                                </p>
                                 </div>
                             ) : (
                                 <>
                                     <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-cyan-50 text-cyan-600">
                                         <Upload className="h-7 w-7" />
                                     </div>
-                                    <p className="mt-4 font-bold text-slate-800">Drop your image here</p>
-                                    <p className="mt-1 text-sm text-slate-500">or click to browse · PNG, JPG, WEBP</p>
+                                    <p className="mt-4 font-bold text-slate-800">Drop images here</p>
+                                    <p className="mt-1 text-sm text-slate-500">
+                                        or click to browse · PNG, JPG, WEBP · batch up to {MAX_BATCH_IMAGES}
+                                    </p>
                                 </>
                             )}
                         </div>
+
+                        {queue.length > 0 && (
+                            <div className="flex flex-wrap gap-2">
+                                {queue.map((item) => (
+                                    <div
+                                        key={item.id}
+                                        className={`relative overflow-hidden rounded-lg ring-2 ${
+                                            item.id === activeId
+                                                ? "ring-cyan-500"
+                                                : "ring-slate-200"
+                                        }`}
+                                    >
+                                        <button
+                                            type="button"
+                                            onClick={() => setActiveId(item.id)}
+                                            className="block"
+                                            title={item.name}
+                                        >
+                                            <img
+                                                src={item.preview}
+                                                alt=""
+                                                className="h-14 w-14 object-cover"
+                                            />
+                                        </button>
+                                        <button
+                                            type="button"
+                                            onClick={() => removeQueueItem(item.id)}
+                                            className="absolute right-0.5 top-0.5 flex h-5 w-5 items-center justify-center rounded bg-slate-900/70 text-[10px] font-bold text-white"
+                                            aria-label={`Remove ${item.name}`}
+                                        >
+                                            ×
+                                        </button>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
 
                         <input
                             ref={fileInputRef}
                             type="file"
                             hidden
                             accept="image/*"
+                            multiple
                             onChange={handleImageUpload}
                         />
 
                         <div className="flex gap-3">
                             <button
                                 onClick={extractText}
-                                disabled={isProcessing || !image}
+                                disabled={isProcessing || !hasImages}
                                 className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-cyan-600 to-teal-600 p-3.5 font-bold text-white shadow-lg shadow-cyan-500/20 transition hover:brightness-110 disabled:cursor-not-allowed disabled:from-slate-400 disabled:to-slate-400 disabled:shadow-none"
                             >
                                 {isProcessing ? (
@@ -1238,13 +1382,15 @@ export default function OCRTool() {
                                 ) : (
                                     <>
                                         <ScanText className="h-5 w-5" />
-                                        Extract Text
+                                        {queue.length > 1
+                                            ? `Extract Text (${queue.length})`
+                                            : "Extract Text"}
                                     </>
                                 )}
                             </button>
                             <button
                                 onClick={clearAll}
-                                disabled={!image && !extractedText}
+                                disabled={!hasImages && !extractedText}
                                 className="rounded-xl border border-slate-200 bg-white px-6 font-semibold text-slate-700 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-40"
                             >
                                 Clear
@@ -1293,7 +1439,7 @@ export default function OCRTool() {
                                 )}
                             </div>
                             {extractedText && (
-                                <div className="flex gap-1">
+                                <div className="flex flex-wrap gap-1">
                                     <button
                                         onClick={copyToClipboard}
                                         className="rounded-lg p-2 text-slate-600 transition hover:bg-slate-100"
@@ -1302,11 +1448,25 @@ export default function OCRTool() {
                                         <Copy className="h-4 w-4" />
                                     </button>
                                     <button
-                                        onClick={downloadText}
+                                        onClick={handleDownloadTxt}
                                         className="rounded-lg p-2 text-slate-600 transition hover:bg-slate-100"
                                         title="Download as .txt"
                                     >
                                         <Download className="h-4 w-4" />
+                                    </button>
+                                    <button
+                                        onClick={handleDownloadDocx}
+                                        className="rounded-lg p-2 text-slate-600 transition hover:bg-slate-100"
+                                        title="Download as .docx"
+                                    >
+                                        <FileType className="h-4 w-4" />
+                                    </button>
+                                    <button
+                                        onClick={handleDownloadPdf}
+                                        className="rounded-lg p-2 text-slate-600 transition hover:bg-slate-100"
+                                        title="Download as .pdf"
+                                    >
+                                        <FileText className="h-4 w-4" />
                                     </button>
                                 </div>
                             )}

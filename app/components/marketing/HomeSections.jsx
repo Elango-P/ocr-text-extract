@@ -448,9 +448,10 @@ export default function HomeSections() {
           <p>
             This site is a practical utility, not a replacement for professional document
             digitization services used in regulated industries. For archival projects with thousands
-            of pages, dedicated scanning hardware and batch software may be a better fit. For quick
-            one-off conversions — the receipt in your wallet, the error on your screen, the page in
-            your textbook — a browser OCR tool is usually enough.
+            of pages, dedicated scanning hardware may still help. For everyday batches (up to 10
+            images), receipts, screenshots, and one-off conversions — the receipt in your wallet,
+            the error on your screen, the page in your textbook — a browser OCR tool is usually
+            enough.
           </p>
         </div>
       </section>

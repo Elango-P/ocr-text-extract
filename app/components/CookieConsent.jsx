@@ -71,6 +71,10 @@ export default function CookieConsent() {
           text uses cloud AI OCR (see our{" "}
           <Link href="/privacy-policy" className="font-semibold text-cyan-700 hover:underline">
             Privacy Policy
+          </Link>{" "}
+          and{" "}
+          <Link href="/cookie-policy" className="font-semibold text-cyan-700 hover:underline">
+            Cookie Policy
           </Link>
           ). You can change ad personalization at{" "}
           <a

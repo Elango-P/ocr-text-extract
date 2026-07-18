@@ -1,8 +1,9 @@
 import OCRToolHero from "./components/OCRToolHero";
 import ToolOcrEmbed from "./components/tools/ToolOcrEmbed";
+import AdUnit from "./components/AdUnit";
 import HomeSections from "./components/marketing/HomeSections";
 import { buildHomePageJsonLd } from "./lib/jsonLd";
-import { SITE_URL } from "./lib/site";
+import { SITE_URL, ADSENSE_SLOT_DISPLAY } from "./lib/site";
 
 export const metadata = {
   title: {
@@ -39,6 +40,10 @@ export default function HomePage() {
       />
       <OCRToolHero />
       <ToolOcrEmbed />
+      <AdUnit
+        slot={ADSENSE_SLOT_DISPLAY}
+        className="mx-auto max-w-6xl px-4 py-6 sm:px-6"
+      />
       <HomeSections />
     </>
   );

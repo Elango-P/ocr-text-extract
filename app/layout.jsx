@@ -129,7 +129,6 @@ export default function RootLayout({ children }) {
         {ADSENSE_CLIENT_ID ? (
           <meta name="google-adsense-account" content={ADSENSE_CLIENT_ID} />
         ) : null}
-        <AdSenseScript />
       </head>
       <body className={`${inter.className} antialiased`}>
         <script
@@ -138,6 +137,7 @@ export default function RootLayout({ children }) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         <SiteLayout>{children}</SiteLayout>
+        <AdSenseScript />
         <CookieConsent />
         <Toaster position="top-center" />
       </body>

@@ -1,18 +1,22 @@
+"use client";
+
 import Script from "next/script";
 import { ADSENSE_CLIENT_ID } from "../lib/site";
+import { useAdConsent } from "./CookieConsent";
 
 /**
- * Loads the AdSense library site-wide when NEXT_PUBLIC_ADSENSE_CLIENT_ID is set.
- * Keep placements minimal until the account is approved.
+ * Loads the AdSense library only after cookie consent = accepted.
  */
 export default function AdSenseScript() {
-  if (!ADSENSE_CLIENT_ID) return null;
+  const adsAllowed = useAdConsent();
+
+  if (!ADSENSE_CLIENT_ID || !adsAllowed) return null;
 
   return (
     <Script
       id="adsense-init"
       async
-      strategy="beforeInteractive"
+      strategy="afterInteractive"
       src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT_ID}`}
       crossOrigin="anonymous"
     />

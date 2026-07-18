@@ -33,14 +33,24 @@ export function openCookieSettings() {
   window.dispatchEvent(new Event(COOKIE_CONSENT_EVENT));
 }
 
+function readConsentValue() {
+  try {
+    return localStorage.getItem(COOKIE_CONSENT_STORAGE_KEY);
+  } catch {
+    return null;
+  }
+}
+
+/** True only when the user chose Accept (not Essential only). SSR: false. */
+export function useAdConsent() {
+  const getSnapshot = useCallback(() => readConsentValue() === "accepted", []);
+  return useSyncExternalStore(subscribe, getSnapshot, () => false);
+}
+
 export default function CookieConsent() {
   const getSnapshot = useCallback(() => {
     if (typeof window === "undefined") return true;
-    try {
-      return !localStorage.getItem(COOKIE_CONSENT_STORAGE_KEY);
-    } catch {
-      return true;
-    }
+    return !readConsentValue();
   }, []);
 
   const visible = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);

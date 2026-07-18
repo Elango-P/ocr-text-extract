@@ -1,7 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import Breadcrumbs from "../Breadcrumbs";
-import { SITE_URL, SITE_NAME } from "../../lib/site";
+import AdUnit from "../AdUnit";
+import { SITE_URL, SITE_NAME, ADSENSE_SLOT_DISPLAY } from "../../lib/site";
 import { getRelatedTools } from "../../lib/tools/toolPages";
 import { getPostBySlug } from "../../lib/blog/posts";
 import ToolOcrEmbed from "./ToolOcrEmbed";
@@ -100,6 +101,10 @@ export default function ToolLanding({ tool }) {
       </div>
 
       <ToolOcrEmbed />
+      <AdUnit
+        slot={ADSENSE_SLOT_DISPLAY}
+        className="mx-auto max-w-6xl px-4 py-6 sm:px-6"
+      />
 
       <article className="mx-auto max-w-6xl space-y-14 px-4 pb-20 pt-10 sm:px-6">
         {tool.heroImage && (

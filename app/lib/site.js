@@ -23,9 +23,14 @@ export const SOCIAL_LINKS = [
 /**
  * Set NEXT_PUBLIC_ADSENSE_CLIENT_ID=ca-pub-XXXXXXXXXXXXXXXX in .env.local / hosting env.
  * Optional: NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION for Search Console / AdSense meta tag.
+ * Slot IDs from AdSense → Ads → By ad unit (numeric data-ad-slot values).
  */
 export const ADSENSE_CLIENT_ID =
   process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID?.trim() || "";
+export const ADSENSE_SLOT_DISPLAY =
+  process.env.NEXT_PUBLIC_ADSENSE_SLOT_DISPLAY?.trim() || "";
+export const ADSENSE_SLOT_ARTICLE =
+  process.env.NEXT_PUBLIC_ADSENSE_SLOT_ARTICLE?.trim() || "";
 export const GOOGLE_SITE_VERIFICATION =
   process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION?.trim() || "";
 

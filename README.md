@@ -29,6 +29,8 @@ Open [http://localhost:3000](http://localhost:3000).
 | Variable | Required | Purpose |
 |---|---|---|
 | `NEXT_PUBLIC_ADSENSE_CLIENT_ID` | For ads | Google AdSense publisher ID (`ca-pub-...`) |
+| `NEXT_PUBLIC_ADSENSE_SLOT_DISPLAY` | For ads | Display unit slot below OCR (home + tools) |
+| `NEXT_PUBLIC_ADSENSE_SLOT_ARTICLE` | For ads | Display unit slot after blog article body |
 | `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` | Optional | Search Console / AdSense HTML verification token |
 | `GOOGLE_GENERATIVE_AI_API_KEY` | For AI OCR | Google AI API key (server-only) |
 | `GEMINI_MODEL` | Optional | Defaults to `gemini-2.5-flash` |

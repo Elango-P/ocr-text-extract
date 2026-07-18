@@ -2,7 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Breadcrumbs from "../../components/Breadcrumbs";
-import { SITE_URL, SITE_NAME, OPERATOR_NAME } from "../../lib/site";
+import AdUnit from "../../components/AdUnit";
+import { SITE_URL, SITE_NAME, OPERATOR_NAME, ADSENSE_SLOT_ARTICLE } from "../../lib/site";
 import {
   getAllPosts,
   getPostBySlug,
@@ -154,6 +155,8 @@ export default async function BlogPostPage({ params }) {
       </aside>
 
       <MarkdownContent source={markdown} />
+
+      <AdUnit slot={ADSENSE_SLOT_ARTICLE} className="mt-10" />
 
       <div className="mt-12 rounded-2xl bg-gradient-to-br from-cyan-600 to-teal-600 p-6 text-white sm:p-8">
         <h2 className="text-xl font-bold">Try free OCR now</h2>

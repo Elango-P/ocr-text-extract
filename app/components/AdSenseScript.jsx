@@ -4,6 +4,8 @@ import Script from "next/script";
 import { ADSENSE_CLIENT_ID } from "../lib/site";
 import { useAdConsent } from "./CookieConsent";
 
+export const ADSENSE_LOADED_EVENT = "imgtotext-adsense-loaded";
+
 /**
  * Loads the AdSense library only after cookie consent = accepted.
  */
@@ -19,6 +21,9 @@ export default function AdSenseScript() {
       strategy="afterInteractive"
       src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT_ID}`}
       crossOrigin="anonymous"
+      onLoad={() => {
+        window.dispatchEvent(new Event(ADSENSE_LOADED_EVENT));
+      }}
     />
   );
 }

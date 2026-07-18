@@ -23,3 +23,8 @@ body {
   background: #a5f3fc;
   color: #0f172a;
 }
+
+/* Collapse AdSense slots when Google returns no creative (avoids blank gaps) */
+ins.adsbygoogle[data-ad-status="unfilled"] {
+  display: none !important;
+}

@@ -7,7 +7,7 @@ import { useAdConsent } from "./CookieConsent";
 export const ADSENSE_LOADED_EVENT = "imgtotext-adsense-loaded";
 
 /**
- * Loads the AdSense library only after cookie consent = accepted.
+ * Loads AdSense unless the user opted out with Essential only.
  */
 export default function AdSenseScript() {
   const adsAllowed = useAdConsent();

@@ -52,10 +52,12 @@ export default function CookiePolicyPage() {
           </p>
           <h3 className="mt-4 text-lg font-semibold text-slate-800">Advertising (Google AdSense)</h3>
           <p className="mt-2 leading-relaxed">
-            When ads are shown, Google and its partners may set cookies to deliver advertisements,
-            limit how often you see an ad, and measure ad performance. Google may use both
-            personalized and non-personalized ads depending on your region, settings, and consent.
-            Learn more in{" "}
+            Ads may load when you visit the site. Google and its partners may set cookies to
+            deliver advertisements, limit how often you see an ad, and measure ad performance.
+            Choose <strong className="text-slate-800">Essential only</strong> in the cookie notice
+            to opt out of advertising cookies on this site. Google may use both personalized and
+            non-personalized ads depending on your region, settings, and preferences. Learn more
+            in{" "}
             <a
               href="https://policies.google.com/technologies/ads"
               className="font-semibold text-cyan-700 hover:underline"

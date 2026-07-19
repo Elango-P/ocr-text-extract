@@ -66,7 +66,7 @@ const nextConfig = {
       "object-src 'none'",
       "frame-ancestors 'self'",
       "form-action 'self'",
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://pagead2.googlesyndication.com https://*.googlesyndication.com https://www.googletagservices.com https://*.googletagservices.com https://www.google.com https://adservice.google.com https://*.googleadservices.com https://partner.googleadservices.com https://tpc.googlesyndication.com https://www.gstatic.com https://fundingchoicesmessages.google.com https://www.googletagmanager.com",
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://pagead2.googlesyndication.com https://*.googlesyndication.com https://www.googletagservices.com https://*.googletagservices.com https://www.google.com https://adservice.google.com https://*.googleadservices.com https://partner.googleadservices.com https://tpc.googlesyndication.com https://www.gstatic.com https://fundingchoicesmessages.google.com https://www.googletagmanager.com https://ep1.adtrafficquality.google https://ep2.adtrafficquality.google https://*.adtrafficquality.google https://googleads.g.doubleclick.net https://*.doubleclick.net",
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
       "font-src 'self' https://fonts.gstatic.com data:",
       "img-src 'self' data: blob: https:",

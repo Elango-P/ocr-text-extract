@@ -13,7 +13,7 @@ function isAdSenseScriptReady() {
 }
 
 /**
- * Manual AdSense display unit. Renders only with client ID, slot, and Accept consent.
+ * Manual AdSense display unit. Renders with client ID + slot unless Essential-only opt-out.
  */
 export default function AdUnit({ slot, className = "" }) {
   const adsAllowed = useAdConsent();

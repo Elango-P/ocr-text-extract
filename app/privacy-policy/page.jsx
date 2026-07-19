@@ -70,8 +70,9 @@ export default function PrivacyPage() {
             </li>
             <li>
               <strong className="text-slate-800">Consent preference:</strong> We store a small
-              local preference in your browser (localStorage) so we can remember whether you
-              accepted or limited non-essential cookies via our on-site notice.
+              local preference in your browser (localStorage) for the cookie notice. Advertising
+              may load by default; choosing Essential only limits non-essential/advertising
+              cookies on this site.
             </li>
             <li>
               <strong className="text-slate-800">Contact email:</strong> If you email us, we receive

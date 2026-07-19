@@ -41,10 +41,13 @@ function readConsentValue() {
   }
 }
 
-/** True only when the user chose Accept (not Essential only). SSR: false. */
+/**
+ * Ads load by default (no choice / Accept / dismiss).
+ * Only "Essential only" opts out. SSR: allow so units exist in first paint.
+ */
 export function useAdConsent() {
-  const getSnapshot = useCallback(() => readConsentValue() === "accepted", []);
-  return useSyncExternalStore(subscribe, getSnapshot, () => false);
+  const getSnapshot = useCallback(() => readConsentValue() !== "essential", []);
+  return useSyncExternalStore(subscribe, getSnapshot, () => true);
 }
 
 export default function CookieConsent() {
@@ -77,8 +80,8 @@ export default function CookieConsent() {
     >
       <div className="mx-auto flex max-w-3xl flex-col gap-4 rounded-2xl border border-slate-200 bg-white p-4 shadow-xl shadow-slate-900/10 sm:flex-row sm:items-center sm:p-5">
         <p className="flex-1 text-sm leading-relaxed text-slate-600">
-          We use cookies for essential site functions and Google AdSense advertising. Extracting
-          text uses cloud AI OCR (see our{" "}
+          We use cookies for essential site functions and Google AdSense advertising (ads may load
+          until you choose Essential only). Extracting text uses cloud AI OCR (see our{" "}
           <Link href="/privacy-policy" className="font-semibold text-cyan-700 hover:underline">
             Privacy Policy
           </Link>{" "}
@@ -97,7 +100,7 @@ export default function CookieConsent() {
           </a>
           .
         </p>
-        <div className="flex shrink-0 gap-2">
+        <div className="flex shrink-0 items-center gap-2">
           <button
             type="button"
             id="cookie-consent-essential"
@@ -113,6 +116,15 @@ export default function CookieConsent() {
             className="rounded-xl bg-cyan-600 px-4 py-2.5 text-sm font-bold text-white hover:bg-cyan-700"
           >
             Accept
+          </button>
+          <button
+            type="button"
+            id="cookie-consent-dismiss"
+            aria-label="Close cookie notice"
+            onClick={() => save("accepted")}
+            className="rounded-xl px-3 py-2.5 text-sm font-semibold text-slate-500 hover:bg-slate-50 hover:text-slate-800"
+          >
+            Close
           </button>
         </div>
       </div>

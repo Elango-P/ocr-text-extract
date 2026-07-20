@@ -202,6 +202,14 @@ export default function MarkdownContent({ source }) {
       para.push(lines[i]);
       i += 1;
     }
+    
+    if (para.length === 0) {
+      // Fallback: if line wasn't parsed by blocks above but breaks the paragraph loop (e.g. H1, malformed image),
+      // consume it as a paragraph to prevent an infinite loop (OOM).
+      para.push(lines[i]);
+      i += 1;
+    }
+
     elements.push(
       <p key={`p-${key++}`} className="mt-4 text-base leading-relaxed text-slate-600">
         {inlineToNodes(para.join(" "), `p-${key}`)}

@@ -28,7 +28,7 @@ Treat every amount as unverified until you compare it to the paper or payment ap
 4. **Include the full total block**; cropping mid-number is a classic own-goal.  
 5. Prefer a dark backdrop so white thermal edges stay crisp.  
 
-Mobile habits: [/blog/ocr-for-mobile](/blog/ocr-for-mobile). Preprocessing: [/blog/image-preprocessing-for-ocr](/blog/image-preprocessing-for-ocr). Format: [/jpg-to-text](/jpg-to-text).
+Mobile habits: [/blog/ocr-for-mobile](/blog/ocr-for-mobile). Preprocessing: [/blog/image-preprocessing-for-ocr](/blog/image-preprocessing-for-ocr). Format: [/image-to-text](/image-to-text).
 
 ## Extract Workflow on imgtotext.in
 

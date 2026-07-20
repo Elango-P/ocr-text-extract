@@ -5,21 +5,13 @@
  */
 
 import { imageToText } from "./content/imageToText";
-import { jpgToText } from "./content/jpgToText";
 import { pdfToText } from "./content/pdfToText";
 import { handwritingToText } from "./content/handwritingToText";
-import { jpegToText } from "./content/jpegToText";
-import { photoToText } from "./content/photoToText";
-import { scannedPdfToText } from "./content/scannedPdfToText";
 
 export const toolPages = [
   imageToText, 
-  jpgToText, 
   pdfToText, 
-  handwritingToText,
-  jpegToText,
-  photoToText,
-  scannedPdfToText
+  handwritingToText
 ];
 
 export function getAllToolPages() {

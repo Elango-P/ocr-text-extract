@@ -54,7 +54,7 @@ Accuracy product habits map cleanly onto scripts: [/blog/ocr-accuracy-tips](/blo
 
 Before pinning library versions, drop ten representative files onto [https://imgtotext.in](https://imgtotext.in). The site runs free AI OCR via Gemini’s API first, then Tesseract.js in the browser after **10 AI OCR uses per visitor per day**. That gives you a free glimpse of AI-quality vs classical-quality on *your* documents. Formats: PNG, JPG, JPEG, WEBP, GIF. Languages include English, Spanish, French, German, Italian, Portuguese, Russian, Chinese Simplified, Japanese, Korean, Arabic, and Hindi.
 
-Paths for manual tests: [/image-to-text](/image-to-text), [/jpg-to-text](/jpg-to-text), [/image-to-text](/image-to-text). Product mechanics: [/how-it-works](/how-it-works).
+Paths for manual tests: [/image-to-text](/image-to-text). Product mechanics: [/how-it-works](/how-it-works).
 
 If classical results on the site already fail your screenshots, local pytesseract alone may disappoint too—plan an AI API budget.
 

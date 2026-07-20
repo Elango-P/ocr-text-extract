@@ -26,7 +26,6 @@ import { getAllPosts } from "../../lib/blog/posts";
 /** Lightweight tool link list — avoid importing full tool content modules on the homepage. */
 const relatedToolLinks = [
   { href: "/image-to-text", label: "Image to Text Converter" },
-  { href: "/jpg-to-text", label: "JPG to Text Converter" },
   { href: "/pdf-to-text", label: "PDF to Text (Scanned Pages)" },
   { href: "/handwriting-to-text", label: "Handwriting to Text" },
 ];

@@ -26,7 +26,7 @@ Typical dedicated OCR wins:
 - Scanned forms where you will proofread carefully before filing  
 - Batching several images in one sitting on a laptop  
 
-Shortcuts that matter: [/image-to-text](/image-to-text), [/jpg-to-text](/jpg-to-text), [/pdf-to-text](/pdf-to-text), and [/handwriting-to-text](/handwriting-to-text).
+Shortcuts that matter: [/image-to-text](/image-to-text), [/pdf-to-text](/pdf-to-text), and [/handwriting-to-text](/handwriting-to-text).
 
 ## Side-by-Side Decision Guide
 

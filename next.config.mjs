@@ -2,11 +2,6 @@
 const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
-  experimental: {
-    optimizePackageImports: ["lucide-react"],
-    workerThreads: false,
-    cpus: 1,
-  },
   async redirects() {
     return [
       {
@@ -21,6 +16,31 @@ const nextConfig = {
       },
       // Thin tool cluster consolidation (AdSense low-value / duplicate intent)
       {
+        source: "/jpeg-to-text",
+        destination: "/image-to-text",
+        permanent: true,
+      },
+      {
+        source: "/jpg-to-text",
+        destination: "/image-to-text",
+        permanent: true,
+      },
+      {
+        source: "/photo-to-text",
+        destination: "/image-to-text",
+        permanent: true,
+      },
+      {
+        source: "/scanned-pdf-to-text",
+        destination: "/pdf-to-text",
+        permanent: true,
+      },
+      {
+        source: "/blog/:slug(batch-ocr-without-losing-place|building-an-internal-ocr-playbook|clean-mode-explained|comparing-ai-ocr-and-tesseract|desk-setup-for-document-photos|form-fields-vs-full-page-ocr|from-ocr-text-to-translation|low-light-and-evening-scan-rescue|ocr-and-gdpr-style-thinking|ocr-for-accessibility|ocr-for-multilingual-documents|ocr-for-nonprofit-field-reports|ocr-for-researchers-and-citations|ocr-for-teachers-lesson-prep|ocr-mistakes-that-cost-money|ocr-on-dark-mode-uis|quarterly-ocr-accuracy-retro|shipping-labels-and-packing-slips|table-extraction-after-ocr|webp-and-gif-to-text|when-screenshots-beat-the-camera)",
+        destination: "/blog",
+        permanent: true,
+      },
+      {
         source: "/png-to-text",
         destination: "/image-to-text",
         permanent: true,
@@ -33,7 +53,7 @@ const nextConfig = {
       // Overlapping blog→canonical tool / stronger article redirects
       {
         source: "/blog/jpg-to-text-converter",
-        destination: "/jpg-to-text",
+        destination: "/image-to-text",
         permanent: true,
       },
       {

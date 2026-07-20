@@ -26,7 +26,7 @@ Mobile notes: [/blog/ocr-for-mobile](/blog/ocr-for-mobile). Preprocessing after:
 
 Crop out confidential roadmaps you should not digitize. Privacy habits: [/blog/ocr-security-privacy](/blog/ocr-security-privacy), [/privacy-policy](/privacy-policy). Rotate until lines are horizontal. Bump exposure if the board is gray; avoid cartoonish contrast filters.
 
-Then open [https://imgtotext.in](https://imgtotext.in) via [/image-to-text](/image-to-text). JPG uploads: [/jpg-to-text](/jpg-to-text).
+Then open [https://imgtotext.in](https://imgtotext.in) via [/image-to-text](/image-to-text).
 
 ## Settings That Matter
 

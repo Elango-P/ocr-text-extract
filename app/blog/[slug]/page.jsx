@@ -13,13 +13,13 @@ import { getPostMarkdown } from "../../lib/blog/getPostMarkdown";
 import MarkdownContent from "../../components/blog/MarkdownContent";
 
 export function generateStaticParams() {
-  // Avoid prerendering every post during `next build` — Next static workers
-  // strip custom heap limits (~2GB) and can OOM on memory-constrained hosts.
-  // Posts still render via dynamicParams and are listed in sitemap.xml.
-  return [];
+  const posts = getAllPosts();
+  return posts.map((post) => ({
+    slug: post.slug,
+  }));
 }
 
-export const dynamicParams = true;
+export const dynamicParams = false;
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;

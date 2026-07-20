@@ -43,7 +43,7 @@ On [https://imgtotext.in](https://imgtotext.in):
 - Try Clean Mode intentionally for screenshots/documents; disable for faint boards or speckled thermal paper.  
 - Know the engine path: free AI OCR via Gemini’s API first; after **10 AI OCR uses per visitor per day**, Tesseract.js browser fallback still works. Hard images deserve AI quota.  
 
-Entry points: [/image-to-text](/image-to-text), [/jpg-to-text](/jpg-to-text), [/image-to-text](/image-to-text), [/pdf-to-text](/pdf-to-text), [/handwriting-to-text](/handwriting-to-text). How it works: [/how-it-works](/how-it-works). FAQ: [/faq](/faq).
+Entry points: [/image-to-text](/image-to-text), [/pdf-to-text](/pdf-to-text), [/handwriting-to-text](/handwriting-to-text). How it works: [/how-it-works](/how-it-works). FAQ: [/faq](/faq).
 
 Supported uploads include PNG, JPG, JPEG, WEBP, and GIF.
 

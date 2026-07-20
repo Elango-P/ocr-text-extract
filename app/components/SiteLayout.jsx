@@ -19,7 +19,6 @@ const navLinks = [
 
 const TOOL_PATHS = [
   "/image-to-text",
-  "/jpg-to-text",
   "/pdf-to-text",
   "/handwriting-to-text",
 ];
@@ -34,7 +33,6 @@ function isNavActive(pathname, link) {
 
 const footerLinks = [
   { href: "/image-to-text", label: "Image to Text" },
-  { href: "/jpg-to-text", label: "JPG to Text" },
   { href: "/pdf-to-text", label: "PDF to Text" },
   { href: "/handwriting-to-text", label: "Handwriting OCR" },
   { href: "/blog", label: "Blog" },

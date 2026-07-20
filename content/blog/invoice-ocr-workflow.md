@@ -23,7 +23,7 @@ Prefer vendor PDFs with real text layers when possible—you may not need OCR at
 - Straight pages, high contrast.  
 - PNG or quality JPG for snapshots; WEBP/GIF also uploadable on imgtotext.in.  
 
-PDF-oriented guidance: [/blog/pdf-ocr-guide](/blog/pdf-ocr-guide), [/pdf-to-text](/pdf-to-text). Phone captures: [/blog/ocr-for-mobile](/blog/ocr-for-mobile), [/jpg-to-text](/jpg-to-text).
+PDF-oriented guidance: [/blog/pdf-ocr-guide](/blog/pdf-ocr-guide), [/pdf-to-text](/pdf-to-text). Phone captures: [/blog/ocr-for-mobile](/blog/ocr-for-mobile).
 
 ## Step 2: Preprocess Before Burning Quota
 

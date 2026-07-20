@@ -40,7 +40,7 @@ Slightly increase brightness on dark phone shots. Avoid aggressive sharpening fi
 
 ### 5. Prefer Sensible Formats
 
-Supported uploads include PNG, JPG, JPEG, WEBP, and GIF. Prefer PNG for screenshots and UI. Prefer high-quality JPG for camera photos without re-saving ten times. Format pages: [/jpg-to-text](/jpg-to-text), [/image-to-text](/image-to-text).
+Supported uploads include PNG, JPG, JPEG, WEBP, and GIF. Prefer PNG for screenshots and UI. Prefer high-quality JPG for camera photos without re-saving ten times. Format pages: [/image-to-text](/image-to-text).
 
 ### 6. Match Language Before Retrying
 

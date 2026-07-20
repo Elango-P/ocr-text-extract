@@ -14,7 +14,7 @@ Reach for OCR when inputs are photos, scans, or flattened image PDFs. Primer: [/
 
 ## Pattern 1: Prototype With a Browser Tool
 
-Before wiring SDKs, validate image quality assumptions with real samples on [https://imgtotext.in](https://imgtotext.in). Use [/image-to-text](/image-to-text), or [/jpg-to-text](/jpg-to-text). imgtotext.in combines free AI OCR (Gemini via their API) with Tesseract.js fallback after **10 AI OCR uses per visitor per day**—useful for a quick A/B of AI vs classical results on your fixtures.
+Before wiring SDKs, validate image quality assumptions with real samples on [https://imgtotext.in](https://imgtotext.in). Use [/image-to-text](/image-to-text). imgtotext.in combines free AI OCR (Gemini via their API) with Tesseract.js fallback after **10 AI OCR uses per visitor per day**—useful for a quick A/B of AI vs classical results on your fixtures.
 
 Document findings: which samples need Clean Mode, which languages matter, which crops fix failures. Accuracy notes: [/blog/ocr-accuracy-tips](/blog/ocr-accuracy-tips). Preprocessing: [/blog/image-preprocessing-for-ocr](/blog/image-preprocessing-for-ocr).
 

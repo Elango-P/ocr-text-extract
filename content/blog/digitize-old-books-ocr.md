@@ -24,7 +24,7 @@ Understanding the pipeline helps: [/blog/what-is-ocr](/blog/what-is-ocr). Accura
 4. **Fill the frame** with the text block; margins can be small.  
 5. **Export high-quality JPG or PNG**—formats accepted at imgtotext.in also include WEBP and GIF. Prefer not re-compressing repeatedly.  
 
-Phone technique overview: [/blog/ocr-for-mobile](/blog/ocr-for-mobile) and [/blog/ocr-for-mobile](/blog/ocr-for-mobile). Camera uploads: [/jpg-to-text](/jpg-to-text).
+Phone technique overview: [/blog/ocr-for-mobile](/blog/ocr-for-mobile) and [/blog/ocr-for-mobile](/blog/ocr-for-mobile). Camera uploads: [/image-to-text](/image-to-text).
 
 ## Page Preparation Before Upload
 

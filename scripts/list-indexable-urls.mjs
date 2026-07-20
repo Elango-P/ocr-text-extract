@@ -25,7 +25,6 @@ const staticRoutes = [
   "/disclaimer",
   "/data-retention",
   "/image-to-text",
-  "/jpg-to-text",
   "/pdf-to-text",
   "/handwriting-to-text",
 ];

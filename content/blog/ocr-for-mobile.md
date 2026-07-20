@@ -92,4 +92,4 @@ Create a home-screen bookmark to https://imgtotext.in for one-tap access. Pair i
 
 - [/blog/how-to-extract-text-from-images](/blog/how-to-extract-text-from-images) — general steps
 - [/blog/how-to-extract-text-from-images](/blog/how-to-extract-text-from-images) — zero-install philosophy
-- [/jpg-to-text](/jpg-to-text) — camera JPG specifics
+

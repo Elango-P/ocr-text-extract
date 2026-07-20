@@ -13,7 +13,7 @@ Dates below for published posts are registry dates in `app/lib/blog/posts.js`.
 | 1 | How to Extract Text from Images | Step-by-step general extraction for screenshots, photos, and scans. | Published (`how-to-extract-text-from-images`, 2026-06-02) |
 | 2 | OCR vs Manual Typing: When to Use Each | Speed/accuracy trade-offs and when retyping still wins. | Published (`ocr-vs-manual-typing`, 2026-06-04) |
 | 3 | Best OCR Tools in 2026 | Practical landscape of online/offline options including free tools. | Published (`best-ocr-tools-2026`, 2026-06-06) |
-| 4 | JPG to Text Converter | Camera JPEG quirks — **consolidated** into tool `/jpg-to-text` (301 from old blog slug). | Redirected |
+| 4 | JPG to Text Converter | Camera JPEG quirks — **consolidated** into tool `/image-to-text` (301 from old blog slug). | Redirected |
 | 5 | PNG to Text Converter | Screenshots — **consolidated** into `/blog/convert-screenshots-to-editable-text` (+ `/image-to-text` for tool). | Redirected |
 | 6 | PDF OCR Guide | Image-only PDFs, rasterize-then-OCR workflow. | Published (`pdf-ocr-guide`, 2026-06-12) |
 | 7 | Handwriting OCR | Realistic expectations and photo tips for pen ink. | Published (`handwriting-ocr`, 2026-06-14) |

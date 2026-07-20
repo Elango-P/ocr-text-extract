@@ -4,6 +4,8 @@ const nextConfig = {
   poweredByHeader: false,
   experimental: {
     optimizePackageImports: ["lucide-react"],
+    workerThreads: false,
+    cpus: 1,
   },
   async redirects() {
     return [

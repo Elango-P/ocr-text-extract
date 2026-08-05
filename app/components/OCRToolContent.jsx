@@ -1230,11 +1230,12 @@ export default function OCRTool() {
     };
 
     return (
-        <section id="ocr-tool" className="mx-auto max-w-6xl px-4 pb-6 sm:px-6">
+        <section id="ocr-tool" className="mx-auto max-w-6xl px-4 pb-8 pt-6 sm:px-6 sm:pb-10 sm:pt-8">
+            <div className="ocr-tool-shell p-4 sm:p-6 lg:p-8">
             <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-8">
                     {/* LEFT */}
                     <div className="space-y-4">
-                        <div className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm">
+                        <div className="rounded-2xl border border-slate-200/70 bg-white/95 p-5 shadow-sm">
                             <label htmlFor="ocr-language" className="mb-2 block text-xs font-bold uppercase tracking-wider text-slate-500">
                                 Document language
                             </label>
@@ -1256,7 +1257,7 @@ export default function OCRTool() {
                         </div>
 
                         {/* Clean Mode Toggle */}
-                        <div className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm">
+                        <div className="rounded-2xl border border-slate-200/70 bg-white/95 p-5 shadow-sm">
                             <div className="flex items-center justify-between gap-4">
                                 <div>
                                     <h3 className="font-bold text-slate-900">Clean Mode</h3>
@@ -1286,7 +1287,7 @@ export default function OCRTool() {
                                 }
                             }}
                             {...dragProps}
-                            className={`cursor-pointer rounded-2xl border-2 border-dashed p-8 text-center transition-all bg-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-600 ${
+                            className={`cursor-pointer rounded-2xl border-2 border-dashed p-8 text-center transition-all bg-white/95 shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-600 ${
                                 isDragging
                                     ? "border-cyan-500 bg-cyan-50/50 scale-[1.01]"
                                     : "border-slate-300 hover:border-cyan-400 hover:bg-cyan-50/30"
@@ -1447,7 +1448,7 @@ export default function OCRTool() {
                     </div>
 
                     {/* RIGHT */}
-                    <div className="flex flex-col rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm sm:p-6">
+                    <div className="flex flex-col rounded-2xl border border-slate-200/70 bg-white/95 p-5 shadow-sm sm:p-6">
                         <div className="mb-4 flex items-start justify-between gap-3">
                             <div>
                                 <div className="flex items-center gap-2">
@@ -1524,6 +1525,7 @@ export default function OCRTool() {
                         />
                     </div>
                 </div>
+            </div>
         </section>
     );
 }

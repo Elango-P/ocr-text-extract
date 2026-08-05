@@ -15,7 +15,9 @@ const OCRToolContent = dynamic(() => import("../OCRToolContent"), {
       aria-busy="true"
       aria-label="Loading OCR tool"
     >
-      <div className="h-10 w-10 animate-pulse rounded-xl bg-cyan-100" />
+      <div className="ocr-tool-shell flex w-full items-center justify-center py-16">
+        <div className="h-10 w-10 animate-pulse rounded-xl bg-cyan-100" />
+      </div>
     </div>
   ),
 });

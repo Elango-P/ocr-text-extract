@@ -263,7 +263,7 @@ export default function HomeSections() {
   const latestPosts = getAllPosts().slice(0, 6);
 
   return (
-    <div className="mx-auto max-w-6xl space-y-20 px-4 pb-20 sm:px-6">
+    <div className="mx-auto max-w-6xl space-y-20 px-4 pb-20 pt-4 sm:px-6">
       <section id="features" aria-labelledby="features-heading">
         <div className="mb-8 text-center">
           <h2 id="features-heading" className="text-2xl font-black text-slate-900 sm:text-3xl">
@@ -278,7 +278,7 @@ export default function HomeSections() {
           {features.map((item) => (
             <article
               key={item.title}
-              className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+              className="rounded-2xl border border-slate-200/70 bg-white/90 p-5 shadow-sm backdrop-blur-sm transition hover:-translate-y-0.5 hover:border-cyan-200/80 hover:bg-white"
             >
               <div className="mb-4 inline-flex rounded-xl bg-cyan-50 p-2.5 text-cyan-600">
                 <item.icon className="h-5 w-5" aria-hidden="true" />
@@ -292,7 +292,7 @@ export default function HomeSections() {
 
       <section
         aria-labelledby="what-is-ocr-heading"
-        className="rounded-3xl border border-slate-200 bg-white p-6 sm:p-10"
+        className="surface-panel p-6 sm:p-10"
       >
         <h2 id="what-is-ocr-heading" className="text-2xl font-black text-slate-900 sm:text-3xl">
           What is OCR?
@@ -330,7 +330,7 @@ export default function HomeSections() {
 
       <section
         aria-labelledby="how-heading"
-        className="rounded-3xl border border-slate-200 bg-white p-6 sm:p-10"
+        className="surface-panel p-6 sm:p-10"
       >
         <div className="mb-8">
           <h2 id="how-heading" className="text-2xl font-black text-slate-900 sm:text-3xl">
@@ -368,7 +368,7 @@ export default function HomeSections() {
         </h2>
         <div className="mt-6 grid gap-4 sm:grid-cols-2">
           {benefits.map((b) => (
-            <article key={b.title} className="rounded-2xl border border-slate-200 bg-white p-5">
+            <article key={b.title} className="rounded-2xl border border-slate-200/70 bg-white/90 p-5 backdrop-blur-sm">
               <h3 className="font-bold text-slate-900">{b.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-slate-600">{b.text}</p>
             </article>
@@ -378,7 +378,7 @@ export default function HomeSections() {
 
       <section
         aria-labelledby="formats-heading"
-        className="rounded-3xl border border-slate-200 bg-white p-6 sm:p-10"
+        className="surface-panel p-6 sm:p-10"
       >
         <h2 id="formats-heading" className="text-2xl font-black text-slate-900 sm:text-3xl">
           Supported file types
@@ -422,7 +422,7 @@ export default function HomeSections() {
 
       <section
         aria-labelledby="devices-heading"
-        className="rounded-3xl border border-slate-200 bg-white p-6 sm:p-10"
+        className="surface-panel p-6 sm:p-10"
       >
         <h2 id="devices-heading" className="text-2xl font-black text-slate-900 sm:text-3xl">
           Supported devices
@@ -498,21 +498,21 @@ export default function HomeSections() {
           Accuracy: what to expect
         </h2>
         <div className="mt-6 grid gap-6 md:grid-cols-3">
-          <div className="rounded-2xl border border-slate-200 bg-white p-5">
+          <div className="rounded-2xl border border-slate-200/70 bg-white/90 p-5 backdrop-blur-sm">
             <h3 className="font-bold text-slate-900">Usually strong</h3>
             <p className="mt-2 text-sm leading-relaxed text-slate-600">
               Clear screenshots, high-contrast scans, and well-lit photos of printed body text with
               the correct language selected.
             </p>
           </div>
-          <div className="rounded-2xl border border-slate-200 bg-white p-5">
+          <div className="rounded-2xl border border-slate-200/70 bg-white/90 p-5 backdrop-blur-sm">
             <h3 className="font-bold text-slate-900">Variable</h3>
             <p className="mt-2 text-sm leading-relaxed text-slate-600">
               Tables, multi-column magazines, faint thermal receipts, and low-light phone shots —
               crop and retake before blaming the engine.
             </p>
           </div>
-          <div className="rounded-2xl border border-slate-200 bg-white p-5">
+          <div className="rounded-2xl border border-slate-200/70 bg-white/90 p-5 backdrop-blur-sm">
             <h3 className="font-bold text-slate-900">Often weak</h3>
             <p className="mt-2 text-sm leading-relaxed text-slate-600">
               Messy cursive, decorative fonts, heavy glare, and tiny packaging legalese. Treat
@@ -524,7 +524,7 @@ export default function HomeSections() {
 
       <section
         aria-labelledby="privacy-security-heading"
-        className="rounded-3xl border border-slate-200 bg-white p-6 sm:p-10"
+        className="surface-panel p-6 sm:p-10"
       >
         <h2
           id="privacy-security-heading"
@@ -611,7 +611,7 @@ export default function HomeSections() {
           {audiences.map((item) => (
             <article
               key={item.title}
-              className="flex gap-4 rounded-2xl border border-slate-200 bg-white p-5"
+              className="flex gap-4 rounded-2xl border border-slate-200/70 bg-white/90 p-5 backdrop-blur-sm"
             >
               <div className="shrink-0 rounded-xl bg-teal-50 p-2.5 text-teal-600">
                 <item.icon className="h-5 w-5" aria-hidden="true" />
@@ -627,7 +627,7 @@ export default function HomeSections() {
 
       <section
         aria-labelledby="compare-heading"
-        className="rounded-3xl border border-slate-200 bg-white p-6 sm:p-10"
+        className="surface-panel p-6 sm:p-10"
       >
         <h2 id="compare-heading" className="text-2xl font-black text-slate-900 sm:text-3xl">
           Comparison: when to choose this tool
@@ -746,7 +746,7 @@ export default function HomeSections() {
           {latestPosts.map((post) => (
             <li
               key={post.slug}
-              className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
+              className="rounded-2xl border border-slate-200/70 bg-white/90 p-5 shadow-sm backdrop-blur-sm"
             >
               <Link
                 href={`/blog/${post.slug}`}
@@ -789,7 +789,7 @@ export default function HomeSections() {
         </div>
       </section>
 
-      <section className="rounded-3xl border border-cyan-200 bg-gradient-to-br from-cyan-50 to-teal-50 p-8 text-center sm:p-12">
+      <section className="rounded-3xl border border-cyan-200/80 bg-gradient-to-br from-cyan-50/95 via-white/80 to-teal-50/90 p-8 text-center shadow-sm backdrop-blur-sm sm:p-12">
         <h2 className="text-2xl font-black text-slate-900 sm:text-3xl">
           Ready to convert your image to text?
         </h2>

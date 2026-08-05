@@ -53,17 +53,13 @@ export default function SiteLayout({ children }) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900">
-      <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
-        <div className="absolute -top-40 right-0 h-[28rem] w-[28rem] rounded-full bg-cyan-200/40 blur-3xl" />
-        <div className="absolute top-1/3 -left-32 h-80 w-80 rounded-full bg-teal-100/50 blur-3xl" />
-        <div className="absolute bottom-0 right-1/4 h-72 w-72 rounded-full bg-sky-100/40 blur-3xl" />
-      </div>
+    <div className="relative flex min-h-screen flex-col text-slate-900">
+      <div className="site-backdrop" aria-hidden="true" />
 
-      <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/85 backdrop-blur-xl">
+      <header className="sticky top-0 z-50 border-b border-slate-200/70 bg-white/75 backdrop-blur-xl supports-[backdrop-filter]:bg-white/65">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
           <Link href="/" className="flex min-w-0 items-center gap-3 group">
-            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-500 to-teal-600 text-white shadow-lg shadow-cyan-500/20 transition group-hover:scale-105">
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-500 to-teal-600 text-white shadow-md shadow-cyan-600/15 transition group-hover:scale-105">
               <ScanText className="h-5 w-5" />
             </span>
             <span className="min-w-0">
@@ -85,8 +81,8 @@ export default function SiteLayout({ children }) {
                   href={link.href}
                   className={`rounded-lg px-3 py-2 text-sm font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-600 ${
                     active
-                      ? "bg-cyan-50 text-cyan-700"
-                      : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+                      ? "bg-cyan-50/90 text-cyan-800"
+                      : "text-slate-600 hover:bg-white/70 hover:text-slate-900"
                   }`}
                 >
                   {link.label}
@@ -98,7 +94,7 @@ export default function SiteLayout({ children }) {
           <button
             type="button"
             onClick={() => setMobileOpen((v) => !v)}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-600 md:hidden"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200/80 bg-white/90 text-slate-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-600 md:hidden"
             aria-label={mobileOpen ? "Close menu" : "Open menu"}
             aria-expanded={mobileOpen}
           >
@@ -107,7 +103,7 @@ export default function SiteLayout({ children }) {
         </div>
 
         {mobileOpen && (
-          <nav className="border-t border-slate-200 bg-white px-4 py-3 md:hidden">
+          <nav className="border-t border-slate-200/80 bg-white/95 px-4 py-3 backdrop-blur-xl md:hidden">
             <div className="flex flex-col gap-1">
               {navLinks.map((link) => {
                 const active = isNavActive(pathname, link);
@@ -117,7 +113,7 @@ export default function SiteLayout({ children }) {
                     href={link.href}
                     onClick={() => setMobileOpen(false)}
                     className={`rounded-lg px-3 py-2.5 text-sm font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-600 ${
-                      active ? "bg-cyan-50 text-cyan-700" : "text-slate-600"
+                      active ? "bg-cyan-50 text-cyan-800" : "text-slate-600"
                     }`}
                   >
                     {link.label}
@@ -129,9 +125,9 @@ export default function SiteLayout({ children }) {
         )}
       </header>
 
-      <main className="flex-1">{children}</main>
+      <main className="relative flex-1">{children}</main>
 
-      <footer className="border-t border-slate-200 bg-white/80 backdrop-blur-sm">
+      <footer className="relative border-t border-slate-200/80 bg-white/85 backdrop-blur-md supports-[backdrop-filter]:bg-white/75">
         <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
             <div>

@@ -1,4 +1,4 @@
-OCR quality is mostly decided before you click “extract.” Engine choice matters, but lighting, crop, language, and review habits matter more. This playbook collects practical accuracy tips you can apply immediately with [imgtotext.in](https://imgtotext.in) or any similar image OCR tool.
+OCR quality is mostly decided before you click “extract.” Engine choice matters, but lighting, crop, language, and review habits matter more. This playbook is the **end-to-end accuracy checklist**: capture habits, language selection, Clean Mode, AI quota budgeting, and post-OCR verification. For the pixel-editing steps alone (crop, rotate, contrast), see [/blog/image-preprocessing-for-ocr](/blog/image-preprocessing-for-ocr). Tips here apply to [imgtotext.in](https://imgtotext.in) or any similar image OCR tool.
 
 ![OCR document scan example](/images/ocr-document-scan.webp)
 
@@ -14,7 +14,7 @@ Use your phone’s document or perspective tools when available, then export a f
 
 Photographing a monitor introduces moiré, glare, and color casts. Capture a native screenshot instead (often PNG), then upload. Clean Mode on imgtotext.in is designed with screenshots and documents in mind—use it for these tidy inputs.
 
-See also [/blog/convert-screenshots-to-editable-text](/blog/convert-screenshots-to-editable-text) and [/blog/convert-screenshots-to-editable-text](/blog/convert-screenshots-to-editable-text).
+See also [/blog/convert-screenshots-to-editable-text](/blog/convert-screenshots-to-editable-text) and [/blog/image-preprocessing-for-ocr](/blog/image-preprocessing-for-ocr).
 
 ![Screenshot OCR example](/images/ocr-screenshot-example.webp)
 

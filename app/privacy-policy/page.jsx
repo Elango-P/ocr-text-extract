@@ -8,7 +8,7 @@ export const metadata = {
 };
 
 export default function PrivacyPage() {
-  const updated = "July 10, 2026";
+  const updated = "August 5, 2026";
 
   return (
     <article className="mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-14">
@@ -63,16 +63,16 @@ export default function PrivacyPage() {
               separate third-party analytics product on this site today.
             </li>
             <li>
-              <strong className="text-slate-800">Cookies and advertising:</strong> We use Google
-              AdSense to display advertisements. Google and its partners may use cookies and
-              similar technologies to serve, measure, and (where allowed) personalize ads. See the
-              &quot;Third-party services&quot; section below.
+              <strong className="text-slate-800">Cookies and advertising:</strong> When advertising
+              is enabled, we may use Google AdSense to display advertisements. Google and its
+              partners may use cookies and similar technologies to serve, measure, and (where
+              allowed) personalize ads. See the &quot;Third-party services&quot; section below.
             </li>
             <li>
               <strong className="text-slate-800">Consent preference:</strong> We store a small
-              local preference in your browser (localStorage) for the cookie notice. Advertising
-              may load by default; choosing Essential only limits non-essential/advertising
-              cookies on this site.
+              local preference in your browser (localStorage) for the cookie notice. Choosing
+              Essential only limits non-essential/advertising cookies on this site when ads are
+              enabled.
             </li>
             <li>
               <strong className="text-slate-800">Contact email:</strong> If you email us, we receive
@@ -101,9 +101,9 @@ export default function PrivacyPage() {
               .
             </li>
             <li>
-              <strong className="text-slate-800">Google AdSense</strong> — to display
-              advertisements that help cover hosting and development costs. Google may use cookies
-              to personalize ads where permitted. Learn more at{" "}
+              <strong className="text-slate-800">Google AdSense</strong> — when advertising is
+              enabled, to display third-party advertisements. Google may use cookies to personalize
+              ads where permitted. Learn more at{" "}
               <a
                 href="https://policies.google.com/privacy"
                 className="text-cyan-700 hover:underline"

@@ -95,10 +95,10 @@ export default function TermsPage() {
         <section>
           <h2 className="text-xl font-bold text-slate-900">Advertising</h2>
           <p className="mt-3 leading-relaxed">
-            The site displays third-party advertisements through Google AdSense to help cover
-            hosting and development costs. We are not responsible for the content of third-party
-            ads or external sites linked from advertisements. Ad delivery is subject to Google&apos;s
-            advertising policies and your cookie preferences.
+            The site may display third-party advertisements (including Google AdSense) when
+            advertising is enabled. We are not responsible for the content of third-party ads or
+            external sites linked from advertisements. When ads are shown, delivery is subject to
+            Google&apos;s advertising policies and your cookie preferences.
           </p>
         </section>
 

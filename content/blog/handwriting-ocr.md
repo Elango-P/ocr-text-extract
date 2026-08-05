@@ -48,7 +48,7 @@ Details on the stack: [/how-it-works](/how-it-works). Privacy (no permanent imag
 
 Naomi keeps a chemistry lab notebook in mixed print and cursive. Before a report deadline she photographs three pages of observations under desk lamp light—results are mediocre. She retakes them at a library table near a window, crops each page, and uploads to imgtotext.in with English selected.
 
-About 80% of the print sentences come through intact. Cursive method notes need more repair: several words are guessed wrong based on shape. She keeps the OCR text as a scaffold and listens to her own voice memo for the messy parts while editing. Total time still beats typing every observation from scratch while juggling the notebook.
+Most of the printed sentences come through in usable form. Cursive method notes need more repair: several words are guessed wrong based on shape. She keeps the OCR text as a scaffold and listens to her own voice memo for the messy parts while editing. Total time still beats typing every observation from scratch while juggling the notebook.
 
 The lesson: handwriting OCR shines as an accelerator for clear print and as a rough scaffold for cursive—not as a perfect clerk.
 

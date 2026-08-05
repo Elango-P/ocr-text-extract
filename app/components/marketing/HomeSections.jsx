@@ -246,7 +246,7 @@ const homeFaqs = [
   },
   {
     q: "Does the site show ads?",
-    a: "Yes. Google AdSense helps cover hosting. Cookie choices are explained in the Cookie Policy.",
+    a: "Ads may appear when advertising is enabled (for example, via Google AdSense). Cookie choices are explained in the Cookie Policy.",
   },
 ];
 
@@ -264,7 +264,7 @@ export default function HomeSections() {
 
   return (
     <div className="mx-auto max-w-6xl space-y-20 px-4 pb-20 sm:px-6">
-      <section aria-labelledby="features-heading">
+      <section id="features" aria-labelledby="features-heading">
         <div className="mb-8 text-center">
           <h2 id="features-heading" className="text-2xl font-black text-slate-900 sm:text-3xl">
             Features that keep extraction practical

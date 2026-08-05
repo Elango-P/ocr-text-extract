@@ -1,4 +1,4 @@
-Most “bad OCR” complaints are really bad inputs. Engines guess characters from pixels; if those pixels are dim, skewed, or buried in wallpaper texture, guesses worsen. Preprocessing—the small edits you make before clicking extract—often helps more than switching tools. This guide focuses on practical prep for free online OCR at [imgtotext.in](https://imgtotext.in), including when Clean Mode helps and when a manual crop beats any toggle.
+Most “bad OCR” complaints are really bad inputs. Engines guess characters from pixels; if those pixels are dim, skewed, or buried in wallpaper texture, guesses worsen. This guide is the **hands-on prep guide**—the edits you make to the image file before extraction (crop, rotate, exposure, format choice, Clean Mode). For the wider accuracy checklist (language, AI quota, verification order), see [/blog/ocr-accuracy-tips](/blog/ocr-accuracy-tips). Prep steps apply to free online OCR generally, including [imgtotext.in](https://imgtotext.in).
 
 ![OCR document scan example](/images/ocr-document-scan.webp)
 

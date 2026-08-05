@@ -83,7 +83,7 @@ const faqs = [
   },
   {
     q: "Do you show ads?",
-    a: "Yes. Google AdSense helps cover hosting. See the Privacy Policy and Cookie Policy for advertising cookies and controls.",
+    a: "This site may display ads (for example, through Google AdSense) when advertising is enabled. See the Privacy Policy and Cookie Policy for details and controls.",
   },
   {
     q: "How do I contact you?",

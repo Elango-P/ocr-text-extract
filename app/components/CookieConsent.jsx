@@ -42,8 +42,9 @@ function readConsentValue() {
 }
 
 /**
- * Ads load by default (no choice / Accept / dismiss).
- * Only "Essential only" opts out. SSR: allow so units exist in first paint.
+ * Ads allowed unless the user opted out with Essential only.
+ * AdSense script still requires NEXT_PUBLIC_ADSENSE_CLIENT_ID — empty ID means no ads load.
+ * SSR: allow so units can exist in first paint when configured.
  */
 export function useAdConsent() {
   const getSnapshot = useCallback(() => readConsentValue() !== "essential", []);
@@ -80,8 +81,9 @@ export default function CookieConsent() {
     >
       <div className="mx-auto flex max-w-3xl flex-col gap-4 rounded-2xl border border-slate-200 bg-white p-4 shadow-xl shadow-slate-900/10 sm:flex-row sm:items-center sm:p-5">
         <p className="flex-1 text-sm leading-relaxed text-slate-600">
-          We use cookies for essential site functions and Google AdSense advertising (ads may load
-          until you choose Essential only). Extracting text uses cloud AI OCR (see our{" "}
+          We use cookies for essential site functions. When advertising is enabled, Google AdSense
+          may set advertising cookies unless you choose Essential only. Extracting text uses cloud
+          AI OCR (see our{" "}
           <Link href="/privacy-policy" className="font-semibold text-cyan-700 hover:underline">
             Privacy Policy
           </Link>{" "}

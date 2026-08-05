@@ -5,7 +5,7 @@ import { SITE_URL, CONTACT_EMAIL, SITE_DOMAIN } from "../lib/site";
 export const metadata = {
   title: "Data Retention Policy",
   description:
-    "How long OCR Text Extractor retains AI OCR processing data, logs, cookies, and AdSense-related information.",
+    "How long OCR Text Extractor retains AI OCR processing data, logs, cookies, and advertising-related information when ads are enabled.",
   alternates: { canonical: `${SITE_URL}/data-retention` },
   openGraph: {
     title: "Data Retention Policy | OCR Text Extractor",
@@ -16,7 +16,7 @@ export const metadata = {
 };
 
 export default function DataRetentionPage() {
-  const updated = "July 14, 2026";
+  const updated = "August 5, 2026";
 
   return (
     <article className="mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-14">
@@ -90,9 +90,9 @@ export default function DataRetentionPage() {
           <h2 className="text-xl font-bold text-slate-900">Cookies and similar storage</h2>
           <p className="mt-3 leading-relaxed">
             Essential preferences (for example, cookie consent choices) remain until you clear site
-            data or change settings. Advertising cookies set by Google AdSense follow Google&apos;s
-            retention and control mechanisms. See the Cookie Policy for categories and how to manage
-            preferences.
+            data or change settings. When advertising is enabled, advertising cookies set by Google
+            AdSense follow Google&apos;s retention and control mechanisms. See the Cookie Policy for
+            categories and how to manage preferences.
           </p>
         </section>
 

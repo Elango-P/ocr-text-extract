@@ -21,6 +21,9 @@ import {
 } from "../lib/export/downloadTextFormats";
 
 const MAX_BATCH_IMAGES = 10;
+/** Soft client guide aligned with AI OCR ~9MB raw image ceiling on the server. */
+const MAX_IMAGE_SIZE_MB = 8;
+const MAX_IMAGE_BYTES = MAX_IMAGE_SIZE_MB * 1024 * 1024;
 
 export default function OCRTool() {
     const [queue, setQueue] = useState([]);
@@ -834,8 +837,18 @@ export default function OCRTool() {
             return;
         }
 
+        const oversized = list.filter((f) => f.size > MAX_IMAGE_BYTES);
+        if (oversized.length) {
+            toast.error(
+                `Image too large (max ~${MAX_IMAGE_SIZE_MB} MB for AI OCR). Compress or crop, then retry.`
+            );
+        }
+
+        const sized = list.filter((f) => f.size <= MAX_IMAGE_BYTES);
+        if (!sized.length) return;
+
         const entries = await Promise.all(
-            list.slice(0, MAX_BATCH_IMAGES).map(async (file) => ({
+            sized.slice(0, MAX_BATCH_IMAGES).map(async (file) => ({
                 id: `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`,
                 file,
                 name: file.name || "image",
@@ -850,7 +863,7 @@ export default function OCRTool() {
                 return prev;
             }
             const accepted = entries.slice(0, room);
-            if (entries.length > room || list.length > MAX_BATCH_IMAGES) {
+            if (entries.length > room || sized.length > MAX_BATCH_IMAGES) {
                 toast(`Added ${accepted.length} image(s) (max ${MAX_BATCH_IMAGES})`);
             }
             return [...prev, ...accepted];
@@ -1299,7 +1312,12 @@ export default function OCRTool() {
                                     </div>
                                     <p className="mt-4 font-bold text-slate-800">Drop images here</p>
                                     <p className="mt-1 text-sm text-slate-500">
-                                        or click to browse · PNG, JPG, WEBP · batch up to {MAX_BATCH_IMAGES}
+                                        or click to browse · PNG, JPG, WEBP, GIF · up to{" "}
+                                        {MAX_BATCH_IMAGES} images
+                                    </p>
+                                    <p className="mt-2 text-xs leading-relaxed text-slate-400">
+                                        Max ~{MAX_IMAGE_SIZE_MB} MB per image · 10 AI OCR uses/day ·
+                                        browser OCR after that
                                     </p>
                                 </>
                             )}
@@ -1383,9 +1401,10 @@ export default function OCRTool() {
                             </button>
                         </div>
                         <p className="text-xs leading-relaxed text-slate-500">
-                            Extract Text uses cloud AI OCR first (max 10 AI uses per visitor per
-                            day). If that fails or the limit is reached, it falls back to browser
-                            OCR. Provider details are in our{" "}
+                            Formats: PNG, JPG, JPEG, WEBP, GIF (max ~{MAX_IMAGE_SIZE_MB} MB each).
+                            Extract Text uses cloud AI OCR first (10 AI uses per visitor per day).
+                            If that fails or the limit is reached, it falls back to browser OCR.
+                            Images are not kept as a permanent archive — details in our{" "}
                             <Link href="/privacy-policy" className="font-semibold text-cyan-700 hover:underline">
                               Privacy Policy
                             </Link>

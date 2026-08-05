@@ -4,12 +4,12 @@ import { SITE_URL, SITE_DOMAIN, CONTACT_EMAIL, SITE_NAME } from "../lib/site";
 export const metadata = {
   title: "Cookie Policy",
   description:
-    "Cookie Policy for OCR Text Extractor — essential cookies, AdSense advertising cookies, and how to manage your preferences.",
+    "Cookie Policy for OCR Text Extractor — essential cookies, optional advertising cookies when ads are enabled, and how to manage your preferences.",
   alternates: { canonical: `${SITE_URL}/cookie-policy` },
 };
 
 export default function CookiePolicyPage() {
-  const updated = "July 14, 2026";
+  const updated = "August 5, 2026";
 
   return (
     <article className="mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-14">
@@ -52,7 +52,7 @@ export default function CookiePolicyPage() {
           </p>
           <h3 className="mt-4 text-lg font-semibold text-slate-800">Advertising (Google AdSense)</h3>
           <p className="mt-2 leading-relaxed">
-            Ads may load when you visit the site. Google and its partners may set cookies to
+            When advertising is enabled on this site, Google and its partners may set cookies to
             deliver advertisements, limit how often you see an ad, and measure ad performance.
             Choose <strong className="text-slate-800">Essential only</strong> in the cookie notice
             to opt out of advertising cookies on this site. Google may use both personalized and
@@ -66,7 +66,8 @@ export default function CookiePolicyPage() {
             >
               Google&apos;s advertising technologies
             </a>{" "}
-            documentation.
+            documentation. If advertising is not currently enabled, these advertising cookies are
+            not used.
           </p>
         </section>
 

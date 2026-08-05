@@ -8,11 +8,11 @@ import { CONTACT_EMAIL, SITE_DOMAIN, SOCIAL_LINKS } from "../lib/site";
 import { openCookieSettings } from "./CookieConsent";
 
 const navLinks = [
-  { href: "/", label: "OCR Tool" },
+  { href: "/", label: "Home" },
+  { href: "/#features", label: "Features" },
+  { href: "/how-it-works", label: "How It Works" },
   { href: "/image-to-text", label: "Tools", matchPrefix: "tools" },
   { href: "/blog", label: "Blog" },
-  { href: "/how-it-works", label: "How It Works" },
-  { href: "/faq", label: "FAQ" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];

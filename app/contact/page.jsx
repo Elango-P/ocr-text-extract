@@ -65,7 +65,7 @@ export default function ContactPage() {
           </li>
           <li>
             <strong className="text-slate-800">Privacy / data</strong> — questions about AI OCR,
-            cookies, or AdSense
+            cookies, or advertising
           </li>
           <li>
             <strong className="text-slate-800">Partnership or press</strong> — introduce yourself

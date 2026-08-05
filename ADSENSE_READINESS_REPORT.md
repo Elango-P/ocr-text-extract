@@ -1,52 +1,75 @@
-# AdSense first-approval readiness (Wave 1)
+# AdSense readiness report (Wave 3 — trust & editorial polish)
 
-Generated after implementing the Wave 1 plan. Scores are expert estimates, not guarantees from Google.
+Generated after the full master-prompt audit plus Wave 2 honesty fixes and Wave 3 polish. Scores are expert estimates, not guarantees from Google.
 
-## Scores (after Wave 1)
+## Scores (current)
 
 | Area | Score | Notes |
 |------|------:|-------|
-| AdSense readiness | **8.4 / 10** | Useful tool + legal + depth depth + EEAT |
-| SEO | **8.5 / 10** | Tools, sitemap, metadata, schema, internal links |
+| Overall quality | **7.8 / 10** | Real tool + honest limits + clearer blog framing |
+| AdSense readiness | **7.6 / 10** | Under-review wording fixed; avoid mass new posts |
+| SEO | **8.4 / 10** | Lean keywords; topic filters; sitemap intact |
 | Performance | **7.0 / 10** | Lazy OCR; measure CWV on production after deploy |
-| Accessibility | **7.5 / 10** | Labels, focus, progress, breadcrumbs; more contrast audit possible |
-| Content | **8.5 / 10** | Unique tool guides; 29 posts; 50-idea calendar |
-| Trust / EEAT | **8.0 / 10** | Author page, bylines, About/Contact, retention policy |
-| Estimated first approval chance | **~72–80%** | Never guaranteed |
+| Accessibility | **7.5 / 10** | Labels/focus; blog topic nav added |
+| Content | **8.0 / 10** | Overlap clarified; no fabricated benchmarks |
+| Trust / EEAT | **8.4 / 10** | About limitations; author on blog index |
+| Estimated first approval chance | **~62–76%** | Never guaranteed; prior low-value risk remains |
+
+## Audit snapshot (post Wave 2+3)
+
+### Critical
+- ~~AdSense claimed as live while under review~~ **Fixed (Wave 2)**
+
+### High priority
+- ~~Keyword stuffing in root metadata~~ **Fixed**
+- ~~Tool limits not near upload UI~~ **Fixed**
+- ~~Blog index looked farm-like~~ **Improved (Wave 3)**
+- ~~About missing explicit limitations~~ **Fixed (Wave 3)**
+- Overlapping posts — **partially differentiated** (accuracy vs preprocessing)
+
+### Medium / deferred
+- Do **not** publish blog calendar ideas 30–50
+- No Tamil language claim (not in product)
+- No invented benchmarks / testimonials
+- FAQ remains long (~50) — keep unless duplicates hurt
+
+## What shipped
+
+### Wave 2
+- Neutral “ads when enabled” copy across legal, FAQ, cookie banner, About
+- Trimmed keywords meta; OCR size/format/AI-limit UX; blog promo/% fixes
+
+### Wave 3
+- Blog index: editorial intro, author byline, topic filters, author in JSON-LD
+- About: honest Limitations section matching real product caps
+- Nav: Home / Features / How It Works / Tools / Blog / About / Contact
+- Homepage `#features` anchor
+- Accuracy vs preprocessing posts cross-differentiate in intros
+- `npm run lint` uses ESLint (Next 16 removed `next lint`)
 
 ## Reviewer checklist
 
-- [x] Real working OCR product on homepage and tool URLs
-- [x] Privacy, Terms (incl. no refunds), Cookie, Disclaimer, Data Retention
-- [x] Cookie consent + ads.txt plumbing
-- [x] About, Contact, Author profile
-- [x] FAQ (50) with FAQ schema
-- [x] Unique tool landing copy (no shared paragraph blocks)
-- [x] Honest PDF workflow (page images, not fake multi-page PDF upload)
-- [x] Honest AI upload / privacy wording (not “never leaves device” for AI path)
+- [x] Real working OCR on homepage + tool URLs
+- [x] Privacy, Terms, Cookie, Disclaimer, Data Retention
+- [x] Cookie consent + env-gated ads.txt / AdSense script
+- [x] About (incl. limitations), Contact, Author
+- [x] Honest advertising language (not “already covering hosting”)
+- [x] Lean tool surface; thin keyword tools redirected
 - [x] No fake AggregateRating / Review schema
-- [x] Navigation + footer legal + tool links
-- [ ] Deploy + Search Console sitemap submit
-- [ ] Confirm NEXT_PUBLIC_ADSENSE_CLIENT_ID and ads.txt live
-- [ ] Manual mobile pass on production URLs
-- [ ] Optionally warm-crawl blog posts (on-demand SSG at build under memory limits)
+- [ ] Deploy to production + Search Console
+- [ ] Wait for AdSense review — no bots, VPN farms, or click incentives
+- [ ] After approval only: sparse ad units away from OCR click targets
 
-## Remaining issues / Wave 2+
+## Remaining risks
 
-1. Blog posts use `generateStaticParams() => []` with `dynamicParams` so builds succeed on ~2GB Next static workers; posts are in sitemap and generate on first request. On a larger build host, restore full prerender.
-2. Wave 2 tool URLs still deferred: `/jpeg-to-text`, `/photo-to-text`, `/scanned-pdf-to-text`.
-3. Remaining editorial calendar ideas in `content/blog/_strategy.md` (ideas 30–50).
-4. FAQ expansion toward 100 only if answers stay non-duplicative.
-5. Dark mode, OCR history, TypeScript migration (non-approval drivers).
-6. Field address / LinkedIn / GitHub only when real profiles exist.
-7. No fabricated testimonials or ratings.
-8. Production CWV measurement (LCP/INP/CLS) after deploy with ads enabled.
+1. **Low-value perception** from many similarly structured long posts — deepen or leave alone; do not add volume.
+2. Illustrative fictional characters in some posts — keep non-numeric / non-benchmark.
+3. Approval is never guaranteed.
+4. Measure Core Web Vitals on production after deploy.
 
-## What shipped (high level)
+## Recommended next steps
 
-- 6 tool routes with embedded OCR + unique guides + schemas
-- Homepage deepen: formats, languages, audiences, comparison, privacy, related tools, latest posts
-- `/author/elango-p`, blog bylines, Person/Organization/SoftwareApplication JSON-LD
-- `/data-retention`, Terms fees/refunds clarity, FAQ ~50
-- 11 new posts + `_strategy.md` calendar (29 published total)
-- Breadcrumbs, sitemap/nav/footer updates, word/char counts, OCR progress a11y
+1. Deploy Wave 2+3.
+2. Leave the review alone; improve product usefulness if users report issues.
+3. Optionally one original post with **real** side-by-side samples you actually ran — never a batch of SEO articles.
+4. Do not invent Tamil support, accuracy %, users, or awards.

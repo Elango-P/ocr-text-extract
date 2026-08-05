@@ -141,12 +141,60 @@ export default function AboutPage() {
         </section>
 
         <section>
+          <h2 className="text-xl font-bold text-slate-900">Limitations</h2>
+          <p className="mt-3 leading-relaxed">
+            OCR Text Extractor is a free everyday utility, not an enterprise document platform.
+            Honest limits today:
+          </p>
+          <ul className="mt-3 list-disc space-y-2 pl-5 leading-relaxed">
+            <li>
+              Multi-page PDF containers are not uploaded directly — export or screenshot each page
+              as an image first
+            </li>
+            <li>
+              AI OCR is capped at 10 uses per visitor per day; browser OCR continues afterward
+            </li>
+            <li>
+              Large images over ~8 MB should be compressed or cropped before upload
+            </li>
+            <li>
+              Handwriting, dense tables, and low-light photos often need human proofreading
+            </li>
+            <li>
+              Supported document languages are the twelve listed in the tool (English, Spanish,
+              French, German, Italian, Portuguese, Russian, Chinese Simplified, Japanese, Korean,
+              Arabic, Hindi) — other scripts are not a dedicated product feature
+            </li>
+            <li>
+              Extracted text is a draft: always verify names, numbers, and anything used for money
+              or identity
+            </li>
+          </ul>
+          <p className="mt-3 leading-relaxed">
+            More detail lives on{" "}
+            <Link href="/disclaimer" className="font-semibold text-cyan-700 hover:underline">
+              Disclaimer
+            </Link>
+            ,{" "}
+            <Link href="/how-it-works" className="font-semibold text-cyan-700 hover:underline">
+              How It Works
+            </Link>
+            , and{" "}
+            <Link href="/faq" className="font-semibold text-cyan-700 hover:underline">
+              FAQ
+            </Link>
+            .
+          </p>
+        </section>
+
+        <section>
           <h2 className="text-xl font-bold text-slate-900">Advertising</h2>
           <p className="mt-3 leading-relaxed">
-            This site displays advertisements through Google AdSense to help cover hosting and
-            development costs. Ads are served by Google and are subject to Google&apos;s advertising
-            policies. We aim to keep ads unobtrusive so the OCR tool remains easy to use. Details
-            are in our Privacy Policy. Accuracy limitations are summarized in our{" "}
+            This site may display third-party advertisements (for example, through Google AdSense)
+            when advertising is enabled. Ads, when shown, are served by Google and are subject to
+            Google&apos;s advertising policies. We aim to keep any ads unobtrusive so the OCR tool
+            remains easy to use. Details are in our Privacy Policy and Cookie Policy. Accuracy
+            limitations are summarized in our{" "}
             <Link href="/disclaimer" className="font-semibold text-cyan-700 hover:underline">
               Disclaimer
             </Link>

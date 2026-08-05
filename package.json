@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "NODE_OPTIONS='--max-old-space-size=4096' next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint app --max-warnings 50",
     "list-urls": "node scripts/list-indexable-urls.mjs"
   },
   "dependencies": {

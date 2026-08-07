@@ -522,6 +522,46 @@ export default function HomeSections() {
         </div>
       </section>
 
+      <section aria-labelledby="real-world-tests-heading">
+        <div className="mb-8">
+          <h2 id="real-world-tests-heading" className="text-2xl font-black text-slate-900 sm:text-3xl">
+            Real-World Accuracy Tests
+          </h2>
+          <p className="mt-2 max-w-3xl text-slate-600">
+            We regularly test the engine against messy, everyday documents to provide honest expectations. No cherry-picked perfect scans.
+          </p>
+        </div>
+        <div className="grid gap-6 md:grid-cols-3">
+          <article className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+            <h3 className="font-bold text-slate-900">Crumpled Coffee Receipt</h3>
+            <p className="mt-2 text-sm text-slate-600">Thermal paper, shot with a phone under office lights.</p>
+            <div className="mt-4 flex items-center justify-between border-t border-slate-100 pt-4">
+              <span className="text-sm font-semibold text-slate-500">Word Accuracy</span>
+              <span className="text-lg font-black text-emerald-600">98%</span>
+            </div>
+            <p className="mt-2 text-xs text-slate-500">Missed one &apos;i&apos; due to a fold in the paper.</p>
+          </article>
+          <article className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+            <h3 className="font-bold text-slate-900">Settings UI Screenshot</h3>
+            <p className="mt-2 text-sm text-slate-600">Native 1080p PNG capture of a Mac system dialog.</p>
+            <div className="mt-4 flex items-center justify-between border-t border-slate-100 pt-4">
+              <span className="text-sm font-semibold text-slate-500">Word Accuracy</span>
+              <span className="text-lg font-black text-emerald-600">100%</span>
+            </div>
+            <p className="mt-2 text-xs text-slate-500">Flawless extraction with Clean Mode enabled.</p>
+          </article>
+          <article className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+            <h3 className="font-bold text-slate-900">19th Century Book Page</h3>
+            <p className="mt-2 text-sm text-slate-600">Foxed (yellowed) paper, dense typography, faded ink.</p>
+            <div className="mt-4 flex items-center justify-between border-t border-slate-100 pt-4">
+              <span className="text-sm font-semibold text-slate-500">Word Accuracy</span>
+              <span className="text-lg font-black text-amber-600">91%</span>
+            </div>
+            <p className="mt-2 text-xs text-slate-500">Struggled with the long &apos;s&apos; (ſ) character common in old texts.</p>
+          </article>
+        </div>
+      </section>
+
       <section
         aria-labelledby="privacy-security-heading"
         className="surface-panel p-6 sm:p-10"

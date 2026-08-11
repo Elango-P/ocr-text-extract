@@ -4,10 +4,8 @@ import {
   Shield,
   Zap,
   Globe,
-  FileImage,
   Receipt,
   BookOpen,
-  Smartphone,
   Languages,
   Lock,
   Sparkles,
@@ -221,7 +219,7 @@ const comparisonRows = [
   },
   {
     feature: "Privacy model",
-    us: "AI upload optional path (see Privacy)",
+    us: "AI first via Gemini; browser fallback (see Privacy)",
     desktop: "Often local",
     phoneApp: "Vendor-dependent",
   },
@@ -234,7 +232,7 @@ const homeFaqs = [
   },
   {
     q: "Are my images stored forever?",
-    a: "No permanent archive of uploads. AI OCR sends images for a temporary extraction request to the provider named in the Privacy Policy. See also Data Retention.",
+    a: "No permanent archive of uploads. By default, AI OCR sends images through our server to Google Gemini for that extraction request. See the Privacy Policy and Data Retention pages.",
   },
   {
     q: "What formats can I upload?",
@@ -316,10 +314,13 @@ export default function HomeSections() {
             then copy or download. Cloud AI handles many difficult layouts first; if that path is
             unavailable or you reach the daily AI allowance, browser-based Tesseract.js continues so
             you are not blocked mid-task. Deeper primers live in our{" "}
-            <Link href="/blog/what-is-ocr" className="font-semibold text-cyan-700 hover:underline">
-              What is OCR?
+            <Link
+              href="/blog/ultimate-guide-to-ocr-technology"
+              className="font-semibold text-cyan-700 hover:underline"
+            >
+              Ultimate Guide to OCR Technology
             </Link>{" "}
-            article and the{" "}
+            and the{" "}
             <Link href="/how-it-works" className="font-semibold text-cyan-700 hover:underline">
               How it works
             </Link>{" "}
@@ -364,8 +365,12 @@ export default function HomeSections() {
 
       <section aria-labelledby="benefits-heading">
         <h2 id="benefits-heading" className="text-2xl font-black text-slate-900 sm:text-3xl">
-          Benefits of free online OCR
+          Who it is for
         </h2>
+        <p className="mt-3 max-w-3xl text-slate-600">
+          Built for quick one-off jobs—not enterprise document platforms. If you need editable text
+          from a picture and cannot install software, start here.
+        </p>
         <div className="mt-6 grid gap-4 sm:grid-cols-2">
           {benefits.map((b) => (
             <article key={b.title} className="rounded-2xl border border-slate-200/70 bg-white/90 p-5 backdrop-blur-sm">
@@ -455,6 +460,8 @@ export default function HomeSections() {
               width={800}
               height={450}
               className="h-48 w-full object-cover"
+              loading="lazy"
+              sizes="(max-width: 768px) 100vw, 33vw"
             />
             <figcaption className="p-4 text-sm leading-relaxed text-slate-600">
               <span className="font-bold text-slate-900">UI screenshots</span>
@@ -469,6 +476,8 @@ export default function HomeSections() {
               width={800}
               height={600}
               className="h-48 w-full object-cover"
+              loading="lazy"
+              sizes="(max-width: 768px) 100vw, 33vw"
             />
             <figcaption className="p-4 text-sm leading-relaxed text-slate-600">
               <span className="font-bold text-slate-900">Paper documents</span>
@@ -483,6 +492,8 @@ export default function HomeSections() {
               width={600}
               height={800}
               className="h-48 w-full object-cover"
+              loading="lazy"
+              sizes="(max-width: 768px) 100vw, 33vw"
             />
             <figcaption className="p-4 text-sm leading-relaxed text-slate-600">
               <span className="font-bold text-slate-900">Phone photos</span>
@@ -522,42 +533,41 @@ export default function HomeSections() {
         </div>
       </section>
 
-      <section aria-labelledby="real-world-tests-heading">
+      <section aria-labelledby="real-world-examples-heading">
         <div className="mb-8">
-          <h2 id="real-world-tests-heading" className="text-2xl font-black text-slate-900 sm:text-3xl">
-            Real-World Accuracy Tests
+          <h2 id="real-world-examples-heading" className="text-2xl font-black text-slate-900 sm:text-3xl">
+            How everyday inputs usually behave
           </h2>
           <p className="mt-2 max-w-3xl text-slate-600">
-            We regularly test the engine against messy, everyday documents to provide honest expectations. No cherry-picked perfect scans.
+            These are qualitative expectations from typical use—not lab benchmarks or guaranteed
+            scores. Always proofread before you rely on the output.
           </p>
         </div>
         <div className="grid gap-6 md:grid-cols-3">
           <article className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-            <h3 className="font-bold text-slate-900">Crumpled Coffee Receipt</h3>
-            <p className="mt-2 text-sm text-slate-600">Thermal paper, shot with a phone under office lights.</p>
-            <div className="mt-4 flex items-center justify-between border-t border-slate-100 pt-4">
-              <span className="text-sm font-semibold text-slate-500">Word Accuracy</span>
-              <span className="text-lg font-black text-emerald-600">98%</span>
-            </div>
-            <p className="mt-2 text-xs text-slate-500">Missed one &apos;i&apos; due to a fold in the paper.</p>
+            <h3 className="font-bold text-slate-900">Thermal receipts</h3>
+            <p className="mt-2 text-sm text-slate-600">
+              Phone photos of crumpled or faded thermal paper often recover merchant names and
+              line items, but totals and tiny fees need a careful check—folds and glare hide
+              digits.
+            </p>
+            <p className="mt-4 text-xs font-semibold text-amber-700">Expect: usable draft, verify money fields</p>
           </article>
           <article className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-            <h3 className="font-bold text-slate-900">Settings UI Screenshot</h3>
-            <p className="mt-2 text-sm text-slate-600">Native 1080p PNG capture of a Mac system dialog.</p>
-            <div className="mt-4 flex items-center justify-between border-t border-slate-100 pt-4">
-              <span className="text-sm font-semibold text-slate-500">Word Accuracy</span>
-              <span className="text-lg font-black text-emerald-600">100%</span>
-            </div>
-            <p className="mt-2 text-xs text-slate-500">Flawless extraction with Clean Mode enabled.</p>
+            <h3 className="font-bold text-slate-900">UI screenshots</h3>
+            <p className="mt-2 text-sm text-slate-600">
+              Sharp PNG captures of dialogs and settings panels are among the strongest inputs.
+              Clean Mode helps reading order when the shot includes chrome and side panels.
+            </p>
+            <p className="mt-4 text-xs font-semibold text-emerald-700">Expect: usually strong on clear UI text</p>
           </article>
           <article className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-            <h3 className="font-bold text-slate-900">19th Century Book Page</h3>
-            <p className="mt-2 text-sm text-slate-600">Foxed (yellowed) paper, dense typography, faded ink.</p>
-            <div className="mt-4 flex items-center justify-between border-t border-slate-100 pt-4">
-              <span className="text-sm font-semibold text-slate-500">Word Accuracy</span>
-              <span className="text-lg font-black text-amber-600">91%</span>
-            </div>
-            <p className="mt-2 text-xs text-slate-500">Struggled with the long &apos;s&apos; (ſ) character common in old texts.</p>
+            <h3 className="font-bold text-slate-900">Older book pages</h3>
+            <p className="mt-2 text-sm text-slate-600">
+              Yellowed paper, faded ink, and historical typography (including the long s) create
+              more substitutions. Treat the extract as a starting draft for proofreading.
+            </p>
+            <p className="mt-4 text-xs font-semibold text-amber-700">Expect: more cleanup on damaged print</p>
           </article>
         </div>
       </section>
@@ -632,8 +642,18 @@ export default function HomeSections() {
         </ul>
         <p className="mt-6 text-sm text-slate-300">
           More depth:{" "}
-          <Link href="/blog/ocr-accuracy-tips" className="font-semibold text-cyan-300 hover:underline">
-            OCR accuracy tips
+          <Link
+            href="/blog/ocr-accuracy-and-limitations"
+            className="font-semibold text-cyan-300 hover:underline"
+          >
+            OCR accuracy and limitations
+          </Link>{" "}
+          and{" "}
+          <Link
+            href="/blog/improve-ocr-low-quality-images"
+            className="font-semibold text-cyan-300 hover:underline"
+          >
+            improving low-quality images
           </Link>
           .
         </p>
@@ -670,10 +690,23 @@ export default function HomeSections() {
         className="surface-panel p-6 sm:p-10"
       >
         <h2 id="compare-heading" className="text-2xl font-black text-slate-900 sm:text-3xl">
-          Comparison: when to choose this tool
+          Why this tool — and when to choose something else
         </h2>
         <p className="mt-3 max-w-3xl text-slate-600">
-          Not every job needs the same product. Use this honest snapshot — not a paid ranking.
+          Operated by{" "}
+          <Link href="/author/elango-p" className="font-semibold text-cyan-700 hover:underline">
+            Elango P
+          </Link>{" "}
+          with public{" "}
+          <Link href="/about" className="font-semibold text-cyan-700 hover:underline">
+            About
+          </Link>
+          ,{" "}
+          <Link href="/contact" className="font-semibold text-cyan-700 hover:underline">
+            Contact
+          </Link>
+          , and legal policies. We explain AI uploads instead of vague “100% private” slogans.
+          Not every job needs the same product—use this honest snapshot, not a paid ranking.
         </p>
         <div className="mt-6 overflow-x-auto">
           <table className="min-w-full text-left text-sm">
@@ -710,36 +743,11 @@ export default function HomeSections() {
             </tbody>
           </table>
         </div>
-      </section>
-
-      <section aria-labelledby="why-us-heading">
-        <h2 id="why-us-heading" className="text-2xl font-black text-slate-900 sm:text-3xl">
-          Why choose OCR Text Extractor
-        </h2>
-        <div className="mt-6 space-y-4 text-base leading-relaxed text-slate-600">
-          <p>
-            The product is operated by{" "}
-            <Link href="/author/elango-p" className="font-semibold text-cyan-700 hover:underline">
-              Elango P
-            </Link>
-            , with a clear{" "}
-            <Link href="/about" className="font-semibold text-cyan-700 hover:underline">
-              About
-            </Link>{" "}
-            page,{" "}
-            <Link href="/contact" className="font-semibold text-cyan-700 hover:underline">
-              Contact
-            </Link>{" "}
-            email, and public legal policies. We explain AI uploads instead of hiding them behind
-            vague “100% private” slogans. Format-specific guides — PNG, JPG, PDF page images,
-            handwriting — give actionable tips without cloning the same paragraph across URLs.
-          </p>
-          <p>
-            You also get practical exports (TXT, DOCX, PDF), batch upload up to ten images,
-            Clean Mode for screenshots, and a documented daily AI fair-use limit so capacity stays
-            available for more visitors.
-          </p>
-        </div>
+        <p className="mt-4 text-sm leading-relaxed text-slate-600">
+          You also get practical exports (TXT, DOCX, PDF), batch upload up to ten images, Clean Mode
+          for screenshots, and a documented daily AI fair-use limit so capacity stays available for
+          more visitors.
+        </p>
       </section>
 
       <section aria-labelledby="related-tools-heading">

@@ -161,7 +161,8 @@ export default async function BlogPostPage({ params }) {
       <div className="mt-12 rounded-2xl bg-gradient-to-br from-cyan-600 to-teal-600 p-6 text-white sm:p-8">
         <h2 className="text-xl font-bold">Try free OCR now</h2>
         <p className="mt-2 text-sm text-cyan-50">
-          Upload an image and extract editable text in your browser — no signup required.
+          Upload an image to extract editable text — AI OCR runs first (images go to Google
+          Gemini via our server); browser OCR is the fallback. No signup required.
         </p>
         <Link
           href="/#ocr-tool"

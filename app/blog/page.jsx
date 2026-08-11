@@ -28,8 +28,8 @@ const TOPIC_FILTERS = [
   { label: "All", tag: null },
   { label: "Accuracy", tag: "Accuracy" },
   { label: "Privacy", tag: "Privacy" },
-  { label: "Tutorials", tag: "Tutorial" },
-  { label: "Business", tag: "Business" },
+  { label: "Tips", tag: "Tips" },
+  { label: "AI", tag: "AI" },
   { label: "Developers", tag: "Developers" },
 ];
 
@@ -131,7 +131,7 @@ export default async function BlogIndexPage({ searchParams }) {
               >
                 <Image
                   src={post.image}
-                  alt=""
+                  alt={post.title}
                   fill
                   className="object-cover"
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
@@ -143,7 +143,9 @@ export default async function BlogIndexPage({ searchParams }) {
                   <span className="mx-1.5 text-slate-300" aria-hidden="true">
                     ·
                   </span>
-                  <span>{OPERATOR_NAME}</span>
+                  <Link href="/author/elango-p" className="font-semibold text-cyan-700 hover:underline">
+                    {OPERATOR_NAME}
+                  </Link>
                 </p>
                 <h2 className="mt-2 text-lg font-bold leading-snug text-slate-900">
                   <Link href={`/blog/${post.slug}`} className="hover:text-cyan-700">

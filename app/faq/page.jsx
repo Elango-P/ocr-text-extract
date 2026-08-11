@@ -27,7 +27,11 @@ const faqs = [
   },
   {
     q: "Do you use cloud AI for OCR?",
-    a: "Yes. Extract Text uses cloud AI OCR first (Google Gemini). If that request fails or returns no text, the tool falls back to Tesseract.js in your browser. Details are in the Privacy Policy.",
+    a: "Yes by default. Extract Text uses cloud AI OCR first (Google Gemini). If that request fails or returns no text, the tool falls back to Tesseract.js in your browser. You can also enable Local OCR only to skip the AI path. Details are in the Privacy Policy.",
+  },
+  {
+    q: "Can I keep recognition in my browser only?",
+    a: "Yes. Turn on Local OCR only in the tool. Images then stay in your tab for Tesseract.js recognition and are not sent to Gemini through our API. Engine language files may still load from the network.",
   },
   {
     q: "Is there a daily limit on AI OCR?",
@@ -35,7 +39,7 @@ const faqs = [
   },
   {
     q: "Are my images uploaded to your servers?",
-    a: "For AI OCR, the image is sent through our server to Google’s AI service for that extraction. We do not permanently store uploads as a user archive. If AI fails, browser OCR can process that attempt locally. See Privacy Policy and Data Retention.",
+    a: "For AI OCR (the default), the image is sent through our server to Google’s AI service for that extraction. We do not permanently store uploads as a user archive. Local OCR only and the browser fallback do not upload the image for recognition. See Privacy Policy and Data Retention.",
   },
   {
     q: "What happens if AI OCR fails?",

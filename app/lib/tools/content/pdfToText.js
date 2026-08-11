@@ -12,7 +12,12 @@ export const pdfToText = {
     "Image-only PDFs hide text as pictures of pages. This guide explains how to recover wording with OCR using our image extractor — honestly, including what this free tool does and does not open directly.",
   heroImage: "/images/ocr-tool-pdf.webp",
   heroAlt: "Scanned paper page representing PDF OCR workflow via page images",
-  relatedBlogSlugs: ["pdf-ocr-guide", "how-to-extract-text-from-images", "ocr-for-businesses"],
+  relatedBlogSlugs: [
+    "advanced-ocr-techniques",
+    "ocr-use-cases-and-workflows",
+    "ocr-privacy-uploaded-images",
+    "ai-ocr-vs-traditional-ocr",
+  ],
   workedExample: {
     title: "Three-page vendor scan with no text layer",
     situation:
@@ -116,10 +121,27 @@ export const pdfToText = {
       ],
     },
     {
+      id: "scanned-document-workflow",
+      heading: "Scanned document to text (honest limits)",
+      paragraphs: [
+        "A “scanned document” is usually a raster image of a page—whether it arrived inside a PDF wrapper or as a lone JPEG from a phone scan app. Recognition quality tracks capture quality: shadows from a bent spine, skew, and low resolution all lower accuracy before any engine runs.",
+        "Workflow that matches this product: confirm the PDF has no selectable text layer → export only the pages you need as PNG/JPEG → upload those images here → proofread. Do not upload the .pdf file; the extractor accepts images only.",
+        "For invoices or contracts, keep the original PDF as the system of record. OCR output is a convenience draft for search, quoting, or retyping assistance—not a certified reproduction.",
+      ],
+    },
+    {
+      id: "receipt-and-invoice-pages",
+      heading: "Receipt and invoice page images",
+      paragraphs: [
+        "Thermal receipts and busy invoice layouts often need tighter crops around the totals block. Tiny fees and tax lines are where substitutions hide. This tool extracts plain text; it does not parse line items into accounting software fields automatically.",
+        "If a receipt spans two photos, run each crop separately and merge manually. Prefer AI quota for faint thermal print; use browser fallback when you hit the daily limit.",
+      ],
+    },
+    {
       id: "conclusion",
       heading: "Recover text from scanned PDF pages",
       paragraphs: [
-        "Export the page you need as an image, upload it in the tool above, and extract. For pure camera photos of paper, see JPG to Text; for general files or screenshots, use Image to Text; for notebooks, see Handwriting to Text.",
+        "Export the page you need as an image, upload it in the tool above, and extract. For general photos and screenshots, use Image to Text; for notebooks, see Handwriting to Text.",
       ],
     },
   ],

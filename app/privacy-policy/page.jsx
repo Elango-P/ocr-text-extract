@@ -8,7 +8,7 @@ export const metadata = {
 };
 
 export default function PrivacyPage() {
-  const updated = "August 5, 2026";
+  const updated = "August 11, 2026";
 
   return (
     <article className="mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-14">
@@ -50,6 +50,13 @@ export default function PrivacyPage() {
             fails or is unavailable, recognition falls back to Tesseract.js running locally in
             your browser via WebAssembly. That fallback pass does not upload the image to our
             servers.
+          </p>
+          <p className="mt-3 leading-relaxed">
+            <strong className="text-slate-800">Local OCR only (optional):</strong> You can enable
+            a &quot;Local OCR only&quot; switch in the tool to skip the AI path entirely. In that
+            mode, recognition uses Tesseract.js in your browser tab and the image is not sent to
+            Gemini through our API. Language/WASM assets for Tesseract may still load from our site
+            or CDN endpoints; those downloads are engine files, not your uploaded image.
           </p>
         </section>
 

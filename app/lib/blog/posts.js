@@ -2,220 +2,68 @@
 
 export const posts = [
   {
-    slug: "how-to-extract-text-from-images",
-    title: "How to Extract Text from Images",
-    description:
-      "Step-by-step guide to converting screenshots, photos, and scans into editable text with free online OCR.",
-    date: "2026-06-02",
-    tags: ["Tutorial", "OCR"],
-    image: "/images/ocr-tool-general.webp",
-  },
-  {
-    slug: "ocr-vs-manual-typing",
-    title: "OCR vs Manual Typing: When to Use Each",
-    description:
-      "Compare optical character recognition with retyping documents by hand — speed, accuracy, and when OCR wins.",
-    date: "2026-06-04",
-    tags: ["Guides", "Productivity"],
-    image: "/images/ocr-blog-accuracy.webp",
-  },
-  {
-    slug: "best-ocr-tools-2026",
-    title: "Best OCR Tools in 2026",
-    description:
-      "A practical look at online and offline OCR options in 2026, including free image-to-text tools.",
-    date: "2026-06-06",
-    tags: ["Comparison", "Tools"],
-    image: "/images/ocr-blog-devtools.webp",
-  },
-  {
-    slug: "pdf-ocr-guide",
-    title: "PDF OCR Guide: Digitizing Scanned Documents",
-    description:
-      "How to get text from scanned PDFs using page images and online OCR — workflow, tips, and limits.",
-    date: "2026-06-12",
-    tags: ["PDF", "Documents"],
-    image: "/images/ocr-blog-pdf-pages.webp",
-  },
-  {
-    slug: "handwriting-ocr",
-    title: "Handwriting OCR: What Works and What Doesn’t",
-    description:
-      "Realistic expectations for handwritten text recognition, photo tips, and how to improve results.",
-    date: "2026-06-14",
-    tags: ["Handwriting", "Accuracy"],
-    image: "/images/ocr-blog-handwriting.webp",
-  },
-  {
-    slug: "ocr-accuracy-tips",
-    title: "OCR Accuracy Tips: Get Better Text Extraction",
-    description:
-      "Improve OCR results with lighting, crop, resolution, language settings, and Clean Mode.",
-    date: "2026-06-16",
-    tags: ["Accuracy", "Tips"],
-    image: "/images/ocr-blog-accuracy.webp",
-  },
-  {
-    slug: "ocr-for-students",
-    title: "OCR for Students: Notes, Handouts, and Research",
-    description:
-      "How students use image-to-text for notes, whiteboard photos, textbooks excerpts, and study workflows.",
-    date: "2026-06-20",
-    tags: ["Education", "Students"],
-    image: "/images/ocr-blog-whiteboard.webp",
-  },
-  {
-    slug: "ocr-for-businesses",
-    title: "OCR for Businesses: Receipts, Forms, and Archives",
-    description:
-      "Practical business uses of OCR — digitizing receipts, forms, and paper archives without heavy software.",
-    date: "2026-06-22",
-    tags: ["Business", "Workflows"],
-    image: "/images/ocr-blog-invoice.webp",
-  },
-  {
-    slug: "ocr-api-guide",
-    title: "OCR API Guide: Building Text Extraction Into Apps",
-    description:
-      "Overview of OCR APIs vs in-browser OCR, rate limits, privacy, and when a free web tool is enough.",
-    date: "2026-06-24",
-    tags: ["Developers", "API"],
-    image: "/images/ocr-blog-devtools.webp",
-  },
-  {
-    slug: "ocr-in-javascript",
-    title: "OCR in JavaScript: Browser-Based Text Recognition",
-    description:
-      "How JavaScript OCR works with engines like Tesseract.js, plus when to prefer cloud AI OCR.",
-    date: "2026-06-26",
-    tags: ["JavaScript", "Developers"],
-    image: "/images/ocr-screenshot-example.webp",
-  },
-  {
-    slug: "ocr-for-mobile",
-    title: "OCR for Mobile: Extract Text from Phone Photos",
-    description:
-      "Use mobile browsers to photograph documents and convert them to editable text on the go.",
-    date: "2026-06-30",
-    tags: ["Mobile", "Tutorial"],
-    image: "/images/ocr-blog-mobile.webp",
-  },
-  {
-    slug: "what-is-ocr",
-    title: "What Is OCR? Optical Character Recognition Explained",
-    description:
-      "A plain-language explanation of OCR, how it works, common use cases, and accuracy limits.",
-    date: "2026-07-02",
-    tags: ["Basics", "OCR"],
+    slug: "ultimate-guide-to-ocr-technology",
+    title: "The Ultimate Guide to OCR Technology (2026 Edition)",
+    description: "A comprehensive guide to Optical Character Recognition: how it works, tools, and best practices.",
+    date: "2026-07-15",
+    tags: ["Guides", "OCR"],
     image: "/images/ocr-document-scan.webp",
   },
   {
-    slug: "convert-screenshots-to-editable-text",
-    title: "How to Convert Screenshots to Editable Text",
-    description:
-      "Turn UI screenshots and error dialogs into copy-pasteable text with Clean Mode and OCR.",
-    date: "2026-07-06",
-    tags: ["Screenshots", "Tutorial"],
-    image: "/images/ocr-blog-screenshot.webp",
-  },
-  {
-    slug: "ocr-vs-google-lens",
-    title: "OCR vs Google Lens: When to Use Each",
-    description:
-      "Compare Google Lens quick captures with dedicated online OCR for long extracts, exports, and desktop workflows.",
-    date: "2026-07-07",
-    tags: ["Comparison", "Mobile"],
-    image: "/images/ocr-phone-photo.webp",
-  },
-  {
-    slug: "ocr-security-privacy",
-    title: "OCR Security and Privacy: What to Watch For",
-    description:
-      "Practical privacy habits for online OCR—what to upload, crop, and avoid before extracting text.",
-    date: "2026-07-08",
-    tags: ["Privacy", "Security"],
-    image: "/images/ocr-blog-privacy.webp",
-  },
-  {
-    slug: "image-preprocessing-for-ocr",
-    title: "Image Preprocessing for Better OCR",
-    description:
-      "Crop, rotate, contrast, and Clean Mode tips that improve OCR accuracy before you hit extract.",
-    date: "2026-07-08",
-    tags: ["Accuracy", "Tips"],
-    image: "/images/ocr-blog-accuracy.webp",
-  },
-  {
-    slug: "digitize-old-books-ocr",
-    title: "Digitizing Old Books with OCR",
-    description:
-      "Capture and OCR aged print carefully—rights, fragile bindings, proofreading, and realistic limits.",
-    date: "2026-07-09",
-    tags: ["Scanning", "Documents"],
-    image: "/images/ocr-document-scan.webp",
-  },
-  {
-    slug: "extract-text-from-receipts",
-    title: "Extract Text from Receipts with OCR",
-    description:
-      "Photograph and convert receipts for expenses—thermal paper tips, verification, and privacy minimization.",
-    date: "2026-07-09",
-    tags: ["Business", "Receipts"],
-    image: "/images/ocr-blog-receipt.webp",
-  },
-  {
-    slug: "invoice-ocr-workflow",
-    title: "Invoice OCR Workflow for Small Teams",
-    description:
-      "A lightweight AP-friendly workflow: prepare invoices, OCR, verify totals, and file originals safely.",
-    date: "2026-07-10",
-    tags: ["Business", "Workflows"],
+    slug: "ocr-use-cases-and-workflows",
+    title: "OCR Use Cases & Workflows (Students, Business & Everyday Life)",
+    description: "Practical applications of OCR technology for students, businesses, receipts, invoices, and handwriting.",
+    date: "2026-07-15",
+    tags: ["Use Cases", "Workflows"],
     image: "/images/ocr-blog-invoice.webp",
   },
   {
-    slug: "ocr-for-developers-guide",
-    title: "OCR for Developers: Practical Patterns",
-    description:
-      "Prototype, client-side, server batch, hybrid routing, and verification patterns for OCR features.",
-    date: "2026-07-11",
-    tags: ["Developers", "Guides"],
+    slug: "ocr-for-developers",
+    title: "OCR for Developers: APIs, Python & JavaScript",
+    description: "Technical overview of OCR implementations for developers, including APIs, Tesseract.js, and Python workflows.",
+    date: "2026-07-15",
+    tags: ["Developers", "API", "JavaScript", "Python"],
     image: "/images/ocr-blog-devtools.webp",
   },
   {
-    slug: "ocr-using-python",
-    title: "OCR Using Python: A Practical Overview",
-    description:
-      "Python OCR stacks, preprocessing, evaluation, and when to prototype with a free browser tool first.",
-    date: "2026-07-12",
-    tags: ["Python", "Developers"],
+    slug: "advanced-ocr-techniques",
+    title: "Advanced OCR Techniques: Accuracy, Preprocessing & PDFs",
+    description: "Learn how to improve OCR accuracy through image preprocessing, handling PDFs, and security best practices.",
+    date: "2026-07-15",
+    tags: ["Accuracy", "PDF", "Security"],
+    image: "/images/ocr-blog-accuracy.webp",
+  },
+  {
+    slug: "ocr-accuracy-and-limitations",
+    title: "OCR Accuracy and Limitations: What It Gets Right (and Wrong)",
+    description: "An honest look at what OCR handles well, where it struggles — print vs handwriting, tables, glare — and why proofreading still matters.",
+    date: "2026-08-08",
+    tags: ["Accuracy", "OCR", "Limitations"],
+    image: "/images/ocr-blog-accuracy.webp",
+  },
+  {
+    slug: "improve-ocr-low-quality-images",
+    title: "How to Improve OCR Results on Low-Quality Images",
+    description: "Practical fixes for lighting, cropping, resolution, glare, and compression — and when to just retake the photo.",
+    date: "2026-08-09",
+    tags: ["Tips", "Preprocessing", "Accuracy"],
     image: "/images/ocr-blog-devtools.webp",
   },
   {
-    slug: "passport-aadhaar-ocr-caution",
-    title: "Passport and ID OCR: Accuracy and Privacy Cautions",
-    description:
-      "Why casual ID OCR is risky—legal use only, verification requirements, and safer alternatives.",
-    date: "2026-07-12",
-    tags: ["Privacy", "Security"],
+    slug: "ocr-privacy-uploaded-images",
+    title: "OCR and Privacy: What Happens to Your Uploaded Images",
+    description: "How this site handles images on the AI path vs the browser fallback, what stays local, and guidance for sensitive documents.",
+    date: "2026-08-10",
+    tags: ["Privacy", "Security", "OCR"],
     image: "/images/ocr-blog-privacy.webp",
   },
   {
-    slug: "whiteboard-ocr-tips",
-    title: "Whiteboard OCR Tips for Meetings and Classes",
-    description:
-      "Photograph whiteboards for cleaner OCR—glare control, crops, AI quota, and post-meeting review.",
-    date: "2026-07-13",
-    tags: ["Education", "Tips"],
-    image: "/images/ocr-blog-whiteboard.webp",
-  },
-  {
-    slug: "free-online-ocr-checklist",
-    title: "Free Online OCR Checklist Before You Trust the Output",
-    description:
-      "A six-gate checklist to verify OCR text before you paste it into email, tickets, or filings.",
-    date: "2026-07-14",
-    tags: ["Tips", "Guides"],
-    image: "/images/ocr-blog-accuracy.webp",
+    slug: "ai-ocr-vs-traditional-ocr",
+    title: "AI OCR vs Traditional OCR: Gemini vs Tesseract Compared",
+    description: "Comparing cloud AI OCR and classical engines like Tesseract on accuracy, privacy, cost, and speed — and when each one wins.",
+    date: "2026-08-11",
+    tags: ["AI", "OCR", "Comparison"],
+    image: "/images/ocr-document-scan.webp",
   },
 ];
 

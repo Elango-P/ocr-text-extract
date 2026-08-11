@@ -127,26 +127,42 @@ export function buildHomePageJsonLd() {
         mainEntity: [
           {
             "@type": "Question",
-            name: "How do I convert an image to text for free?",
+            name: "Is OCR Text Extractor free?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Upload your image to OCR Text Extractor, choose the language, and click Extract Text. The tool converts screenshots, photos, JPG, PNG, WEBP, GIF, and scanned document images into editable text.",
+              text: "Yes. No signup and no watermarks. AI OCR is limited to 10 uses per visitor per day; browser OCR remains available after that.",
             },
           },
           {
             "@type": "Question",
-            name: "Can I extract text from screenshots, JPG, and PNG files?",
+            name: "Are my images stored forever?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Yes. The tool supports common image formats including screenshots, JPG, JPEG, PNG, WEBP, and GIF.",
+              text: "No permanent archive of uploads. By default, AI OCR sends images through our server to Google Gemini for that extraction request. See the Privacy Policy and Data Retention pages.",
             },
           },
           {
             "@type": "Question",
-            name: "Does this OCR tool support multiple languages?",
+            name: "What formats can I upload?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Yes. It supports English, Spanish, French, German, Italian, Portuguese, Russian, Chinese, Japanese, Korean, Arabic, Hindi, and more.",
+              text: "PNG, JPG, JPEG, WEBP, and GIF. For scanned PDFs, export each page as an image first.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "How accurate is OCR?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Accuracy depends on sharpness, contrast, language, and print vs handwriting. Always proofread critical numbers and names.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Does the site show ads?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Ads may appear when advertising is enabled (for example, via Google AdSense). Cookie choices are explained in the Cookie Policy.",
             },
           },
         ],

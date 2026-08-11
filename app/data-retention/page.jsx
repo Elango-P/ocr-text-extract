@@ -16,7 +16,7 @@ export const metadata = {
 };
 
 export default function DataRetentionPage() {
-  const updated = "August 5, 2026";
+  const updated = "August 11, 2026";
 
   return (
     <article className="mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-14">
@@ -54,9 +54,10 @@ export default function DataRetentionPage() {
           <h2 className="text-xl font-bold text-slate-900">Images submitted for AI OCR</h2>
           <p className="mt-3 leading-relaxed">
             When you click Extract Text and AI OCR runs, your image is transmitted through our
-            server to Google Gemini for that extraction request. We do not operate a permanent
-            personal photo library or archive of user uploads. Images are processed to return text
-            and are not retained by us as a lasting user content store.
+            server to Google Gemini for that extraction request. It exists in our server&apos;s
+            memory only for the moment it takes to forward the request and return the recognized
+            text. We do not write it to a database, a disk, or any other storage, so there is no
+            permanent archive of user uploads on our side.
           </p>
           <p className="mt-3 leading-relaxed">
             The AI provider may process data under its own terms. Do not upload highly sensitive
@@ -78,11 +79,22 @@ export default function DataRetentionPage() {
         <section>
           <h2 className="text-xl font-bold text-slate-900">Rate limiting and operational logs</h2>
           <p className="mt-3 leading-relaxed">
-            To enforce the fair daily AI OCR limit and protect the service from abuse, we may
-            temporarily retain technical identifiers (such as IP-derived or cookie-derived rate-limit
-            keys) and request metadata. These operational records are kept only as long as needed
-            for security, quota enforcement, and debugging — typically on the order of days, not as
-            a lifelong marketing profile.
+            To enforce the fair daily AI OCR allowance, our server keeps a short-lived counter in
+            memory. The counter is keyed by your IP address and the current UTC date, and it stores
+            nothing except the number of AI OCR requests made so far that day. No cookie is involved
+            in rate limiting.
+          </p>
+          <p className="mt-3 leading-relaxed">
+            These counters are discarded at UTC midnight, when the daily allowance resets, and they
+            are also lost whenever the server restarts or redeploys. Because the limit is tied to an
+            IP address rather than an individual, people sharing a network — an office, a campus, or
+            a household behind one connection — share the same daily allowance.
+          </p>
+          <p className="mt-3 leading-relaxed">
+            Separately, our hosting provider may record standard server request logs (including IP
+            addresses) as part of normal infrastructure operation, under that provider&apos;s own
+            retention schedule. We do not build advertising or marketing profiles from either the
+            rate-limit counters or those logs.
           </p>
         </section>
 

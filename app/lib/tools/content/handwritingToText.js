@@ -12,7 +12,12 @@ export const handwritingToText = {
     "Handwriting OCR is harder than printed text — and that honesty saves time. Use this page when you need a first draft from notebooks, sticky notes, or whiteboard markers, knowing you will still proofread.",
   heroImage: "/images/ocr-tool-handwriting.webp",
   heroAlt: "Handwritten notebook page photographed for handwriting OCR",
-  relatedBlogSlugs: ["handwriting-ocr", "whiteboard-ocr-tips", "ocr-for-students"],
+  relatedBlogSlugs: [
+    "ocr-use-cases-and-workflows",
+    "ocr-accuracy-and-limitations",
+    "advanced-ocr-techniques",
+    "ai-ocr-vs-traditional-ocr",
+  ],
   workedExample: {
     title: "Meeting sticky notes → shared outline",
     situation:
@@ -115,10 +120,26 @@ export const handwritingToText = {
       ],
     },
     {
+      id: "receipt-like-photos",
+      heading: "Handwritten notes on receipts and forms",
+      paragraphs: [
+        "Sometimes the hard part is not the printed merchant header—it is the handwritten tip, annotation, or signature block. Photograph that region alone with strong side lighting so ink contrast rises. Expect more errors on cursive tips than on printed SKUs.",
+        "This is not a dedicated receipt parser. You get text to edit; you still enter amounts into your expense tool yourself. For mostly printed receipts, prefer the general Image to Text page with a tight crop around the totals.",
+      ],
+    },
+    {
+      id: "print-vs-cursive",
+      heading: "Print-style vs cursive expectations",
+      paragraphs: [
+        "Block letters and ruled notebook lines usually outperform looping cursive. If teammates must rely on OCR drafts, ask for print-style notes when possible. Whiteboard markers work better when the board is wiped clean of ghosting and the camera is square-on.",
+        "Batch sticky notes one idea per photo. Mixing three notes in one frame forces the engine to invent reading order across physical objects.",
+      ],
+    },
+    {
       id: "conclusion",
       heading: "Try handwriting to text carefully",
       paragraphs: [
-        "Upload a well-lit photo of neat handwriting above and treat the result as a draft. For printed receipts and signs, JPG to Text is usually easier; for UI screenshots, use Image to Text with Clean Mode.",
+        "Upload a well-lit photo of neat handwriting above and treat the result as a draft. For printed receipts and signs, Image to Text is usually easier; for UI screenshots, use Image to Text with Clean Mode.",
       ],
     },
   ],

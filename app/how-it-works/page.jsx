@@ -47,15 +47,34 @@ export default function HowItWorksPage() {
             Choose the language of the text in your image so AI OCR and the browser fallback can
             target the right script. Enable <strong>Clean Mode</strong> when working with app
             screenshots, web pages, or documents where layout matters — it helps reconstruct
-            reading order and focus on dialog boxes in the browser fallback.
+            reading order and focus on dialog boxes in the browser fallback. Enable{" "}
+            <strong>Local OCR only</strong> when you want to skip cloud AI and keep recognition in
+            this browser tab (Tesseract.js).
           </p>
         </section>
 
         <section className="rounded-2xl border border-slate-200 bg-white p-6 sm:p-8">
-          <h2 className="text-xl font-bold text-slate-900">Step 3: Image preprocessing</h2>
+          <h2 className="text-xl font-bold text-slate-900">Step 3: OCR recognition (AI first)</h2>
           <p className="mt-3 leading-relaxed text-slate-600">
-            Before recognition, the image passes through a preprocessing pipeline designed for
-            real-world photos and screenshots:
+            By default, the tool sends your image through our server to Google Gemini for
+            extraction. That path does <strong>not</strong> apply the browser preprocessing
+            pipeline first—the image is recognized as uploaded. Details are in the{" "}
+            <Link href="/privacy-policy" className="font-semibold text-cyan-700 hover:underline">
+              Privacy Policy
+            </Link>
+            .
+          </p>
+        </section>
+
+        <section className="rounded-2xl border border-slate-200 bg-white p-6 sm:p-8">
+          <h2 className="text-xl font-bold text-slate-900">
+            Step 4: Browser fallback &amp; preprocessing
+          </h2>
+          <p className="mt-3 leading-relaxed text-slate-600">
+            If AI OCR fails, returns no text, or you have reached the daily AI allowance, the tool
+            falls back to Tesseract.js in a WebAssembly worker. On that fallback path only, the
+            image runs through a preprocessing pipeline designed for real-world photos and
+            screenshots:
           </p>
           <ul className="mt-4 space-y-2 text-slate-600">
             <li className="flex gap-2">
@@ -87,15 +106,6 @@ export default function HowItWorksPage() {
               </span>
             </li>
           </ul>
-        </section>
-
-        <section className="rounded-2xl border border-slate-200 bg-white p-6 sm:p-8">
-          <h2 className="text-xl font-bold text-slate-900">Step 4: OCR recognition</h2>
-          <p className="mt-3 leading-relaxed text-slate-600">
-            The tool first sends the image to cloud AI OCR for extraction. If that request fails
-            or returns no text, it automatically falls back to Tesseract.js in a WebAssembly
-            worker so your browser tab stays responsive and you still get a result.
-          </p>
         </section>
 
         <section className="rounded-2xl border border-slate-200 bg-white p-6 sm:p-8">

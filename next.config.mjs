@@ -58,22 +58,43 @@ const nextConfig = {
       },
       {
         source: "/blog/png-to-text-converter",
-        destination: "/blog/convert-screenshots-to-editable-text",
+        destination: "/blog/advanced-ocr-techniques",
         permanent: true,
       },
       {
         source: "/blog/image-to-text-without-installing-software",
-        destination: "/blog/how-to-extract-text-from-images",
+        destination: "/blog/ultimate-guide-to-ocr-technology",
         permanent: true,
       },
       {
         source: "/blog/scan-documents-online",
-        destination: "/blog/ocr-for-mobile",
+        destination: "/blog/ocr-use-cases-and-workflows",
         permanent: true,
       },
       {
         source: "/blog/ocr-in-nodejs",
-        destination: "/blog/ocr-for-developers-guide",
+        destination: "/blog/ocr-for-developers",
+        permanent: true,
+      },
+      // Thin content consolidation redirects (AdSense Low Value fix)
+      {
+        source: "/blog/:slug(what-is-ocr|how-to-extract-text-from-images|best-ocr-tools-2026|ocr-vs-manual-typing|ocr-vs-google-lens|free-online-ocr-checklist)",
+        destination: "/blog/ultimate-guide-to-ocr-technology",
+        permanent: true,
+      },
+      {
+        source: "/blog/:slug(ocr-for-students|ocr-for-businesses|ocr-for-mobile|extract-text-from-receipts|invoice-ocr-workflow|passport-aadhaar-ocr-caution|digitize-old-books-ocr|whiteboard-ocr-tips|handwriting-ocr)",
+        destination: "/blog/ocr-use-cases-and-workflows",
+        permanent: true,
+      },
+      {
+        source: "/blog/:slug(ocr-api-guide|ocr-for-developers-guide|ocr-in-javascript|ocr-using-python)",
+        destination: "/blog/ocr-for-developers",
+        permanent: true,
+      },
+      {
+        source: "/blog/:slug(image-preprocessing-for-ocr|ocr-accuracy-tips|pdf-ocr-guide|convert-screenshots-to-editable-text|ocr-security-privacy)",
+        destination: "/blog/advanced-ocr-techniques",
         permanent: true,
       },
     ];

@@ -69,6 +69,34 @@ function inlineToNodes(text, keyPrefix) {
   return nodes;
 }
 
+function stripInlineMarkdown(text) {
+  return text
+    .replace(/\*\*(.+?)\*\*/g, "$1")
+    .replace(/\*(.+?)\*/g, "$1")
+    .replace(/`([^`]+)`/g, "$1")
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1");
+}
+
+function slugify(text) {
+  return stripInlineMarkdown(text)
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9\s-]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
+function parseTableRow(line) {
+  const trimmed = line.trim().replace(/^\|/, "").replace(/\|$/, "");
+  return trimmed.split("|").map((cell) => cell.trim());
+}
+
+function isTableSeparator(line) {
+  const trimmed = line.trim();
+  return /^\|?\s*:?-+:?\s*(\|\s*:?-+:?\s*)*\|?$/.test(trimmed) && trimmed.includes("-");
+}
+
 function parseList(lines, start, ordered) {
   const items = [];
   let i = start;
@@ -127,9 +155,14 @@ export default function MarkdownContent({ source }) {
     }
 
     if (line.startsWith("### ")) {
+      const headingText = line.slice(4);
       elements.push(
-        <h3 key={`h3-${key++}`} className="mt-8 text-lg font-bold text-slate-900">
-          {inlineToNodes(line.slice(4), `h3-${key}`)}
+        <h3
+          key={`h3-${key++}`}
+          id={slugify(headingText)}
+          className="mt-8 scroll-mt-24 text-lg font-bold text-slate-900"
+        >
+          {inlineToNodes(headingText, `h3-${key}`)}
         </h3>
       );
       i += 1;
@@ -137,12 +170,58 @@ export default function MarkdownContent({ source }) {
     }
 
     if (line.startsWith("## ")) {
+      const headingText = line.slice(3);
       elements.push(
-        <h2 key={`h2-${key++}`} className="mt-10 text-2xl font-bold tracking-tight text-slate-900">
-          {inlineToNodes(line.slice(3), `h2-${key}`)}
+        <h2
+          key={`h2-${key++}`}
+          id={slugify(headingText)}
+          className="mt-10 scroll-mt-24 text-2xl font-bold tracking-tight text-slate-900"
+        >
+          {inlineToNodes(headingText, `h2-${key}`)}
         </h2>
       );
       i += 1;
+      continue;
+    }
+
+    if (line.trim().startsWith("|") && i + 1 < lines.length && isTableSeparator(lines[i + 1])) {
+      const headerCells = parseTableRow(line);
+      let j = i + 2;
+      const rows = [];
+      while (j < lines.length && lines[j].trim().startsWith("|")) {
+        rows.push(parseTableRow(lines[j]));
+        j += 1;
+      }
+      elements.push(
+        <div key={`table-${key++}`} className="mt-6 overflow-x-auto rounded-xl border border-slate-200">
+          <table className="w-full border-collapse text-left text-sm">
+            <thead>
+              <tr className="bg-slate-50">
+                {headerCells.map((cell, idx) => (
+                  <th
+                    key={idx}
+                    className="border-b border-slate-200 px-4 py-2 font-semibold text-slate-900"
+                  >
+                    {inlineToNodes(cell, `th-${key}-${idx}`)}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {rows.map((row, rIdx) => (
+                <tr key={rIdx} className="border-b border-slate-100 last:border-0">
+                  {row.map((cell, cIdx) => (
+                    <td key={cIdx} className="px-4 py-2 align-top text-slate-600">
+                      {inlineToNodes(cell, `td-${key}-${rIdx}-${cIdx}`)}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      );
+      i = j;
       continue;
     }
 
@@ -198,7 +277,7 @@ export default function MarkdownContent({ source }) {
     }
 
     const para = [];
-    while (i < lines.length && lines[i].trim() && !lines[i].startsWith("#") && !lines[i].startsWith("!") && !/^[-*]\s+/.test(lines[i]) && !/^\d+\.\s+/.test(lines[i]) && !lines[i].startsWith("> ")) {
+    while (i < lines.length && lines[i].trim() && !lines[i].startsWith("#") && !lines[i].startsWith("!") && !/^[-*]\s+/.test(lines[i]) && !/^\d+\.\s+/.test(lines[i]) && !lines[i].startsWith("> ") && !lines[i].trim().startsWith("|")) {
       para.push(lines[i]);
       i += 1;
     }

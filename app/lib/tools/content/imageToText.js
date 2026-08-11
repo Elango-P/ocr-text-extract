@@ -13,9 +13,10 @@ export const imageToText = {
   heroImage: "/images/ocr-tool-general.webp",
   heroAlt: "Printed document photographed for free image-to-text OCR conversion",
   relatedBlogSlugs: [
-    "how-to-extract-text-from-images",
-    "convert-screenshots-to-editable-text",
-    "what-is-ocr",
+    "ultimate-guide-to-ocr-technology",
+    "advanced-ocr-techniques",
+    "ocr-accuracy-and-limitations",
+    "improve-ocr-low-quality-images",
   ],
   workedExample: {
     title: "Error dialog → ticket comment in under a minute",
@@ -48,6 +49,10 @@ export const imageToText = {
     {
       q: "Is image to text free on this site?",
       a: "Yes. AI OCR has a fair daily cap per visitor; browser OCR remains available after that. There are no watermarks on the text you export.",
+    },
+    {
+      q: "Can I convert JPG and PNG on this page?",
+      a: "Yes. JPG/JPEG phone photos and PNG screenshots are both supported, along with WEBP and GIF stills. Crop tightly and match the language setting for best results.",
     },
     {
       q: "Can I convert multiple images at once?",
@@ -124,10 +129,42 @@ export const imageToText = {
       ],
     },
     {
+      id: "jpg",
+      heading: "JPG / JPEG photos to text",
+      paragraphs: [
+        "Most phone cameras save JPEG. That format is efficient but introduces compression artifacts around sharp letter edges—especially after messaging apps re-encode the file. For receipts, signs, and paper forms, shoot with the page filling the frame, then crop before upload. Avoid digital zoom; step closer instead.",
+        "JPEG works well when lighting is even and the page is flat. If you see blocky noise around small digits, retake at higher resolution or export a PNG from a scanner app when you can. Language selection still matters: set Hindi for Devanagari receipts, Arabic for RTL menus, and so on.",
+      ],
+    },
+    {
+      id: "png",
+      heading: "PNG screenshots and lossless captures",
+      paragraphs: [
+        "PNG is the default for many desktop and mobile screenshots. Lossless compression keeps UI fonts crisp, which is why dialog boxes and settings panels usually convert cleanly. Prefer a full-resolution capture over a photo of your monitor.",
+        "Enable Clean Mode when the screenshot includes browser chrome, sidebars, or multi-column layouts. If you only need one error string, crop that region alone—smaller inputs reduce noise and save AI quota on batch days.",
+      ],
+    },
+    {
+      id: "screenshots",
+      heading: "Screenshot to text workflow",
+      paragraphs: [
+        "Screenshots are ideal when the text already exists on screen but cannot be selected (some native apps, DRM views, or locked PDFs). Capture → crop → upload → Clean Mode → Extract Text → paste into your ticket or doc.",
+        "Dark-mode UIs sometimes invert contrast enough that fallback OCR struggles. If results look empty, try again with a light theme, or wait for the browser fallback after AI. Always verify account IDs and error codes digit-by-digit.",
+      ],
+    },
+    {
+      id: "scanned-documents",
+      heading: "Scanned document images",
+      paragraphs: [
+        "Flatbed or phone-scan apps that export PNG/JPEG page images are a good fit for this tool. Aim for roughly 200–300 DPI equivalent—enough that you can read the text yourself at 100% zoom. Skewed pages should be rotated level before extraction.",
+        "Multi-page stacks: process one page image at a time (or batch up to ten). This site does not open PDF containers directly; export pages first. For a PDF-focused walkthrough, see [/pdf-to-text](/pdf-to-text).",
+      ],
+    },
+    {
       id: "conclusion",
       heading: "Convert your image to text now",
       paragraphs: [
-        "Scroll to the tool above, upload the picture that holds the words you need, select the language, and extract. Copy the result or download TXT, DOCX, or PDF. For camera JPEG quirks see JPG to Text; for scanned PDF pages see PDF to Text; for notebooks see Handwriting to Text.",
+        "Scroll to the tool above, upload the picture that holds the words you need, select the language, and extract. Copy the result or download TXT, DOCX, or PDF. For scanned PDF page workflows see PDF to Text; for notebooks see Handwriting to Text.",
       ],
     },
   ],

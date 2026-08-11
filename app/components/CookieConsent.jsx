@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useSyncExternalStore } from "react";
+import { useCallback, useEffect, useRef, useSyncExternalStore } from "react";
 import Link from "next/link";
 
 export const COOKIE_CONSENT_STORAGE_KEY = "imgtotext-cookie-consent";
@@ -58,6 +58,7 @@ export default function CookieConsent() {
   }, []);
 
   const visible = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+  const dialogRef = useRef(null);
 
   function save(value) {
     try {
@@ -68,14 +69,59 @@ export default function CookieConsent() {
     window.dispatchEvent(new Event(COOKIE_CONSENT_EVENT));
   }
 
+  /**
+   * Keyboard users must be able to reach and leave the notice. Escape records the
+   * privacy-preserving choice rather than a silent accept, and Tab is kept inside
+   * the notice while it is open so the choice cannot be skipped past by accident.
+   */
+  useEffect(() => {
+    if (!visible) return;
+
+    const node = dialogRef.current;
+    const focusable = () =>
+      Array.from(node?.querySelectorAll("button, a[href]") || []).filter(
+        (el) => !el.hasAttribute("disabled")
+      );
+
+    focusable()[0]?.focus();
+
+    const onKeyDown = (event) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        save("essential");
+        return;
+      }
+
+      if (event.key !== "Tab") return;
+
+      const items = focusable();
+      if (!items.length) return;
+
+      const first = items[0];
+      const last = items[items.length - 1];
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [visible]);
+
   if (!visible) return null;
 
   return (
     <div
       id="cookie-consent"
+      ref={dialogRef}
       role="dialog"
+      aria-modal="true"
       aria-label="Cookie consent"
-      aria-live="polite"
       data-cookie-consent="true"
       className="fixed inset-x-0 bottom-0 z-[60] p-4 sm:p-6"
     >

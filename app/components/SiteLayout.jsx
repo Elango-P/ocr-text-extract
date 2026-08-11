@@ -56,9 +56,19 @@ export default function SiteLayout({ children }) {
     <div className="relative flex min-h-screen flex-col text-slate-900">
       <div className="site-backdrop" aria-hidden="true" />
 
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-bold focus:text-cyan-800 focus:shadow-lg focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-cyan-600"
+      >
+        Skip to main content
+      </a>
+
       <header className="sticky top-0 z-50 border-b border-slate-200/70 bg-white/75 backdrop-blur-xl supports-[backdrop-filter]:bg-white/65">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
-          <Link href="/" className="flex min-w-0 items-center gap-3 group">
+          <Link
+            href="/"
+            className="group flex min-w-0 items-center gap-3 rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-600"
+          >
             <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-500 to-teal-600 text-white shadow-md shadow-cyan-600/15 transition group-hover:scale-105">
               <ScanText className="h-5 w-5" />
             </span>
@@ -125,7 +135,9 @@ export default function SiteLayout({ children }) {
         )}
       </header>
 
-      <main className="relative flex-1">{children}</main>
+      <main id="main-content" className="relative flex-1">
+        {children}
+      </main>
 
       <footer className="relative border-t border-slate-200/80 bg-white/85 backdrop-blur-md supports-[backdrop-filter]:bg-white/75">
         <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
@@ -138,7 +150,7 @@ export default function SiteLayout({ children }) {
               </p>
             </div>
             <div>
-              <p className="text-xs font-bold uppercase tracking-wider text-slate-400">
+              <p className="text-xs font-bold uppercase tracking-wider text-slate-600">
                 Pages
               </p>
               <ul className="mt-3 space-y-2">
@@ -146,7 +158,7 @@ export default function SiteLayout({ children }) {
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="text-sm font-medium text-slate-600 hover:text-cyan-700"
+                      className="rounded text-sm font-medium text-slate-600 hover:text-cyan-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-600"
                     >
                       {link.label}
                     </Link>
@@ -155,7 +167,7 @@ export default function SiteLayout({ children }) {
               </ul>
             </div>
             <div>
-              <p className="text-xs font-bold uppercase tracking-wider text-slate-400">
+              <p className="text-xs font-bold uppercase tracking-wider text-slate-600">
                 Social
               </p>
               <ul className="mt-3 space-y-2" aria-label="Social links">
@@ -174,7 +186,7 @@ export default function SiteLayout({ children }) {
               </ul>
             </div>
             <div>
-              <p className="text-xs font-bold uppercase tracking-wider text-slate-400">
+              <p className="text-xs font-bold uppercase tracking-wider text-slate-600">
                 Contact
               </p>
               <p className="mt-3 text-sm text-slate-600">
@@ -196,11 +208,11 @@ export default function SiteLayout({ children }) {
               <button
                 type="button"
                 onClick={openCookieSettings}
-                className="mt-3 text-sm font-semibold text-cyan-700 hover:underline"
+                className="mt-3 rounded text-sm font-semibold text-cyan-700 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-600"
               >
                 Cookie Settings
               </button>
-              <p className="mt-4 text-xs text-slate-400">
+              <p className="mt-4 text-xs text-slate-500">
                 © {new Date().getFullYear()} Elango P · {SITE_DOMAIN}
               </p>
             </div>

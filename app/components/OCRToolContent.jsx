@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, useCallback } from "react";
+import React, { useState, useRef, useCallback, useEffect } from "react";
 import Link from "next/link";
 import { useDragAndDrop } from "../hooks/useDragAndDrop";
 import {
@@ -41,6 +41,7 @@ export default function OCRTool() {
     const [aiQuota, setAiQuota] = useState({ remaining: null, limit: 10 });
     const fileInputRef = useRef(null);
     const cancelRequestedRef = useRef(false);
+    const abortControllerRef = useRef(null);
 
     const activeItem = queue.find((q) => q.id === activeId) || queue[0] || null;
     const imagePreview = activeItem?.preview || null;
@@ -835,8 +836,13 @@ export default function OCRTool() {
 
     const loadImageFiles = useCallback(async (filesInput) => {
         const allowed = new Set(ACCEPTED_IMAGE_TYPES.split(","));
+        // Some operating systems hand over files with an empty MIME type on drag,
+        // so fall back to the extension before rejecting anything.
+        const isSupported = (file) =>
+            allowed.has(file.type) ||
+            (!file.type && /\.(png|jpe?g|webp|gif)$/i.test(file.name || ""));
         const raw = (Array.isArray(filesInput) ? filesInput : [filesInput]).filter(Boolean);
-        const list = raw.filter((f) => allowed.has(f.type));
+        const list = raw.filter(isSupported);
         if (!list.length) {
             toast.error("Please upload PNG, JPG, WEBP, or GIF");
             return;
@@ -888,6 +894,31 @@ export default function OCRTool() {
         multiple: true,
     });
 
+    /**
+     * Screenshots are the most common OCR input, so accept them straight from the
+     * clipboard. Ignored while typing in a field so paste still behaves normally there.
+     */
+    useEffect(() => {
+        const onPaste = (event) => {
+            const target = event.target;
+            const tag = target?.tagName;
+            if (target?.isContentEditable || tag === "INPUT" || tag === "SELECT") return;
+            if (tag === "TEXTAREA" && target.id !== "extracted-text-output") return;
+
+            const files = Array.from(event.clipboardData?.files || []).filter((file) =>
+                file.type.startsWith("image/")
+            );
+            if (!files.length) return;
+
+            event.preventDefault();
+            loadImageFiles(files);
+            toast.success(files.length > 1 ? `Pasted ${files.length} images` : "Pasted image");
+        };
+
+        window.addEventListener("paste", onPaste);
+        return () => window.removeEventListener("paste", onPaste);
+    }, [loadImageFiles]);
+
     const handleImageUpload = (e) => {
         const files = Array.from(e.target.files || []);
         if (files.length) loadImageFiles(files);
@@ -916,15 +947,36 @@ export default function OCRTool() {
         if (!parsed) throw new Error("Invalid image data");
 
         setProgress(15);
-        const response = await fetch("/api/ocr", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                imageBase64: parsed.imageBase64,
-                mimeType: parsed.mimeType,
-                language,
-            }),
-        });
+
+        const controller = new AbortController();
+        abortControllerRef.current = controller;
+
+        let response;
+        try {
+            response = await fetch("/api/ocr", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    imageBase64: parsed.imageBase64,
+                    mimeType: parsed.mimeType,
+                    language,
+                }),
+                signal: controller.signal,
+            });
+        } catch (err) {
+            if (err?.name === "AbortError" || cancelRequestedRef.current) {
+                throw Object.assign(new Error("Cancelled"), { code: "CANCELLED" });
+            }
+            throw err;
+        } finally {
+            if (abortControllerRef.current === controller) {
+                abortControllerRef.current = null;
+            }
+        }
+
+        if (cancelRequestedRef.current) {
+            throw Object.assign(new Error("Cancelled"), { code: "CANCELLED" });
+        }
 
         setProgress(55);
         const payload = await response.json().catch(() => ({}));
@@ -1134,6 +1186,9 @@ export default function OCRTool() {
                 limit: geminiResult.limit,
             };
         } catch (geminiErr) {
+            if (geminiErr?.code === "CANCELLED" || cancelRequestedRef.current) {
+                throw Object.assign(new Error("Cancelled"), { code: "CANCELLED" });
+            }
             console.warn("Gemini OCR failed, falling back to Tesseract:", geminiErr);
             if (geminiErr?.code === "RATE_LIMITED") {
                 toast("AI OCR daily limit reached (10/day) — using browser OCR…");
@@ -1233,6 +1288,7 @@ export default function OCRTool() {
                 toast.error("OCR failed");
             }
         } finally {
+            abortControllerRef.current = null;
             setIsProcessing(false);
         }
     };
@@ -1240,6 +1296,7 @@ export default function OCRTool() {
     const cancelOcr = () => {
         cancelRequestedRef.current = true;
         setStatusMessage("Cancelling…");
+        abortControllerRef.current?.abort();
     };
 
     /* ---------------- UTILITIES ---------------- */
@@ -1287,8 +1344,10 @@ export default function OCRTool() {
         <section id="ocr-tool" className="mx-auto max-w-6xl px-4 pb-8 pt-6 sm:px-6 sm:pb-10 sm:pt-8">
             <div className="ocr-tool-shell p-4 sm:p-6 lg:p-8">
             <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-8">
-                    {/* LEFT */}
-                    <div className="space-y-4">
+                    {/* LEFT — drops below the results on small screens once there is text to read */}
+                    <div
+                        className={`space-y-4 ${extractedText ? "order-2" : "order-1"} lg:order-1`}
+                    >
                         <div className="rounded-2xl border border-slate-200/70 bg-white/95 p-5 shadow-sm">
                             <label htmlFor="ocr-language" className="mb-2 block text-xs font-bold uppercase tracking-wider text-slate-500">
                                 Document language
@@ -1314,16 +1373,28 @@ export default function OCRTool() {
                         <div className="rounded-2xl border border-slate-200/70 bg-white/95 p-5 shadow-sm">
                             <div className="flex items-center justify-between gap-4">
                                 <div>
-                                    <h3 className="font-bold text-slate-900">Clean Mode</h3>
-                                    <p className="mt-1 text-xs text-slate-500">Best for screenshots &amp; documents — off for logos &amp; photos</p>
+                                    <div className="flex flex-wrap items-center gap-2">
+                                        <h3 id="clean-mode-label" className="font-bold text-slate-900">
+                                            Clean Mode
+                                        </h3>
+                                        <span className="rounded-md bg-slate-100 px-1.5 py-0.5 text-[11px] font-semibold text-slate-600">
+                                            Browser OCR only
+                                        </span>
+                                    </div>
+                                    <p id="clean-mode-description" className="mt-1 text-xs text-slate-600">
+                                        {localOnly
+                                            ? "Rebuilds reading order and drops stray symbols. Best for screenshots and documents; turn it off for logos and photos."
+                                            : "Tidies browser OCR output only. AI OCR returns its own formatting, so this changes nothing unless the AI path fails or you switch on Local OCR only."}
+                                    </p>
                                 </div>
                                 <button
                                     type="button"
                                     onClick={() => setCleanMode(!cleanMode)}
                                     role="switch"
                                     aria-checked={cleanMode}
-                                    aria-label="Toggle clean mode"
-                                    className={`relative h-7 w-12 shrink-0 rounded-full transition-colors ${cleanMode ? "bg-teal-500" : "bg-slate-300"}`}
+                                    aria-labelledby="clean-mode-label"
+                                    aria-describedby="clean-mode-description"
+                                    className={`relative h-7 w-12 shrink-0 rounded-full transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-600 ${cleanMode ? "bg-teal-500" : "bg-slate-300"} ${localOnly ? "" : "opacity-60"}`}
                                 >
                                     <div className={`absolute top-1 left-1 h-5 w-5 rounded-full bg-white shadow transition-transform ${cleanMode ? "translate-x-5" : ""}`} />
                                 </button>
@@ -1333,8 +1404,10 @@ export default function OCRTool() {
                         <div className="rounded-2xl border border-slate-200/70 bg-white/95 p-5 shadow-sm">
                             <div className="flex items-center justify-between gap-4">
                                 <div>
-                                    <h3 className="font-bold text-slate-900">Local OCR only</h3>
-                                    <p className="mt-1 text-xs text-slate-500">
+                                    <h3 id="local-only-label" className="font-bold text-slate-900">
+                                        Local OCR only
+                                    </h3>
+                                    <p id="local-only-description" className="mt-1 text-xs text-slate-600">
                                         Skip cloud AI — run Tesseract.js in this tab (no image upload to Gemini)
                                     </p>
                                 </div>
@@ -1343,8 +1416,9 @@ export default function OCRTool() {
                                     onClick={() => setLocalOnly(!localOnly)}
                                     role="switch"
                                     aria-checked={localOnly}
-                                    aria-label="Toggle local OCR only"
-                                    className={`relative h-7 w-12 shrink-0 rounded-full transition-colors ${localOnly ? "bg-teal-500" : "bg-slate-300"}`}
+                                    aria-labelledby="local-only-label"
+                                    aria-describedby="local-only-description"
+                                    className={`relative h-7 w-12 shrink-0 rounded-full transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-600 ${localOnly ? "bg-teal-500" : "bg-slate-300"}`}
                                 >
                                     <div className={`absolute top-1 left-1 h-5 w-5 rounded-full bg-white shadow transition-transform ${localOnly ? "translate-x-5" : ""}`} />
                                 </button>
@@ -1388,11 +1462,11 @@ export default function OCRTool() {
                                         <Upload className="h-7 w-7" aria-hidden="true" />
                                     </div>
                                     <p className="mt-4 font-bold text-slate-800">Drop images here</p>
-                                    <p className="mt-1 text-sm text-slate-500">
-                                        or click to browse · PNG, JPG, WEBP, GIF · up to{" "}
-                                        {MAX_BATCH_IMAGES} images
+                                    <p className="mt-1 text-sm text-slate-600">
+                                        or click to browse, or paste a screenshot with Ctrl+V ·
+                                        PNG, JPG, WEBP, GIF · up to {MAX_BATCH_IMAGES} images
                                     </p>
-                                    <p className="mt-2 text-xs leading-relaxed text-slate-400">
+                                    <p className="mt-2 text-xs leading-relaxed text-slate-500">
                                         Max ~{MAX_IMAGE_SIZE_MB} MB per image · 10 AI OCR uses/day ·
                                         browser OCR after that
                                     </p>
@@ -1414,8 +1488,10 @@ export default function OCRTool() {
                                         <button
                                             type="button"
                                             onClick={() => setActiveId(item.id)}
-                                            className="block"
+                                            className="block focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-600"
                                             title={item.name}
+                                            aria-label={`Preview ${item.name}`}
+                                            aria-current={item.id === activeId}
                                         >
                                             <img
                                                 src={item.preview}
@@ -1426,7 +1502,7 @@ export default function OCRTool() {
                                         <button
                                             type="button"
                                             onClick={() => removeQueueItem(item.id)}
-                                            className="absolute right-0.5 top-0.5 flex h-5 w-5 items-center justify-center rounded bg-slate-900/70 text-[10px] font-bold text-white"
+                                            className="absolute right-0.5 top-0.5 flex h-5 w-5 items-center justify-center rounded bg-slate-900/70 text-[10px] font-bold text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-600"
                                             aria-label={`Remove ${item.name}`}
                                         >
                                             ×
@@ -1548,7 +1624,7 @@ export default function OCRTool() {
                             </div>
                         )}
                         {!isProcessing && statusMessage && (
-                            <p className="text-xs font-medium text-slate-600" aria-live="polite">
+                            <p className="text-xs font-medium text-slate-600">
                                 {statusMessage}{" "}
                                 <Link href="/disclaimer" className="text-cyan-700 hover:underline">
                                     Accuracy disclaimer
@@ -1558,7 +1634,11 @@ export default function OCRTool() {
                     </div>
 
                     {/* RIGHT */}
-                    <div className="flex flex-col rounded-2xl border border-slate-200/70 bg-white/95 p-5 shadow-sm sm:p-6">
+                    <div
+                        className={`flex flex-col rounded-2xl border border-slate-200/70 bg-white/95 p-5 shadow-sm sm:p-6 ${
+                            extractedText ? "order-1" : "order-2"
+                        } lg:order-2`}
+                    >
                         <div className="mb-4 flex items-start justify-between gap-3">
                             <div>
                                 <div className="flex items-center gap-2">
@@ -1571,7 +1651,7 @@ export default function OCRTool() {
                                         <span className={`font-bold ${confidence >= 80 ? "text-teal-600" : confidence >= 60 ? "text-amber-600" : "text-rose-600"}`}>
                                             {confidence}%
                                         </span>
-                                        <span className="block text-[11px] font-normal text-slate-400">
+                                        <span className="block text-[11px] font-normal text-slate-500">
                                             Browser-OCR estimate only — not a certified accuracy rate.
                                         </span>
                                     </p>
@@ -1633,7 +1713,7 @@ export default function OCRTool() {
                             value={extractedText}
                             readOnly
                             aria-label="Extracted text output"
-                            className="min-h-[420px] w-full flex-1 resize-none rounded-xl border border-slate-200 bg-slate-50 p-4 font-mono text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                            className="min-h-[220px] w-full flex-1 resize-none rounded-xl border border-slate-200 bg-slate-50 p-4 font-mono text-sm text-slate-900 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 sm:min-h-[420px]"
                             placeholder="Your extracted text will appear here after processing..."
                         />
                     </div>

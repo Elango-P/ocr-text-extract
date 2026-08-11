@@ -1,4 +1,4 @@
-This is a measured head-to-head of the two engines behind [OCR Text Extractor](https://imgtotext.in): **Gemini 2.5 Flash** (the site’s default AI OCR path) and **Tesseract 5 LSTM** (the classical engine the browser fallback is built on). We published the corpus, the ground-truth text, the raw outputs, and the character error rates — not marketing claims.
+This is a measured head-to-head of the two engines behind [OCR Text Extractor](https://imgtotext.in): **Google Gemini** (the site’s default AI OCR path) and **Tesseract 5 LSTM** (the classical engine the browser fallback is built on). We published the corpus, the ground-truth text, the raw outputs, and the character error rates — not marketing claims.
 
 ![OCR benchmark corpus: Gemini vs Tesseract CER](/images/ocr-blog-benchmark.webp)
 
@@ -13,7 +13,7 @@ Over **12 synthetic English images** across six categories:
 
 | Engine | Mean character error rate (CER) |
 |---|---|
-| Gemini 2.5 Flash | **3.05%** |
+| Google Gemini | **3.05%** |
 | Tesseract 5.5.0 (OEM 1 / LSTM, PSM 3) | **19.75%** |
 
 CER is edit distance divided by ground-truth length after a documented whitespace normalization. Lower is better. These are not “accuracy %” marketing scores, and they are not industry-wide averages — they describe this fixed corpus only.
@@ -45,7 +45,7 @@ All samples are synthetic. No customer documents were used.
 
 ### Engines and prompts
 
-- **Gemini:** same extraction prompt and generation settings as [`app/api/ocr/route.js`](https://imgtotext.in/how-it-works) on this site (`temperature: 0.1`, English language hint, “extract only / no commentary”). Model: `gemini-2.5-flash`. Images sent as PNG base64.
+- **Gemini:** same extraction prompt and generation settings as [`app/api/ocr/route.js`](https://imgtotext.in/how-it-works) on this site (`temperature: 0.1`, English language hint, “extract only / no commentary”). Uses the same Google Gemini model as the live AI OCR path. Images sent as PNG base64.
 - **Tesseract:** system `tesseract 5.5.0`, `-l eng --oem 1 --psm 3 -c user_defined_dpi=300`. OEM 1 matches the site’s `OEM.LSTM_ONLY` intent.
 
 **Important difference vs the live tool:** the site’s browser path runs extra preprocessing (upscale, contrast, thresholding, optional crop) before Tesseract.js. **This benchmark feeds each engine the raw PNG** so the comparison is about recognition under identical pixels, not about our preprocessor. Treat the Tesseract column as a lower bound on what classical OCR can do here without help.

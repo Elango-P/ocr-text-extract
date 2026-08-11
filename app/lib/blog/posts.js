@@ -82,7 +82,7 @@ export const posts = [
     title: "OCR Engine Benchmark: Gemini vs Tesseract (Measured CER)",
     seoTitle: "OCR Benchmark: Gemini vs Tesseract Character Error Rates",
     description:
-      "Original 12-image benchmark of Gemini 2.5 Flash vs Tesseract 5 LSTM with published corpus, ground truth, and per-category character error rates.",
+      "Original 12-image benchmark of Google Gemini vs Tesseract 5 LSTM with published corpus, ground truth, and per-category character error rates.",
     date: "2026-08-11",
     tags: ["Benchmark", "AI", "OCR", "Accuracy", "Comparison"],
     image: "/images/ocr-blog-benchmark.webp",

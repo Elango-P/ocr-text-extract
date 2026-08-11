@@ -406,7 +406,9 @@ def run_tesseract(image: Path) -> str:
     return proc.stdout.strip()
 
 
-def run_gemini(api_key: str, image: Path) -> str:
+def run_gemini(api_key: str, image: Path, retries: int = 6) -> str:
+    import time
+
     b64 = base64.b64encode(image.read_bytes()).decode("ascii")
     prompt = (
         "You are an OCR engine. Extract all readable text from the image. "
@@ -431,30 +433,38 @@ def run_gemini(api_key: str, image: Path) -> str:
         f"https://generativelanguage.googleapis.com/v1beta/models/"
         f"{MODEL}:generateContent"
     )
-    req = urllib.request.Request(
-        url,
-        data=json.dumps(body).encode("utf-8"),
-        headers={
-            "Content-Type": "application/json",
-            "x-goog-api-key": api_key,
-        },
-        method="POST",
-    )
-    try:
-        with urllib.request.urlopen(req, timeout=90) as resp:
-            payload = json.loads(resp.read().decode("utf-8"))
-    except urllib.error.HTTPError as err:
-        detail = err.read().decode("utf-8", errors="replace")
-        raise RuntimeError(f"Gemini HTTP {err.code}: {detail[:500]}") from err
-
-    text = "".join(
-        part.get("text", "")
-        for cand in payload.get("candidates") or []
-        for part in ((cand.get("content") or {}).get("parts") or [])
-    ).strip()
-    if not text or text == "NO_TEXT_FOUND":
-        return ""
-    return text
+    last_err: Exception | None = None
+    for attempt in range(retries):
+        req = urllib.request.Request(
+            url,
+            data=json.dumps(body).encode("utf-8"),
+            headers={
+                "Content-Type": "application/json",
+                "x-goog-api-key": api_key,
+            },
+            method="POST",
+        )
+        try:
+            with urllib.request.urlopen(req, timeout=90) as resp:
+                payload = json.loads(resp.read().decode("utf-8"))
+            text = "".join(
+                part.get("text", "")
+                for cand in payload.get("candidates") or []
+                for part in ((cand.get("content") or {}).get("parts") or [])
+            ).strip()
+            if not text or text == "NO_TEXT_FOUND":
+                return ""
+            return text
+        except urllib.error.HTTPError as err:
+            detail = err.read().decode("utf-8", errors="replace")
+            last_err = RuntimeError(f"Gemini HTTP {err.code}: {detail[:500]}")
+            if err.code != 429 or attempt == retries - 1:
+                raise last_err from err
+            # Free-tier RPM is tight; wait and retry.
+            wait = 25 + attempt * 10
+            print(f"    Gemini 429 — waiting {wait}s (attempt {attempt + 1}/{retries})")
+            time.sleep(wait)
+    raise last_err or RuntimeError("Gemini failed")
 
 
 def mean(values: list[float]) -> float:
@@ -487,10 +497,14 @@ def main() -> int:
         )
 
     print("Running Tesseract + Gemini…")
-    for item in ground_truth:
+    import time
+
+    for i, item in enumerate(ground_truth):
         image = OUT / item["file"]
         print(f"  {item['id']}")
         tess = run_tesseract(image)
+        if i > 0:
+            time.sleep(4)  # stay under free-tier request rate
         gem = run_gemini(api_key, image)
         row = {
             "id": item["id"],

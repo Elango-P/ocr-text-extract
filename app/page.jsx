@@ -7,8 +7,7 @@ import { SITE_URL, ADSENSE_SLOT_DISPLAY } from "./lib/site";
 
 export const metadata = {
   title: {
-    absolute:
-      "Free Online OCR Image to Text Converter | Extract Text from Images",
+    absolute: "Free Image to Text Converter — Online OCR Tool",
   },
   description:
     "Extract text from images, screenshots, JPG, PNG, and scanned page photos with free online OCR. AI extraction, browser fallback, 12+ languages, no signup.",

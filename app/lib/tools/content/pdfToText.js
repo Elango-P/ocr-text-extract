@@ -29,7 +29,7 @@ export const pdfToText = {
       "Proofread clause numbers; keep the original PDF as the system of record.",
     ],
     result:
-      "Page 2 returned readable terms; a faint stamp over one date needed a manual fix. Pages 1 and 3 were skipped to save time and AI quota.",
+      "A cleanly exported page of printed terms should return readable text. Expect to fix anything a stamp or signature overlaps, and skip the pages you do not need so they do not consume your daily AI allowance.",
     lesson:
       "This site does not ingest multi-page PDF containers. Export the page image you need. Skip pages you do not need.",
   },
@@ -121,27 +121,10 @@ export const pdfToText = {
       ],
     },
     {
-      id: "scanned-document-workflow",
-      heading: "Scanned document to text (honest limits)",
-      paragraphs: [
-        "A “scanned document” is usually a raster image of a page—whether it arrived inside a PDF wrapper or as a lone JPEG from a phone scan app. Recognition quality tracks capture quality: shadows from a bent spine, skew, and low resolution all lower accuracy before any engine runs.",
-        "Workflow that matches this product: confirm the PDF has no selectable text layer → export only the pages you need as PNG/JPEG → upload those images here → proofread. Do not upload the .pdf file; the extractor accepts images only.",
-        "For invoices or contracts, keep the original PDF as the system of record. OCR output is a convenience draft for search, quoting, or retyping assistance—not a certified reproduction.",
-      ],
-    },
-    {
-      id: "receipt-and-invoice-pages",
-      heading: "Receipt and invoice page images",
-      paragraphs: [
-        "Thermal receipts and busy invoice layouts often need tighter crops around the totals block. Tiny fees and tax lines are where substitutions hide. This tool extracts plain text; it does not parse line items into accounting software fields automatically.",
-        "If a receipt spans two photos, run each crop separately and merge manually. Prefer AI quota for faint thermal print; use browser fallback when you hit the daily limit.",
-      ],
-    },
-    {
       id: "conclusion",
       heading: "Recover text from scanned PDF pages",
       paragraphs: [
-        "Export the page you need as an image, upload it in the tool above, and extract. For general photos and screenshots, use Image to Text; for notebooks, see Handwriting to Text.",
+        "Export the page you need as an image, upload it in the tool above, and extract. If you are producing those pages on a flatbed rather than pulling them out of a PDF, Scanned Document to Text covers the scanner settings that change accuracy. For till receipts and expense slips, Receipt to Text deals with thermal paper. For screen captures, see Screenshot to Text, and for notebooks, Handwriting to Text.",
       ],
     },
   ],

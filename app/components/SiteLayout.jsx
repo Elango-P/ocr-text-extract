@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { ScanText, Menu, X } from "lucide-react";
 import { useState } from "react";
 import { CONTACT_EMAIL, SITE_DOMAIN, SOCIAL_LINKS } from "../lib/site";
+import { TOOL_ROUTES } from "../lib/tools/toolRoutes";
 import { openCookieSettings } from "./CookieConsent";
 
 const navLinks = [
@@ -17,11 +18,7 @@ const navLinks = [
   { href: "/contact", label: "Contact" },
 ];
 
-const TOOL_PATHS = [
-  "/image-to-text",
-  "/pdf-to-text",
-  "/handwriting-to-text",
-];
+const TOOL_PATHS = TOOL_ROUTES.map((t) => t.path);
 
 function isNavActive(pathname, link) {
   if (link.matchPrefix === "tools") {
@@ -32,9 +29,7 @@ function isNavActive(pathname, link) {
 }
 
 const footerLinks = [
-  { href: "/image-to-text", label: "Image to Text" },
-  { href: "/pdf-to-text", label: "PDF to Text" },
-  { href: "/handwriting-to-text", label: "Handwriting OCR" },
+  ...TOOL_ROUTES.map((t) => ({ href: t.path, label: t.label })),
   { href: "/blog", label: "Blog" },
   { href: "/how-it-works", label: "How It Works" },
   { href: "/faq", label: "FAQ" },

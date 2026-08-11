@@ -3,7 +3,7 @@ import { SITE_URL, SITE_DOMAIN, CONTACT_EMAIL } from "../lib/site";
 export const metadata = {
   title: "Terms of Use",
   description:
-    "Terms of Use for OCR Text Extractor — rules and disclaimers for using our free online OCR tool.",
+    "Terms of Use for OCR Text Extractor: acceptable use of the free OCR tool, accuracy disclaimers, limits on liability, and how these terms may change.",
   alternates: { canonical: `${SITE_URL}/terms` },
 };
 

@@ -50,6 +50,13 @@ const nextConfig = {
         destination: "/image-to-text",
         permanent: true,
       },
+      // Invoices are covered in depth on the receipt page rather than given a
+      // near-duplicate page of their own.
+      {
+        source: "/invoice-to-text",
+        destination: "/receipt-to-text",
+        permanent: true,
+      },
       // Overlapping blog→canonical tool / stronger article redirects
       {
         source: "/blog/jpg-to-text-converter",

@@ -29,7 +29,7 @@ export const imageToText = {
       "Paste into the ticket; glance at the account ID digits before submit.",
     ],
     result:
-      "AI OCR returned the dialog body correctly on the first try; one stray bullet character needed a delete. Total time under a minute versus retyping.",
+      "Dialog body text of this kind usually comes back cleanly, with the occasional stray bullet or separator character to delete. The work that remains is a quick read-through rather than retyping.",
     lesson:
       "Tight crops beat sending an entire desktop wallpaper. Clean Mode helps UI text; leave it off for stylized marketing screenshots and compare.",
   },

@@ -171,10 +171,64 @@ function escapePdfText(s) {
   return String(s).replace(/\\/g, "\\\\").replace(/\(/g, "\\(").replace(/\)/g, "\\)");
 }
 
+/**
+ * Unicode punctuation that WinAnsi (CP1252) can represent at 0x80-0x9F.
+ *
+ * OCR output is full of curly quotes, en/em dashes and ellipses, so mapping
+ * these is what keeps ordinary English text from filling up with "?".
+ */
+const CP1252_EXTRAS = new Map(
+  Object.entries({
+    "\u20AC": 0x80, "\u201A": 0x82, "\u0192": 0x83, "\u201E": 0x84,
+    "\u2026": 0x85, "\u2020": 0x86, "\u2021": 0x87, "\u02C6": 0x88,
+    "\u2030": 0x89, "\u0160": 0x8a, "\u2039": 0x8b, "\u0152": 0x8c,
+    "\u017D": 0x8e, "\u2018": 0x91, "\u2019": 0x92, "\u201C": 0x93,
+    "\u201D": 0x94, "\u2022": 0x95, "\u2013": 0x96, "\u2014": 0x97,
+    "\u02DC": 0x98, "\u2122": 0x99, "\u0161": 0x9a, "\u203A": 0x9b,
+    "\u0153": 0x9c, "\u017E": 0x9e, "\u0178": 0x9f,
+  })
+);
+
+/** The byte that renders `ch`, or null if WinAnsi has no glyph for it. */
+function cp1252Byte(ch) {
+  const code = ch.charCodeAt(0);
+  // 0x80-0x9F are control codes in Latin-1 and print as nothing useful.
+  if (code <= 0x7f || (code >= 0xa0 && code <= 0xff)) return code;
+  return CP1252_EXTRAS.get(ch) ?? null;
+}
+
 function toPdfSafe(line) {
   return Array.from(line)
-    .map((ch) => (ch.charCodeAt(0) <= 255 ? ch : "?"))
+    .map((ch) => {
+      const byte = cp1252Byte(ch);
+      return byte === null ? "?" : String.fromCharCode(byte);
+    })
     .join("");
+}
+
+/**
+ * Characters the PDF export cannot represent.
+ *
+ * The exported PDF uses the base Helvetica font, which covers only WinAnsi, so
+ * Devanagari, Tamil, CJK and emoji are written as "?". TXT and DOCX are UTF-8
+ * and keep every character, so callers warn and point users there instead of
+ * silently mangling the download.
+ */
+export function findPdfUnsupportedChars(text) {
+  const unsupported = new Set();
+  for (const ch of String(text || "")) {
+    if (cp1252Byte(ch) === null) unsupported.add(ch);
+  }
+  return [...unsupported];
+}
+
+/** PDF byte strings are Latin-1, so one char is one byte. */
+function latin1Bytes(str) {
+  const out = new Uint8Array(str.length);
+  for (let i = 0; i < str.length; i++) {
+    out[i] = str.charCodeAt(i) & 0xff;
+  }
+  return out;
 }
 
 /** Minimal multi-page PDF for plain text (Helvetica / Latin-1 best-effort). */
@@ -206,12 +260,13 @@ export function downloadPdf(text, filename = "extracted-text.pdf") {
   }
   if (!pages.length) pages.push([" "]);
 
-  const encoder = new TextEncoder();
   const chunks = [];
   const offsets = [0];
+  let byteLength = 0;
 
   const push = (str) => {
     chunks.push(str);
+    byteLength += str.length;
   };
 
   push("%PDF-1.4\n");
@@ -219,7 +274,11 @@ export function downloadPdf(text, filename = "extracted-text.pdf") {
   const objBodies = [];
 
   // 1: font
-  objBodies.push("<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>");
+  // WinAnsiEncoding is required for bytes above 0x7F to render as Latin-1
+  // accents rather than the Type 1 StandardEncoding glyphs.
+  objBodies.push(
+    "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>"
+  );
 
   const contentObjNumbers = [];
   for (const pageLines of pages) {
@@ -233,7 +292,7 @@ export function downloadPdf(text, filename = "extracted-text.pdf") {
     ops.push("ET");
     const stream = ops.join("\n");
     contentObjNumbers.push(objBodies.length + 1);
-    objBodies.push(`<< /Length ${encoder.encode(stream).length} >>\nstream\n${stream}\nendstream`);
+    objBodies.push(`<< /Length ${stream.length} >>\nstream\n${stream}\nendstream`);
   }
 
   // Placeholder pages parent — we'll insert after knowing pages id
@@ -261,11 +320,11 @@ export function downloadPdf(text, filename = "extracted-text.pdf") {
   objBodies.push(`<< /Type /Catalog /Pages ${pagesObjNum} 0 R >>`);
 
   for (let i = 0; i < objBodies.length; i++) {
-    offsets.push(encoder.encode(chunks.join("")).length);
+    offsets.push(byteLength);
     push(`${i + 1} 0 obj\n${objBodies[i]}\nendobj\n`);
   }
 
-  const xrefPos = encoder.encode(chunks.join("")).length;
+  const xrefPos = byteLength;
   push(`xref\n0 ${objBodies.length + 1}\n`);
   push("0000000000 65535 f \n");
   for (let i = 1; i <= objBodies.length; i++) {
@@ -274,6 +333,8 @@ export function downloadPdf(text, filename = "extracted-text.pdf") {
   push(`trailer\n<< /Size ${objBodies.length + 1} /Root ${catalogNum} 0 R >>\n`);
   push(`startxref\n${xrefPos}\n%%EOF`);
 
-  const blob = new Blob([chunks.join("")], { type: "application/pdf" });
+  const blob = new Blob([latin1Bytes(chunks.join(""))], {
+    type: "application/pdf",
+  });
   triggerDownload(blob, filename);
 }

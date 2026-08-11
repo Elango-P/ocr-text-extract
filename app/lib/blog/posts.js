@@ -1,10 +1,15 @@
-/** Blog post metadata. Bodies live in /content/blog/{slug}.md */
+/**
+ * Blog post metadata. Bodies live in /content/blog/{slug}.md
+ *
+ * `updated` is only set when a post's text has genuinely been revised, so the
+ * dateModified we publish in structured data reflects real edits.
+ */
 
 export const posts = [
   {
     slug: "ultimate-guide-to-ocr-technology",
     title: "The Ultimate Guide to OCR Technology (2026 Edition)",
-    description: "A comprehensive guide to Optical Character Recognition: how it works, tools, and best practices.",
+    description: "A complete guide to Optical Character Recognition: how OCR works under the hood, which tools to pick, and the practices that raise accuracy.",
     date: "2026-07-15",
     tags: ["Guides", "OCR"],
     image: "/images/ocr-document-scan.webp",
@@ -12,32 +17,37 @@ export const posts = [
   {
     slug: "ocr-use-cases-and-workflows",
     title: "OCR Use Cases & Workflows (Students, Business & Everyday Life)",
-    description: "Practical applications of OCR technology for students, businesses, receipts, invoices, and handwriting.",
+    seoTitle: "OCR Use Cases & Workflows for Students and Business",
+    description: "Practical ways to use OCR: lecture slides and notes for students, receipts and invoices for business, plus handwriting workflows.",
     date: "2026-07-15",
+    updated: "2026-08-11",
     tags: ["Use Cases", "Workflows"],
     image: "/images/ocr-blog-invoice.webp",
   },
   {
     slug: "ocr-for-developers",
     title: "OCR for Developers: APIs, Python & JavaScript",
-    description: "Technical overview of OCR implementations for developers, including APIs, Tesseract.js, and Python workflows.",
+    description: "A technical overview of OCR for developers: choosing between hosted APIs and self-hosted engines, running Tesseract.js in the browser, and Python workflows.",
     date: "2026-07-15",
+    updated: "2026-08-11",
     tags: ["Developers", "API", "JavaScript", "Python"],
     image: "/images/ocr-blog-devtools.webp",
   },
   {
     slug: "advanced-ocr-techniques",
     title: "Advanced OCR Techniques: Accuracy, Preprocessing & PDFs",
-    description: "Learn how to improve OCR accuracy through image preprocessing, handling PDFs, and security best practices.",
+    description: "How to lift OCR accuracy with image preprocessing such as thresholding and deskewing, handle scanned PDFs page by page, and keep sensitive files safe.",
     date: "2026-07-15",
+    updated: "2026-08-11",
     tags: ["Accuracy", "PDF", "Security"],
-    image: "/images/ocr-blog-accuracy.webp",
+    image: "/images/ocr-blog-preprocessing.webp",
   },
   {
     slug: "ocr-accuracy-and-limitations",
     title: "OCR Accuracy and Limitations: What It Gets Right (and Wrong)",
     description: "An honest look at what OCR handles well, where it struggles — print vs handwriting, tables, glare — and why proofreading still matters.",
     date: "2026-08-08",
+    updated: "2026-08-11",
     tags: ["Accuracy", "OCR", "Limitations"],
     image: "/images/ocr-blog-accuracy.webp",
   },
@@ -47,13 +57,14 @@ export const posts = [
     description: "Practical fixes for lighting, cropping, resolution, glare, and compression — and when to just retake the photo.",
     date: "2026-08-09",
     tags: ["Tips", "Preprocessing", "Accuracy"],
-    image: "/images/ocr-blog-devtools.webp",
+    image: "/images/ocr-blog-mobile.webp",
   },
   {
     slug: "ocr-privacy-uploaded-images",
     title: "OCR and Privacy: What Happens to Your Uploaded Images",
     description: "How this site handles images on the AI path vs the browser fallback, what stays local, and guidance for sensitive documents.",
     date: "2026-08-10",
+    updated: "2026-08-11",
     tags: ["Privacy", "Security", "OCR"],
     image: "/images/ocr-blog-privacy.webp",
   },
@@ -63,7 +74,7 @@ export const posts = [
     description: "Comparing cloud AI OCR and classical engines like Tesseract on accuracy, privacy, cost, and speed — and when each one wins.",
     date: "2026-08-11",
     tags: ["AI", "OCR", "Comparison"],
-    image: "/images/ocr-document-scan.webp",
+    image: "/images/ocr-blog-ai-vs-tesseract.webp",
   },
 ];
 

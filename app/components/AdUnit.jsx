@@ -55,7 +55,16 @@ export default function AdUnit({ slot, className = "" }) {
   if (!ready) return null;
 
   return (
-    <div className={`w-full ${className}`.trim()} aria-hidden="true">
+    // Not aria-hidden: the injected ad frame is focusable, and hiding a
+    // focusable region from the accessibility tree leaves screen-reader users
+    // tabbing into something unannounced.
+    <aside
+      className={`w-full ${className}`.trim()}
+      aria-label="Advertisement"
+    >
+      <p className="mb-1 text-center text-[10px] font-medium uppercase tracking-widest text-slate-400">
+        Advertisement
+      </p>
       <ins
         ref={insRef}
         className="adsbygoogle"
@@ -65,6 +74,6 @@ export default function AdUnit({ slot, className = "" }) {
         data-ad-format="auto"
         data-full-width-responsive="true"
       />
-    </div>
+    </aside>
   );
 }

@@ -24,8 +24,13 @@ import { getAllPosts } from "../../lib/blog/posts";
 /** Lightweight tool link list — avoid importing full tool content modules on the homepage. */
 const relatedToolLinks = [
   { href: "/image-to-text", label: "Image to Text Converter" },
+  { href: "/screenshot-to-text", label: "Screenshot to Text" },
+  { href: "/receipt-to-text", label: "Receipt to Text" },
+  { href: "/scanned-document-to-text", label: "Scanned Document to Text" },
   { href: "/pdf-to-text", label: "PDF to Text (Scanned Pages)" },
   { href: "/handwriting-to-text", label: "Handwriting to Text" },
+  { href: "/image-to-word", label: "Image to Word (.docx)" },
+  { href: "/image-to-pdf", label: "Image to PDF" },
 ];
 
 const features = [

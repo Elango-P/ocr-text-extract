@@ -46,7 +46,7 @@ export default function sitemap() {
 
   const blogRoutes = getAllPosts().map((post) => ({
     url: `${SITE_URL}/blog/${post.slug}`,
-    lastModified: new Date(post.date + 'T12:00:00'),
+    lastModified: new Date((post.updated || post.date) + 'T12:00:00'),
     changeFrequency: 'monthly',
     priority: 0.75,
   }));

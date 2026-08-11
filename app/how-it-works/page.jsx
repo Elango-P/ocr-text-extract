@@ -6,7 +6,7 @@ import { SITE_URL } from "../lib/site";
 export const metadata = {
   title: "How It Works",
   description:
-    "Learn how OCR Text Extractor converts images to text — AI OCR first, then browser Tesseract fallback.",
+    "How OCR Text Extractor turns images into text: an AI model handles the first ten reads each day, then a Tesseract engine runs in your browser.",
   alternates: { canonical: `${SITE_URL}/how-it-works` },
 };
 

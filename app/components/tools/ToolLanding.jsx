@@ -129,7 +129,7 @@ export default function ToolLanding({ tool }) {
             className="rounded-2xl border border-slate-200 bg-white p-6 sm:p-8"
           >
             <p className="text-xs font-bold uppercase tracking-[0.2em] text-cyan-600">
-              Worked example
+              Walkthrough
             </p>
             <h2
               id={`${tool.slug}-worked-example`}
@@ -148,7 +148,7 @@ export default function ToolLanding({ tool }) {
               )}
               {tool.workedExample.result && (
                 <p>
-                  <strong className="text-slate-800">What we saw:</strong>{" "}
+                  <strong className="text-slate-800">What to expect:</strong>{" "}
                   {tool.workedExample.result}
                 </p>
               )}
@@ -267,8 +267,11 @@ export default function ToolLanding({ tool }) {
 
 export function buildToolMetadata(tool) {
   const url = `${SITE_URL}${tool.path}`;
+  const title = tool.metaTitle || tool.title;
   return {
-    title: tool.metaTitle || tool.title,
+    // Absolute: these titles already describe the page fully, and appending the
+    // site name pushes them past the ~60 characters Google will display.
+    title: { absolute: title },
     description: tool.description,
     alternates: { canonical: url },
     openGraph: {

@@ -29,7 +29,7 @@ export const handwritingToText = {
       "Edit the output into bullets before posting to the team channel.",
     ],
     result:
-      "Printed-style block letters converted well; one rushed abbreviation needed human decoding. Still faster than retyping from memory an hour later.",
+      "Printed-style block letters tend to convert well. Rushed abbreviations and joined-up shortcuts are the parts you should expect to decode yourself — still faster than reconstructing the notes from memory an hour later.",
     lesson:
       "Handwriting OCR is a draft accelerator. Photograph one idea cluster at a time; proofread before anyone treats it as minutes.",
   },

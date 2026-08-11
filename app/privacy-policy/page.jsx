@@ -3,7 +3,7 @@ import { SITE_URL, SITE_DOMAIN, CONTACT_EMAIL, OPERATOR_NAME } from "../lib/site
 export const metadata = {
   title: "Privacy Policy",
   description:
-    "Privacy Policy for OCR Text Extractor. How we handle images for AI OCR and browser fallback.",
+    "How OCR Text Extractor handles your data: what happens to images on the AI path, what stays in your browser, plus cookies, ads, retention, and your rights.",
   alternates: { canonical: `${SITE_URL}/privacy-policy` },
 };
 

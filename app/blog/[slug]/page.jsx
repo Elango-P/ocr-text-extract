@@ -27,21 +27,25 @@ export async function generateMetadata({ params }) {
   if (!post) return { title: "Article not found" };
 
   const url = `${SITE_URL}/blog/${post.slug}`;
+  // Absolute: article headlines are long enough already, and the site-name
+  // suffix would push them past what Google renders in results.
+  const title = post.seoTitle || post.title;
   return {
-    title: post.title,
+    title: { absolute: title },
     description: post.description,
     alternates: { canonical: url },
     openGraph: {
-      title: post.title,
+      title,
       description: post.description,
       url,
       type: "article",
       publishedTime: post.date,
+      modifiedTime: post.updated || post.date,
       images: [{ url: `${SITE_URL}${post.image}` }],
     },
     twitter: {
       card: "summary_large_image",
-      title: post.title,
+      title,
       description: post.description,
     },
   };
@@ -70,7 +74,7 @@ export default async function BlogPostPage({ params }) {
     headline: post.title,
     description: post.description,
     datePublished: post.date,
-    dateModified: post.date,
+    dateModified: post.updated || post.date,
     author: {
       "@type": "Person",
       name: OPERATOR_NAME,
@@ -101,7 +105,10 @@ export default async function BlogPostPage({ params }) {
       />
 
       <header className="mt-6">
-        <p className="text-xs font-semibold text-slate-400">{formatDate(post.date)}</p>
+        <p className="text-xs font-semibold text-slate-500">
+          {formatDate(post.date)}
+          {post.updated ? ` · Updated ${formatDate(post.updated)}` : ""}
+        </p>
         <h1 className="mt-3 text-3xl font-black tracking-tight text-slate-900 sm:text-4xl">
           {post.title}
         </h1>

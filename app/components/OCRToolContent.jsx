@@ -18,6 +18,7 @@ import {
     downloadTxt,
     downloadDocx,
     downloadPdf,
+    findPdfUnsupportedChars,
 } from "../lib/export/downloadTextFormats";
 
 const MAX_BATCH_IMAGES = 10;
@@ -1322,8 +1323,18 @@ export default function OCRTool() {
 
     const handleDownloadPdf = () => {
         try {
+            const unsupported = findPdfUnsupportedChars(extractedText);
             downloadPdf(extractedText);
-            toast.success("Downloaded PDF");
+            if (unsupported.length) {
+                toast(
+                    `PDF saved, but ${unsupported.length} character type${
+                        unsupported.length === 1 ? "" : "s"
+                    } could not be embedded and became "?". Use TXT or DOCX to keep this script.`,
+                    { icon: "⚠️", duration: 7000 }
+                );
+            } else {
+                toast.success("Downloaded PDF");
+            }
         } catch (err) {
             console.error(err);
             toast.error("PDF export failed");

@@ -30,7 +30,7 @@ export const metadata = {
   applicationName: SITE_NAME,
   category: "OCR, image to text, productivity",
   title: {
-    default: "Free Online OCR Image to Text Converter | Extract Text from Images",
+    default: "Free Image to Text Converter — Online OCR Tool",
     template: `%s | ${SITE_NAME}`,
   },
   description:

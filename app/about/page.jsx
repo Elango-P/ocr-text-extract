@@ -152,7 +152,7 @@ export default function AboutPage() {
               as an image first
             </li>
             <li>
-              AI OCR is capped at 10 uses per visitor per day; browser OCR continues afterward
+              AI OCR is capped at 10 uses per day per IP address; browser OCR continues afterward
             </li>
             <li>
               Large images over ~8 MB should be compressed or cropped before upload

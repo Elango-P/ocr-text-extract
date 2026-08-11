@@ -228,7 +228,7 @@ const comparisonRows = [
 const homeFaqs = [
   {
     q: "Is OCR Text Extractor free?",
-    a: "Yes. No signup and no watermarks. AI OCR is limited to 10 uses per visitor per day; browser OCR remains available after that.",
+    a: "Yes. No signup and no watermarks. AI OCR is limited to 10 uses per day per IP address; browser OCR remains available after that.",
   },
   {
     q: "Are my images stored forever?",

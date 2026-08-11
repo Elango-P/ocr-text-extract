@@ -8,7 +8,7 @@ This site processes images one of two ways, and they have meaningfully different
 
 ### The AI path (default)
 
-When you click Extract, your image is sent from your browser to our server, then forwarded to Google's Gemini API for recognition through our `/api/ocr` route. We do not permanently store your image on our servers — it passes through for the purpose of extraction. The image is subject to Google's own processing and privacy terms for that request, since Google is the party actually running the AI model. You get up to 10 AI OCR uses per visitor per day on this path.
+When you click Extract, your image is sent from your browser to our server, then forwarded to Google's Gemini API for recognition through our `/api/ocr` route. We do not permanently store your image on our servers — it passes through for the purpose of extraction. The image is subject to Google's own processing and privacy terms for that request, since Google is the party actually running the AI model. You get up to 10 AI OCR uses per day on this path, counted per IP address rather than per person — so everyone sharing an office, campus, or home connection draws on the same allowance.
 
 ### The browser fallback path (Tesseract.js)
 

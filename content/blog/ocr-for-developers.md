@@ -28,7 +28,7 @@ Skip it when PDFs already contain a real text layer, when users can paste text t
 | Exploring accuracy on real samples | Web UI first |
 | Strict "no upload" privacy requirement | Client-side OCR (Tesseract.js) |
 
-**Prototype with a browser tool first.** Before wiring up SDKs, validate your accuracy assumptions with real samples on [imgtotext.in](https://imgtotext.in) or [/image-to-text](/image-to-text). It combines free AI OCR (Gemini via the site's API) with a Tesseract.js browser fallback after **10 AI uses per visitor per day** — enough to A/B AI versus classical results against your own fixtures and document which samples need which settings before you write any integration code.
+**Prototype with a browser tool first.** Before wiring up SDKs, validate your accuracy assumptions with real samples on [imgtotext.in](https://imgtotext.in) or [/image-to-text](/image-to-text). It combines free AI OCR (Gemini via the site's API) with a Tesseract.js browser fallback after **10 AI uses per day per IP address** — enough to A/B AI versus classical results against your own fixtures and document which samples need which settings before you write any integration code.
 
 **Client-side OCR** (Tesseract.js in the browser, the same engine family used as imgtotext.in's fallback) keeps pixels on the user's device if you self-host the model files. Trade-offs: a larger download, slower performance on low-end phones, and accuracy below a strong cloud AI model on messy photos. Good fits: demos, internal tools with a strict no-upload policy, and kiosks that can tolerate a slower first load.
 

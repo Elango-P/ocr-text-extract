@@ -107,7 +107,7 @@ export default function CookieConsent() {
             type="button"
             id="cookie-consent-essential"
             onClick={() => save("essential")}
-            className="rounded-xl border border-slate-200 px-4 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50"
+            className="rounded-xl border border-slate-200 px-4 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-600"
           >
             Essential only
           </button>
@@ -115,18 +115,9 @@ export default function CookieConsent() {
             type="button"
             id="cookie-consent-accept"
             onClick={() => save("accepted")}
-            className="rounded-xl bg-cyan-600 px-4 py-2.5 text-sm font-bold text-white hover:bg-cyan-700"
+            className="rounded-xl bg-cyan-600 px-4 py-2.5 text-sm font-bold text-white hover:bg-cyan-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-700"
           >
             Accept
-          </button>
-          <button
-            type="button"
-            id="cookie-consent-dismiss"
-            aria-label="Close cookie notice"
-            onClick={() => save("accepted")}
-            className="rounded-xl px-3 py-2.5 text-sm font-semibold text-slate-500 hover:bg-slate-50 hover:text-slate-800"
-          >
-            Close
           </button>
         </div>
       </div>

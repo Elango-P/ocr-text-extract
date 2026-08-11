@@ -25,7 +25,7 @@ Every use case below is a variation on the same steps, so it's worth stating onc
 3. Upload a PNG, JPG, JPEG, WEBP, or GIF.
 4. Select the language that matches the content — twelve are supported, including English, Spanish, French, German, Hindi, and Arabic.
 5. Try Clean Mode for screenshots and tidy documents; compare with it off for photos of paper, chalkboards, or thermal receipts.
-6. Run OCR. AI OCR (Gemini via the site's API) runs first for **10 free uses per visitor per day**; browser-based Tesseract.js keeps working after that, so you're never fully blocked.
+6. Run OCR. AI OCR (Gemini via the site's API) runs first for **10 free uses per day per IP address**; browser-based Tesseract.js keeps working after that, so you're never fully blocked.
 7. Copy the text or download it as TXT, then verify anything that involves money, dates, or names before you file it anywhere.
 
 Images aren't stored permanently ([/about](/about), [/faq](/faq)). The sections below assume this workflow and only call out what's different for each situation.
@@ -54,7 +54,7 @@ Vendor invoices photographed and emailed, signed forms scanned to a shared drive
 
 Where it pays off fastest: accounts payable capturing receipt and invoice fields, operations reading SKU and lot numbers from photo logs, HR digitizing signed acknowledgments for keyword search, and support pulling error text from a customer's screenshot.
 
-Write down a short policy even for a free tool: which document types are allowed on a web OCR tool versus offline-only, cropping rules so unrelated PII stays out of frame, a verification checklist for amounts and bank details, and who owns the language dropdown for multilingual suppliers. Because the AI allowance is per visitor per day, teams processing a lot of images in one sitting should plan to stagger the work or assign an "AI priority" queue rather than assuming unlimited capacity.
+Write down a short policy even for a free tool: which document types are allowed on a web OCR tool versus offline-only, cropping rules so unrelated PII stays out of frame, a verification checklist for amounts and bank details, and who owns the language dropdown for multilingual suppliers. Because the AI allowance is counted per IP address rather than per person, an office sharing one connection shares one pool of ten — so teams processing a lot of images in one sitting should stagger the work or agree an "AI priority" queue rather than assuming unlimited capacity.
 
 This is a fit for opportunistic, small-batch work — not a full PDF ingestion server. Multi-page packets still need page export first (see [Advanced OCR Techniques](/blog/advanced-ocr-techniques)), and high-volume automation eventually needs a real API and audit trail (see [OCR for Developers](/blog/ocr-for-developers)). There's no CRM plugin or SSO here — copy/paste and TXT export are the integration layer unless you build your own.
 

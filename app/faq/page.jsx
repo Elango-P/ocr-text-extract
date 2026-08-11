@@ -23,7 +23,7 @@ const faqs = [
   },
   {
     q: "Is OCR Text Extractor free?",
-    a: "Yes. There is no signup, no credit card, and no watermarks on exported text. AI OCR is limited to 10 uses per visitor per day; browser OCR remains available after that.",
+    a: "Yes. There is no signup, no credit card, and no watermarks on exported text. AI OCR is limited to 10 uses per day per IP address; browser OCR remains available after that.",
   },
   {
     q: "Do you use cloud AI for OCR?",
@@ -35,7 +35,7 @@ const faqs = [
   },
   {
     q: "Is there a daily limit on AI OCR?",
-    a: "Yes. Each visitor can use AI OCR up to 10 times per day (UTC). When the limit is reached, Extract Text still works using browser-based Tesseract.js.",
+    a: "Yes, 10 AI OCR runs per day, resetting at UTC midnight. The count is kept per IP address rather than per person, so if several people share one office, campus, or home connection, they share the same allowance. When the limit is reached, Extract Text keeps working using browser-based Tesseract.js.",
   },
   {
     q: "Are my images uploaded to your servers?",

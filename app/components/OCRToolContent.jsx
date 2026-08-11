@@ -1498,7 +1498,7 @@ export default function OCRTool() {
                             ) : (
                                 <>
                                     Extract Text uses cloud AI OCR first (Google Gemini via our
-                                    server; 10 AI uses per visitor per day). If that fails or the
+                                    server; 10 AI uses per day per IP address). If that fails or the
                                     limit is reached, it falls back to browser OCR. Images are not
                                     kept as a permanent archive — details in our{" "}
                                 </>

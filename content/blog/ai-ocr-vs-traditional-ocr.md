@@ -12,7 +12,7 @@ Both approaches aim to turn pixels into text, but they get there differently.
 
 ## How This Site Uses Both
 
-By default, when you extract text, your image goes through our server to Gemini for AI OCR. You get 10 AI OCR uses per visitor per day. If AI OCR fails, returns nothing useful, or your daily allowance is used up, the tool automatically falls back to Tesseract.js running locally in your browser via WebAssembly — no extra steps required on your part. The full sequence is documented in [How It Works](/how-it-works).
+By default, when you extract text, your image goes through our server to Gemini for AI OCR. You get 10 AI OCR uses per day, counted per IP address rather than per person, so a shared office or campus connection draws on one pooled allowance. If AI OCR fails, returns nothing useful, or your daily allowance is used up, the tool automatically falls back to Tesseract.js running locally in your browser via WebAssembly — no extra steps required on your part. The full sequence is documented in [How It Works](/how-it-works).
 
 This hybrid isn't a compromise so much as a deliberate design: use the stronger engine by default, and keep a capable, private, unlimited fallback available so the tool never simply stops working.
 
@@ -32,7 +32,7 @@ This is where classical/local OCR clearly wins. Tesseract.js runs entirely in yo
 
 ### Cost and Availability
 
-Cloud AI models are computationally expensive to run at scale, which is why free tools — including this one — cap AI usage (10 uses per visitor per day here) rather than offering unlimited AI calls. Classical engines like Tesseract are open-source and effectively free to run indefinitely once loaded, which is exactly why they make sense as a fallback rather than a rationed resource.
+Cloud AI models are computationally expensive to run at scale, which is why free tools — including this one — cap AI usage (10 uses per day per IP address here) rather than offering unlimited AI calls. Classical engines like Tesseract are open-source and effectively free to run indefinitely once loaded, which is exactly why they make sense as a fallback rather than a rationed resource.
 
 ### Speed
 
@@ -56,7 +56,7 @@ Neither approach reliably reconstructs complex table structure out of the box; t
 | Cost to run at scale | Higher — usage capped on free tools | Low — open-source, no per-call cost |
 | Works without internet after load | No | Largely yes, once assets are cached |
 | Table/layout reconstruction | Limited | Limited |
-| Availability here | 10 uses/day per visitor | Unlimited fallback |
+| Availability here | 10 uses/day per IP address | Unlimited fallback |
 
 ## When Each Approach Wins in Practice
 
@@ -87,7 +87,7 @@ Running frontier AI models on every request is costly to operate at scale, which
 Occasionally, especially on very clean, high-contrast printed text where classical pattern matching is already close to its ceiling.
 
 **Can I choose which engine processes my image?**
-The site automatically tries AI OCR first and falls back to Tesseract.js only when needed — this happens transparently to give you the best available result.
+Yes. By default the site tries AI OCR first and falls back to Tesseract.js only when needed, which happens transparently. But if you switch on **Local OCR only** in the tool, the AI path is skipped entirely and recognition runs in your browser tab with Tesseract.js — nothing is uploaded to our server or to Google. That toggle is the right choice when the document is sensitive, when you want to save your daily AI allowance, or when you simply want to compare the two engines on the same image.
 
 ## Related Reading
 

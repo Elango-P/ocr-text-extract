@@ -130,7 +130,7 @@ export function buildHomePageJsonLd() {
             name: "Is OCR Text Extractor free?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Yes. No signup and no watermarks. AI OCR is limited to 10 uses per visitor per day; browser OCR remains available after that.",
+              text: "Yes. No signup and no watermarks. AI OCR is limited to 10 uses per day per IP address; browser OCR remains available after that.",
             },
           },
           {

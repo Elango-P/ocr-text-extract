@@ -1,4 +1,4 @@
-import { SITE_URL, SITE_DOMAIN, CONTACT_EMAIL } from "../lib/site";
+import { SITE_URL, SITE_DOMAIN, CONTACT_EMAIL, OPERATOR_NAME } from "../lib/site";
 
 export const metadata = {
   title: "Privacy Policy",
@@ -29,12 +29,34 @@ export default function PrivacyPage() {
         </section>
 
         <section>
+          <h2 className="text-xl font-bold text-slate-900">Who is responsible for your data</h2>
+          <p className="mt-3 leading-relaxed">
+            {OPERATOR_NAME} is the data controller for this site. The site is run by one
+            independent developer, not a registered company, and there is no separate office or
+            staff. If you need a postal address for a formal data-protection request, email us and
+            we will provide one.
+          </p>
+          <p className="mt-3 leading-relaxed">
+            All privacy questions and requests go to{" "}
+            <a
+              href={`mailto:${CONTACT_EMAIL}`}
+              className="font-semibold text-cyan-700 hover:underline"
+            >
+              {CONTACT_EMAIL}
+            </a>
+            .
+          </p>
+        </section>
+
+        <section>
           <h2 className="text-xl font-bold text-slate-900">Images and OCR data</h2>
           <p className="mt-3 leading-relaxed">
             <strong className="text-slate-800">Primary path (AI OCR):</strong> When you
             click Extract Text, your image is sent to our server and then to Google&apos;s Gemini
-            API solely to extract text. We do not permanently store your images on our servers.
-            Google&apos;s processing of the image is subject to{" "}
+            API solely to extract text. On our side the image lives in server memory only for as
+            long as that single request takes; we never write it to a database or to disk, so no
+            copy remains once the text comes back. Google&apos;s processing of the image is subject
+            to{" "}
             <a
               href="https://policies.google.com/privacy"
               className="text-cyan-700 hover:underline"
@@ -140,6 +162,84 @@ export default function PrivacyPage() {
             Tesseract.js language models are loaded into your browser from our site or CDN
             endpoints as part of normal page operation. No image content is sent during this
             process.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-xl font-bold text-slate-900">
+            Why we are allowed to process this data
+          </h2>
+          <p className="mt-3 leading-relaxed">
+            If you are in the UK or the European Economic Area, the GDPR requires us to name a legal
+            basis for each kind of processing. Ours are:
+          </p>
+          <ul className="mt-3 list-disc space-y-2 pl-5 leading-relaxed">
+            <li>
+              <strong className="text-slate-800">Performing the service you asked for:</strong>{" "}
+              sending your image to Gemini and returning the recognized text. You trigger this
+              yourself by clicking Extract Text, and it cannot happen without that click.
+            </li>
+            <li>
+              <strong className="text-slate-800">Our legitimate interest in a working site:</strong>{" "}
+              server logs and the daily AI OCR counter, which exist to keep the free tool available
+              and to stop abuse.
+            </li>
+            <li>
+              <strong className="text-slate-800">Your consent:</strong> advertising cookies. You
+              give or withhold this in the cookie notice, and you can change it at any time using
+              the Cookie Settings link in the footer.
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 className="text-xl font-bold text-slate-900">Where your data is processed</h2>
+          <p className="mt-3 leading-relaxed">
+            The services we depend on are operated globally, so data may be processed outside your
+            own country — including in the United States. Images sent for AI OCR go to Google&apos;s
+            Gemini API, the site is served by our hosting provider&apos;s network, and advertising,
+            when enabled, is handled by Google. Each of these providers runs its own safeguards for
+            international transfers, such as the European Commission&apos;s standard contractual
+            clauses.
+          </p>
+          <p className="mt-3 leading-relaxed">
+            If you would rather your image never left your device, switch on{" "}
+            <strong className="text-slate-800">Local OCR only</strong> in the tool. Recognition then
+            runs entirely in your browser tab and no image is transmitted to us or to Google.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-xl font-bold text-slate-900">Your rights over your data</h2>
+          <p className="mt-3 leading-relaxed">
+            Because the site has no accounts and stores no uploads, there is usually very little
+            data for us to act on — but the rights below still apply, and we will honour them.
+          </p>
+          <p className="mt-3 leading-relaxed">
+            Under the GDPR you may request access to your personal data, correction of inaccurate
+            data, erasure, restriction of processing, portability, and you may object to processing
+            we base on legitimate interests. Where processing rests on consent, you can withdraw it
+            at any time without affecting what happened before you withdrew it.
+          </p>
+          <p className="mt-3 leading-relaxed">
+            Under the CCPA and CPRA, California residents may request disclosure of the categories
+            and specific pieces of personal information collected, request deletion, and request
+            correction. We do not sell or share personal information as those laws define it, and we
+            do not use it for cross-context behavioural advertising beyond the standard Google
+            AdSense behaviour described above, which you can decline with Essential only. We will
+            not discriminate against you for exercising any of these rights.
+          </p>
+          <p className="mt-3 leading-relaxed">
+            To make a request, email{" "}
+            <a
+              href={`mailto:${CONTACT_EMAIL}`}
+              className="font-semibold text-cyan-700 hover:underline"
+            >
+              {CONTACT_EMAIL}
+            </a>
+            . We may need to ask a question or two to confirm the request genuinely relates to your
+            own data. If you are in the UK or EEA and are unhappy with how we have handled a
+            request, you have the right to complain to your national data protection authority.
           </p>
         </section>
 

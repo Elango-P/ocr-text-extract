@@ -48,7 +48,7 @@ export const imageToText = {
     },
     {
       q: "Is image to text free on this site?",
-      a: "Yes. AI OCR has a fair daily cap per visitor; browser OCR remains available after that. There are no watermarks on the text you export.",
+      a: "Yes. AI OCR has a fair daily cap counted per IP address; browser OCR remains available after that. There are no watermarks on the text you export.",
     },
     {
       q: "Can I convert JPG and PNG on this page?",

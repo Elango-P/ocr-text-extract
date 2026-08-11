@@ -13,8 +13,8 @@ export const imageToText = {
   heroImage: "/images/ocr-tool-general.webp",
   heroAlt: "Printed document photographed for free image-to-text OCR conversion",
   relatedBlogSlugs: [
+    "ocr-engine-benchmark-gemini-vs-tesseract",
     "ultimate-guide-to-ocr-technology",
-    "advanced-ocr-techniques",
     "ocr-accuracy-and-limitations",
     "improve-ocr-low-quality-images",
   ],

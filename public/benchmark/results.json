@@ -1,0 +1,245 @@
+{
+  "benchmark_id": "imgtotext-ocr-bench-v1",
+  "run_date": "2026-08-11",
+  "run_at_utc": "2026-08-11T10:31:18.270450+00:00",
+  "seed": 20260811,
+  "metric": "character_error_rate",
+  "normalization": "collapse whitespace (split on any whitespace, rejoin with single spaces, strip)",
+  "engines": {
+    "gemini": {
+      "model": "gemini-2.5-flash",
+      "prompt": "same extraction prompt as app/api/ocr/route.js",
+      "notes": "Image sent as PNG base64; temperature 0.1"
+    },
+    "tesseract": {
+      "binary": "tesseract 5.5.0",
+      "oem": 1,
+      "psm": 3,
+      "lang": "eng",
+      "notes": "System Tesseract LSTM (OEM 1), matching the site's OEM.LSTM_ONLY intent. Site fallback uses tesseract.js in-browser with extra preprocessing; this bench uses the raw PNG with no site preprocessor."
+    }
+  },
+  "corpus_notes": {
+    "handwriting_sim": "Not real penmanship \u2014 italic DejaVu Serif with per-glyph jitter on ruled paper. Included to stress irregular spacing, not to claim handwriting CER for humans.",
+    "privacy": "All samples are synthetic; no real customer documents."
+  },
+  "summary": {
+    "n_images": 12,
+    "mean_cer_tesseract": 0.1975,
+    "mean_cer_gemini": 0.0305,
+    "by_category": {
+      "clean_print": {
+        "n": 2,
+        "mean_cer_tesseract": 0.0,
+        "mean_cer_gemini": 0.0
+      },
+      "dark_mode_screenshot": {
+        "n": 2,
+        "mean_cer_tesseract": 0.1477,
+        "mean_cer_gemini": 0.1388
+      },
+      "handwriting_sim": {
+        "n": 2,
+        "mean_cer_tesseract": 0.0182,
+        "mean_cer_gemini": 0.0
+      },
+      "low_light_photo": {
+        "n": 2,
+        "mean_cer_tesseract": 0.0042,
+        "mean_cer_gemini": 0.0042
+      },
+      "skewed_scan": {
+        "n": 2,
+        "mean_cer_tesseract": 0.6487,
+        "mean_cer_gemini": 0.0
+      },
+      "thermal_receipt": {
+        "n": 2,
+        "mean_cer_tesseract": 0.3662,
+        "mean_cer_gemini": 0.0401
+      }
+    }
+  },
+  "samples": [
+    {
+      "id": "clean_print_01",
+      "category": "clean_print",
+      "file": "corpus/clean_print_01.png",
+      "ground_truth_chars": 176,
+      "tesseract": {
+        "text": "Meeting notes \u2014 11 August 2026 Attendees: Priya, Marcus,\nElena Agenda item 1: ship the receipt OCR guide before\nFriday. Action: Marcus will upload the revised PDF by 17:00\nIST.",
+        "cer": 0.0
+      },
+      "gemini": {
+        "text": "Meeting notes \u2014 11 August 2026 Attendees: Priya, Marcus,\nElena Agenda item 1: ship the receipt OCR guide before\nFriday. Action: Marcus will upload the revised PDF by 17:00\nIST.",
+        "cer": 0.0,
+        "model": "gemini-2.5-flash"
+      }
+    },
+    {
+      "id": "clean_print_02",
+      "category": "clean_print",
+      "file": "corpus/clean_print_02.png",
+      "ground_truth_chars": 134,
+      "tesseract": {
+        "text": "Shipping label Order ID: ORD-88421 Recipient: Jordan Lee\nAddress: 14 Lakeview Road, Pune 411001 Contents: 2x\nUSB-C hub, 1x spare cable",
+        "cer": 0.0
+      },
+      "gemini": {
+        "text": "Shipping label Order ID: ORD-88421 Recipient: Jordan Lee\nAddress: 14 Lakeview Road, Pune 411001 Contents: 2x\nUSB-C hub, 1x spare cable",
+        "cer": 0.0,
+        "model": "gemini-2.5-flash"
+      }
+    },
+    {
+      "id": "thermal_receipt_01",
+      "category": "thermal_receipt",
+      "file": "corpus/thermal_receipt_01.png",
+      "ground_truth_chars": 229,
+      "tesseract": {
+        "text": "CORNER CAFE\nGSTIN 27AABCU9603R1ZM\n\nEspresso 120.00\nMasala dosa 90.00\nBottled water 30.00\nSubtotal 240.00\nCGST 2.5% 6.00\nSGST 2.5% 6.00\nTOTAL 252.00\n\nPaid UPI 12:41 IST\nTxn REF9K2M7Q",
+        "cer": 0.2183
+      },
+      "gemini": {
+        "text": "CORNER CAFE\nGSTIN 27AABCU9603R1ZM\n--------------------\nEspresso 120.00\nMasala dosa 90.00\nBottled water 30.00\n--------------------\nSubtotal 240.00\nCGST 2.5% 6.00\nSGST 2.5% 6.00\nTOTAL 252.00\nPaid UPI 12:41 IST\nTxn REF9K2M7Q",
+        "cer": 0.0349,
+        "model": "gemini-2.5-flash"
+      }
+    },
+    {
+      "id": "thermal_receipt_02",
+      "category": "thermal_receipt",
+      "file": "corpus/thermal_receipt_02.png",
+      "ground_truth_chars": 177,
+      "tesseract": {
+        "text": "CITY MART\nBill No 441902\n\nMilk 1L\nBread loaf\nEggs dozen\n\nItems 3\nTOTAL\n\nCash tendered\nChange\n\n175.\n200.\n25.",
+        "cer": 0.5141
+      },
+      "gemini": {
+        "text": "CITY MART\nBill No 441902\n--------------------\nMilk 1L 58.00\nBread loaf 45.00\nEggs dozen 72.00\n--------------------\nItems 3\nTOTAL 175.00\nCash tendered 200.00\nChange 25.00",
+        "cer": 0.0452,
+        "model": "gemini-2.5-flash"
+      }
+    },
+    {
+      "id": "dark_screenshot_01",
+      "category": "dark_mode_screenshot",
+      "file": "corpus/dark_screenshot_01.png",
+      "ground_truth_chars": 169,
+      "tesseract": {
+        "text": "Terminal \u2014 session\n\n$ mpm run build\n\n> next build\n\nError: ENOENT: no such file or directory\nat Object.openSync (node: fs:596:3)\nat readFileSync (node: fs:464:35)\n\nhint: check app/sitemap.js path",
+        "cer": 0.1302
+      },
+      "gemini": {
+        "text": "Terminal \u2014 session\n\n$ npm run build\n> next build\nError: ENOENT: no such file or directory\n    at Object.openSync (node:fs:596:3)\n    at readFileSync (node:fs:464:35)\nhint: check app/sitemap.js path",
+        "cer": 0.1124,
+        "model": "gemini-2.5-flash"
+      }
+    },
+    {
+      "id": "dark_screenshot_02",
+      "category": "dark_mode_screenshot",
+      "file": "corpus/dark_screenshot_02.png",
+      "ground_truth_chars": 115,
+      "tesseract": {
+        "text": "Terminal \u2014 session\n\nPOST /api/ocr 429\n\ncode: RATE_LIMITED\n\nremaining: 0\n\nresetAt: 2026-08-12T00:00:00Z\nmessage: Daily AI OCR limit reached",
+        "cer": 0.1652
+      },
+      "gemini": {
+        "text": "Terminal \u2014 session\n\nPOST /api/ocr 429\ncode: RATE_LIMITED\nremaining: 0\nresetAt: 2026-08-12T00:00:00Z\nmessage: Daily AI OCR limit reached",
+        "cer": 0.1652,
+        "model": "gemini-2.5-flash"
+      }
+    },
+    {
+      "id": "skewed_scan_01",
+      "category": "skewed_scan",
+      "file": "corpus/skewed_scan_01.png",
+      "ground_truth_chars": 121,
+      "tesseract": {
+        "text": "Library Checkout Slip Member: A Raman Title: Pra\nImaging Due date: 25 August 2026 Barcode: 39\n\nCtical Document\n915012345678",
+        "cer": 0.2975
+      },
+      "gemini": {
+        "text": "Library checkout slip Member: A. Raman Title: Practical Document\nImaging Due date: 25 August 2026 Barcode: 39015012345678",
+        "cer": 0.0,
+        "model": "gemini-2.5-flash"
+      }
+    },
+    {
+      "id": "skewed_scan_02",
+      "category": "skewed_scan",
+      "file": "corpus/skewed_scan_02.png",
+      "ground_truth_chars": 125,
+      "tesseract": {
+        "text": "",
+        "cer": 1.0
+      },
+      "gemini": {
+        "text": "Permission slip Student: Kavya Nair Event: Science fair visit Date:\n19 August 2026 Parent signature required before boarding.",
+        "cer": 0.0,
+        "model": "gemini-2.5-flash"
+      }
+    },
+    {
+      "id": "low_light_01",
+      "category": "low_light_photo",
+      "file": "corpus/low_light_01.png",
+      "ground_truth_chars": 121,
+      "tesseract": {
+        "text": "Whiteboard reminder Deploy window: Saturday 02:00-04:00\nIST Owner: platform team Rollback plan reviewed \u2014 ticket\nPLAT-992",
+        "cer": 0.0083
+      },
+      "gemini": {
+        "text": "Whiteboard reminder Deploy window: Saturday 02:00-04:00\nIST Owner: platform team Rollback plan reviewed \u2014 ticket\nPLAT-992",
+        "cer": 0.0083,
+        "model": "gemini-2.5-flash"
+      }
+    },
+    {
+      "id": "low_light_02",
+      "category": "low_light_photo",
+      "file": "corpus/low_light_02.png",
+      "ground_truth_chars": 96,
+      "tesseract": {
+        "text": "Parking notice Bay B-14 reserved for visitors Valid 11 Aug 2026\nonly Call desk on extension 4400",
+        "cer": 0.0
+      },
+      "gemini": {
+        "text": "Parking notice Bay B-14 reserved for visitors Valid 11 Aug 2026\nonly Call desk on extension 4400",
+        "cer": 0.0,
+        "model": "gemini-2.5-flash"
+      }
+    },
+    {
+      "id": "handwriting_sim_01",
+      "category": "handwriting_sim",
+      "file": "corpus/handwriting_sim_01.png",
+      "ground_truth_chars": 55,
+      "tesseract": {
+        "text": "Buy milk and eggs\nCall dentist Tues day\nFinjsh OCR notes",
+        "cer": 0.0364
+      },
+      "gemini": {
+        "text": "Buy milk and eggs\nCall dentist Tuesday\nFinish OCR notes",
+        "cer": 0.0,
+        "model": "gemini-2.5-flash"
+      }
+    },
+    {
+      "id": "handwriting_sim_02",
+      "category": "handwriting_sim",
+      "file": "corpus/handwriting_sim_02.png",
+      "ground_truth_chars": 64,
+      "tesseract": {
+        "text": "Password reset code\nis four eight two one\nexpires in ten minutes",
+        "cer": 0.0
+      },
+      "gemini": {
+        "text": "Password reset code\nis four eight two one\nexpires in ten minutes",
+        "cer": 0.0,
+        "model": "gemini-2.5-flash"
+      }
+    }
+  ]
+}

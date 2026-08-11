@@ -73,13 +73,28 @@ export const posts = [
     title: "AI OCR vs Traditional OCR: Gemini vs Tesseract Compared",
     description: "Comparing cloud AI OCR and classical engines like Tesseract on accuracy, privacy, cost, and speed — and when each one wins.",
     date: "2026-08-11",
+    updated: "2026-08-11",
     tags: ["AI", "OCR", "Comparison"],
     image: "/images/ocr-blog-ai-vs-tesseract.webp",
+  },
+  {
+    slug: "ocr-engine-benchmark-gemini-vs-tesseract",
+    title: "OCR Engine Benchmark: Gemini vs Tesseract (Measured CER)",
+    seoTitle: "OCR Benchmark: Gemini vs Tesseract Character Error Rates",
+    description:
+      "Original 12-image benchmark of Gemini 2.5 Flash vs Tesseract 5 LSTM with published corpus, ground truth, and per-category character error rates.",
+    date: "2026-08-11",
+    tags: ["Benchmark", "AI", "OCR", "Accuracy", "Comparison"],
+    image: "/images/ocr-blog-benchmark.webp",
   },
 ];
 
 export function getAllPosts() {
-  return [...posts].sort((a, b) => (a.date < b.date ? 1 : -1));
+  return [...posts].sort((a, b) => {
+    if (a.date !== b.date) return a.date < b.date ? 1 : -1;
+    // Newer registry entries (later in `posts`) win on the same calendar day.
+    return posts.indexOf(b) - posts.indexOf(a);
+  });
 }
 
 export function getPostBySlug(slug) {

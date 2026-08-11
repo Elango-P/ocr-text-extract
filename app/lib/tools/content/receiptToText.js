@@ -13,10 +13,10 @@ export const receiptToText = {
   heroImage: "/images/ocr-blog-receipt.webp",
   heroAlt: "Illustration of a receipt with totals being converted into text",
   relatedBlogSlugs: [
+    "ocr-engine-benchmark-gemini-vs-tesseract",
     "ocr-use-cases-and-workflows",
     "ocr-accuracy-and-limitations",
     "improve-ocr-low-quality-images",
-    "ocr-privacy-uploaded-images",
   ],
   workedExample: {
     title: "A month of expense slips from a jacket pocket",

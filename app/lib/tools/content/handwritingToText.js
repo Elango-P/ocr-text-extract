@@ -13,10 +13,10 @@ export const handwritingToText = {
   heroImage: "/images/ocr-tool-handwriting.webp",
   heroAlt: "Handwritten notebook page photographed for handwriting OCR",
   relatedBlogSlugs: [
-    "ocr-use-cases-and-workflows",
-    "ocr-accuracy-and-limitations",
-    "advanced-ocr-techniques",
+    "ocr-engine-benchmark-gemini-vs-tesseract",
     "ai-ocr-vs-traditional-ocr",
+    "ocr-accuracy-and-limitations",
+    "ocr-use-cases-and-workflows",
   ],
   workedExample: {
     title: "Meeting sticky notes → shared outline",

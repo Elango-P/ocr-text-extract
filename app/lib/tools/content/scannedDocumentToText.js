@@ -13,8 +13,8 @@ export const scannedDocumentToText = {
   heroImage: "/images/ocr-tool-jpg.webp",
   heroAlt: "Illustration of a scanned page being converted into editable text",
   relatedBlogSlugs: [
+    "ocr-engine-benchmark-gemini-vs-tesseract",
     "advanced-ocr-techniques",
-    "ultimate-guide-to-ocr-technology",
     "ocr-accuracy-and-limitations",
     "ocr-privacy-uploaded-images",
   ],

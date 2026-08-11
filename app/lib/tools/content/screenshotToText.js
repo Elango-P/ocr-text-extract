@@ -13,7 +13,7 @@ export const screenshotToText = {
   heroImage: "/images/ocr-blog-screenshot.webp",
   heroAlt: "Illustration of a screenshot being converted into selectable text",
   relatedBlogSlugs: [
-    "ultimate-guide-to-ocr-technology",
+    "ocr-engine-benchmark-gemini-vs-tesseract",
     "ocr-accuracy-and-limitations",
     "ocr-privacy-uploaded-images",
     "advanced-ocr-techniques",

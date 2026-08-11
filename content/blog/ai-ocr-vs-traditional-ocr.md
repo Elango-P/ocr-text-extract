@@ -91,6 +91,7 @@ Yes. By default the site tries AI OCR first and falls back to Tesseract.js only 
 
 ## Related Reading
 
+- [OCR Engine Benchmark: Gemini vs Tesseract](/blog/ocr-engine-benchmark-gemini-vs-tesseract) — measured CER on a published 12-image corpus
 - [OCR Accuracy and Limitations](/blog/ocr-accuracy-and-limitations) — what to expect from either engine
 - [OCR, Privacy, and Your Uploaded Images](/blog/ocr-privacy-uploaded-images) — the data-handling side of this comparison
 - [OCR for Developers](/blog/ocr-for-developers) — building similar hybrid pipelines yourself

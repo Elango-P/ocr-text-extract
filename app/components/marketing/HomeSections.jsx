@@ -648,12 +648,19 @@ export default function HomeSections() {
         <p className="mt-6 text-sm text-slate-300">
           More depth:{" "}
           <Link
+            href="/blog/ocr-engine-benchmark-gemini-vs-tesseract"
+            className="font-semibold text-cyan-300 hover:underline"
+          >
+            measured Gemini vs Tesseract benchmark
+          </Link>
+          ,{" "}
+          <Link
             href="/blog/ocr-accuracy-and-limitations"
             className="font-semibold text-cyan-300 hover:underline"
           >
             OCR accuracy and limitations
-          </Link>{" "}
-          and{" "}
+          </Link>
+          , and{" "}
           <Link
             href="/blog/improve-ocr-low-quality-images"
             className="font-semibold text-cyan-300 hover:underline"

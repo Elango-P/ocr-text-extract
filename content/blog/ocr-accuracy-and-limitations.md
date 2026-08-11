@@ -79,6 +79,7 @@ Use it to draft, not to finalize. Human review is essential for anything with le
 
 ## Related Reading
 
+- [OCR Engine Benchmark: Gemini vs Tesseract](/blog/ocr-engine-benchmark-gemini-vs-tesseract) — published corpus with per-category character error rates
 - [The Ultimate Guide to OCR Technology](/blog/ultimate-guide-to-ocr-technology) — how OCR works end to end
 - [Advanced OCR Techniques](/blog/advanced-ocr-techniques) — preprocessing and accuracy habits
 - [AI OCR vs Traditional OCR](/blog/ai-ocr-vs-traditional-ocr) — comparing the two engines behind this site

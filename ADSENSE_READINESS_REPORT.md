@@ -10,13 +10,13 @@ No one can guarantee AdSense approval — reviews include a human judgement call
 
 | Area | Score | Basis |
 |---|---|---|
-| AdSense readiness | 84 / 100 | Fabricated stats gone, thin cluster consolidated, consent + ad labelling correct. Site is young and the AI-vs-human-written question is a reviewer judgement call. |
-| SEO | 90 / 100 | Crawl of 28 pages: 0 broken links, 0 duplicate titles/descriptions/canonicals, valid structured data throughout. |
+| AdSense readiness | 86 / 100 | Hygiene done; original Gemini vs Tesseract benchmark published in-repo. Approval still not guaranteed — utility sites stay hard, and production must include the new post. |
+| SEO | 90 / 100 | Crawl of indexable URLs: unique titles/descriptions/canonicals and valid structured data. Blog count is now 9 posts. |
 | UX | 85 / 100 | Cancel, paste, mobile ordering and export warnings all fixed. Untested on real handsets. |
 | Technical | 88 / 100 | Clean build, no lint errors, valid PDF output, working API, CSP configured. |
-| Trust / E-E-A-T | 87 / 100 | Named operator, real contact route, accurate privacy and retention docs, honest limitations. No third-party corroboration exists yet. |
+| Trust / E-E-A-T | 88 / 100 | Named operator, real contact route, accurate privacy docs, plus a reproducible measured benchmark with public corpus. |
 
-The single largest risk is no longer content quality — it is that **the live site is still running an old commit**. See section 10.
+**Largest remaining AdSense risk:** single-purpose utility + young site history. The strongest new lever is the measured OCR benchmark (section 10–11) — deploy it before reapplying.
 
 ---
 
@@ -97,26 +97,35 @@ Client chunks total 836 KB, largest 221 KB (framework). Tesseract.js is loaded f
 
 ## 9. Remaining problems
 
-1. **The live site is stale.** This is the one that matters. See below.
-2. Non-Latin scripts still cannot be embedded in PDF export. Warned, not solved. Solving it means shipping a Unicode font, which would add megabytes to a download currently measured in kilobytes.
-3. PDF line wrapping counts characters rather than measuring rendered width, so unusually wide text breaks slightly early.
-4. Real-device mobile testing has not been done — the layout changes were verified by build and code review only.
-5. The site is new, with no inbound links or external corroboration. Nothing to do here but wait.
-6. `content/blog/_strategy.md` remains in the repo. It is never served or indexed, but it documents the earlier scaled-content approach and is worth deleting.
+1. **Structural: single-purpose utility.** Still the main AdSense “low value content” risk. Partially addressed by the published OCR benchmark (section 10).
+2. Non-Latin scripts still cannot be embedded in PDF export. Warned, not solved.
+3. PDF line wrapping counts characters rather than measuring rendered width.
+4. Real-device mobile testing has not been done.
+5. The site is young, with limited inbound links / traffic history.
+6. Production must be redeployed so the new benchmark URL is live before AdSense re-review (section 11).
 
 ---
 
-## 10. Do this before anything else
+## 10. Why "Low value content" keeps coming back
 
-**Deploy.** The live site at `imgtotext.in` is still serving commit `83435f7`, which contains the 24 thin blog posts and the fabricated accuracy statistics and case studies. AdSense is already loading on it. Every improvement described above exists only in the working tree.
+Converter sites are judged on whether they would still be worth visiting if the free tool disappeared. Extra tool-explainers alone rarely clear that bar.
 
-If a reviewer looks at the site today, they see the version with invented statistics. Deploying is not the last step of this work — it is the one that makes any of it count.
+**What shipped to change that:** `/blog/ocr-engine-benchmark-gemini-vs-tesseract` — an original 12-image English corpus under `/benchmark/`, with ground truth, raw Gemini 2.5 Flash and Tesseract 5 LSTM outputs, and character error rates. Headline on the fixed corpus (11 August 2026): Gemini mean CER **3.05%**, Tesseract mean CER **19.75%**. Re-run: `python3 scripts/run_ocr_benchmark.py`. Failure cases (empty Tesseract on skew, missing receipt amounts, dark-UI chrome) are documented with the input PNGs.
 
-After deploying:
+This does **not** guarantee approval. It is the strongest verifiable content-value page the site can publish from its own engines.
 
-1. Submit the sitemap in Search Console and confirm 28 URLs are discovered.
-2. Run the three old-slug redirects through Search Console's URL inspection to confirm Google follows them.
-3. Test the tool on a real phone — upload, paste, extract, copy, and all three downloads.
-4. Export a PDF containing Hindi or Tamil text and confirm the warning appears.
-5. Re-run `python3 scripts/audit_site.py` against production rather than localhost.
-6. Confirm `ads.txt` is reachable at the domain root once your publisher ID is set.
+---
+
+## 11. Pre-reapply checklist (verified 11 August 2026)
+
+| Check | Result |
+|---|---|
+| Indexation (`site:imgtotext.in`) | Homepage and blog URLs appear in Google. Legacy redirected slug `/blog/best-ocr-tools-2026` still surfaces (expected via `next.config.mjs`). |
+| Search Console traffic | Not readable from this environment — confirm impressions/clicks in GSC before reapplying. |
+| `content/blog/_strategy.md` | Deleted. |
+| Live deploy vs this branch | Live serves current posts such as `/blog/ai-ocr-vs-traditional-ocr` (200) and a valid `ads.txt`, but **`/blog/ocr-engine-benchmark-gemini-vs-tesseract` is still 404 on production**. Deploy this branch first. |
+| Local verification | Benchmark article, `/benchmark/results.json`, and corpus PNGs return 200 on the local app. |
+| `/ads.txt` | Live `200`: `google.com, pub-3921396916253602, DIRECT, f08c47fec0942fa0`. |
+| Timing | Do not reapply until the benchmark is live (and ideally indexed), and enough time has passed since the last “Need attention” decision. |
+
+After deploy: submit the updated sitemap in Search Console, URL-inspect the benchmark post, re-run `python3 scripts/audit_site.py` against production, then reapply once — not repeatedly.

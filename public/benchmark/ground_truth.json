@@ -1,0 +1,74 @@
+[
+  {
+    "id": "clean_print_01",
+    "category": "clean_print",
+    "file": "corpus/clean_print_01.png",
+    "text": "Meeting notes \u2014 11 August 2026\nAttendees: Priya, Marcus, Elena\nAgenda item 1: ship the receipt OCR guide before Friday.\nAction: Marcus will upload the revised PDF by 17:00 IST."
+  },
+  {
+    "id": "clean_print_02",
+    "category": "clean_print",
+    "file": "corpus/clean_print_02.png",
+    "text": "Shipping label\nOrder ID: ORD-88421\nRecipient: Jordan Lee\nAddress: 14 Lakeview Road, Pune 411001\nContents: 2x USB-C hub, 1x spare cable"
+  },
+  {
+    "id": "thermal_receipt_01",
+    "category": "thermal_receipt",
+    "file": "corpus/thermal_receipt_01.png",
+    "text": "CORNER CAFE\nGSTIN 27AABCU9603R1ZM\n------------------------\nEspresso            120.00\nMasala dosa         90.00\nBottled water       30.00\n------------------------\nSubtotal           240.00\nCGST 2.5%            6.00\nSGST 2.5%            6.00\nTOTAL              252.00\nPaid UPI 12:41 IST\nTxn REF9K2M7Q"
+  },
+  {
+    "id": "thermal_receipt_02",
+    "category": "thermal_receipt",
+    "file": "corpus/thermal_receipt_02.png",
+    "text": "CITY MART\nBill No 441902\n------------------------\nMilk 1L              58.00\nBread loaf           45.00\nEggs dozen           72.00\n------------------------\nItems 3\nTOTAL               175.00\nCash tendered       200.00\nChange               25.00"
+  },
+  {
+    "id": "dark_screenshot_01",
+    "category": "dark_mode_screenshot",
+    "file": "corpus/dark_screenshot_01.png",
+    "text": "$ npm run build\n> next build\nError: ENOENT: no such file or directory\n    at Object.openSync (node:fs:596:3)\n    at readFileSync (node:fs:464:35)\nhint: check app/sitemap.js path"
+  },
+  {
+    "id": "dark_screenshot_02",
+    "category": "dark_mode_screenshot",
+    "file": "corpus/dark_screenshot_02.png",
+    "text": "POST /api/ocr 429\ncode: RATE_LIMITED\nremaining: 0\nresetAt: 2026-08-12T00:00:00Z\nmessage: Daily AI OCR limit reached"
+  },
+  {
+    "id": "skewed_scan_01",
+    "category": "skewed_scan",
+    "file": "corpus/skewed_scan_01.png",
+    "text": "Library checkout slip\nMember: A. Raman\nTitle: Practical Document Imaging\nDue date: 25 August 2026\nBarcode: 39015012345678"
+  },
+  {
+    "id": "skewed_scan_02",
+    "category": "skewed_scan",
+    "file": "corpus/skewed_scan_02.png",
+    "text": "Permission slip\nStudent: Kavya Nair\nEvent: Science fair visit\nDate: 19 August 2026\nParent signature required before boarding."
+  },
+  {
+    "id": "low_light_01",
+    "category": "low_light_photo",
+    "file": "corpus/low_light_01.png",
+    "text": "Whiteboard reminder\nDeploy window: Saturday 02:00\u201304:00 IST\nOwner: platform team\nRollback plan reviewed \u2014 ticket PLAT-992"
+  },
+  {
+    "id": "low_light_02",
+    "category": "low_light_photo",
+    "file": "corpus/low_light_02.png",
+    "text": "Parking notice\nBay B-14 reserved for visitors\nValid 11 Aug 2026 only\nCall desk on extension 4400"
+  },
+  {
+    "id": "handwriting_sim_01",
+    "category": "handwriting_sim",
+    "file": "corpus/handwriting_sim_01.png",
+    "text": "Buy milk and eggs\nCall dentist Tuesday\nFinish OCR notes"
+  },
+  {
+    "id": "handwriting_sim_02",
+    "category": "handwriting_sim",
+    "file": "corpus/handwriting_sim_02.png",
+    "text": "Password reset code\nis four eight two one\nexpires in ten minutes"
+  }
+]

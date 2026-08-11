@@ -75,6 +75,18 @@ CARDS = {
         "heading": "AI vs Tesseract",
         "subheading": "Cloud model · browser engine",
     },
+    "ocr-blog-benchmark": {
+        "bg": (15, 55, 55),
+        "circle_light": (19, 78, 74),
+        "circle_dark": (10, 35, 35),
+        "frame": (94, 234, 212),
+        "bar": (255, 255, 255),
+        "accent_bar": (45, 212, 191),
+        "title": (255, 255, 255),
+        "subtitle": (153, 246, 228),
+        "heading": "OCR Benchmark",
+        "subheading": "Gemini · Tesseract · CER",
+    },
 }
 
 

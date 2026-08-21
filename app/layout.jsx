@@ -51,7 +51,6 @@ export const metadata = {
     description:
       "Extract editable text from screenshots, photos, JPG, PNG, and scanned documents. Free AI OCR with browser fallback and no signup.",
     type: "website",
-    url: SITE_URL,
     siteName: SITE_NAME,
     locale: "en_US",
     images: [
@@ -70,9 +69,6 @@ export const metadata = {
       "Convert screenshots, photos, JPG, PNG, and scanned documents into editable text with free AI OCR.",
     creator: "@elango_dev",
     images: ["/opengraph-image"],
-  },
-  alternates: {
-    canonical: SITE_URL,
   },
   verification: GOOGLE_SITE_VERIFICATION
     ? { google: GOOGLE_SITE_VERIFICATION }

@@ -20,13 +20,14 @@ import {
     downloadPdf,
     findPdfUnsupportedChars,
 } from "../lib/export/downloadTextFormats";
-
-const MAX_BATCH_IMAGES = 10;
-/** Soft client guide aligned with AI OCR ~9MB raw image ceiling on the server. */
-const MAX_IMAGE_SIZE_MB = 8;
-const MAX_IMAGE_BYTES = MAX_IMAGE_SIZE_MB * 1024 * 1024;
-const ACCEPTED_IMAGE_TYPES = "image/png,image/jpeg,image/webp,image/gif";
-const ACCEPTED_IMAGE_ACCEPT_ATTR = "image/png,image/jpeg,image/webp,image/gif,.png,.jpg,.jpeg,.webp,.gif";
+import {
+    ACCEPTED_IMAGE_ACCEPT_ATTR,
+    ACCEPTED_IMAGE_TYPES,
+    MAX_BATCH_IMAGES,
+    MAX_IMAGE_BYTES,
+    MAX_IMAGE_SIZE_MB,
+    OCR_LANGUAGES,
+} from "../lib/ocr/toolOptions";
 
 export default function OCRTool() {
     const [queue, setQueue] = useState([]);
@@ -811,20 +812,7 @@ export default function OCRTool() {
     return rawText || blocksFallback();
   };
 
-    const languages = [
-        { code: "eng", name: "English" },
-        { code: "spa", name: "Spanish" },
-        { code: "fra", name: "French" },
-        { code: "deu", name: "German" },
-        { code: "ita", name: "Italian" },
-        { code: "por", name: "Portuguese" },
-        { code: "rus", name: "Russian" },
-        { code: "chi_sim", name: "Chinese (Simplified)" },
-        { code: "jpn", name: "Japanese" },
-        { code: "kor", name: "Korean" },
-        { code: "ara", name: "Arabic" },
-        { code: "hin", name: "Hindi" },
-    ];
+    const languages = OCR_LANGUAGES;
 
     /* ---------------- IMAGE UPLOAD ---------------- */
     const readFileAsDataUrl = (file) =>

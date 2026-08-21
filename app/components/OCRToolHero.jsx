@@ -1,6 +1,5 @@
 import { Languages, ScanText, Shield } from "lucide-react";
-
-const MAX_BATCH_IMAGES = 10;
+import { MAX_BATCH_IMAGES } from "../lib/ocr/toolOptions";
 
 export default function OCRToolHero() {
   return (

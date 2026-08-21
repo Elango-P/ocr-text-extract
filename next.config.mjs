@@ -46,6 +46,11 @@ const nextConfig = {
         permanent: true,
       },
       {
+        source: "/extract-text",
+        destination: "/image-to-text",
+        permanent: true,
+      },
+      {
         source: "/extract-text-from-image",
         destination: "/image-to-text",
         permanent: true,

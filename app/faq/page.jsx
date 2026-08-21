@@ -16,6 +16,43 @@ export const metadata = {
   },
 };
 
+function stripFaqLinks(text) {
+  return text.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1");
+}
+
+function FaqAnswer({ text }) {
+  const nodes = [];
+  const re = /\[([^\]]+)\]\(([^)]+)\)/g;
+  let last = 0;
+  let match;
+  let i = 0;
+
+  while ((match = re.exec(text)) !== null) {
+    if (match.index > last) nodes.push(text.slice(last, match.index));
+    const href = match[2];
+    const label = match[1];
+    const className = "font-semibold text-cyan-700 hover:underline";
+    if (href.startsWith("http") || href.startsWith("mailto:")) {
+      nodes.push(
+        <a key={i} href={href} className={className}>
+          {label}
+        </a>
+      );
+    } else {
+      nodes.push(
+        <Link key={i} href={href} className={className}>
+          {label}
+        </Link>
+      );
+    }
+    last = match.index + match[0].length;
+    i += 1;
+  }
+
+  if (last < text.length) nodes.push(text.slice(last));
+  return <p className="mt-3 text-sm leading-relaxed text-slate-600">{nodes}</p>;
+}
+
 const faqs = [
   {
     q: "What is OCR?",
@@ -27,7 +64,7 @@ const faqs = [
   },
   {
     q: "Do you use cloud AI for OCR?",
-    a: "Yes by default. Extract Text uses cloud AI OCR first (Google Gemini). If that request fails or returns no text, the tool falls back to Tesseract.js in your browser. You can also enable Local OCR only to skip the AI path. Details are in the Privacy Policy.",
+    a: "Yes by default. Extract Text uses cloud AI OCR first (Google Gemini). If that request fails or returns no text, the tool falls back to Tesseract.js in your browser. You can also enable Local OCR only to skip the AI path. Details are in the [Privacy Policy](/privacy-policy).",
   },
   {
     q: "Can I keep recognition in my browser only?",
@@ -39,7 +76,7 @@ const faqs = [
   },
   {
     q: "Are my images uploaded to your servers?",
-    a: "For AI OCR (the default), the image is sent through our server to Google’s AI service for that extraction. We do not permanently store uploads as a user archive. Local OCR only and the browser fallback do not upload the image for recognition. See Privacy Policy and Data Retention.",
+    a: "For AI OCR (the default), the image is sent through our server to Google’s AI service for that extraction. We do not permanently store uploads as a user archive. Local OCR only and the browser fallback do not upload the image for recognition. See the [Privacy Policy](/privacy-policy) and [Data Retention](/data-retention).",
   },
   {
     q: "What happens if AI OCR fails?",
@@ -51,7 +88,7 @@ const faqs = [
   },
   {
     q: "Can I upload a PDF file directly?",
-    a: "Not as a multi-page PDF container today. Export or screenshot each page to PNG/JPG, then run OCR. The PDF to Text guide explains the workflow.",
+    a: "Not as a multi-page PDF container today. Export or screenshot each page to PNG/JPG, then run OCR. The [PDF to Text](/pdf-to-text) guide explains the workflow.",
   },
   {
     q: "Which languages are supported?",
@@ -67,7 +104,7 @@ const faqs = [
   },
   {
     q: "Can OCR read handwriting?",
-    a: "Sometimes, especially neat print. Cursive and messy notes are unreliable. See the Handwriting to Text page for photo tips and expectations.",
+    a: "Sometimes, especially neat print. Cursive and messy notes are unreliable. See [Handwriting to Text](/handwriting-to-text) for photo tips and expectations.",
   },
   {
     q: "Can I use extracted text commercially?",
@@ -87,19 +124,19 @@ const faqs = [
   },
   {
     q: "Do you show ads?",
-    a: "This site may display ads (for example, through Google AdSense) when advertising is enabled. See the Privacy Policy and Cookie Policy for details and controls.",
+    a: "This site may display ads (for example, through Google AdSense) when advertising is enabled. See the [Privacy Policy](/privacy-policy) and [Cookie Policy](/cookie-policy) for details and controls.",
   },
   {
     q: "How do I contact you?",
-    a: `Email ${CONTACT_EMAIL} or use the Contact page. We typically respond within 1–3 business days.`,
+    a: `Email [${CONTACT_EMAIL}](mailto:${CONTACT_EMAIL}) or use the [Contact](/contact) page. We typically respond within 1–3 business days.`,
   },
   {
     q: "Who operates this site?",
-    a: "Elango P operates OCR Text Extractor independently. See the About page and author profile for mission and contact details.",
+    a: "Elango P operates OCR Text Extractor independently. See the [About](/about) page and [author profile](/author/elango-p) for mission and contact details.",
   },
   {
     q: "Is there a refund policy?",
-    a: "The OCR tool is free — no paid plans are sold on the site today — so refunds do not apply. This is restated in the Terms of Use.",
+    a: "The OCR tool is free — no paid plans are sold on the site today — so refunds do not apply. This is restated in the [Terms of Use](/terms).",
   },
   {
     q: "How do I download results?",
@@ -139,11 +176,11 @@ const faqs = [
   },
   {
     q: "Do you train AI on my images?",
-    a: "We do not operate a training pipeline on your uploads. Cloud AI processing follows the provider’s terms named in the Privacy Policy.",
+    a: "We do not operate a training pipeline on your uploads. Cloud AI processing follows the provider’s terms named in the [Privacy Policy](/privacy-policy).",
   },
   {
     q: "How long do you retain data?",
-    a: "See the Data Retention Policy for images, logs, cookies, and email correspondence timelines.",
+    a: "See the [Data Retention Policy](/data-retention) for images, logs, cookies, and email correspondence timelines.",
   },
   {
     q: "Can I disable cookies?",
@@ -167,11 +204,11 @@ const faqs = [
   },
   {
     q: "How do I improve phone photo OCR?",
-    a: "Shoot square-on, use even light, fill the frame with text, avoid flash glare, and crop before upload. See JPG to Text tips.",
+    a: "Shoot square-on, use even light, fill the frame with text, avoid flash glare, and crop before upload. [Image to Text](/image-to-text) covers JPG photo tips (older jpg-to-text URLs redirect there).",
   },
   {
     q: "How do I OCR a screenshot dialog?",
-    a: "Capture as PNG when possible, enable Clean Mode, upload on the Image to Text or main tool page, then copy the dialog text.",
+    a: "Capture as PNG when possible, enable Clean Mode, upload on [Screenshot to Text](/screenshot-to-text) or [Image to Text](/image-to-text), then copy the dialog text.",
   },
   {
     q: "What browsers are supported?",
@@ -191,11 +228,11 @@ const faqs = [
   },
   {
     q: "Do you offer an OCR API for production apps?",
-    a: "This site is a consumer web tool, not a general-purpose billed API product. See the OCR API guide on the blog for patterns and when to use provider APIs.",
+    a: "This site is a consumer web tool, not a general-purpose billed API product. See [OCR for Developers](/blog/ocr-for-developers) for patterns and when to use provider APIs.",
   },
   {
     q: "Where are tool-specific guides?",
-    a: "Use Image to Text, JPG to Text, PDF to Text, and Handwriting to Text — each has unique advice plus the same extractor. Older PNG / Extract Text URLs redirect to Image to Text.",
+    a: "Use [Image to Text](/image-to-text), [PDF to Text](/pdf-to-text), and [Handwriting to Text](/handwriting-to-text) — each has unique advice plus the same extractor. Older png-to-text, jpg-to-text, and extract-text URLs redirect to Image to Text.",
   },
   {
     q: "How do breadcrumbs and the sitemap help?",
@@ -211,7 +248,7 @@ const faqs = [
   },
   {
     q: "Are results legal evidence?",
-    a: "Treat OCR as a draft. Courts and employers usually require original documents or certified processes. See the Disclaimer.",
+    a: "Treat OCR as a draft. Courts and employers usually require original documents or certified processes. See the [Disclaimer](/disclaimer).",
   },
   {
     q: "How do I report a bug?",
@@ -219,7 +256,7 @@ const faqs = [
   },
   {
     q: "Where can I read accuracy tips in depth?",
-    a: "See How it works, the OCR accuracy tips article, and format-specific tool pages linked from the homepage Related tools section.",
+    a: "See [How it works](/how-it-works), [OCR accuracy and limitations](/blog/ocr-accuracy-and-limitations), and the format-specific pages in [Related tools](/#related-tools).",
   },
 ];
 
@@ -232,7 +269,7 @@ export default function FAQPage() {
       name: item.q,
       acceptedAnswer: {
         "@type": "Answer",
-        text: item.a,
+        text: stripFaqLinks(item.a),
       },
     })),
   };
@@ -277,7 +314,7 @@ export default function FAQPage() {
                 </span>
               </span>
             </summary>
-            <p className="mt-3 text-sm leading-relaxed text-slate-600">{item.a}</p>
+            <FaqAnswer text={item.a} />
           </details>
         ))}
       </div>

@@ -10,7 +10,7 @@ from html.parser import HTMLParser
 BASE = f"http://localhost:{sys.argv[1] if len(sys.argv) > 1 else '3457'}"
 
 OLD_PATHS = [
-    "/jpg-to-text", "/png-to-text",
+    "/jpg-to-text", "/png-to-text", "/extract-text", "/extract-text-from-image",
     "/invoice-to-text", "/blog/what-is-ocr", "/blog/ocr-accuracy-tips",
     "/blog/handwriting-ocr", "/blog/pdf-ocr-guide", "/blog/ocr-using-python",
     "/blog/ocr-in-javascript", "/blog/ocr-for-students", "/blog/ocr-for-businesses",

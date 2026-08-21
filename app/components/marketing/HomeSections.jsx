@@ -237,7 +237,20 @@ const homeFaqs = [
   },
   {
     q: "Are my images stored forever?",
-    a: "No permanent archive of uploads. By default, AI OCR sends images through our server to Google Gemini for that extraction request. See the Privacy Policy and Data Retention pages.",
+    a: (
+      <>
+        No permanent archive of uploads. By default, AI OCR sends images through our server to
+        Google Gemini for that extraction request. See the{" "}
+        <Link href="/privacy-policy" className="font-semibold text-cyan-200 hover:underline">
+          Privacy Policy
+        </Link>{" "}
+        and{" "}
+        <Link href="/data-retention" className="font-semibold text-cyan-200 hover:underline">
+          Data Retention
+        </Link>{" "}
+        pages.
+      </>
+    ),
   },
   {
     q: "What formats can I upload?",
@@ -249,7 +262,16 @@ const homeFaqs = [
   },
   {
     q: "Does the site show ads?",
-    a: "Ads may appear when advertising is enabled (for example, via Google AdSense). Cookie choices are explained in the Cookie Policy.",
+    a: (
+      <>
+        Ads may appear when advertising is enabled (for example, via Google AdSense). Cookie
+        choices are explained in the{" "}
+        <Link href="/cookie-policy" className="font-semibold text-cyan-200 hover:underline">
+          Cookie Policy
+        </Link>
+        .
+      </>
+    ),
   },
 ];
 
@@ -263,7 +285,7 @@ const tipList = [
 ];
 
 export default function HomeSections() {
-  const latestPosts = getAllPosts().slice(0, 6);
+  const latestPosts = getAllPosts().slice(0, 9);
 
   return (
     <div className="mx-auto max-w-6xl space-y-20 px-4 pb-20 pt-4 sm:px-6">
@@ -762,7 +784,7 @@ export default function HomeSections() {
         </p>
       </section>
 
-      <section aria-labelledby="related-tools-heading">
+      <section id="related-tools" aria-labelledby="related-tools-heading">
         <h2 id="related-tools-heading" className="text-2xl font-black text-slate-900 sm:text-3xl">
           Related tools
         </h2>

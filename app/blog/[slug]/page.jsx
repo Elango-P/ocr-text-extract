@@ -11,7 +11,7 @@ import {
   getAdjacentPosts,
 } from "../../lib/blog/posts";
 import { getPostMarkdown } from "../../lib/blog/getPostMarkdown";
-import MarkdownContent from "../../components/blog/MarkdownContent";
+import MarkdownContent, { getMarkdownHeadings } from "../../components/blog/MarkdownContent";
 
 export function generateStaticParams() {
   const posts = getAllPosts();
@@ -68,6 +68,7 @@ export default async function BlogPostPage({ params }) {
 
   const related = getRelatedPosts(slug, 3);
   const { previous, next } = getAdjacentPosts(slug);
+  const headings = getMarkdownHeadings(markdown);
   const url = `${SITE_URL}/blog/${post.slug}`;
 
   const jsonLd = {
@@ -133,12 +134,13 @@ export default async function BlogPostPage({ params }) {
         </p>
         <div className="mt-4 flex flex-wrap gap-2">
           {post.tags.map((tag) => (
-            <span
+            <Link
               key={tag}
-              className="rounded-md bg-cyan-50 px-2.5 py-1 text-xs font-semibold text-cyan-700"
+              href={`/blog?topic=${encodeURIComponent(tag)}`}
+              className="rounded-md bg-cyan-50 px-2.5 py-1 text-xs font-semibold text-cyan-700 hover:bg-cyan-100"
             >
               {tag}
-            </span>
+            </Link>
           ))}
         </div>
       </header>
@@ -165,6 +167,29 @@ export default async function BlogPostPage({ params }) {
           .
         </p>
       </aside>
+
+      {headings.length >= 4 ? (
+        <nav
+          aria-label="On this page"
+          className="mt-8 rounded-2xl border border-slate-200 bg-slate-50 px-5 py-4"
+        >
+          <p className="text-xs font-bold uppercase tracking-[0.16em] text-slate-500">
+            On this page
+          </p>
+          <ol className="mt-3 space-y-1.5 text-sm">
+            {headings.map((heading) => (
+              <li key={heading.id}>
+                <a
+                  href={`#${heading.id}`}
+                  className="font-medium text-cyan-800 hover:underline"
+                >
+                  {heading.text}
+                </a>
+              </li>
+            ))}
+          </ol>
+        </nav>
+      ) : null}
 
       <MarkdownContent source={markdown} />
 

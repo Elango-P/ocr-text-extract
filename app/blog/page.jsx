@@ -198,6 +198,7 @@ export default async function BlogIndexPage({ searchParams }) {
             <Link
               key={item.label}
               href={href}
+              aria-current={active ? "page" : undefined}
               className={`rounded-lg px-3 py-1.5 text-sm font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-600 ${
                 active
                   ? "bg-cyan-600 text-white"
@@ -233,18 +234,16 @@ export default async function BlogIndexPage({ searchParams }) {
                 key={post.slug}
                 className="flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:border-cyan-200 hover:shadow-md"
               >
-                <Link
-                  href={`/blog/${post.slug}`}
-                  className="relative block aspect-[16/10] overflow-hidden bg-slate-100"
-                >
+                <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
                   <Image
                     src={post.image}
-                    alt={post.title}
+                    alt=""
                     fill
                     className="object-cover"
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    aria-hidden="true"
                   />
-                </Link>
+                </div>
                 <div className="flex flex-1 flex-col p-5">
                   <p className="text-xs font-semibold text-slate-400">
                     <time dateTime={post.date}>{formatDate(post.date)}</time>

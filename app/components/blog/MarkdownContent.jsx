@@ -69,7 +69,7 @@ function inlineToNodes(text, keyPrefix) {
   return nodes;
 }
 
-function stripInlineMarkdown(text) {
+export function stripInlineMarkdown(text) {
   return text
     .replace(/\*\*(.+?)\*\*/g, "$1")
     .replace(/\*(.+?)\*/g, "$1")
@@ -77,7 +77,7 @@ function stripInlineMarkdown(text) {
     .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1");
 }
 
-function slugify(text) {
+export function slugify(text) {
   return stripInlineMarkdown(text)
     .toLowerCase()
     .trim()
@@ -110,6 +110,15 @@ function parseList(lines, start, ordered) {
   }
 
   return { items, next: i };
+}
+
+export function getMarkdownHeadings(source) {
+  return source.replace(/\r\n/g, "\n").split("\n").flatMap((line) => {
+    if (!line.startsWith("## ") || line.startsWith("### ")) return [];
+    const text = stripInlineMarkdown(line.slice(3).trim());
+    const id = slugify(text);
+    return id ? [{ id, text }] : [];
+  });
 }
 
 /**

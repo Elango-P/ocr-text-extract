@@ -36,7 +36,7 @@ const nextConfig = {
         permanent: true,
       },
       {
-        source: "/blog/:slug(batch-ocr-without-losing-place|building-an-internal-ocr-playbook|clean-mode-explained|comparing-ai-ocr-and-tesseract|desk-setup-for-document-photos|form-fields-vs-full-page-ocr|from-ocr-text-to-translation|low-light-and-evening-scan-rescue|ocr-and-gdpr-style-thinking|ocr-for-accessibility|ocr-for-multilingual-documents|ocr-for-nonprofit-field-reports|ocr-for-researchers-and-citations|ocr-for-teachers-lesson-prep|ocr-mistakes-that-cost-money|ocr-on-dark-mode-uis|quarterly-ocr-accuracy-retro|shipping-labels-and-packing-slips|table-extraction-after-ocr|webp-and-gif-to-text|when-screenshots-beat-the-camera)",
+        source: "/blog/:slug(batch-ocr-without-losing-place|building-an-internal-ocr-playbook|clean-mode-explained|desk-setup-for-document-photos|form-fields-vs-full-page-ocr|from-ocr-text-to-translation|low-light-and-evening-scan-rescue|ocr-for-accessibility|ocr-for-multilingual-documents|ocr-for-nonprofit-field-reports|ocr-for-researchers-and-citations|ocr-for-teachers-lesson-prep|ocr-mistakes-that-cost-money|ocr-on-dark-mode-uis|quarterly-ocr-accuracy-retro|shipping-labels-and-packing-slips|table-extraction-after-ocr|webp-and-gif-to-text|when-screenshots-beat-the-camera)",
         destination: "/blog",
         permanent: true,
       },
@@ -83,6 +83,26 @@ const nextConfig = {
         destination: "/blog/ocr-for-developers",
         permanent: true,
       },
+      {
+        source: "/blog/comparing-ai-ocr-and-tesseract",
+        destination: "/blog/ai-ocr-vs-traditional-ocr",
+        permanent: true,
+      },
+      {
+        source: "/blog/ocr-and-gdpr-style-thinking",
+        destination: "/blog/ocr-privacy-uploaded-images",
+        permanent: true,
+      },
+      {
+        source: "/blog/ocr-accuracy-tips",
+        destination: "/blog/ocr-accuracy-and-limitations",
+        permanent: true,
+      },
+      {
+        source: "/blog/ocr-security-privacy",
+        destination: "/blog/ocr-privacy-uploaded-images",
+        permanent: true,
+      },
       // Thin content consolidation redirects (AdSense Low Value fix)
       {
         source: "/blog/:slug(what-is-ocr|how-to-extract-text-from-images|best-ocr-tools-2026|ocr-vs-manual-typing|ocr-vs-google-lens|free-online-ocr-checklist)",
@@ -100,7 +120,7 @@ const nextConfig = {
         permanent: true,
       },
       {
-        source: "/blog/:slug(image-preprocessing-for-ocr|ocr-accuracy-tips|pdf-ocr-guide|convert-screenshots-to-editable-text|ocr-security-privacy)",
+        source: "/blog/:slug(image-preprocessing-for-ocr|pdf-ocr-guide|convert-screenshots-to-editable-text)",
         destination: "/blog/advanced-ocr-techniques",
         permanent: true,
       },

@@ -1,0 +1,14 @@
+---
+description: Before pushing, run the production build and commit remaining changes
+alwaysApply: true
+---
+
+# Push only after a green build
+
+When the user asks to push, or when shipping code to origin:
+
+1. Run `npm run build` and wait for it to succeed. Do not push a failing build.
+2. Commit any remaining uncommitted work (including fixes found during the build) using the git commit protocol.
+3. Then push to the tracked remote.
+
+Do not skip the build to save time. If the build fails, fix it, rebuild, and only then commit and push.

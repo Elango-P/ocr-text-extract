@@ -8,6 +8,7 @@ import {
   getAllPosts,
   getPostBySlug,
   getRelatedPosts,
+  getAdjacentPosts,
 } from "../../lib/blog/posts";
 import { getPostMarkdown } from "../../lib/blog/getPostMarkdown";
 import MarkdownContent from "../../components/blog/MarkdownContent";
@@ -66,6 +67,7 @@ export default async function BlogPostPage({ params }) {
   if (!post || !markdown) notFound();
 
   const related = getRelatedPosts(slug, 3);
+  const { previous, next } = getAdjacentPosts(slug);
   const url = `${SITE_URL}/blog/${post.slug}`;
 
   const jsonLd = {
@@ -85,7 +87,10 @@ export default async function BlogPostPage({ params }) {
       name: SITE_NAME,
       url: SITE_URL,
     },
-    mainEntityOfPage: url,
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": url,
+    },
     image: `${SITE_URL}${post.image}`,
   };
 
@@ -181,7 +186,7 @@ export default async function BlogPostPage({ params }) {
 
       {related.length > 0 && (
         <aside className="mt-12 border-t border-slate-200 pt-10">
-          <h2 className="text-lg font-bold text-slate-900">Related articles</h2>
+          <h2 className="text-lg font-bold text-slate-900">Related Articles</h2>
           <ul className="mt-4 space-y-3">
             {related.map((r) => (
               <li key={r.slug}>
@@ -196,6 +201,40 @@ export default async function BlogPostPage({ params }) {
             ))}
           </ul>
         </aside>
+      )}
+
+      {(previous || next) && (
+        <nav
+          className="mt-12 flex flex-col gap-4 border-t border-slate-200 pt-10 sm:flex-row sm:items-start sm:justify-between"
+          aria-label="Article navigation"
+        >
+          {previous ? (
+            <Link
+              href={`/blog/${previous.slug}`}
+              className="group max-w-sm text-sm font-semibold text-cyan-700 hover:underline"
+              rel="prev"
+            >
+              <span className="block text-xs font-medium text-slate-400 group-hover:text-slate-500">
+                ← Previous Article
+              </span>
+              <span className="mt-1 block leading-snug">{previous.title}</span>
+            </Link>
+          ) : (
+            <span />
+          )}
+          {next ? (
+            <Link
+              href={`/blog/${next.slug}`}
+              className="group max-w-sm text-right text-sm font-semibold text-cyan-700 hover:underline sm:ml-auto"
+              rel="next"
+            >
+              <span className="block text-xs font-medium text-slate-400 group-hover:text-slate-500">
+                Next Article →
+              </span>
+              <span className="mt-1 block leading-snug">{next.title}</span>
+            </Link>
+          ) : null}
+        </nav>
       )}
     </article>
   );

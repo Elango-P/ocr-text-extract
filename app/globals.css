@@ -91,7 +91,12 @@ body {
   -webkit-backdrop-filter: blur(8px);
 }
 
-/* Collapse AdSense slots when Google returns no creative (avoids blank gaps) */
+/* Hide the whole ad unit (label + box) until Google fills a creative.
+   Also collapse unfilled <ins> if the parent rule is unsupported. */
+aside.ad-slot:not(:has(ins.adsbygoogle[data-ad-status="filled"])) {
+  display: none !important;
+}
+
 ins.adsbygoogle[data-ad-status="unfilled"] {
   display: none !important;
 }

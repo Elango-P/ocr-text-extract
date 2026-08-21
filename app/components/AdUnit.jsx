@@ -59,7 +59,7 @@ export default function AdUnit({ slot, className = "" }) {
     // focusable region from the accessibility tree leaves screen-reader users
     // tabbing into something unannounced.
     <aside
-      className={`w-full ${className}`.trim()}
+      className={`ad-slot w-full ${className}`.trim()}
       aria-label="Advertisement"
     >
       <p className="mb-1 text-center text-[10px] font-medium uppercase tracking-widest text-slate-400">

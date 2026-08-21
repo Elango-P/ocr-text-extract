@@ -89,6 +89,8 @@ export const posts = [
   },
 ];
 
+export const POSTS_PER_PAGE = 9;
+
 export function getAllPosts() {
   return [...posts].sort((a, b) => {
     if (a.date !== b.date) return a.date < b.date ? 1 : -1;
@@ -99,6 +101,38 @@ export function getAllPosts() {
 
 export function getPostBySlug(slug) {
   return posts.find((p) => p.slug === slug) || null;
+}
+
+/**
+ * Slice a post list into a page without overlapping items.
+ * @param {typeof posts} list
+ * @param {number} page 1-based page number
+ */
+export function paginatePosts(list, page, perPage = POSTS_PER_PAGE) {
+  const total = list.length;
+  const totalPages = Math.max(1, Math.ceil(total / perPage));
+  const safePage = Math.min(Math.max(1, page), totalPages);
+  const start = (safePage - 1) * perPage;
+  return {
+    posts: list.slice(start, start + perPage),
+    page: safePage,
+    totalPages,
+    total,
+  };
+}
+
+/**
+ * Chronological neighbors: previous = older, next = newer.
+ * `getAllPosts()` is newest-first, so index-1 is newer and index+1 is older.
+ */
+export function getAdjacentPosts(slug) {
+  const all = getAllPosts();
+  const index = all.findIndex((p) => p.slug === slug);
+  if (index === -1) return { previous: null, next: null };
+  return {
+    previous: all[index + 1] || null,
+    next: all[index - 1] || null,
+  };
 }
 
 export function getRelatedPosts(slug, limit = 3) {

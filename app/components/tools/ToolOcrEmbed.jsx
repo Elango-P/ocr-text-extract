@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import OCRToolShell from "./OCRToolShell";
+import OCRToolShell from "../OCRToolShell";
 
 /**
  * Isolates the heavy OCR client bundle behind a client boundary so

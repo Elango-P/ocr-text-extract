@@ -120,7 +120,12 @@ const nextConfig = {
         permanent: true,
       },
       {
-        source: "/blog/:slug(ocr-api-guide|ocr-for-developers-guide|ocr-in-javascript|ocr-using-python)",
+        source: "/blog/ocr-using-python",
+        destination: "/blog/ocr-for-developers",
+        permanent: true,
+      },
+      {
+        source: "/blog/:slug(ocr-api-guide|ocr-for-developers-guide|ocr-in-javascript)",
         destination: "/blog/ocr-for-developers",
         permanent: true,
       },

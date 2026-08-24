@@ -62,7 +62,7 @@ export default function AdUnit({ slot, className = "" }) {
       className={`ad-slot w-full ${className}`.trim()}
       aria-label="Advertisement"
     >
-      <p className="mb-1 text-center text-[10px] font-medium uppercase tracking-widest text-slate-400">
+      <p className="mb-1 text-center text-[10px] font-medium uppercase tracking-widest text-slate-600">
         Advertisement
       </p>
       <ins

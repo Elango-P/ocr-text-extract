@@ -90,7 +90,7 @@ export default function ToolLanding({ tool }) {
         />
 
         <header className="mt-6 max-w-3xl">
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-cyan-600">
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-cyan-800">
             Free OCR tool
           </p>
           <h1 className="mt-3 text-3xl font-black tracking-tight text-slate-900 sm:text-4xl">
@@ -115,7 +115,8 @@ export default function ToolLanding({ tool }) {
               width={1200}
               height={675}
               className="h-56 w-full object-cover sm:h-72"
-              priority
+              loading="lazy"
+              sizes="(max-width: 768px) 100vw, 1200px"
             />
             <figcaption className="px-4 py-3 text-sm text-slate-500">
               {tool.heroAlt}
@@ -128,7 +129,7 @@ export default function ToolLanding({ tool }) {
             aria-labelledby={`${tool.slug}-worked-example`}
             className="rounded-2xl border border-slate-200 bg-white p-6 sm:p-8"
           >
-            <p className="text-xs font-bold uppercase tracking-[0.2em] text-cyan-600">
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-cyan-800">
               Walkthrough
             </p>
             <h2

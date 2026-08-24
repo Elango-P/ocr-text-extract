@@ -12,6 +12,7 @@ import {
 export default function OCRToolShell() {
   return (
     <section id="ocr-tool" className="mx-auto max-w-6xl px-4 pb-8 pt-6 sm:px-6 sm:pb-10 sm:pt-8">
+      <h2 className="sr-only">OCR tool</h2>
       <div className="ocr-tool-shell p-4 sm:p-6 lg:p-8">
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-8">
           <div className="space-y-4">

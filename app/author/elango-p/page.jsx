@@ -55,7 +55,7 @@ export default function AuthorPage() {
         ]}
       />
 
-      <p className="mt-6 text-xs font-bold uppercase tracking-[0.2em] text-cyan-600">
+      <p className="mt-6 text-xs font-bold uppercase tracking-[0.2em] text-cyan-800">
         Author &amp; operator
       </p>
       <h1 className="mt-3 text-3xl font-black tracking-tight text-slate-900 sm:text-4xl">

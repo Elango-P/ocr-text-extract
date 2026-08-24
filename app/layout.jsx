@@ -1,5 +1,4 @@
 import { Inter } from "next/font/google";
-import { Toaster } from "react-hot-toast";
 import SiteLayout from "./components/SiteLayout";
 import AdSenseScript from "./components/AdSenseScript";
 import CookieConsent from "./components/CookieConsent";
@@ -17,6 +16,8 @@ import "./globals.css";
 const inter = Inter({
   subsets: ["latin"],
   display: "swap",
+  preload: true,
+  adjustFontFallback: true,
 });
 
 export const viewport = {
@@ -105,7 +106,6 @@ export default function RootLayout({ children }) {
         <SiteLayout>{children}</SiteLayout>
         <AdSenseScript />
         <CookieConsent />
-        <Toaster position="top-center" />
       </body>
     </html>
   );

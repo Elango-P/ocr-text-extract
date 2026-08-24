@@ -175,7 +175,7 @@ export default async function BlogIndexPage({ searchParams }) {
       />
 
       <header className="max-w-3xl">
-        <p className="text-xs font-bold uppercase tracking-[0.2em] text-cyan-600">Blog</p>
+        <p className="text-xs font-bold uppercase tracking-[0.2em] text-cyan-800">Blog</p>
         <h1 className="mt-3 text-3xl font-black tracking-tight text-slate-900 sm:text-4xl">
           OCR Guides &amp; Resources
         </h1>

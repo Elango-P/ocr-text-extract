@@ -12,7 +12,7 @@ export default function TermsPage() {
 
   return (
     <article className="mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-14">
-      <p className="text-xs font-bold uppercase tracking-[0.2em] text-cyan-600">Legal</p>
+      <p className="text-xs font-bold uppercase tracking-[0.2em] text-cyan-800">Legal</p>
       <h1 className="mt-3 text-3xl font-black tracking-tight text-slate-900 sm:text-4xl">
         Terms of Use
       </h1>

@@ -287,7 +287,7 @@ export default function FAQPage() {
           { name: "FAQ" },
         ]}
       />
-      <p className="mt-6 text-xs font-bold uppercase tracking-[0.2em] text-cyan-600">Help</p>
+      <p className="mt-6 text-xs font-bold uppercase tracking-[0.2em] text-cyan-800">Help</p>
       <h1 className="mt-3 text-3xl font-black tracking-tight text-slate-900 sm:text-4xl">
         Frequently Asked Questions
       </h1>

@@ -13,13 +13,7 @@ import {
     FileText,
     FileType,
 } from "lucide-react";
-import { toast } from "react-hot-toast";
-import {
-    downloadTxt,
-    downloadDocx,
-    downloadPdf,
-    findPdfUnsupportedChars,
-} from "../lib/export/downloadTextFormats";
+import { toast, Toaster } from "react-hot-toast";
 import {
     ACCEPTED_IMAGE_ACCEPT_ATTR,
     ACCEPTED_IMAGE_TYPES,
@@ -29,7 +23,7 @@ import {
     OCR_LANGUAGES,
 } from "../lib/ocr/toolOptions";
 
-export default function OCRTool() {
+export default function OCRTool({ initialFiles = null } = {}) {
     const [queue, setQueue] = useState([]);
     const [activeId, setActiveId] = useState(null);
     const [extractedText, setExtractedText] = useState("");
@@ -44,6 +38,7 @@ export default function OCRTool() {
     const fileInputRef = useRef(null);
     const cancelRequestedRef = useRef(false);
     const abortControllerRef = useRef(null);
+    const initialFilesAppliedRef = useRef(false);
 
     const activeItem = queue.find((q) => q.id === activeId) || queue[0] || null;
     const imagePreview = activeItem?.preview || null;
@@ -883,6 +878,12 @@ export default function OCRTool() {
         multiple: true,
     });
 
+    useEffect(() => {
+        if (!initialFiles?.length || initialFilesAppliedRef.current) return;
+        initialFilesAppliedRef.current = true;
+        loadImageFiles(initialFiles);
+    }, [initialFiles, loadImageFiles]);
+
     /**
      * Screenshots are the most common OCR input, so accept them straight from the
      * clipboard. Ignored while typing in a field so paste still behaves normally there.
@@ -1294,13 +1295,15 @@ export default function OCRTool() {
         toast.success("Copied");
     };
 
-    const handleDownloadTxt = () => {
+    const handleDownloadTxt = async () => {
+        const { downloadTxt } = await import("../lib/export/downloadTextFormats");
         downloadTxt(extractedText);
         toast.success("Downloaded TXT");
     };
 
-    const handleDownloadDocx = () => {
+    const handleDownloadDocx = async () => {
         try {
+            const { downloadDocx } = await import("../lib/export/downloadTextFormats");
             downloadDocx(extractedText);
             toast.success("Downloaded DOCX");
         } catch (err) {
@@ -1309,8 +1312,11 @@ export default function OCRTool() {
         }
     };
 
-    const handleDownloadPdf = () => {
+    const handleDownloadPdf = async () => {
         try {
+            const { downloadPdf, findPdfUnsupportedChars } = await import(
+                "../lib/export/downloadTextFormats"
+            );
             const unsupported = findPdfUnsupportedChars(extractedText);
             downloadPdf(extractedText);
             if (unsupported.length) {
@@ -1340,7 +1346,10 @@ export default function OCRTool() {
     };
 
     return (
+        <>
+        <Toaster position="top-center" />
         <section id="ocr-tool" className="mx-auto max-w-6xl px-4 pb-8 pt-6 sm:px-6 sm:pb-10 sm:pt-8">
+            <h2 className="sr-only">OCR tool</h2>
             <div className="ocr-tool-shell p-4 sm:p-6 lg:p-8">
             <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-8">
                     {/* LEFT — drops below the results on small screens once there is text to read */}
@@ -1719,5 +1728,6 @@ export default function OCRTool() {
                 </div>
             </div>
         </section>
+        </>
     );
 }

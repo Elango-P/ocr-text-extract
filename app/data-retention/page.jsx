@@ -27,7 +27,7 @@ export default function DataRetentionPage() {
           { name: "Data Retention" },
         ]}
       />
-      <p className="mt-6 text-xs font-bold uppercase tracking-[0.2em] text-cyan-600">Legal</p>
+      <p className="mt-6 text-xs font-bold uppercase tracking-[0.2em] text-cyan-800">Legal</p>
       <h1 className="mt-3 text-3xl font-black tracking-tight text-slate-900 sm:text-4xl">
         Data Retention Policy
       </h1>

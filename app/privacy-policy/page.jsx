@@ -1,11 +1,12 @@
 import { SITE_URL, SITE_DOMAIN, CONTACT_EMAIL, OPERATOR_NAME } from "../lib/site";
+import { buildPageMetadata } from "../lib/seo";
 
-export const metadata = {
-  title: "Privacy Policy",
+export const metadata = buildPageMetadata({
+  title: "Privacy Policy – OCR Text Extractor Data Handling",
   description:
     "How OCR Text Extractor handles your data: what happens to images on the AI path, what stays in your browser, plus cookies, ads, retention, and your rights.",
-  alternates: { canonical: `${SITE_URL}/privacy-policy` },
-};
+  path: "/privacy-policy",
+});
 
 export default function PrivacyPage() {
   const updated = "August 11, 2026";

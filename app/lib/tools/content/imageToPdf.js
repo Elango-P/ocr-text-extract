@@ -4,9 +4,9 @@ export const imageToPdf = {
   slug: "image-to-pdf",
   path: "/image-to-pdf",
   title: "Image to PDF — Save Extracted Text as a Searchable PDF",
-  metaTitle: "Image to PDF | Save Extracted Text as a PDF File",
+  metaTitle: "Image to PDF – Save Extracted Text as a PDF File",
   description:
-    "Turn text in an image into a real text PDF you can search and select. What this makes, how it differs from wrapping a photo in a PDF, and its script limits.",
+    "Turn text in an image into a searchable PDF online. Free OCR extracts the words, then downloads a real text PDF you can select, copy, and search.",
   h1: "Image to PDF Converter",
   lead:
     "Extract the text from an image and download it as a PDF whose contents are genuine, selectable, searchable text. This is a different thing from placing your photo inside a PDF, and which one you want depends entirely on whether you care about the words or the page — so it is worth being clear before you start.",

@@ -9,6 +9,7 @@ import {
   getPostBySlug,
   getRelatedPosts,
   getAdjacentPosts,
+  getRelatedToolsForPost,
 } from "../../lib/blog/posts";
 import { getPostMarkdown } from "../../lib/blog/getPostMarkdown";
 import MarkdownContent, { getMarkdownHeadings } from "../../components/blog/MarkdownContent";
@@ -67,6 +68,7 @@ export default async function BlogPostPage({ params }) {
   if (!post || !markdown) notFound();
 
   const related = getRelatedPosts(slug, 3);
+  const relatedTools = getRelatedToolsForPost(slug, 3);
   const { previous, next } = getAdjacentPosts(slug);
   const headings = getMarkdownHeadings(markdown);
   const url = `${SITE_URL}/blog/${post.slug}`;
@@ -196,18 +198,36 @@ export default async function BlogPostPage({ params }) {
       <AdUnit slot={ADSENSE_SLOT_ARTICLE} className="mt-10" />
 
       <div className="mt-12 rounded-2xl bg-gradient-to-br from-cyan-600 to-teal-600 p-6 text-white sm:p-8">
-        <h2 className="text-xl font-bold">Try free OCR now</h2>
+        <h2 className="text-xl font-bold">Try free image to text OCR</h2>
         <p className="mt-2 text-sm text-cyan-50">
           Upload an image to extract editable text — AI OCR runs first (images go to Google
           Gemini via our server); browser OCR is the fallback. No signup required.
         </p>
         <Link
-          href="/#ocr-tool"
+          href="/image-to-text"
           className="mt-5 inline-flex rounded-xl bg-white px-5 py-3 text-sm font-bold text-cyan-800 hover:bg-cyan-50"
         >
-          Open OCR tool
+          Extract text from images
         </Link>
       </div>
+
+      {relatedTools.length > 0 && (
+        <aside className="mt-12 border-t border-slate-200 pt-10">
+          <h2 className="text-lg font-bold text-slate-900">Related OCR tools</h2>
+          <ul className="mt-4 flex flex-wrap gap-3">
+            {relatedTools.map((tool) => (
+              <li key={tool.href}>
+                <Link
+                  href={tool.href}
+                  className="inline-flex rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-cyan-700 shadow-sm hover:border-cyan-200 hover:bg-cyan-50"
+                >
+                  {tool.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </aside>
+      )}
 
       {related.length > 0 && (
         <aside className="mt-12 border-t border-slate-200 pt-10">

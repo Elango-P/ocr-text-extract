@@ -7,23 +7,23 @@ import { SITE_URL, ADSENSE_SLOT_DISPLAY } from "./lib/site";
 
 export const metadata = {
   title: {
-    absolute: "Free Image to Text Converter — Online OCR Tool",
+    absolute: "Image to Text – Extract Text from Images Online",
   },
   description:
-    "Extract text from images, screenshots, JPG, PNG, and scanned page photos with free online OCR. AI extraction, browser fallback, 12+ languages, no signup.",
+    "Convert images to editable text online with our free Image to Text OCR tool. Upload JPG, PNG or screenshots and extract text instantly — AI OCR with browser fallback.",
   alternates: { canonical: SITE_URL },
   openGraph: {
-    title: "Free Online OCR Image to Text Converter",
+    title: "Image to Text – Extract Text from Images Online",
     description:
-      "Convert screenshots and photos into editable text — free OCR with AI and browser fallback.",
+      "Convert images to editable text online. Free OCR for JPG, PNG, screenshots, and scans — no signup required.",
     url: SITE_URL,
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Free Online OCR Image to Text Converter",
+    title: "Image to Text – Extract Text from Images Online",
     description:
-      "Convert screenshots and photos into editable text — free OCR with AI and browser fallback.",
+      "Convert images to editable text online. Free OCR for JPG, PNG, screenshots, and scans — no signup required.",
   },
 };
 

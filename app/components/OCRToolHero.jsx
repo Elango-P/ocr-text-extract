@@ -8,11 +8,11 @@ export default function OCRToolHero() {
         OCR Text Extractor · imgtotext.in
       </p>
       <h1 className="mt-3 text-3xl font-black tracking-tight text-slate-900 sm:text-4xl lg:text-[3.25rem] lg:leading-[1.1]">
-        Extract text from any image
+        Image to Text Converter
       </h1>
       <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-slate-600 sm:text-lg">
-        Upload one image or a batch — get editable text in seconds. Free online OCR with copy,
-        TXT, DOCX, and PDF export.
+        Extract text from any image — screenshots, photos, JPG, PNG, and scans. Free online OCR
+        with copy, TXT, DOCX, and PDF export.
       </p>
       <ul className="mx-auto mt-7 flex max-w-xl flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm font-medium text-slate-600">
         <li className="inline-flex items-center gap-1.5">

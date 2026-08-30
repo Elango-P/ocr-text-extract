@@ -1,6 +1,7 @@
 import { SITE_URL } from './lib/site';
 import { getAllPosts } from './lib/blog/posts';
 import { TOOL_ROUTES } from './lib/tools/toolRoutes';
+import { lastModifiedForRoute } from './lib/seo';
 
 export default function sitemap() {
   const toolPaths = TOOL_ROUTES.map((t) => t.path);
@@ -21,7 +22,7 @@ export default function sitemap() {
     ...toolPaths,
   ].map((route) => ({
     url: `${SITE_URL}${route}`,
-    lastModified: new Date(),
+    lastModified: lastModifiedForRoute(route),
     changeFrequency:
       route === '' || route === '/blog' || toolPaths.includes(route)
         ? 'weekly'

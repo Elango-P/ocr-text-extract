@@ -1,14 +1,14 @@
 import Link from "next/link";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 
-import { SITE_URL } from "../lib/site";
+import { buildPageMetadata } from "../lib/seo";
 
-export const metadata = {
-  title: "How It Works",
+export const metadata = buildPageMetadata({
+  title: "How an Online Image Text Extractor Works",
   description:
-    "How OCR Text Extractor turns images into text: an AI model handles the first ten reads each day, then a Tesseract engine runs in your browser.",
-  alternates: { canonical: `${SITE_URL}/how-it-works` },
-};
+    "How an online image text extractor works: upload, language selection, AI OCR first, then Tesseract.js browser fallback, preprocessing, and export.",
+  path: "/how-it-works",
+});
 
 const tips = [
   "Use well-lit photos with the text in focus",
@@ -24,11 +24,11 @@ export default function HowItWorksPage() {
     <article className="mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-14">
       <p className="text-xs font-bold uppercase tracking-[0.2em] text-cyan-800">Guide</p>
       <h1 className="mt-3 text-3xl font-black tracking-tight text-slate-900 sm:text-4xl">
-        How OCR Text Extractor works
+        How an online image text extractor works
       </h1>
       <p className="mt-4 text-lg leading-relaxed text-slate-600">
-        A step-by-step look at how we turn your images into editable text — using AI OCR
-        first, with a browser fallback if needed.
+        A step-by-step look at how imgtotext.in turns your images into editable text — AI OCR
+        first, with browser preprocessing and Tesseract.js fallback when needed.
       </p>
 
       <div className="mt-10 space-y-10">
@@ -56,8 +56,14 @@ export default function HowItWorksPage() {
         <section className="rounded-2xl border border-slate-200 bg-white p-6 sm:p-8">
           <h2 className="text-xl font-bold text-slate-900">Step 3: OCR recognition (AI first)</h2>
           <p className="mt-3 leading-relaxed text-slate-600">
-            By default, the tool sends your image through our server to Google Gemini for
-            extraction. That path does <strong>not</strong> apply the browser preprocessing
+            By default, the tool sends your image through our server to{" "}
+            <Link
+              href="/blog/ai-ocr-vs-traditional-ocr"
+              className="font-semibold text-cyan-700 hover:underline"
+            >
+              Google Gemini OCR
+            </Link>{" "}
+            for extraction. That path does <strong>not</strong> apply the browser preprocessing
             pipeline first—the image is recognized as uploaded. Details are in the{" "}
             <Link href="/privacy-policy" className="font-semibold text-cyan-700 hover:underline">
               Privacy Policy
@@ -74,7 +80,14 @@ export default function HowItWorksPage() {
             If AI OCR fails, returns no text, or you have reached the daily AI allowance, the tool
             falls back to Tesseract.js in a WebAssembly worker. On that fallback path only, the
             image runs through a preprocessing pipeline designed for real-world photos and
-            screenshots:
+            screenshots. To{" "}
+            <Link
+              href="/blog/improve-ocr-low-quality-images"
+              className="font-semibold text-cyan-700 hover:underline"
+            >
+              preprocess images for OCR
+            </Link>{" "}
+            before upload, see our low-quality image guide:
           </p>
           <ul className="mt-4 space-y-2 text-slate-600">
             <li className="flex gap-2">

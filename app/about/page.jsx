@@ -1,12 +1,13 @@
 import Link from "next/link";
 import { SITE_URL, CONTACT_EMAIL, OPERATOR_NAME, OPERATOR_URL, SITE_NAME, SITE_DOMAIN } from "../lib/site";
+import { buildPageMetadata } from "../lib/seo";
 
-export const metadata = {
-  title: "About",
+export const metadata = buildPageMetadata({
+  title: "About OCR Text Extractor – Free Image to Text Tool",
   description:
-    "Learn about OCR Text Extractor — free image-to-text with AI OCR and a Tesseract.js browser fallback, built by Elango P.",
-  alternates: { canonical: `${SITE_URL}/about` },
-};
+    "Learn about OCR Text Extractor at imgtotext.in — free image-to-text with AI OCR, Tesseract.js browser fallback, and no signup. Built by Elango P.",
+  path: "/about",
+});
 
 export default function AboutPage() {
   return (

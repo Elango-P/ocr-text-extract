@@ -27,7 +27,7 @@ export function buildSiteJsonLd() {
           "OCR Text Extractor",
         ],
         description:
-          "Free online OCR converter to extract editable text from images, screenshots, JPG, PNG, and scanned documents.",
+          "Free online OCR tool to convert images, screenshots, JPG, PNG, and scanned documents into editable text.",
         publisher: { "@id": `${SITE_URL}/#organization` },
         inLanguage: "en",
       },

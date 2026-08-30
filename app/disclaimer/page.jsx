@@ -1,12 +1,13 @@
 import Link from "next/link";
 import { SITE_URL, SITE_DOMAIN, CONTACT_EMAIL, SITE_NAME } from "../lib/site";
+import { buildPageMetadata } from "../lib/seo";
 
-export const metadata = {
-  title: "Disclaimer",
+export const metadata = buildPageMetadata({
+  title: "Disclaimer – OCR Accuracy & Liability Limits",
   description:
-    "Disclaimer for OCR Text Extractor — accuracy limits, no professional advice, and liability boundaries for free online OCR.",
-  alternates: { canonical: `${SITE_URL}/disclaimer` },
-};
+    "Disclaimer for OCR Text Extractor — accuracy limits, no professional advice, and liability boundaries for free online image-to-text OCR.",
+  path: "/disclaimer",
+});
 
 export default function DisclaimerPage() {
   const updated = "July 14, 2026";

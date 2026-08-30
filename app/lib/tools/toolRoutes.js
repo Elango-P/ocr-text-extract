@@ -9,7 +9,7 @@ export const TOOL_ROUTES = [
   {
     slug: "scanned-document-to-text",
     path: "/scanned-document-to-text",
-    label: "Scanned Document to Text",
+    label: "Scan to Text Converter",
   },
   { slug: "pdf-to-text", path: "/pdf-to-text", label: "PDF to Text" },
   { slug: "handwriting-to-text", path: "/handwriting-to-text", label: "Handwriting OCR" },

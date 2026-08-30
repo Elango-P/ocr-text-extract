@@ -1,13 +1,14 @@
 import { Mail, MessageSquare, Clock, HelpCircle, Shield } from "lucide-react";
 import Link from "next/link";
 import { SITE_URL, CONTACT_EMAIL, OPERATOR_NAME, SITE_NAME, SITE_DOMAIN } from "../lib/site";
+import { buildPageMetadata } from "../lib/seo";
 
-export const metadata = {
-  title: "Contact",
+export const metadata = buildPageMetadata({
+  title: "Contact OCR Text Extractor – Support & Feedback",
   description:
     "Contact OCR Text Extractor for support, feedback, privacy questions, or bug reports. Email admin@elangodev.com — we respond within 1–3 business days.",
-  alternates: { canonical: `${SITE_URL}/contact` },
-};
+  path: "/contact",
+});
 
 export default function ContactPage() {
   return (

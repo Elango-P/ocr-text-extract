@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import RichText from "../RichText";
 import Breadcrumbs from "../Breadcrumbs";
 import AdUnit from "../AdUnit";
 import { SITE_URL, SITE_NAME, ADSENSE_SLOT_DISPLAY } from "../../lib/site";
@@ -139,7 +140,11 @@ export default function ToolLanding({ tool }) {
               {tool.workedExample.title}
             </h2>
             <div className="mt-4 space-y-4 text-base leading-relaxed text-slate-600">
-              {tool.workedExample.situation && <p>{tool.workedExample.situation}</p>}
+              {tool.workedExample.situation && (
+                <p>
+                  <RichText text={tool.workedExample.situation} />
+                </p>
+              )}
               {tool.workedExample.steps?.length > 0 && (
                 <ol className="list-decimal space-y-2 pl-5">
                   {tool.workedExample.steps.map((step) => (
@@ -150,13 +155,13 @@ export default function ToolLanding({ tool }) {
               {tool.workedExample.result && (
                 <p>
                   <strong className="text-slate-800">What to expect:</strong>{" "}
-                  {tool.workedExample.result}
+                  <RichText text={tool.workedExample.result} />
                 </p>
               )}
               {tool.workedExample.lesson && (
                 <p>
                   <strong className="text-slate-800">Takeaway:</strong>{" "}
-                  {tool.workedExample.lesson}
+                  <RichText text={tool.workedExample.lesson} />
                 </p>
               )}
             </div>
@@ -173,7 +178,9 @@ export default function ToolLanding({ tool }) {
             </h2>
             <div className="mt-4 space-y-4 text-base leading-relaxed text-slate-600">
               {section.paragraphs.map((p, i) => (
-                <p key={i}>{p}</p>
+                <p key={i}>
+                  <RichText text={p} />
+                </p>
               ))}
             </div>
           </section>

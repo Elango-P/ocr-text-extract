@@ -1,19 +1,14 @@
 import Link from "next/link";
 import Breadcrumbs from "../components/Breadcrumbs";
 import { SITE_URL, CONTACT_EMAIL, SITE_DOMAIN } from "../lib/site";
+import { buildPageMetadata } from "../lib/seo";
 
-export const metadata = {
-  title: "Data Retention Policy",
+export const metadata = buildPageMetadata({
+  title: "Data Retention Policy – OCR Text Extractor",
   description:
     "How long OCR Text Extractor retains AI OCR processing data, logs, cookies, and advertising-related information when ads are enabled.",
-  alternates: { canonical: `${SITE_URL}/data-retention` },
-  openGraph: {
-    title: "Data Retention Policy | OCR Text Extractor",
-    description:
-      "Retention periods for temporary OCR processing, server logs, cookies, and advertising technology.",
-    url: `${SITE_URL}/data-retention`,
-  },
-};
+  path: "/data-retention",
+});
 
 export default function DataRetentionPage() {
   const updated = "August 11, 2026";

@@ -31,11 +31,11 @@ export const metadata = {
   applicationName: SITE_NAME,
   category: "OCR, image to text, productivity",
   title: {
-    default: "Free Image to Text Converter — Online OCR Tool",
+    default: "Image to Text – Extract Text from Images Online",
     template: `%s | ${SITE_NAME}`,
   },
   description:
-    "Extract text from images, screenshots, JPG, PNG, and scanned documents with a free online OCR converter. AI OCR, browser fallback, 12+ languages, no signup.",
+    "Convert images to editable text online with our free Image to Text OCR tool. Upload JPG, PNG or screenshots and extract text instantly — AI OCR with browser fallback.",
   keywords: [
     "OCR",
     "image to text",
@@ -48,9 +48,9 @@ export const metadata = {
   creator: OPERATOR_NAME,
   publisher: OPERATOR_NAME,
   openGraph: {
-    title: "Free Online OCR Image to Text Converter",
+    title: "Image to Text – Extract Text from Images Online",
     description:
-      "Extract editable text from screenshots, photos, JPG, PNG, and scanned documents. Free AI OCR with browser fallback and no signup.",
+      "Convert images to editable text online. Free OCR for JPG, PNG, screenshots, and scans — AI extraction with browser fallback.",
     type: "website",
     siteName: SITE_NAME,
     locale: "en_US",
@@ -65,9 +65,9 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Free Online OCR Image to Text Converter",
+    title: "Image to Text – Extract Text from Images Online",
     description:
-      "Convert screenshots, photos, JPG, PNG, and scanned documents into editable text with free AI OCR.",
+      "Convert images to editable text online. Free OCR for JPG, PNG, screenshots, and scans — AI extraction with browser fallback.",
     creator: "@elango_dev",
     images: ["/opengraph-image"],
   },

@@ -27,6 +27,7 @@ export const posts = [
   {
     slug: "ocr-for-developers",
     title: "OCR for Developers: APIs, Python & JavaScript",
+    seoTitle: "JavaScript OCR Guide – APIs, Python & Browser OCR",
     description: "A technical overview of OCR for developers: choosing between hosted APIs and self-hosted engines, running Tesseract.js in the browser, and Python workflows.",
     date: "2026-07-15",
     updated: "2026-08-11",
@@ -145,4 +146,82 @@ export function getRelatedPosts(slug, limit = 3) {
     (p) => p.slug !== slug && !sameTag.includes(p)
   );
   return [...sameTag, ...rest].slice(0, limit);
+}
+
+/** Map blog tags to relevant OCR tool pages for internal linking. */
+const TAG_TOOL_LINKS = {
+  PDF: [
+    { href: "/pdf-to-text", label: "PDF to Text OCR" },
+    { href: "/scanned-document-to-text", label: "Scanned Document to Text" },
+  ],
+  Accuracy: [
+    { href: "/image-to-text", label: "Image to Text Converter" },
+    { href: "/screenshot-to-text", label: "Screenshot to Text" },
+  ],
+  Tips: [
+    { href: "/image-to-text", label: "Image to Text Converter" },
+    { href: "/screenshot-to-text", label: "Screenshot to Text" },
+  ],
+  Preprocessing: [
+    { href: "/image-to-text", label: "Image to Text Converter" },
+    { href: "/scanned-document-to-text", label: "Scanned Document to Text" },
+  ],
+  Privacy: [{ href: "/image-to-text", label: "Image to Text Converter" }],
+  Security: [{ href: "/image-to-text", label: "Image to Text Converter" }],
+  AI: [
+    { href: "/image-to-text", label: "Image to Text Converter" },
+    { href: "/screenshot-to-text", label: "Screenshot to Text" },
+  ],
+  Comparison: [
+    { href: "/image-to-text", label: "Image to Text Converter" },
+    { href: "/handwriting-to-text", label: "Handwriting to Text" },
+  ],
+  Benchmark: [
+    { href: "/image-to-text", label: "Image to Text Converter" },
+    { href: "/screenshot-to-text", label: "Screenshot to Text" },
+  ],
+  "Use Cases": [
+    { href: "/receipt-to-text", label: "Receipt to Text" },
+    { href: "/handwriting-to-text", label: "Handwriting to Text" },
+  ],
+  Workflows: [
+    { href: "/receipt-to-text", label: "Receipt to Text" },
+    { href: "/image-to-word", label: "Image to Word" },
+  ],
+  Developers: [{ href: "/image-to-text", label: "Image to Text Converter" }],
+  Guides: [{ href: "/image-to-text", label: "Image to Text Converter" }],
+  OCR: [{ href: "/image-to-text", label: "Image to Text Converter" }],
+};
+
+const DEFAULT_TOOL_LINKS = [
+  { href: "/image-to-text", label: "Image to Text Converter" },
+  { href: "/screenshot-to-text", label: "Screenshot to Text" },
+  { href: "/pdf-to-text", label: "PDF to Text OCR" },
+];
+
+export function getRelatedToolsForPost(slug, limit = 3) {
+  const post = getPostBySlug(slug);
+  if (!post) return DEFAULT_TOOL_LINKS.slice(0, limit);
+
+  const seen = new Set();
+  const links = [];
+
+  for (const tag of post.tags) {
+    for (const link of TAG_TOOL_LINKS[tag] || []) {
+      if (!seen.has(link.href)) {
+        seen.add(link.href);
+        links.push(link);
+      }
+    }
+  }
+
+  for (const link of DEFAULT_TOOL_LINKS) {
+    if (links.length >= limit) break;
+    if (!seen.has(link.href)) {
+      seen.add(link.href);
+      links.push(link);
+    }
+  }
+
+  return links.slice(0, limit);
 }

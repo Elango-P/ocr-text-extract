@@ -2,19 +2,14 @@ import Script from "next/script";
 import Link from "next/link";
 import Breadcrumbs from "../components/Breadcrumbs";
 import { SITE_URL, CONTACT_EMAIL } from "../lib/site";
+import { buildPageMetadata } from "../lib/seo";
 
-export const metadata = {
-  title: "FAQ — OCR Help & Answers",
+export const metadata = buildPageMetadata({
+  title: "OCR FAQ – Image to Text Help & Answers",
   description:
     "Frequently asked questions about free online OCR: privacy, AI limits, formats, languages, accuracy, exports, ads, and troubleshooting.",
-  alternates: { canonical: `${SITE_URL}/faq` },
-  openGraph: {
-    title: "FAQ | OCR Text Extractor",
-    description:
-      "Answers about image-to-text OCR, privacy, daily AI limits, Clean Mode, and exports.",
-    url: `${SITE_URL}/faq`,
-  },
-};
+  path: "/faq",
+});
 
 function stripFaqLinks(text) {
   return text.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1");

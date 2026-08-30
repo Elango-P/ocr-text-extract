@@ -6,6 +6,7 @@
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import { TOOL_ROUTES } from "../app/lib/tools/toolRoutes.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.join(__dirname, "..");
@@ -24,9 +25,7 @@ const staticRoutes = [
   "/cookie-policy",
   "/disclaimer",
   "/data-retention",
-  "/image-to-text",
-  "/pdf-to-text",
-  "/handwriting-to-text",
+  ...TOOL_ROUTES.map((t) => t.path),
 ];
 
 const blogDir = path.join(root, "content", "blog");

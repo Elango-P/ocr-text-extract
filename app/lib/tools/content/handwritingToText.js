@@ -4,12 +4,12 @@ export const handwritingToText = {
   slug: "handwriting-to-text",
   path: "/handwriting-to-text",
   title: "Handwriting to Text — Free Handwriting OCR",
-  metaTitle: "Handwriting to Text OCR | Read Handwritten Notes",
+  metaTitle: "Handwriting to Text – Convert Image Notes Online",
   description:
-    "Convert handwritten notes to text online with realistic expectations. Photo tips, print vs cursive, and free OCR with AI plus browser fallback.",
+    "Convert handwriting to text online from photos of notes, whiteboards, and notebooks. Free handwriting OCR with realistic expectations — AI plus browser fallback.",
   h1: "Handwriting to Text Converter",
   lead:
-    "Handwriting OCR is harder than printed text — and that honesty saves time. Use this page when you need a first draft from notebooks, sticky notes, or whiteboard markers, knowing you will still proofread.",
+    "Convert handwriting to text online when you need a first draft from notebooks, sticky notes, or whiteboard markers — including image handwriting to text from phone photos. Handwriting OCR is harder than print; plan to proofread.",
   heroImage: "/images/ocr-tool-handwriting.webp",
   heroAlt: "Handwritten notebook page photographed for handwriting OCR",
   relatedBlogSlugs: [
@@ -34,6 +34,18 @@ export const handwritingToText = {
       "Handwriting OCR is a draft accelerator. Photograph one idea cluster at a time; proofread before anyone treats it as minutes.",
   },
   faqs: [
+    {
+      q: "Can I convert image handwriting to text?",
+      a: "Yes. Photograph or upload a clear image of handwritten notes, select the language, and extract. Neat print converts best; tight cursive needs more proofreading.",
+    },
+    {
+      q: "How do I convert handwriting to text online for free?",
+      a: "Upload the image to the tool at the top of this page — no account required. AI OCR runs first; browser handwriting OCR continues if AI is unavailable or you hit the daily cap.",
+    },
+    {
+      q: "Does handwriting OCR work on messy cursive?",
+      a: "Sometimes, but treat output as a draft. Handwriting OCR confuses similar letter shapes more often than printed OCR — especially on rushed cursive.",
+    },
     {
       q: "Can OCR read cursive handwriting perfectly?",
       a: "Rarely with consumer tools. Neat, spaced print works far better than tight cursive. Expect to correct many words on messy pages.",

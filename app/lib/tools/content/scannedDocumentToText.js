@@ -4,12 +4,12 @@ export const scannedDocumentToText = {
   slug: "scanned-document-to-text",
   path: "/scanned-document-to-text",
   title: "Scanned Document to Text — OCR for Scanned Pages",
-  metaTitle: "Scanned Document to Text | OCR for Scanned Pages",
+  metaTitle: "Scan to Text Converter – OCR Scanned Pages Online",
   description:
-    "Get editable text from scanned pages. Which scanner settings really change OCR accuracy, how to handle bleed-through and skew, and how to work through a stack.",
-  h1: "Scanned Document to Text",
+    "Free scan to text converter for flatbed and phone scans. Get editable text from scanned pages — DPI settings, bleed-through fixes, and batch tips.",
+  h1: "Scan to Text Converter",
   lead:
-    "A scanner gives you control that a camera never will: fixed lighting, a flat page, and a resolution you choose. This page is about using that control well — the settings that genuinely affect recognition, and the ones that only make your files bigger.",
+    "Use this scan to text converter when you have page images from a flatbed scanner or scan app — fixed lighting, a flat page, and a resolution you choose beat camera photos for OCR accuracy.",
   heroImage: "/images/ocr-tool-jpg.webp",
   heroAlt: "Illustration of a scanned page being converted into editable text",
   relatedBlogSlugs: [
@@ -34,6 +34,10 @@ export const scannedDocumentToText = {
       "Set the scanner up properly once and every page benefits. Time spent on settings at the start beats correcting text at the end.",
   },
   faqs: [
+    {
+      q: "Is this a free scan to text converter?",
+      a: "Yes. Upload scanned page images (PNG, JPG, JPEG, WEBP, or GIF), choose the language, and extract editable text — no signup. AI OCR runs first; browser OCR continues after the daily cap.",
+    },
     {
       q: "What resolution should I scan at?",
       a: "300 DPI is the standard answer for ordinary printed text and it is a good default. Below about 200 DPI, normal body text stops having enough pixels per character for reliable recognition. Above 400 DPI you are mostly generating larger files without improving accuracy, because you have already captured all the detail the print contains. The exception is genuinely tiny text — footnotes, dense legal print, some dictionaries — where 400 to 600 DPI does help.",

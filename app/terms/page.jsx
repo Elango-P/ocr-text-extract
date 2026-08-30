@@ -1,11 +1,12 @@
 import { SITE_URL, SITE_DOMAIN, CONTACT_EMAIL } from "../lib/site";
+import { buildPageMetadata } from "../lib/seo";
 
-export const metadata = {
-  title: "Terms of Use",
+export const metadata = buildPageMetadata({
+  title: "Terms of Use – OCR Text Extractor",
   description:
     "Terms of Use for OCR Text Extractor: acceptable use of the free OCR tool, accuracy disclaimers, limits on liability, and how these terms may change.",
-  alternates: { canonical: `${SITE_URL}/terms` },
-};
+  path: "/terms",
+});
 
 export default function TermsPage() {
   const updated = "July 10, 2026";

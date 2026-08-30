@@ -26,7 +26,7 @@ const relatedToolLinks = [
   { href: "/image-to-text", label: "Image to Text Converter" },
   { href: "/screenshot-to-text", label: "Screenshot to Text" },
   { href: "/receipt-to-text", label: "Receipt to Text" },
-  { href: "/scanned-document-to-text", label: "Scanned Document to Text" },
+  { href: "/scanned-document-to-text", label: "Scan to Text Converter" },
   { href: "/pdf-to-text", label: "PDF to Text (Scanned Pages)" },
   { href: "/handwriting-to-text", label: "Handwriting to Text" },
   { href: "/image-to-word", label: "Image to Word (.docx)" },
@@ -232,6 +232,14 @@ const comparisonRows = [
 
 const homeFaqs = [
   {
+    q: "Can I use this as an img to text converter?",
+    a: "Yes. Upload a PNG, JPG, WEBP, or GIF and extract editable text in seconds — the same free img to text workflow as our dedicated Image to Text page.",
+  },
+  {
+    q: "How do I capture text from an image?",
+    a: "Upload or paste the image into the tool at the top of the page, pick the document language, run Extract Text, then copy or download the result.",
+  },
+  {
     q: "Is OCR Text Extractor free?",
     a: "Yes. No signup and no watermarks. AI OCR is limited to 10 uses per day per IP address; browser OCR remains available after that.",
   },
@@ -340,18 +348,25 @@ export default function HomeSections() {
             OCR Text Extractor keeps the workflow on one page: upload, choose language, extract,
             then copy or download. Cloud AI handles many difficult layouts first; if that path is
             unavailable or you reach the daily AI allowance, browser-based Tesseract.js continues so
-            you are not blocked mid-task. Deeper primers live in our{" "}
+            you are not blocked mid-task.             Deeper primers live in our{" "}
             <Link
               href="/blog/ultimate-guide-to-ocr-technology"
               className="font-semibold text-cyan-700 hover:underline"
             >
               Ultimate Guide to OCR Technology
-            </Link>{" "}
-            and the{" "}
+            </Link>
+            , the{" "}
             <Link href="/how-it-works" className="font-semibold text-cyan-700 hover:underline">
               How it works
             </Link>{" "}
-            guide.
+            guide, and our{" "}
+            <Link
+              href="/blog/ocr-for-developers"
+              className="font-semibold text-cyan-700 hover:underline"
+            >
+              JavaScript OCR guide for developers
+            </Link>
+            .
           </p>
         </div>
       </section>
@@ -669,6 +684,13 @@ export default function HomeSections() {
         </ul>
         <p className="mt-6 text-sm text-slate-300">
           More depth:{" "}
+          <Link
+            href="/blog/improve-ocr-low-quality-images"
+            className="font-semibold text-cyan-300 hover:underline"
+          >
+            preprocess images for OCR
+          </Link>
+          ,{" "}
           <Link
             href="/blog/ocr-engine-benchmark-gemini-vs-tesseract"
             className="font-semibold text-cyan-300 hover:underline"

@@ -9,20 +9,15 @@ import {
   OPERATOR_URL,
   SOCIAL_LINKS,
 } from "../../lib/site";
+import { buildPageMetadata } from "../../lib/seo";
 
-export const metadata = {
-  title: "Author: Elango P",
+export const metadata = buildPageMetadata({
+  title: "Author: Elango P – OCR Text Extractor",
   description:
     "Elango P builds OCR Text Extractor at imgtotext.in — mission, experience, and how to contact the site operator.",
-  alternates: { canonical: `${SITE_URL}/author/elango-p` },
-  openGraph: {
-    title: "Author: Elango P | OCR Text Extractor",
-    description:
-      "Developer profile for the operator of imgtotext.in — free online OCR with AI and browser fallback.",
-    url: `${SITE_URL}/author/elango-p`,
-    type: "profile",
-  },
-};
+  path: "/author/elango-p",
+  ogType: "profile",
+});
 
 export default function AuthorPage() {
   const personJsonLd = {

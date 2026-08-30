@@ -4,12 +4,12 @@ export const imageToText = {
   slug: "image-to-text",
   path: "/image-to-text",
   title: "Image to Text Converter — Free Online OCR",
-  metaTitle: "Image to Text Converter (Free OCR Online)",
+  metaTitle: "Image to Text – Extract Text from Images Online",
   description:
-    "Convert any image to editable text online. Free OCR for screenshots, photos, and scans — AI extraction with browser fallback, no signup.",
+    "Convert images to editable text online with our free Image to Text OCR tool. Upload JPG, PNG or screenshots and extract text instantly — no signup.",
   h1: "Image to Text Converter",
   lead:
-    "Turn pictures that contain writing into text you can copy, edit, search, and paste into notes, tickets, or documents — without installing desktop software.",
+    "Turn pictures that contain writing into text you can copy, edit, search, and paste — whether you are extracting text from a picture, converting JPG into text, or capturing text from an image you already have.",
   heroImage: "/images/ocr-tool-general.webp",
   heroAlt: "Printed document photographed for free image-to-text OCR conversion",
   relatedBlogSlugs: [
@@ -53,6 +53,18 @@ export const imageToText = {
     {
       q: "Can I convert JPG and PNG on this page?",
       a: "Yes. JPG/JPEG phone photos and PNG screenshots are both supported, along with WEBP and GIF stills. Crop tightly and match the language setting for best results.",
+    },
+    {
+      q: "How do I convert JPG into text?",
+      a: "Upload your JPG or JPEG photo, match the language to the script in the image, and click Extract Text. Crop tightly around the words for the cleanest jpg to text converter results.",
+    },
+    {
+      q: "How do I convert JPG to text format?",
+      a: "Run OCR on the JPG here, then copy the output or download TXT, DOCX, or PDF. The text format is plain editable characters — not a reformatted copy of the photo layout.",
+    },
+    {
+      q: "Can I convert JPEG to text on this page?",
+      a: "Yes. JPEG and JPG are the same format for upload purposes. Phone photos saved as .jpeg work the same way as .jpg files.",
     },
     {
       q: "Can I convert multiple images at once?",
@@ -132,7 +144,7 @@ export const imageToText = {
       id: "jpg",
       heading: "JPG / JPEG photos to text",
       paragraphs: [
-        "Most phone cameras save JPEG. That format is efficient but introduces compression artifacts around sharp letter edges—especially after messaging apps re-encode the file. For receipts, signs, and paper forms, shoot with the page filling the frame, then crop before upload. Avoid digital zoom; step closer instead.",
+        "Most phone cameras save JPEG. That format is efficient but introduces compression artifacts around sharp letter edges—especially after messaging apps re-encode the file. For receipts, signs, and paper forms, shoot with the page filling the frame, then crop before upload. Avoid digital zoom; step closer instead. If you searched for a jpg to text converter or jpg into text tool, this page handles those uploads directly.",
         "JPEG works well when lighting is even and the page is flat. If you see blocky noise around small digits, retake at higher resolution or export a PNG from a scanner app when you can. Language selection still matters: set Hindi for Devanagari receipts, Arabic for RTL menus, and so on.",
       ],
     },
@@ -164,7 +176,7 @@ export const imageToText = {
       id: "conclusion",
       heading: "Convert your image to text now",
       paragraphs: [
-        "Scroll to the tool above, upload the picture that holds the words you need, select the language, and extract. Copy the result or download TXT, DOCX, or PDF. For scanned PDF page workflows see PDF to Text; for notebooks see Handwriting to Text.",
+        "Scroll to the tool above, upload the picture that holds the words you need, select the language, and extract. Copy the result or download TXT, DOCX, or PDF. For scanned PDF page workflows see [PDF to Text](/pdf-to-text); for notebooks see [Handwriting to Text](/handwriting-to-text).",
       ],
     },
   ],

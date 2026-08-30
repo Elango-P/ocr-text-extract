@@ -4,9 +4,9 @@ export const screenshotToText = {
   slug: "screenshot-to-text",
   path: "/screenshot-to-text",
   title: "Screenshot to Text — Copy Text From Any Screenshot",
-  metaTitle: "Screenshot to Text | Extract Text From Screenshots Free",
+  metaTitle: "Screenshot to Text – Extract Screenshot Text Online",
   description:
-    "Turn screenshots into copyable text. Why captures beat photos of screens, how to handle dark mode and chat-app compression, and where screenshot OCR slips.",
+    "Turn screenshot text into copyable wording online. Free OCR for PNG and JPG captures — paste error dialogs, chat snippets, and UI labels in seconds.",
   h1: "Screenshot to Text Converter",
   lead:
     "Screenshots are the cleanest input OCR ever gets — the pixels came straight from a display, so there is no focus, lighting, or shadow to fight. That changes what goes wrong, and this page is about those specific failures rather than generic photo advice.",
@@ -34,6 +34,10 @@ export const screenshotToText = {
       "Crop tightly, then proofread the identifiers rather than the sentences. The English reads fine far more often than the error code does.",
   },
   faqs: [
+    {
+      q: "How do I extract screenshot text?",
+      a: "Capture the region with your system screenshot tool, upload or paste it here, enable Clean Mode for full-window shots, then Extract Text. PNG screenshots usually give the cleanest screenshot text output.",
+    },
     {
       q: "Why is a screenshot better than a photo of my screen?",
       a: "A screenshot copies the exact pixels the display is drawing. Photographing a monitor adds camera blur, glare, keystone distortion from the angle, and often a moiré pattern where the camera sensor grid interferes with the pixel grid. That moiré alone can make crisp text unreadable to OCR. If the content is on a screen you control, always capture rather than photograph.",

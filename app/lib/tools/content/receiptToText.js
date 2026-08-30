@@ -4,9 +4,9 @@ export const receiptToText = {
   slug: "receipt-to-text",
   path: "/receipt-to-text",
   title: "Receipt to Text — OCR for Receipts and Expense Slips",
-  metaTitle: "Receipt to Text OCR | Extract Text From Receipts Free",
+  metaTitle: "Receipt to Text – Extract Text From Receipt Photos",
   description:
-    "Extract text from receipt photos for expense notes. Why thermal paper fades, how to photograph a curled slip, and which numbers you must always check yourself.",
+    "Extract text from receipt photos for expense notes. Free OCR for thermal slips and invoices — with tips for faded ink, glare, and totals you must verify.",
   h1: "Receipt to Text Converter",
   lead:
     "Receipts are small, narrow, glossy, and printed on paper designed to fade. This page is about getting a usable text draft out of one anyway — and about being clear that what you get is a draft you check, not an accounting record.",

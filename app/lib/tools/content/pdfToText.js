@@ -4,9 +4,9 @@ export const pdfToText = {
   slug: "pdf-to-text",
   path: "/pdf-to-text",
   title: "PDF to Text — OCR for Scanned PDF Pages",
-  metaTitle: "PDF to Text OCR | Convert Scanned Pages Online",
+  metaTitle: "PDF to Text – OCR Scanned PDF Pages Online",
   description:
-    "Get text from scanned PDF pages using OCR. Export pages as images, then extract editable text free online — clear limits, privacy notes, and workflow tips.",
+    "Get text from scanned PDF pages using OCR. Export pages as images, then extract editable text free online — honest limits, privacy notes, and workflow tips.",
   h1: "PDF to Text (Scanned Page OCR)",
   lead:
     "Image-only PDFs hide text as pictures of pages. This guide explains how to recover wording with OCR using our image extractor — honestly, including what this free tool does and does not open directly.",

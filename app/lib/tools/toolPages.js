@@ -33,5 +33,14 @@ export function getToolPage(slug) {
 }
 
 export function getRelatedTools(slug, limit = 4) {
-  return toolPages.filter((t) => t.slug !== slug).slice(0, limit);
+  const relatedBySlug = {
+    "pdf-to-text": ["scanned-document-to-text", "image-to-pdf", "image-to-text", "image-to-word"],
+    "image-to-pdf": ["pdf-to-text", "image-to-text", "image-to-word", "scanned-document-to-text"],
+  };
+  const preferred = relatedBySlug[slug] || [];
+  const ordered = [
+    ...preferred.map((item) => toolPages.find((tool) => tool.slug === item)).filter(Boolean),
+    ...toolPages.filter((tool) => tool.slug !== slug && !preferred.includes(tool.slug)),
+  ];
+  return ordered.slice(0, limit);
 }

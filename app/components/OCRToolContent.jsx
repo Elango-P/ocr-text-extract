@@ -22,6 +22,7 @@ import {
     MAX_IMAGE_SIZE_MB,
     OCR_LANGUAGES,
 } from "../lib/ocr/toolOptions";
+import { requestCloudOcr } from "../lib/ocr/extractText";
 
 export default function OCRTool({ initialFiles = null } = {}) {
     const [queue, setQueue] = useState([]);
@@ -926,71 +927,24 @@ export default function OCRTool({ initialFiles = null } = {}) {
     };
 
     /* ---------------- OCR ---------------- */
-    const parseDataUrl = (dataUrl) => {
-        const match = /^data:([^;]+);base64,(.+)$/s.exec(dataUrl || "");
-        if (!match) return null;
-        return { mimeType: match[1], imageBase64: match[2] };
-    };
-
     const tryGeminiOcr = async (previewDataUrl) => {
-        const parsed = parseDataUrl(previewDataUrl);
-        if (!parsed) throw new Error("Invalid image data");
-
-        setProgress(15);
-
         const controller = new AbortController();
         abortControllerRef.current = controller;
-
-        let response;
         try {
-            response = await fetch("/api/ocr", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    imageBase64: parsed.imageBase64,
-                    mimeType: parsed.mimeType,
-                    language,
-                }),
+            const result = await requestCloudOcr({
+                dataUrl: previewDataUrl,
+                language,
                 signal: controller.signal,
+                onProgress: setProgress,
+                onQuota: setAiQuota,
             });
-        } catch (err) {
-            if (err?.name === "AbortError" || cancelRequestedRef.current) {
+            if (cancelRequestedRef.current) {
                 throw Object.assign(new Error("Cancelled"), { code: "CANCELLED" });
             }
-            throw err;
+            return result;
         } finally {
-            if (abortControllerRef.current === controller) {
-                abortControllerRef.current = null;
-            }
+            if (abortControllerRef.current === controller) abortControllerRef.current = null;
         }
-
-        if (cancelRequestedRef.current) {
-            throw Object.assign(new Error("Cancelled"), { code: "CANCELLED" });
-        }
-
-        setProgress(55);
-        const payload = await response.json().catch(() => ({}));
-
-        if (typeof payload.remaining === "number" && typeof payload.limit === "number") {
-            setAiQuota({ remaining: payload.remaining, limit: payload.limit });
-        }
-
-        if (!response.ok) {
-            const err = new Error(payload.error || "AI OCR failed");
-            err.code = payload.code || "GEMINI_ERROR";
-            err.remaining = payload.remaining;
-            err.limit = payload.limit;
-            throw err;
-        }
-
-        const text = (payload.text || "").trim();
-        if (!text) {
-            const err = new Error("No text from AI OCR");
-            err.code = "NO_TEXT";
-            throw err;
-        }
-
-        return { text, remaining: payload.remaining, limit: payload.limit };
     };
 
     const extractWithTesseract = async (previewDataUrl) => {

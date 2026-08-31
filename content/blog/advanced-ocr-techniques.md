@@ -41,7 +41,7 @@ A short personal checklist taped near your desk covers most of this in one glanc
 
 ## Working With PDFs
 
-imgtotext.in — like most image-based OCR tools — is built for images (PNG, JPG, JPEG, WEBP, GIF), not multi-page PDF upload as a first-class format. If your file is a PDF, the practical path is: open it in a PDF viewer, export each needed page as an image (or take a clean screenshot of the page view), run OCR on those images, and combine the text afterward.
+The general image OCR workflow on imgtotext.in is built for PNG, JPG, JPEG, WEBP, and GIF. For a multi-page scanned PDF, [PDF to Text](/pdf-to-text) accepts the PDF directly, renders selected pages, and combines the OCR text after processing.
 
 Before doing any of that, check whether you even need OCR: try selecting text in your PDF reader first. If you can highlight and copy a paragraph, the PDF already has a text layer — just copy it. OCR is only for image-only PDFs or pages where the glyphs are pictures.
 

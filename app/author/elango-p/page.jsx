@@ -137,10 +137,10 @@ export default function AuthorPage() {
         <h2 className="text-xl font-bold text-slate-900">Editorial standards</h2>
         <p className="leading-relaxed">
           Blog posts and tool guides explain real workflows, limitations, and privacy — not
-          keyword stuffing. We keep a small set of tool pages (image, JPG, PDF page images,
+          keyword stuffing. We keep a small set of tool pages (image, JPG, scanned PDF,
           handwriting) with unique copy rather than a large cluster of near-duplicate converters.
-          When a feature is limited (for example, PDF page images rather than direct multi-page PDF
-          upload), we say so on the page.
+          When a feature is limited (for example, the general image OCR tool versus direct scanned
+          PDF processing), we say so on the page.
         </p>
         <p className="leading-relaxed">
           Read the{" "}

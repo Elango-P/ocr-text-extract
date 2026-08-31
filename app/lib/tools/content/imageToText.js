@@ -104,7 +104,7 @@ export const imageToText = {
       paragraphs: [
         "OCR is statistical, not magical. Decorative fonts, heavy perspective distortion, extreme compression, and overlapping stamps can scramble characters. Handwriting is harder than print. Dense tables may lose column structure even when individual cells look readable to a human eye.",
         "Cloud AI requires a temporary upload through our server to the provider named in the Privacy Policy. If your document is highly sensitive, use local software instead of any online converter — including this one. Browser fallback reduces cloud exposure for that attempt, but AI is still the default first try when available.",
-        "This tool accepts image files, not multi-page PDF uploads directly. For PDF page stacks, export or screenshot each page as an image first (see our PDF-focused guide). Treat “image to text” as the right job when you already have raster files.",
+        "This general tool accepts image files. For a multi-page scanned PDF, use [PDF to Text](/pdf-to-text) to upload the PDF directly; use this page when you already have raster files.",
       ],
     },
     {
@@ -169,14 +169,14 @@ export const imageToText = {
       heading: "Scanned document images",
       paragraphs: [
         "Flatbed or phone-scan apps that export PNG/JPEG page images are a good fit for this tool. Aim for roughly 200–300 DPI equivalent—enough that you can read the text yourself at 100% zoom. Skewed pages should be rotated level before extraction.",
-        "Multi-page stacks: process one page image at a time (or batch up to ten). This site does not open PDF containers directly; export pages first. For a PDF-focused walkthrough, see [/pdf-to-text](/pdf-to-text).",
+        "Multi-page stacks can be processed directly with [PDF to Text](/pdf-to-text), which renders selected scanned-PDF pages before OCR. Existing PNG and JPG page images remain a good fit here.",
       ],
     },
     {
       id: "conclusion",
       heading: "Convert your image to text now",
       paragraphs: [
-        "Scroll to the tool above, upload the picture that holds the words you need, select the language, and extract. Copy the result or download TXT, DOCX, or PDF. For scanned PDF page workflows see [PDF to Text](/pdf-to-text); for notebooks see [Handwriting to Text](/handwriting-to-text).",
+        "Scroll to the tool above, upload the picture that holds the words you need, select the language, and extract. Copy the result or download TXT, DOCX, or PDF. For scanned PDF pages, [extract text from a scanned PDF](/pdf-to-text); for a PDF containing your original images, [convert images into a PDF](/image-to-pdf).",
       ],
     },
   ],

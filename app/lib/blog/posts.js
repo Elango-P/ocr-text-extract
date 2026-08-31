@@ -187,6 +187,7 @@ const TAG_TOOL_LINKS = {
   Workflows: [
     { href: "/receipt-to-text", label: "Receipt to Text" },
     { href: "/image-to-word", label: "Image to Word" },
+    { href: "/image-to-pdf", label: "Convert images into a PDF" },
   ],
   Developers: [{ href: "/image-to-text", label: "Image to Text Converter" }],
   Guides: [{ href: "/image-to-text", label: "Image to Text Converter" }],

@@ -1,17 +1,28 @@
-/** Unique long-form content for /pdf-to-text — honest about image-first limits */
+/** Unique long-form content for /pdf-to-text. */
 
 export const pdfToText = {
   slug: "pdf-to-text",
   path: "/pdf-to-text",
-  title: "PDF to Text — OCR for Scanned PDF Pages",
-  metaTitle: "PDF to Text – OCR Scanned PDF Pages Online",
+  title: "PDF to Text Converter — Extract Text from Scanned PDFs",
+  metaTitle: "PDF to Text Converter – Extract Text from Scanned PDFs",
   description:
-    "Get text from scanned PDF pages using OCR. Export pages as images, then extract editable text free online — honest limits, privacy notes, and workflow tips.",
-  h1: "PDF to Text (Scanned Page OCR)",
+    "Upload a scanned PDF and extract editable text from its pages using OCR. Review, copy and download the result online.",
+  h1: "PDF to Text Converter",
   lead:
-    "Image-only PDFs hide text as pictures of pages. This guide explains how to recover wording with OCR using our image extractor — honestly, including what this free tool does and does not open directly.",
+    "Upload a scanned PDF directly, choose all pages or a range, and review the OCR result page by page. Born-digital PDFs may already contain selectable text; this workflow is for pages that are images.",
+  embed: "pdf-to-text",
+  cta: {
+    heading: "Extract text from a scanned PDF",
+    text: "Render PDF pages in your browser, run OCR, then review and download the editable result.",
+    label: "Back to the PDF tool",
+  },
+  howToSteps: [
+    { "@type": "HowToStep", name: "Upload a PDF", text: "Choose a PDF file up to 32 MB and 25 pages." },
+    { "@type": "HowToStep", name: "Select pages and language", text: "Choose all pages or a page range, then select the document language." },
+    { "@type": "HowToStep", name: "Review and export", text: "Run OCR, review each page, copy the combined text, or download TXT or DOCX." },
+  ],
   heroImage: "/images/ocr-tool-pdf.webp",
-  heroAlt: "Scanned paper page representing PDF OCR workflow via page images",
+  heroAlt: "Scanned PDF page rendered for browser-based OCR",
   relatedBlogSlugs: [
     "advanced-ocr-techniques",
     "ocr-use-cases-and-workflows",
@@ -24,31 +35,39 @@ export const pdfToText = {
       "Accounts payable receives an email PDF where nothing highlights. They only need page 2’s payment terms.",
     steps: [
       "Confirm text cannot be selected in the PDF viewer.",
-      "Export page 2 only as PNG at ~200 DPI (not a phone photo of the monitor).",
-      "Upload that PNG here — not the .pdf file — with English selected and Clean Mode on.",
+      "Upload the original PDF here, select page 2, and choose English.",
+      "Run OCR, review the payment terms, and copy or download the result.",
       "Proofread clause numbers; keep the original PDF as the system of record.",
     ],
     result:
       "A cleanly exported page of printed terms should return readable text. Expect to fix anything a stamp or signature overlaps, and skip the pages you do not need so they do not consume your daily AI allowance.",
     lesson:
-      "This site does not ingest multi-page PDF containers. Export the page image you need. Skip pages you do not need.",
+      "A PDF page is rendered locally before OCR, so you can process only the pages you need and keep the original PDF as the source of truth.",
   },
   faqs: [
     {
       q: "Can I upload a PDF file directly to this tool?",
-      a: "Not as a multi-page PDF container. Export or screenshot each page as PNG/JPG, then run OCR on those images. That matches how our current extractor works.",
+      a: "Yes. Upload a PDF directly, select all pages or a page range, and run OCR. The browser renders each selected page to an image before recognition.",
     },
     {
       q: "My PDF already lets me select text — do I need OCR?",
       a: "No. If you can highlight words in a viewer, a text layer already exists. Copy from the PDF directly; OCR is for scan-like pages without a text layer.",
     },
     {
-      q: "How do I export PDF pages to images?",
-      a: "Use your PDF reader’s export/print-to-image feature, a virtual printer to PNG, or high-resolution page screenshots. Prefer 150–300 DPI equivalents for body text.",
+      q: "Does a born-digital PDF need OCR?",
+      a: "Usually not. If you can select, search, and copy its words, the PDF already has a text layer. OCR is useful for scanned pages where the words are only pixels.",
     },
     {
       q: "Will OCR preserve exact PDF layout?",
       a: "Expect reading-order text, not a perfect replica of multi-column or form layout. Reconstruct tables manually when precision matters.",
+    },
+    {
+      q: "How accurate is OCR on a scanned PDF?",
+      a: "Accuracy depends on scan resolution, focus, contrast, skew, language, and the condition of the source. Review names, numbers, dates, and legal or financial wording against the original.",
+    },
+    {
+      q: "Can I process only selected pages?",
+      a: "Yes. Choose Page range and enter the first and last page before extracting. This is useful when a long PDF contains only a few pages you need.",
     },
     {
       q: "Is PDF OCR suitable for contracts?",
@@ -67,10 +86,10 @@ export const pdfToText = {
     },
     {
       id: "honest-limit",
-      heading: "How imgtotext.in fits into PDF OCR today",
+      heading: "How direct PDF OCR works",
       paragraphs: [
-        "The on-page tool accepts common image formats (PNG, JPG, JPEG, WEBP, GIF), not a raw multi-page .pdf upload. We state this clearly so nobody expects a direct multi-page PDF upload. Your practical pipeline is: open the scanned PDF → export page images → upload those images here → extract text → paste into a new document or keep per-page TXT files.",
-        "For one-off pages, a carefully framed screenshot of the PDF viewer also works. For stacks of twenty pages, automated export at 200–300 DPI is kinder to wrists and OCR engines than twenty rushed phone photos of the monitor.",
+        "The tool accepts the PDF container directly. It renders selected pages at high resolution in your browser, passes those page images through the existing OCR workflow, and keeps the extracted result separated by page for review.",
+        "Encrypted, corrupted, empty, oversized, and excessively long files receive a clear error before OCR starts. Processing a page range can reduce waiting time and avoid recognition work on pages you do not need.",
       ],
     },
     {
@@ -101,8 +120,8 @@ export const pdfToText = {
       id: "workflow",
       heading: "Recommended scanned-PDF workflow",
       paragraphs: [
-        "1) Confirm the PDF lacks a text layer. 2) Export pages as PNG when possible (cleaner than JPG for line art). 3) Name files page-01, page-02 for order. 4) Upload a batch here with the correct language. 5) Enable Clean Mode for full-page letter scans. 6) Proofread, then assemble a new searchable PDF or DOCX from the text if needed.",
-        "If a single page fails, re-export at higher DPI or deskew in a viewer before retrying. Crooked pages photographed from a tilted monitor screenshot are worse sources than a proper export.",
+        "1) Try selecting text first. 2) If the PDF is scanned, upload it directly. 3) Choose the language and all pages or a range. 4) Run OCR and review every page. 5) Copy the combined result or download TXT/DOCX.",
+        "OCR accuracy depends on scan quality. A sharp, straight, evenly lit 200–300 DPI scan usually beats a compressed screenshot or a photograph of a monitor.",
       ],
     },
     {
@@ -124,7 +143,7 @@ export const pdfToText = {
       id: "conclusion",
       heading: "Recover text from scanned PDF pages",
       paragraphs: [
-        "Export the page you need as an image, upload it in the tool above, and extract. If you are producing those pages on a flatbed rather than pulling them out of a PDF, Scanned Document to Text covers the scanner settings that change accuracy. For till receipts and expense slips, Receipt to Text deals with thermal paper. For screen captures, see Screenshot to Text, and for notebooks, Handwriting to Text.",
+        "Upload the scanned PDF above, choose the pages you need, and review the extracted text before downloading. If you already have page images, [Image to Text](/image-to-text) is the better fit; if you need the original images packaged as one file, [convert images into a PDF](/image-to-pdf).",
       ],
     },
   ],

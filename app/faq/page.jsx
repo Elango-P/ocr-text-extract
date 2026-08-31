@@ -79,11 +79,15 @@ const faqs = [
   },
   {
     q: "What image formats can I use?",
-    a: "PNG, JPG, JPEG, WEBP, and GIF. Use clear, high-contrast images. For scanned PDFs, export pages as images first.",
+    a: "The general OCR tool accepts PNG, JPG, JPEG, WEBP, and GIF. For a scanned PDF, upload the PDF directly to [PDF to Text](/pdf-to-text).",
   },
   {
     q: "Can I upload a PDF file directly?",
-    a: "Not as a multi-page PDF container today. Export or screenshot each page to PNG/JPG, then run OCR. The [PDF to Text](/pdf-to-text) guide explains the workflow.",
+    a: "Yes. Upload a scanned PDF to [PDF to Text](/pdf-to-text), choose all pages or a range, and review the OCR result page by page.",
+  },
+  {
+    q: "Can I convert images into a PDF?",
+    a: "Yes. [Image to PDF](/image-to-pdf) accepts JPG, JPEG, PNG, and WEBP images, lets you reorder them and choose page settings, then creates an image-preserving PDF in your browser.",
   },
   {
     q: "Which languages are supported?",

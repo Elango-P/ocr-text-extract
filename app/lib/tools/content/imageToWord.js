@@ -119,7 +119,7 @@ export const imageToWord = {
       id: "next",
       heading: "Where to go next",
       paragraphs: [
-        "If you want the same text as a plain document instead, Image to Text covers the general workflow, and Image to PDF explains what the PDF download does and does not produce. For multi-page printed material that already exists as a PDF, start at PDF to Text. If your source is a photograph that came out poorly, the guide to improving OCR on low-quality images is the place to look before trying again.",
+        "If you want the same text as a plain document instead, [Image to Text](/image-to-text) covers the general workflow. To preserve the original pictures in one file, [convert images into a PDF](/image-to-pdf); for multi-page printed material that already exists as a PDF, start at [PDF to Text](/pdf-to-text). If your source is a photograph that came out poorly, read [the guide to improving OCR on low-quality images](/blog/improve-ocr-low-quality-images).",
       ],
     },
   ],

@@ -149,8 +149,8 @@ export default function AboutPage() {
           </p>
           <ul className="mt-3 list-disc space-y-2 pl-5 leading-relaxed">
             <li>
-              Multi-page PDF containers are not uploaded directly — export or screenshot each page
-              as an image first
+              Scanned PDFs can be uploaded directly on the PDF to Text page; the general OCR tool
+              still accepts individual page images
             </li>
             <li>
               AI OCR is capped at 10 uses per day per IP address; browser OCR continues afterward

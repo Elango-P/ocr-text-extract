@@ -57,10 +57,10 @@ export const ROUTE_LAST_MODIFIED = {
   "/screenshot-to-text": "2026-08-30",
   "/receipt-to-text": "2026-08-11",
   "/scanned-document-to-text": "2026-08-30",
-  "/pdf-to-text": "2026-08-11",
+  "/pdf-to-text": "2026-08-31",
   "/handwriting-to-text": "2026-08-30",
   "/image-to-word": "2026-08-11",
-  "/image-to-pdf": "2026-08-11",
+  "/image-to-pdf": "2026-08-31",
 };
 
 export function lastModifiedForRoute(route) {

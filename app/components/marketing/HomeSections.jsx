@@ -27,10 +27,10 @@ const relatedToolLinks = [
   { href: "/screenshot-to-text", label: "Screenshot to Text" },
   { href: "/receipt-to-text", label: "Receipt to Text" },
   { href: "/scanned-document-to-text", label: "Scan to Text Converter" },
-  { href: "/pdf-to-text", label: "PDF to Text (Scanned Pages)" },
+  { href: "/pdf-to-text", label: "Extract text from a scanned PDF" },
   { href: "/handwriting-to-text", label: "Handwriting to Text" },
   { href: "/image-to-word", label: "Image to Word (.docx)" },
-  { href: "/image-to-pdf", label: "Image to PDF" },
+  { href: "/image-to-pdf", label: "Convert images into a PDF" },
 ];
 
 const features = [
@@ -109,8 +109,8 @@ const fileTypes = [
   { name: "WEBP", note: "Modern web captures and compressed stills." },
   { name: "GIF", note: "Still frames from GIFs; animation is not read as video." },
   {
-    name: "PDF pages (via images)",
-    note: "Export scanned PDF pages as images first — we do not ingest multi-page PDF containers yet.",
+    name: "PDF files (PDF to Text)",
+    note: "Upload scanned PDFs directly on the PDF to Text page; image OCR remains available for raster page files.",
   },
 ];
 
@@ -431,8 +431,8 @@ export default function HomeSections() {
           Supported file types
         </h2>
         <p className="mt-3 max-w-3xl text-slate-600">
-          Upload common raster images. We are explicit about PDF: multi-page PDF containers are not
-          opened directly — export pages to images, then extract.
+          Upload common raster images here, or use our dedicated PDF to Text workflow to render and
+          OCR scanned PDF pages directly in your browser.
         </p>
         <ul className="mt-6 grid gap-3 sm:grid-cols-2">
           {fileTypes.map((f) => (

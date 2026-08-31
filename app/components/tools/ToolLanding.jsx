@@ -7,6 +7,8 @@ import { SITE_URL, SITE_NAME, ADSENSE_SLOT_DISPLAY } from "../../lib/site";
 import { getRelatedTools } from "../../lib/tools/toolPages";
 import { getPostBySlug } from "../../lib/blog/posts";
 import ToolOcrEmbed from "./ToolOcrEmbed";
+import PdfToTextEmbed from "./PdfToTextEmbed";
+import ImageToPdfEmbed from "./ImageToPdfEmbed";
 
 export default function ToolLanding({ tool }) {
   const relatedTools = getRelatedTools(tool.slug, 4);
@@ -27,9 +29,9 @@ export default function ToolLanding({ tool }) {
     })),
   };
 
-  const webAppJsonLd = {
+  const softwareAppJsonLd = {
     "@context": "https://schema.org",
-    "@type": "WebApplication",
+    "@type": "SoftwareApplication",
     name: `${tool.h1} — ${SITE_NAME}`,
     url: `${SITE_URL}${tool.path}`,
     applicationCategory: "UtilityApplication",
@@ -42,28 +44,29 @@ export default function ToolLanding({ tool }) {
     description: tool.description,
   };
 
+  const defaultHowToSteps = [
+    {
+      "@type": "HowToStep",
+      name: "Upload an image",
+      text: "Drag and drop or choose a PNG, JPG, JPEG, WEBP, or GIF file.",
+    },
+    {
+      "@type": "HowToStep",
+      name: "Choose language and settings",
+      text: "Select the document language and optionally enable Clean Mode.",
+    },
+    {
+      "@type": "HowToStep",
+      name: "Extract and export",
+      text: "Click Extract Text, review the output, then copy or download TXT, DOCX, or PDF.",
+    },
+  ];
   const howToJsonLd = {
     "@context": "https://schema.org",
     "@type": "HowTo",
     name: `How to use ${tool.h1}`,
     description: tool.lead,
-    step: [
-      {
-        "@type": "HowToStep",
-        name: "Upload an image",
-        text: "Drag and drop or choose a PNG, JPG, JPEG, WEBP, or GIF file.",
-      },
-      {
-        "@type": "HowToStep",
-        name: "Choose language and settings",
-        text: "Select the document language and optionally enable Clean Mode.",
-      },
-      {
-        "@type": "HowToStep",
-        name: "Extract and export",
-        text: "Click Extract Text, review the output, then copy or download TXT, DOCX, or PDF.",
-      },
-    ],
+    step: tool.howToSteps || defaultHowToSteps,
   };
 
   return (
@@ -74,7 +77,7 @@ export default function ToolLanding({ tool }) {
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareAppJsonLd) }}
       />
       <script
         type="application/ld+json"
@@ -101,7 +104,13 @@ export default function ToolLanding({ tool }) {
         </header>
       </div>
 
-      <ToolOcrEmbed />
+      {tool.embed === "pdf-to-text" ? (
+        <PdfToTextEmbed />
+      ) : tool.embed === "image-to-pdf" ? (
+        <ImageToPdfEmbed />
+      ) : (
+        <ToolOcrEmbed />
+      )}
       <AdUnit
         slot={ADSENSE_SLOT_DISPLAY}
         className="mx-auto max-w-6xl px-4 py-6 sm:px-6"
@@ -257,15 +266,18 @@ export default function ToolLanding({ tool }) {
         )}
 
         <section className="rounded-3xl border border-cyan-200 bg-gradient-to-br from-cyan-50 to-teal-50 p-8 text-center sm:p-10">
-          <h2 className="text-2xl font-black text-slate-900">Ready to extract text?</h2>
+          <h2 className="text-2xl font-black text-slate-900">
+            {tool.cta?.heading || "Ready to extract text?"}
+          </h2>
           <p className="mx-auto mt-3 max-w-xl text-slate-600">
-            Use the tool at the top of this page — free, no signup, AI OCR with browser fallback.
+            {tool.cta?.text ||
+              "Use the tool at the top of this page — free, no signup, AI OCR with browser fallback."}
           </p>
           <a
             href="#ocr-tool"
             className="mt-6 inline-flex rounded-xl bg-gradient-to-r from-cyan-600 to-teal-600 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-cyan-500/25 hover:brightness-110"
           >
-            Back to the OCR tool
+            {tool.cta?.label || "Back to the OCR tool"}
           </a>
         </section>
       </article>
@@ -293,6 +305,8 @@ export function buildToolMetadata(tool) {
       card: "summary_large_image",
       title: tool.metaTitle || tool.title,
       description: tool.description,
+      images: tool.heroImage ? [`${SITE_URL}${tool.heroImage}`] : undefined,
     },
+    robots: { index: true, follow: true },
   };
 }

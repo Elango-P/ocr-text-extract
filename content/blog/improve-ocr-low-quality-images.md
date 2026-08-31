@@ -86,7 +86,7 @@ Being honest about the ceiling here matters:
 
 - Preprocessing cannot restore resolution or detail that was never captured. A blurry, low-res source stays unreliable regardless of edits.
 - Extreme or highly stylized handwriting remains genuinely hard for any engine — see [Handwriting to Text](/handwriting-to-text) and our companion piece on [OCR accuracy and limitations](/blog/ocr-accuracy-and-limitations).
-- Multi-page PDF containers aren't accepted directly here — export pages as PNG/JPG images first, then OCR each page. Our [PDF to Text](/pdf-to-text) tool page explains this workflow, and [How It Works](/how-it-works) covers the underlying pipeline.
+- Scanned PDF containers can now be uploaded directly to [PDF to Text](/pdf-to-text), which renders selected pages before OCR. If you already have page images, use the image workflow; when you need to package those images for sharing, [convert images into a PDF](/image-to-pdf). [How It Works](/how-it-works) covers the underlying pipeline.
 - Over-processing is real: aggressive sharpening, posterizing, or heavy HDR filters can distort glyph shapes and make results worse than the unedited original. If you can no longer read the image comfortably yourself after editing, dial it back.
 
 ## Quick Checklist

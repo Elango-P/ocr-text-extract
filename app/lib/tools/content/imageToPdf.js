@@ -1,17 +1,28 @@
-/** Unique long-form content for /image-to-pdf */
+/** Unique long-form content for /image-to-pdf. */
 
 export const imageToPdf = {
   slug: "image-to-pdf",
   path: "/image-to-pdf",
-  title: "Image to PDF — Save Extracted Text as a Searchable PDF",
-  metaTitle: "Image to PDF – Save Extracted Text as a PDF File",
+  title: "Image to PDF Converter — Convert JPG and PNG to PDF",
+  metaTitle: "Image to PDF Converter – Convert JPG and PNG to PDF",
   description:
-    "Turn text in an image into a searchable PDF online. Free OCR extracts the words, then downloads a real text PDF you can select, copy, and search.",
+    "Convert JPG, PNG and WEBP images into a PDF online. Reorder images, choose page settings and download your PDF.",
   h1: "Image to PDF Converter",
   lead:
-    "Extract the text from an image and download it as a PDF whose contents are genuine, selectable, searchable text. This is a different thing from placing your photo inside a PDF, and which one you want depends entirely on whether you care about the words or the page — so it is worth being clear before you start.",
+    "Convert one or more JPG, JPEG, PNG, or WEBP images into a PDF that preserves the original pictures. Reorder pages, choose A4, Letter, or fit-to-image sizing, set margins, and download it in your browser.",
+  embed: "image-to-pdf",
+  cta: {
+    heading: "Convert images into a PDF",
+    text: "Arrange your images, choose page settings, and download a PDF with the original pictures preserved.",
+    label: "Back to Image to PDF",
+  },
+  howToSteps: [
+    { "@type": "HowToStep", name: "Add images", text: "Choose JPG, JPEG, PNG, or WEBP images." },
+    { "@type": "HowToStep", name: "Arrange and set pages", text: "Reorder or remove images, then choose page size, orientation, and margins." },
+    { "@type": "HowToStep", name: "Download the image PDF", text: "Create the PDF in your browser with each image placed without stretching." },
+  ],
   heroImage: "/images/ocr-tool-pdf-export.webp",
-  heroAlt: "Illustration of an image being converted into a text-based PDF document",
+  heroAlt: "Photographed document pages preserved inside an image PDF",
   relatedBlogSlugs: [
     "ultimate-guide-to-ocr-technology",
     "advanced-ocr-techniques",
@@ -19,44 +30,51 @@ export const imageToPdf = {
     "ocr-use-cases-and-workflows",
   ],
   workedExample: {
-    title: "Making a printed notice searchable",
+    title: "Combining a photographed notice into one PDF",
     situation:
-      "You have photographed a printed notice and want a file you can keep, search by keyword later, and copy sentences out of.",
+      "You have photographed a printed notice and want one PDF that preserves the original page for sharing or filing.",
     steps: [
-      "Photograph the notice square-on so it fills the frame, then extract the text.",
-      "Read the result and correct any misread words in the text box, since whatever is there is exactly what the PDF will contain.",
-      "Choose the PDF download to generate the file in your browser.",
-      "Open it and try selecting a sentence and searching for a word to confirm both behave as you expect.",
+      "Choose the notice photo and any other pages in the order you want.",
+      "Move images up or down, remove accidental selections, and choose A4 with standard margins.",
+      "Download the Image PDF and open it to confirm the page order and framing.",
     ],
     result:
-      "Expect a clean, lightweight document, typically a few kilobytes rather than the megabytes a photo would occupy, in which every word can be selected, copied, and found by search. Expect the visual design of the notice to be gone entirely.",
+      "The PDF contains the original notice image, keeping its layout, logos, signatures, and visual details intact while combining it with the other selected pages.",
     lesson:
-      "Decide first whether you are keeping the words or the page. This produces the words; keep the original photograph if the page itself matters.",
+      "Image PDF is the primary mode because it preserves the page. Use the clearly labelled searchable text PDF when you need OCR text rather than the original appearance.",
   },
   faqs: [
     {
       q: "Does this put my photo into a PDF?",
-      a: "No, and this is the most important thing to understand about it. The PDF contains the extracted text rendered as text — your image is not embedded anywhere in the file. If what you wanted was your photograph wrapped in a PDF container, that is a different operation, and almost every operating system already does it: on Windows use Print to PDF from the Photos app, on macOS use Export as PDF from Preview, and on iOS or Android the share sheet has a Print option that saves as PDF.",
+      a: "Yes. The primary Image PDF mode embeds each selected image as a page in the generated PDF. It does not run OCR and does not replace your picture with text.",
     },
     {
       q: "What is a searchable PDF, then, and is this one?",
-      a: "The term usually refers to a scan that keeps the page image visible while hiding a layer of recognised text behind it, so it looks like the original but can be searched. That format gives you both, at the cost of a much larger file. What we produce is simpler: text only, no image layer. It is fully searchable and selectable, but it looks like a plain typed document rather than the original page.",
+      a: "The primary download preserves the image only. The secondary Searchable text PDF runs OCR and creates a text-only PDF for copying and searching; it does not preserve the original image layout.",
     },
     {
       q: "Why does my Hindi, Tamil, or Chinese text come out as question marks?",
-      a: "The PDF is built with the standard Helvetica font, which only covers the Latin-1 character range. Anything outside it — Devanagari, Tamil, Chinese, Japanese, Korean, Arabic, and most emoji — has no glyph available and is written as a question mark. The tool warns you when this is about to happen rather than letting you discover it later. For non-Latin scripts, download DOCX or TXT instead, since both are UTF-8 and keep every character exactly.",
+      a: "This limitation applies only to the secondary text-only PDF. The primary Image PDF preserves non-Latin scripts as pixels because it embeds the source image. For editable multilingual text, download DOCX or TXT from the OCR workflow.",
     },
     {
       q: "What about accented characters and curly quotes?",
       a: "Those are fine. Accented Latin characters such as é, ü, ñ, and å, along with the symbols £, €, and ©, render correctly, as do the curly quotes, apostrophes, en dashes, and em dashes that appear constantly in printed text. It is only scripts outside the Latin alphabet that cannot be represented.",
     },
     {
-      q: "Can I control the fonts, margins, or page size?",
-      a: "Not from here. The output is fixed at US Letter with Helvetica at eleven points and generous margins, which is a readable default for plain text and keeps the file small. If you need control over the appearance, download the DOCX instead, format it in your word processor, and export to PDF from there — you will get a far better result than any set of options we could offer.",
+      q: "Can I choose page size, orientation, and margins?",
+      a: "Yes. Choose A4, Letter, or Fit to image; choose portrait, landscape, or automatic orientation; and select none, small, standard, or wide margins.",
     },
     {
       q: "How does it handle a long document?",
-      a: "It paginates automatically, filling each page and continuing onto the next, so there is no length limit worth worrying about. Long lines are wrapped to fit the page width. The wrapping counts characters rather than measuring the rendered width of the text, so a line of unusually wide characters can break at a slightly different place than you might expect. For ordinary prose you will not notice.",
+      a: "Add multiple images, then use the up and down controls to set their order. Each image becomes one PDF page, with its aspect ratio preserved and large images resized and compressed reasonably for download.",
+    },
+    {
+      q: "Which image formats are accepted?",
+      a: "JPG, JPEG, PNG, and WEBP are accepted. Unsupported, unreadable, and oversized files are skipped with a clear message.",
+    },
+    {
+      q: "Are my images uploaded to create the PDF?",
+      a: "No. The Image PDF is assembled in your browser. The optional Searchable text PDF may use cloud OCR unless you enable Local OCR only.",
     },
   ],
   sections: [
@@ -65,28 +83,27 @@ export const imageToPdf = {
       heading: "Two different jobs share one name",
       paragraphs: [
         "\"Image to PDF\" is asked for by people who want two completely different outcomes, and picking the wrong one wastes time, so it is worth separating them at the outset.",
-        "The first group wants a container. They have a photo, or several, and they want them in a PDF so they can be emailed as one attachment or uploaded to a form that only accepts PDFs. The pictures stay pictures; nothing is read. This is a file-format operation, your device already does it for free, and you do not need OCR at all.",
-        "The second group wants the content. They have a picture of text and they want a document whose words can be searched, selected, copied, and read by a screen reader. The appearance of the original does not matter to them; the words do. That is what this page does.",
-        "A useful test: if you would be satisfied by a photograph of the page, you want a container. If you would be frustrated that you cannot copy a sentence out of it, you want the content.",
+        "The first group wants a container. They have a photo, or several, and want them in one PDF for email, archiving, or a form that accepts only PDFs. The pictures stay pictures; nothing is read. That is the primary Image PDF workflow on this page.",
+        "The second group wants the content. They have a picture of text and want words that can be searched, selected, and copied. The secondary Searchable text PDF runs OCR for that purpose, but it intentionally does not preserve the original page appearance.",
+        "A useful test: if you need the page itself, choose Image PDF. If you need editable words, choose Searchable text PDF.",
       ],
     },
     {
       id: "what-you-get",
       heading: "What the PDF contains",
       paragraphs: [
-        "The file is a straightforward text document. Your extracted text is laid out on US Letter pages in Helvetica at eleven points, with comfortable margins and consistent line spacing, and the pages are generated as needed to hold everything.",
-        "Because it holds text rather than an image, it is remarkably small. A page of prose is a few kilobytes, where a photograph of the same page would run to several megabytes. It is also genuinely accessible: screen readers can read it, search indexes it properly, and copy and paste behave the way people expect from a document.",
-        "What it does not carry is any trace of the original's appearance. Typefaces, sizes, emphasis, columns, logos, rules, signatures, and photographs are all gone. Blank lines survive, so the rough vertical rhythm of the source remains, but nothing else does.",
+        "The primary file contains each selected image on its own PDF page. A4, Letter, and Fit to image are available, and automatic orientation chooses portrait or landscape from each image. Margins are applied consistently.",
+        "Images are fitted inside the page without stretching. Large sources are resized and compressed in the browser to keep downloads practical while retaining enough detail for readable documents.",
+        "The secondary text export is intentionally different: it contains OCR text without the image layer. Use it when search and copy matter more than the original visual design.",
       ],
     },
     {
       id: "scripts",
       heading: "The character set limit, stated plainly",
       paragraphs: [
-        "This is the one real constraint of the PDF export, and it deserves a section rather than a footnote. PDF files reference fonts, and this one uses Helvetica, which is guaranteed to exist in every PDF reader and therefore keeps the output small and universally viewable. The trade-off is that Helvetica's built-in character set covers the Latin alphabet and Western European accents, and nothing beyond.",
-        "In practice that means Latin-script languages work well. English, French, German, Spanish, Italian, Portuguese, and the Nordic languages all render correctly, accents included, along with common punctuation and currency symbols. Devanagari, Tamil, Bengali, Chinese, Japanese, Korean, Arabic, Hebrew, Thai, Cyrillic, and Greek do not, and each unrepresentable character is written as a question mark.",
-        "Supporting them would mean embedding a font that covers those scripts in every file we generate, which would add megabytes to a download that is currently measured in kilobytes, for a format most people are choosing precisely because it is light. Rather than do that, the tool detects the situation and tells you before you open the file, so the failure is visible rather than silent.",
-        "The remedy is simple: download DOCX or TXT. Both store text as UTF-8 and preserve every script faithfully. If you specifically need a PDF containing non-Latin text, take the DOCX route and export to PDF from your word processor, which will embed a suitable font for you.",
+        "The image PDF has no font restriction because it preserves the source as pixels. Hindi, Tamil, Chinese, Arabic, and other scripts remain visible exactly as they appeared in the input image.",
+        "The Helvetica character-set limit applies only to the optional text-only PDF. Latin-script output generally renders there, while many non-Latin characters may become question marks.",
+        "If you need multilingual searchable text, use the OCR result with TXT or DOCX, or keep the original image PDF for faithful visual display.",
       ],
     },
     {
@@ -112,8 +129,8 @@ export const imageToPdf = {
       id: "privacy",
       heading: "The file is built on your device",
       paragraphs: [
-        "PDF generation happens entirely in your browser, using the text already sitting in the results box. Nothing is uploaded to create the file and it is never stored on our side.",
-        "Recognition is the step that may involve the network. By default the image goes through our server to Google's Gemini API, which is what gives good results on difficult photographs. Switching on Local OCR only before extracting keeps everything in the browser using Tesseract.js, with some loss of accuracy on faint or unusual text. The PDF is assembled locally either way.",
+        "The primary Image PDF is assembled entirely in your browser from the selected files. Nothing is uploaded to create it and it is never stored on our side.",
+        "Recognition is only used for the optional Searchable text PDF. By default those images may go through our server to Google's Gemini API; enable Local OCR only to keep recognition in this browser. Either way, the resulting PDF is assembled locally.",
         "Full details of both paths are in the Privacy Policy and the Data Retention Policy.",
       ],
     },
@@ -121,7 +138,7 @@ export const imageToPdf = {
       id: "next",
       heading: "Where to go next",
       paragraphs: [
-        "If you want an editable file rather than a fixed one, Image to Word explains what the .docx export gives you and how to style it. Image to Text covers the general extraction workflow. Working in the other direction — starting from a PDF that contains scanned pages and needing the text out of it — is covered by PDF to Text. And if the source photograph is the weak link, the guide to improving OCR on low-quality images is the right next read.",
+        "If you want an editable file rather than a fixed image PDF, [Image to Word](/image-to-word) explains the DOCX export and [Image to Text](/image-to-text) covers the general OCR workflow. To extract text from a scanned PDF, use [PDF to Text](/pdf-to-text). For weak source photos, read [the guide to improving OCR on low-quality images](/blog/improve-ocr-low-quality-images).",
       ],
     },
   ],

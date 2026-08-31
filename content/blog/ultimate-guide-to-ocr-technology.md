@@ -89,7 +89,7 @@ Manual typing still wins for very short text, layouts you're deliberately rewrit
 6. **Mobile UX** — you'll upload from a phone often.
 7. **Honest PDF handling** — many "PDF OCR" tools actually require exporting pages as images first; a tool that says so up front saves you frustration.
 
-**Free browser tools** like imgtotext.in fit individuals and light team use: drag-and-drop, language selection, AI OCR with a Tesseract.js fallback, and no watermarks on exported text. They're intentionally image-focused — multi-page PDFs need page export first (see [Advanced OCR Techniques](/blog/advanced-ocr-techniques)).
+**Free browser tools** like imgtotext.in fit individuals and light team use: drag-and-drop, language selection, AI OCR with a Tesseract.js fallback, and no watermarks on exported text. The general OCR workflow is image-focused, while [PDF to Text](/pdf-to-text) renders scanned PDF pages directly (see [Advanced OCR Techniques](/blog/advanced-ocr-techniques)).
 
 **Desktop suites and Tesseract CLI** matter when you need batch folders, searchable PDF output, or on-premises processing for IT policy reasons. Accuracy on poor photos usually lags a strong AI service, but the data never leaves your machine.
 

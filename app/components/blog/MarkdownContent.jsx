@@ -138,6 +138,25 @@ export default function MarkdownContent({ source }) {
       continue;
     }
 
+    if (line.trim().startsWith("```")) {
+      const codeLines = [];
+      i += 1;
+      while (i < lines.length && !lines[i].trim().startsWith("```")) {
+        codeLines.push(lines[i]);
+        i += 1;
+      }
+      i += 1;
+      elements.push(
+        <pre
+          key={`code-${key++}`}
+          className="mt-6 overflow-x-auto rounded-xl bg-slate-900 p-4 text-sm leading-relaxed text-slate-100"
+        >
+          <code className="font-mono">{codeLines.join("\n")}</code>
+        </pre>
+      );
+      continue;
+    }
+
     const imgMatch = line.match(/^!\[([^\]]*)\]\(([^)]+)\)/);
     if (imgMatch) {
       const alt = imgMatch[1] || "Article illustration";
@@ -286,7 +305,7 @@ export default function MarkdownContent({ source }) {
     }
 
     const para = [];
-    while (i < lines.length && lines[i].trim() && !lines[i].startsWith("#") && !lines[i].startsWith("!") && !/^[-*]\s+/.test(lines[i]) && !/^\d+\.\s+/.test(lines[i]) && !lines[i].startsWith("> ") && !lines[i].trim().startsWith("|")) {
+    while (i < lines.length && lines[i].trim() && !lines[i].startsWith("#") && !lines[i].startsWith("!") && !lines[i].trim().startsWith("```") && !/^[-*]\s+/.test(lines[i]) && !/^\d+\.\s+/.test(lines[i]) && !lines[i].startsWith("> ") && !lines[i].trim().startsWith("|")) {
       para.push(lines[i]);
       i += 1;
     }

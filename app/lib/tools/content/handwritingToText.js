@@ -4,7 +4,7 @@ export const handwritingToText = {
   slug: "handwriting-to-text",
   path: "/handwriting-to-text",
   title: "Handwriting to Text — Free Handwriting OCR",
-  metaTitle: "Handwriting to Text – Convert Image Notes Online",
+  metaTitle: "Convert Handwriting to Text Online – Free Handwriting OCR",
   description:
     "Convert handwriting to text online from photos of notes, whiteboards, and notebooks. Free handwriting OCR with realistic expectations — AI plus browser fallback.",
   h1: "Handwriting to Text Converter",
@@ -34,6 +34,10 @@ export const handwritingToText = {
       "Handwriting OCR is a draft accelerator. Photograph one idea cluster at a time; proofread before anyone treats it as minutes.",
   },
   faqs: [
+    {
+      q: "How do I convert handwriting to text online?",
+      a: "Photograph the page in good light, upload the image, select the language and run Extract Text. Neat block handwriting works best; always proofread cursive output.",
+    },
     {
       q: "Can I convert image handwriting to text?",
       a: "Yes. Photograph or upload a clear image of handwritten notes, select the language, and extract. Neat print converts best; tight cursive needs more proofreading.",

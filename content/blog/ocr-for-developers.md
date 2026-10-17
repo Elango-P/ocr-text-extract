@@ -69,14 +69,62 @@ Confirm your required languages actually exist in the vendor's list — consumer
 
 ## JavaScript and Browser OCR
 
-A minimal in-browser flow needs no framework: read a file input, optionally draw to a `<canvas>` for crop/rotate, pass the result to Tesseract.js's `recognize()`, and show `result.data.text` in a textarea with a copy button. A few things matter more than they seem:
+JavaScript OCR means running a recognition engine directly in the browser or in Node.js. The most widely used option is Tesseract.js, a WebAssembly port of the Tesseract engine. It needs no server, and images never leave the user's device when you self-host the worker and language files.
+
+### Quick start: extract text from an image with Tesseract.js
+
+Install the package, then recognize an image in a few lines:
+
+```bash
+npm install tesseract.js
+```
+
+```javascript
+import { createWorker } from "tesseract.js";
+
+async function imageToText(file) {
+  const worker = await createWorker("eng"); // loads the English model once
+  const { data } = await worker.recognize(file); // File, Blob, URL or canvas
+  await worker.terminate();
+  return { text: data.text, confidence: data.confidence };
+}
+
+// Wire it to a file input
+document.querySelector("#upload").addEventListener("change", async (event) => {
+  const file = event.target.files[0];
+  if (!file) return;
+  const { text, confidence } = await imageToText(file);
+  document.querySelector("#output").value = text;
+  console.log(`Mean confidence: ${confidence}%`);
+});
+```
+
+`createWorker` runs recognition in a Web Worker, so the page stays responsive. For several images, create the worker once and reuse it, because loading the model is the slow part.
+
+### Run OCR in Node.js
+
+The same API works on the server, which is handy for batch scripts:
+
+```javascript
+import { createWorker } from "tesseract.js";
+
+const worker = await createWorker("eng");
+const { data } = await worker.recognize("./invoice.png");
+console.log(data.text);
+await worker.terminate();
+```
+
+### Tips for better JavaScript OCR accuracy
 
 - Downscale huge images so the longest side is roughly 1500–2000px before recognition, unless you specifically need fine print.
-- Use Tesseract.js's Web Worker support so the UI doesn't freeze during recognition.
-- Lazy-load only the language trained-data files you actually need — bundling all of them slows first load for no benefit.
-- Never embed a secret cloud API key in frontend JavaScript; if your architecture calls a paid AI OCR endpoint, proxy it through your own backend and enforce quotas server-side, since a client-side limit is trivial to bypass.
+- Convert to grayscale and increase contrast on a `<canvas>` first. Clean, high-contrast input improves accuracy more than any engine setting.
+- Lazy-load only the language data you need, for example `createWorker("eng+fra")`, rather than every language.
+- Reuse one worker for batches and call `terminate()` when you are done to free memory.
+- Never embed a secret cloud API key in frontend JavaScript. If you call a paid AI OCR endpoint, proxy it through your own backend and enforce quotas server-side, since a client-side limit is trivial to bypass.
 
-On-device generative multimodal OCR is emerging but still heavy for general audiences — most products, including imgtotext.in, call a server-side AI model first and keep JavaScript OCR as the fallback path.
+### Tesseract.js vs hosted AI OCR
+
+Tesseract.js is free, private and works offline, but it struggles with messy photos and handwriting. Hosted AI models are more accurate on hard images but add cost, latency and data-handling duties. Many products, including imgtotext.in, call a server-side AI model first and keep Tesseract.js as the fallback path. You can compare both quickly on your own samples with the free [image to text converter](/image-to-text) before writing any integration code.
 
 ## Python OCR Overview
 

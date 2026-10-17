@@ -27,10 +27,10 @@ export const posts = [
   {
     slug: "ocr-for-developers",
     title: "OCR for Developers: APIs, Python & JavaScript",
-    seoTitle: "JavaScript OCR Guide – APIs, Python & Browser OCR",
-    description: "A technical overview of OCR for developers: choosing between hosted APIs and self-hosted engines, running Tesseract.js in the browser, and Python workflows.",
+    seoTitle: "JavaScript OCR Tutorial – Tesseract.js Code Examples",
+    description: "A technical overview of OCR for developers: choosing between hosted APIs and self-hosted engines, working Tesseract.js JavaScript OCR code for the browser and Node.js, plus Python workflows.",
     date: "2026-07-15",
-    updated: "2026-08-11",
+    updated: "2026-10-17",
     tags: ["Developers", "API", "JavaScript", "Python"],
     image: "/images/ocr-blog-devtools.webp",
   },

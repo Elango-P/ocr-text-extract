@@ -41,7 +41,7 @@ export function buildPageMetadata({
 
 /** Last meaningful content update per route (ISO date). Used by sitemap.xml. */
 export const ROUTE_LAST_MODIFIED = {
-  "": "2026-08-30",
+  "": "2026-10-17",
   "/about": "2026-08-11",
   "/author/elango-p": "2026-08-11",
   "/contact": "2026-08-11",
@@ -53,12 +53,12 @@ export const ROUTE_LAST_MODIFIED = {
   "/cookie-policy": "2026-08-05",
   "/disclaimer": "2026-07-14",
   "/data-retention": "2026-08-11",
-  "/image-to-text": "2026-08-30",
+  "/image-to-text": "2026-10-17",
   "/screenshot-to-text": "2026-08-30",
   "/receipt-to-text": "2026-08-11",
   "/scanned-document-to-text": "2026-08-30",
   "/pdf-to-text": "2026-08-31",
-  "/handwriting-to-text": "2026-08-30",
+  "/handwriting-to-text": "2026-10-17",
   "/image-to-word": "2026-08-11",
   "/image-to-pdf": "2026-08-31",
 };

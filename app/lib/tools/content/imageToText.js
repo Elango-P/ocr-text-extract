@@ -4,9 +4,9 @@ export const imageToText = {
   slug: "image-to-text",
   path: "/image-to-text",
   title: "Image to Text Converter — Free Online OCR",
-  metaTitle: "Image to Text – Extract Text from Images Online",
+  metaTitle: "Convert Image to Text Online – Extract Text from JPG, PNG",
   description:
-    "Convert images to editable text online with our free Image to Text OCR tool. Upload JPG, PNG or screenshots and extract text instantly — no signup.",
+    "Convert image to text online: extract text from JPG, PNG and screenshots with free OCR. Copy or download editable text instantly — no signup required.",
   h1: "Image to Text Converter",
   lead:
     "Turn pictures that contain writing into text you can copy, edit, search, and paste — whether you are extracting text from a picture, converting JPG into text, or capturing text from an image you already have.",
@@ -34,6 +34,14 @@ export const imageToText = {
       "Tight crops beat sending an entire desktop wallpaper. Clean Mode helps UI text; leave it off for stylized marketing screenshots and compare.",
   },
   faqs: [
+    {
+      q: "How do I convert an image into text online?",
+      a: "Upload your JPG, PNG or screenshot, choose the language, and press Extract Text. The tool runs OCR and returns editable text you can copy or download — no signup needed.",
+    },
+    {
+      q: "Can I turn a picture to text for free?",
+      a: "Yes. Picture to text conversion on this page is free: photos, scans and screenshots are read with AI OCR, with an in-browser fallback if the AI engine is unavailable.",
+    },
     {
       q: "What does an image to text converter do?",
       a: "It reads characters that exist only as pixels in a photo or screenshot and outputs editable text you can copy or download.",

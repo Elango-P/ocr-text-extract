@@ -25,6 +25,13 @@ export const pdfToText = {
   ],
   heroImage: "/images/ocr-tool-pdf.webp",
   heroAlt: "Scanned PDF page rendered for browser-based OCR",
+  highlights: [
+    "100% Free, No Sign-Up",
+    "Upload PDFs Up to 32MB / 25 Pages",
+    "Page-by-Page Review Before Export",
+    "Renders & OCRs Inside Your Browser",
+    "Export TXT & DOCX",
+  ],
   relatedBlogSlugs: [
     "advanced-ocr-techniques",
     "ocr-use-cases-and-workflows",

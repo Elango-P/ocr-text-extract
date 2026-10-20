@@ -14,6 +14,13 @@ export const imageToText = {
     "Turn pictures that contain writing into text you can copy, edit, search, and paste — whether you are extracting text from a picture, converting JPG into text, or capturing text from an image you already have.",
   heroImage: "/images/ocr-tool-general.webp",
   heroAlt: "Printed document photographed for free image-to-text OCR conversion",
+  highlights: [
+    "100% Free, No Sign-Up",
+    "JPG, PNG, WEBP & GIF Support",
+    "AI OCR + Private Browser Fallback",
+    "English, Tamil, Hindi & 10+ Languages",
+    "Export TXT, DOCX & PDF",
+  ],
   relatedBlogSlugs: [
     "ocr-engine-benchmark-gemini-vs-tesseract",
     "how-to-digitize-documents-in-indian-languages",

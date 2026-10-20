@@ -14,6 +14,13 @@ export const screenshotToText = {
     "Screenshots are the cleanest input OCR ever gets — the pixels came straight from a display, so there is no focus, lighting, or shadow to fight. That changes what goes wrong, and this page is about those specific failures rather than generic photo advice.",
   heroImage: "/images/ocr-blog-screenshot.webp",
   heroAlt: "Illustration of a screenshot being converted into selectable text",
+  highlights: [
+    "100% Free, No Sign-Up",
+    "Paste Directly With Ctrl+V",
+    "Clean Mode Strips UI Clutter",
+    "Handles Dark-Mode Screenshots",
+    "Export TXT, DOCX & PDF",
+  ],
   relatedBlogSlugs: [
     "ocr-engine-benchmark-gemini-vs-tesseract",
     "ocr-accuracy-and-limitations",

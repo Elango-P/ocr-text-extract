@@ -14,6 +14,13 @@ export const handwritingToText = {
     "Convert handwriting to text online when you need a first draft from notebooks, sticky notes, or whiteboard markers — including image handwriting to text from phone photos. Handwriting OCR is harder than print; plan to proofread.",
   heroImage: "/images/ocr-tool-handwriting.webp",
   heroAlt: "Handwritten notebook page photographed for handwriting OCR",
+  highlights: [
+    "100% Free, No Sign-Up",
+    "AI OCR Tuned for Handwritten Strokes",
+    "Notes, Whiteboards & Sticky Notes",
+    "Private Browser Fallback",
+    "Export TXT, DOCX & PDF",
+  ],
   relatedBlogSlugs: [
     "ocr-engine-benchmark-gemini-vs-tesseract",
     "how-to-digitize-documents-in-indian-languages",

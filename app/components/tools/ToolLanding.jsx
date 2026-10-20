@@ -140,11 +140,17 @@ export default function ToolLanding({ tool }) {
               {tool.directAnswer || tool.lead}
             </p>
             <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-xs text-slate-600 font-medium">
-              <span>✓ 100% Free (No Sign-Up)</span>
-              <span>✓ Private In-Browser OCR</span>
-              <span>✓ Gemini AI Fallback</span>
-              <span>✓ English, Hindi & 10+ Languages</span>
-              <span>✓ Export TXT, DOCX & PDF</span>
+              {(
+                tool.highlights || [
+                  "100% Free, No Sign-Up",
+                  "Private In-Browser OCR",
+                  "Gemini AI Fallback",
+                  "English, Hindi & 10+ Languages",
+                  "Export TXT, DOCX & PDF",
+                ]
+              ).map((item) => (
+                <span key={item}>✓ {item}</span>
+              ))}
             </div>
           </div>
         </header>

@@ -14,6 +14,13 @@ export const receiptToText = {
     "Receipts are small, narrow, glossy, and printed on paper designed to fade. This page is about getting a usable text draft out of one anyway — and about being clear that what you get is a draft you check, not an accounting record.",
   heroImage: "/images/ocr-blog-receipt.webp",
   heroAlt: "Illustration of a receipt with totals being converted into text",
+  highlights: [
+    "100% Free, No Sign-Up",
+    "Reads Line Items, Dates & Totals",
+    "Built for Thermal & Faded Prints",
+    "AI OCR + Private Browser Fallback",
+    "Export TXT, DOCX & PDF",
+  ],
   relatedBlogSlugs: [
     "ocr-engine-benchmark-gemini-vs-tesseract",
     "how-to-extract-tables-from-images",

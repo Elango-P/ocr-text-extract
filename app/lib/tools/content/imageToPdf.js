@@ -25,6 +25,13 @@ export const imageToPdf = {
   ],
   heroImage: "/images/ocr-tool-pdf-export.webp",
   heroAlt: "Photographed document pages preserved inside an image PDF",
+  highlights: [
+    "100% Free, No Sign-Up",
+    "Reorder Pages Before Export",
+    "A4, Letter & Fit-to-Image Sizing",
+    "Custom Margins",
+    "Runs Entirely in Your Browser",
+  ],
   relatedBlogSlugs: [
     "ultimate-guide-to-ocr-technology",
     "advanced-ocr-techniques",

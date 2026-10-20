@@ -14,6 +14,13 @@ export const imageToWord = {
     "Extract the text from a picture and download it as a .docx you can open in Word, Google Docs, LibreOffice, or Pages. What you get is the words as clean editable paragraphs — not a pixel-for-pixel recreation of the original page — and knowing that difference up front saves a lot of frustration.",
   heroImage: "/images/ocr-tool-word.webp",
   heroAlt: "Illustration of a photographed page becoming an editable Word document",
+  highlights: [
+    "100% Free, No Sign-Up",
+    "Direct .docx Export",
+    "Opens in Word, Docs & LibreOffice",
+    "AI OCR + Private Browser Fallback",
+    "Clean Editable Paragraphs",
+  ],
   relatedBlogSlugs: [
     "ultimate-guide-to-ocr-technology",
     "ocr-accuracy-and-limitations",

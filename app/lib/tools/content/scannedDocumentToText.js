@@ -14,6 +14,13 @@ export const scannedDocumentToText = {
     "Use this scan to text converter when you have page images from a flatbed scanner or scan app — fixed lighting, a flat page, and a resolution you choose beat camera photos for OCR accuracy.",
   heroImage: "/images/ocr-tool-jpg.webp",
   heroAlt: "Illustration of a scanned page being converted into editable text",
+  highlights: [
+    "100% Free, No Sign-Up",
+    "Batch Up to 10 Scanned Pages",
+    "Tolerates Skew & Bleed-Through",
+    "AI OCR + Private Browser Fallback",
+    "Export TXT, DOCX & PDF",
+  ],
   relatedBlogSlugs: [
     "ocr-engine-benchmark-gemini-vs-tesseract",
     "advanced-ocr-techniques",

@@ -72,8 +72,29 @@ export default function ToolLanding({ tool }) {
     step: tool.howToSteps || defaultHowToSteps,
   };
 
+  // AEO: marks the H1 and the on-page direct-answer block as the quotable
+  // excerpt for voice assistants and AI answer engines, mirroring the
+  // homepage's speakable WebPage node.
+  const webPageJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": `${SITE_URL}${tool.path}#webpage`,
+    url: `${SITE_URL}${tool.path}`,
+    name: tool.metaTitle || tool.title || tool.h1,
+    description: tool.description,
+    isPartOf: { "@id": `${SITE_URL}/#website` },
+    speakable: {
+      "@type": "SpeakableSpecification",
+      cssSelector: ["h1", "#direct-answer", ".aeo-answer"],
+    },
+  };
+
   return (
     <div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageJsonLd) }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}

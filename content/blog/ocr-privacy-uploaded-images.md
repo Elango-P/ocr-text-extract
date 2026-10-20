@@ -1,4 +1,4 @@
-Uploading a photo to an OCR tool feels like a small, disposable action — but it's still a decision about where your data goes. This article explains, in plain terms, what actually happens to an image when you use [OCR Text Extractor](https://imgtotext.in), how the two processing paths differ, and how to think about sensitive documents no matter which OCR tool you use.
+Uploading a photo to an OCR tool feels like a small, disposable action — but it's still a decision about where your data goes. This article explains, in plain terms, what actually happens to an image when you use [ImgToText](https://imgtotext.in), how the two processing paths differ, and how to think about sensitive documents no matter which OCR tool you use.
 
 ![OCR document scan example](/images/ocr-blog-privacy.webp)
 

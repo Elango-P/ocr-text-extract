@@ -2,9 +2,9 @@ import { SITE_URL, SITE_DOMAIN, CONTACT_EMAIL, OPERATOR_NAME } from "../lib/site
 import { buildPageMetadata } from "../lib/seo";
 
 export const metadata = buildPageMetadata({
-  title: "Privacy Policy – OCR Text Extractor Data Handling",
+  title: "Privacy Policy – ImgToText Data Handling",
   description:
-    "How OCR Text Extractor handles your data: what happens to images on the AI path, what stays in your browser, plus cookies, ads, retention, and your rights.",
+    "How ImgToText handles your data: what happens to images on the AI path, what stays in your browser, plus cookies, ads, retention, and your rights.",
   path: "/privacy-policy",
 });
 
@@ -23,7 +23,7 @@ export default function PrivacyPage() {
         <section>
           <h2 className="text-xl font-bold text-slate-900">Overview</h2>
           <p className="mt-3 leading-relaxed">
-            OCR Text Extractor (&quot;we&quot;, &quot;our&quot;, or &quot;the site&quot;) is
+            ImgToText (&quot;we&quot;, &quot;our&quot;, or &quot;the site&quot;) is
             operated at {SITE_DOMAIN}. This Privacy Policy explains what information we
             collect, how we use it, and your rights. We are committed to protecting your privacy.
           </p>

@@ -4,7 +4,7 @@ const DEFAULT_OG_IMAGE = {
   url: "/opengraph-image",
   width: 1200,
   height: 630,
-  alt: "OCR Text Extractor — Free Image to Text Online",
+  alt: "ImgToText — Free Image to Text Online",
 };
 
 /**
@@ -41,13 +41,13 @@ export function buildPageMetadata({
 
 /** Last meaningful content update per route (ISO date). Used by sitemap.xml. */
 export const ROUTE_LAST_MODIFIED = {
-  "": "2026-10-17",
+  "": "2026-10-21",
   "/about": "2026-08-11",
   "/author/elango-p": "2026-08-11",
   "/contact": "2026-08-11",
-  "/faq": "2026-08-11",
+  "/faq": "2026-10-21",
   "/how-it-works": "2026-08-30",
-  "/blog": "2026-08-11",
+  "/blog": "2026-10-20",
   "/privacy-policy": "2026-08-11",
   "/terms": "2026-07-14",
   "/cookie-policy": "2026-08-05",

@@ -12,9 +12,9 @@ import {
 import { buildPageMetadata } from "../../lib/seo";
 
 export const metadata = buildPageMetadata({
-  title: "Author: Elango P – OCR Text Extractor",
+  title: "Author: Elango P – ImgToText",
   description:
-    "Elango P builds OCR Text Extractor at imgtotext.in — mission, experience, and how to contact the site operator.",
+    "Elango P builds ImgToText at imgtotext.in — mission, experience, and how to contact the site operator.",
   path: "/author/elango-p",
   ogType: "profile",
 });
@@ -64,7 +64,7 @@ export default function AuthorPage() {
       <section className="mt-10 space-y-4 text-slate-600">
         <h2 className="text-xl font-bold text-slate-900">Experience</h2>
         <p className="leading-relaxed">
-          I build small, usable web tools with modern JavaScript and React. OCR Text Extractor
+          I build small, usable web tools with modern JavaScript and React. ImgToText
           combines a cloud AI extraction path (Google Gemini, documented in the Privacy Policy) with
           a Tesseract.js browser fallback so visitors are not stuck when AI is unavailable or the
           daily fair-use cap is reached.

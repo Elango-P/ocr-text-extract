@@ -116,6 +116,8 @@ const fileTypes = [
 
 const languages = [
   "English",
+  "Tamil (தமிழ்)",
+  "Hindi (हिंदी)",
   "Spanish",
   "French",
   "German",
@@ -126,7 +128,6 @@ const languages = [
   "Japanese",
   "Korean",
   "Arabic",
-  "Hindi",
 ];
 
 const devices = [
@@ -240,7 +241,7 @@ const homeFaqs = [
     a: "Upload or paste the image into the tool at the top of the page, pick the document language, run Extract Text, then copy or download the result.",
   },
   {
-    q: "Is OCR Text Extractor free?",
+    q: "Is ImgToText free?",
     a: "Yes. No signup and no watermarks. AI OCR is limited to 10 uses per day per IP address; browser OCR remains available after that.",
   },
   {
@@ -262,7 +263,7 @@ const homeFaqs = [
   },
   {
     q: "What formats can I upload?",
-    a: "PNG, JPG, JPEG, WEBP, and GIF. For scanned PDFs, export each page as an image first.",
+    a: "PNG, JPG, JPEG, WEBP, and GIF. For scanned PDFs, export each page as an image or use our PDF to Text tool.",
   },
   {
     q: "How accurate is OCR?",
@@ -280,6 +281,10 @@ const homeFaqs = [
         .
       </>
     ),
+  },
+  {
+    q: "Can I extract text from Tamil or Hindi images?",
+    a: "Yes. ImgToText supports Tamil (தமிழ்) and Hindi (हिंदी) along with 10+ other languages. Both our client-side Tesseract engine and Gemini AI fallback accurately recognize Indic scripts and character matras.",
   },
 ];
 
@@ -345,7 +350,7 @@ export default function HomeSections() {
             paper records, or make scanned page images searchable after export.
           </p>
           <p>
-            OCR Text Extractor keeps the workflow on one page: upload, choose language, extract,
+            ImgToText keeps the workflow on one page: upload, choose language, extract,
             then copy or download. Cloud AI handles many difficult layouts first; if that path is
             unavailable or you reach the daily AI allowance, browser-based Tesseract.js continues so
             you are not blocked mid-task.             Deeper primers live in our{" "}
@@ -767,7 +772,7 @@ export default function HomeSections() {
         <div className="mt-6 overflow-x-auto">
           <table className="min-w-full text-left text-sm">
             <caption className="sr-only">
-              Comparison of OCR Text Extractor versus typical desktop OCR and phone OCR apps
+              Comparison of ImgToText versus typical desktop OCR and phone OCR apps
             </caption>
             <thead>
               <tr className="border-b border-slate-200 text-slate-900">

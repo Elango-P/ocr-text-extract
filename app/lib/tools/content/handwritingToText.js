@@ -16,6 +16,7 @@ export const handwritingToText = {
   heroAlt: "Handwritten notebook page photographed for handwriting OCR",
   relatedBlogSlugs: [
     "ocr-engine-benchmark-gemini-vs-tesseract",
+    "how-to-digitize-documents-in-indian-languages",
     "ai-ocr-vs-traditional-ocr",
     "ocr-accuracy-and-limitations",
     "ocr-use-cases-and-workflows",

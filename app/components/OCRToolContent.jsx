@@ -1390,7 +1390,6 @@ export default function OCRTool({ initialFiles = null } = {}) {
                         <div
                             role="button"
                             tabIndex={0}
-                            aria-label="Upload images for OCR. Drop files here or press Enter to browse."
                             onClick={() => fileInputRef.current?.click()}
                             onKeyDown={(e) => {
                                 if (e.key === "Enter" || e.key === " ") {

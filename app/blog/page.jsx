@@ -142,7 +142,7 @@ export default async function BlogIndexPage({ searchParams }) {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Blog",
-    name: "OCR Text Extractor Blog",
+    name: "ImgToText Blog",
     url: `${SITE_URL}/blog`,
     description:
       "Guides on optical character recognition and image-to-text workflows, written by the site operator.",

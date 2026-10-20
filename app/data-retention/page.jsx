@@ -4,9 +4,9 @@ import { SITE_URL, CONTACT_EMAIL, SITE_DOMAIN } from "../lib/site";
 import { buildPageMetadata } from "../lib/seo";
 
 export const metadata = buildPageMetadata({
-  title: "Data Retention Policy – OCR Text Extractor",
+  title: "Data Retention Policy – ImgToText",
   description:
-    "How long OCR Text Extractor retains AI OCR processing data, logs, cookies, and advertising-related information when ads are enabled.",
+    "How long ImgToText retains AI OCR processing data, logs, cookies, and advertising-related information when ads are enabled.",
   path: "/data-retention",
 });
 

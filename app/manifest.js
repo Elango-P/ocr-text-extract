@@ -3,7 +3,7 @@ import { SITE_NAME, SITE_URL } from "./lib/site";
 export default function manifest() {
   return {
     name: `${SITE_NAME} – Free Image to Text`,
-    short_name: "OCR Extractor",
+    short_name: "ImgToText",
     description:
       "Free online OCR tool to extract editable text from images, screenshots, receipts, handwritten notes, and PDFs.",
     start_url: "/",

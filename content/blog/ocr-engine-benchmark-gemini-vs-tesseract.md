@@ -1,4 +1,4 @@
-This is a measured head-to-head of the two engines behind [OCR Text Extractor](https://imgtotext.in): **Google Gemini** (the site’s default AI OCR path) and **Tesseract 5 LSTM** (the classical engine the browser fallback is built on). We published the corpus, the ground-truth text, the raw outputs, and the character error rates — not marketing claims.
+This is a measured head-to-head of the two engines behind [ImgToText](https://imgtotext.in): **Google Gemini** (the site’s default AI OCR path) and **Tesseract 5 LSTM** (the classical engine the browser fallback is built on). We published the corpus, the ground-truth text, the raw outputs, and the character error rates — not marketing claims.
 
 ![OCR benchmark corpus: Gemini vs Tesseract CER](/images/ocr-blog-benchmark.webp)
 

@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const runtime = "nodejs";
-export const alt = "OCR Text Extractor — Free Image to Text Online";
+export const alt = "ImgToText — Free Image to Text Online";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -45,7 +45,7 @@ export default function OpenGraphImage() {
             OCR
           </div>
           <div style={{ display: "flex", flexDirection: "column" }}>
-            <div style={{ fontSize: 28, fontWeight: 800 }}>OCR Text Extractor</div>
+            <div style={{ fontSize: 28, fontWeight: 800 }}>ImgToText</div>
             <div style={{ fontSize: 22, color: "#64748b" }}>imgtotext.in</div>
           </div>
         </div>

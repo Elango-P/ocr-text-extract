@@ -24,6 +24,7 @@ const LANGUAGE_NAMES = {
   kor: "Korean",
   ara: "Arabic",
   hin: "Hindi",
+  tam: "Tamil",
 };
 
 function getApiKey() {

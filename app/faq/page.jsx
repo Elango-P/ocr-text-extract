@@ -54,7 +54,7 @@ const faqs = [
     a: "OCR (Optical Character Recognition) reads text inside images and converts it into editable, searchable characters. It is used for digitizing documents, reading screenshots, and speeding up data entry from photos.",
   },
   {
-    q: "Is OCR Text Extractor free?",
+    q: "Is ImgToText free?",
     a: "Yes. There is no signup, no credit card, and no watermarks on exported text. AI OCR is limited to 10 uses per day per IP address; browser OCR remains available after that.",
   },
   {
@@ -91,7 +91,7 @@ const faqs = [
   },
   {
     q: "Which languages are supported?",
-    a: "English, Spanish, French, German, Italian, Portuguese, Russian, Chinese (Simplified), Japanese, Korean, Arabic, and Hindi. Select the language that matches your document.",
+    a: "English, Tamil (தமிழ்), Hindi (हिंदी), Spanish, French, German, Italian, Portuguese, Russian, Chinese (Simplified), Japanese, Korean, and Arabic. Select the language that matches your document.",
   },
   {
     q: "What is Clean Mode?",
@@ -131,7 +131,7 @@ const faqs = [
   },
   {
     q: "Who operates this site?",
-    a: "Elango P operates OCR Text Extractor independently. See the [About](/about) page and [author profile](/author/elango-p) for mission and contact details.",
+    a: "Elango P operates ImgToText independently. See the [About](/about) page and [author profile](/author/elango-p) for mission and contact details.",
   },
   {
     q: "Is there a refund policy?",

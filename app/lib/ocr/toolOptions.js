@@ -30,4 +30,5 @@ export const OCR_LANGUAGES = [
   { code: "kor", name: "Korean" },
   { code: "ara", name: "Arabic" },
   { code: "hin", name: "Hindi" },
+  { code: "tam", name: "Tamil (தமிழ்)" },
 ];

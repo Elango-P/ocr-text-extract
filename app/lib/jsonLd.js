@@ -22,14 +22,16 @@ export function buildSiteJsonLd() {
         url: SITE_URL,
         name: SITE_NAME,
         alternateName: [
+          "ImgToText Converter",
           "Free Online OCR",
           "Image to Text Converter",
           "OCR Text Extractor",
+          "imgtotext.in",
         ],
         description:
-          "Free online OCR tool to convert images, screenshots, JPG, PNG, and scanned documents into editable text.",
+          "Free online OCR tool to convert images, screenshots, JPG, PNG, and scanned documents into editable text with in-browser Tesseract and Gemini AI fallback.",
         publisher: { "@id": `${SITE_URL}/#organization` },
-        inLanguage: ["en", "hi", "es", "fr", "de", "ar", "zh", "ja"],
+        inLanguage: ["en", "ta", "hi", "es", "fr", "de", "ar", "zh", "ja"],
         potentialAction: {
           "@type": "UseAction",
           target: `${SITE_URL}/image-to-text`,
@@ -63,7 +65,7 @@ export function buildSiteJsonLd() {
         applicationSubCategory: "OCR Converter",
         operatingSystem: "Windows, macOS, Linux, iOS, Android, ChromeOS",
         browserRequirements: "Requires JavaScript and modern browser with WebAssembly",
-        inLanguage: ["en", "hi", "es", "fr", "de", "ar", "zh", "ja"],
+        inLanguage: ["en", "ta", "hi", "es", "fr", "de", "ar", "zh", "ja"],
         featureList: [
           "Image to text conversion",
           "Screenshot to text extraction",
@@ -73,7 +75,7 @@ export function buildSiteJsonLd() {
           "PDF to text extraction",
           "Image to Word DOCX converter",
           "Image to searchable PDF converter",
-          "Multi-language text recognition including Hindi and English",
+          "Multi-language text recognition including Tamil, Hindi, and English",
           "100% private in-browser WebAssembly OCR",
           "Gemini AI OCR fallback",
         ],
@@ -124,12 +126,12 @@ export function buildHomePageJsonLd() {
           {
             "@type": "HowToStep",
             name: "Choose the document language",
-            text: "Select the language that matches the text in the image for better OCR accuracy.",
+            text: "Select the language (English, Tamil, Hindi, or 10+ others) that matches the text in the image for better OCR accuracy.",
           },
           {
             "@type": "HowToStep",
             name: "Extract and copy text",
-            text: "Run OCR, review the editable text, then copy it or download it as a plain text file.",
+            text: "Run OCR, review the editable text, then copy it or download it as a plain text file, Word DOCX, or PDF.",
           },
         ],
       },
@@ -137,9 +139,9 @@ export function buildHomePageJsonLd() {
         "@type": "WebPage",
         "@id": `${SITE_URL}/#webpage`,
         url: SITE_URL,
-        name: "Image to Text – Free Online OCR",
+        name: "Image to Text Converter - Free Online OCR | ImgToText",
         description:
-          "Convert images to editable text online for free. AI OCR with browser fallback for JPG, PNG, screenshots, and scans.",
+          "Extract text from images online with ImgToText. Upload a photo or screenshot, convert it to editable text, and copy or download your results.",
         isPartOf: { "@id": `${SITE_URL}/#website` },
         speakable: {
           "@type": "SpeakableSpecification",
@@ -152,23 +154,23 @@ export function buildHomePageJsonLd() {
         mainEntity: [
           {
             "@type": "Question",
-            name: "How do I extract text from an image for free without software?",
+            name: "Can I use this as an img to text converter?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "You can extract text directly in your web browser on imgtotext.in. Simply drag and drop your JPG, PNG, or screenshot, select the language (English, Hindi, and 10+ others), and click Extract Text. The tool converts pixels into editable text with zero sign-up and no installation.",
+              text: "Yes. Upload a PNG, JPG, WEBP, or GIF and extract editable text in seconds — the same free img to text workflow as our dedicated Image to Text page.",
             },
           },
           {
             "@type": "Question",
-            name: "Can I convert handwriting from a photo into text?",
+            name: "How do I capture text from an image?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Yes. You can upload clear photographs of handwritten notes, whiteboards, or notebooks to the Handwriting to Text tool on imgtotext.in. Multimodal AI OCR processes the handwriting strokes and outputs editable text that you can copy or export as DOCX, TXT, or PDF.",
+              text: "Upload or paste the image into the tool at the top of the page, pick the document language, run Extract Text, then copy or download the result.",
             },
           },
           {
             "@type": "Question",
-            name: "Is OCR Text Extractor free?",
+            name: "Is ImgToText free?",
             acceptedAnswer: {
               "@type": "Answer",
               text: "Yes. No signup and no watermarks. AI OCR is limited to 10 uses per day per IP address; browser OCR remains available after that.",
@@ -204,6 +206,14 @@ export function buildHomePageJsonLd() {
             acceptedAnswer: {
               "@type": "Answer",
               text: "Ads may appear when advertising is enabled (for example, via Google AdSense). Cookie choices are explained in the Cookie Policy.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Can I extract text from Tamil or Hindi images?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Yes. ImgToText supports Tamil (தமிழ்) and Hindi (हिंदी) along with 10+ other languages. Both our client-side Tesseract engine and Gemini AI fallback accurately recognize Indic scripts and character matras.",
             },
           },
         ],

@@ -4,9 +4,9 @@ import { SITE_URL, CONTACT_EMAIL, OPERATOR_NAME, SITE_NAME, SITE_DOMAIN } from "
 import { buildPageMetadata } from "../lib/seo";
 
 export const metadata = buildPageMetadata({
-  title: "Contact OCR Text Extractor – Support & Feedback",
+  title: "Contact ImgToText – Support & Feedback",
   description:
-    "Contact OCR Text Extractor for support, feedback, privacy questions, or bug reports. Email admin@elangodev.com — we respond within 1–3 business days.",
+    "Contact ImgToText for support, feedback, privacy questions, or bug reports. Email admin@elangodev.com — we respond within 1–3 business days.",
   path: "/contact",
 });
 

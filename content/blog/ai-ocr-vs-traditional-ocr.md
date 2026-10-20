@@ -1,4 +1,4 @@
-"OCR" covers two genuinely different kinds of technology today: classical, template-and-feature-based engines like Tesseract, and modern AI/multimodal models like Google's Gemini. [OCR Text Extractor](https://imgtotext.in) actually uses both — Gemini-powered AI OCR by default, with Tesseract.js as an automatic browser fallback — which makes it a useful lens for understanding how the two approaches really compare in practice, not just in theory.
+"OCR" covers two genuinely different kinds of technology today: classical, template-and-feature-based engines like Tesseract, and modern AI/multimodal models like Google's Gemini. [ImgToText](https://imgtotext.in) actually uses both — Gemini-powered AI OCR by default, with Tesseract.js as an automatic browser fallback — which makes it a useful lens for understanding how the two approaches really compare in practice, not just in theory.
 
 ![OCR document scan example](/images/ocr-document-scan.webp)
 

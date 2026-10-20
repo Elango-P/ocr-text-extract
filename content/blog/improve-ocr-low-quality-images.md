@@ -1,4 +1,4 @@
-Most disappointing OCR results trace back to the image, not the engine. A few seconds of deliberate capture and cropping habit often matters more than which OCR tool you pick. This is a practical, non-technical guide to getting usable text out of imperfect photos and scans — the everyday fixes for lighting, resolution, glare, and compression that make the biggest difference before you upload to [OCR Text Extractor](https://imgtotext.in).
+Most disappointing OCR results trace back to the image, not the engine. A few seconds of deliberate capture and cropping habit often matters more than which OCR tool you pick. This is a practical, non-technical guide to getting usable text out of imperfect photos and scans — the everyday fixes for lighting, resolution, glare, and compression that make the biggest difference before you upload to [ImgToText](https://imgtotext.in).
 
 ![Phone photo OCR example](/images/ocr-blog-devtools.webp)
 
@@ -54,7 +54,7 @@ A page photographed at an angle bends straight lines and confuses reading order:
 
 ## Compression: Choosing the Right Format
 
-[OCR Text Extractor](https://imgtotext.in) accepts PNG, JPG, JPEG, WEBP, and GIF. A few practical notes:
+[ImgToText](https://imgtotext.in) accepts PNG, JPG, JPEG, WEBP, and GIF. A few practical notes:
 
 - **Screenshots and UI:** PNG is lossless and ideal — text edges stay crisp.
 - **Camera photos:** A high-quality JPEG straight from the camera is fine. Avoid re-saving the same JPEG multiple times through different apps, since each re-save adds compression artifacts around letter edges that accumulate over time.

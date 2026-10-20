@@ -4,7 +4,7 @@ import { SITE_NAME } from "./lib/site";
 export const metadata = {
   title: { absolute: `Page not found | ${SITE_NAME}` },
   description:
-    "That URL is not a page on OCR Text Extractor. Open the free image-to-text tool, Image to Text, or the blog.",
+    "That URL is not a page on ImgToText. Open the free image-to-text tool, Image to Text, or the blog.",
   robots: {
     index: false,
     follow: true,

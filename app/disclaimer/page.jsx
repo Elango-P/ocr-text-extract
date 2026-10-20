@@ -5,7 +5,7 @@ import { buildPageMetadata } from "../lib/seo";
 export const metadata = buildPageMetadata({
   title: "Disclaimer – OCR Accuracy & Liability Limits",
   description:
-    "Disclaimer for OCR Text Extractor — accuracy limits, no professional advice, and liability boundaries for free online image-to-text OCR.",
+    "Disclaimer for ImgToText — accuracy limits, no professional advice, and liability boundaries for free online image-to-text OCR.",
   path: "/disclaimer",
 });
 

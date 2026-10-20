@@ -16,6 +16,7 @@ export const receiptToText = {
   heroAlt: "Illustration of a receipt with totals being converted into text",
   relatedBlogSlugs: [
     "ocr-engine-benchmark-gemini-vs-tesseract",
+    "how-to-extract-tables-from-images",
     "ocr-use-cases-and-workflows",
     "ocr-accuracy-and-limitations",
     "improve-ocr-low-quality-images",

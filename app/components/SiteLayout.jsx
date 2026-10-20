@@ -41,7 +41,7 @@ export default function SiteLayout({ children }) {
         <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
             <div>
-              <p className="text-sm font-black text-slate-900">OCR Text Extractor</p>
+              <p className="text-sm font-black text-slate-900">ImgToText</p>
               <p className="mt-2 text-sm leading-relaxed text-slate-500">
                 A free online tool to convert images into editable text. AI OCR runs first;
                 if it fails, browser-side Tesseract OCR is used as a fallback.

@@ -3,9 +3,9 @@ import { SITE_URL, SITE_DOMAIN, CONTACT_EMAIL, SITE_NAME } from "../lib/site";
 import { buildPageMetadata } from "../lib/seo";
 
 export const metadata = buildPageMetadata({
-  title: "Cookie Policy – OCR Text Extractor",
+  title: "Cookie Policy – ImgToText",
   description:
-    "Cookie Policy for OCR Text Extractor — essential cookies, optional advertising cookies when ads are enabled, and how to manage your preferences.",
+    "Cookie Policy for ImgToText — essential cookies, optional advertising cookies when ads are enabled, and how to manage your preferences.",
   path: "/cookie-policy",
 });
 

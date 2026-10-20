@@ -2,9 +2,9 @@ import { SITE_URL, SITE_DOMAIN, CONTACT_EMAIL } from "../lib/site";
 import { buildPageMetadata } from "../lib/seo";
 
 export const metadata = buildPageMetadata({
-  title: "Terms of Use – OCR Text Extractor",
+  title: "Terms of Use – ImgToText",
   description:
-    "Terms of Use for OCR Text Extractor: acceptable use of the free OCR tool, accuracy disclaimers, limits on liability, and how these terms may change.",
+    "Terms of Use for ImgToText: acceptable use of the free OCR tool, accuracy disclaimers, limits on liability, and how these terms may change.",
   path: "/terms",
 });
 
@@ -23,7 +23,7 @@ export default function TermsPage() {
         <section>
           <h2 className="text-xl font-bold text-slate-900">Agreement</h2>
           <p className="mt-3 leading-relaxed">
-            By accessing or using OCR Text Extractor at {SITE_DOMAIN} (&quot;the site&quot;),
+            By accessing or using ImgToText at {SITE_DOMAIN} (&quot;the site&quot;),
             you agree to these Terms of Use. If you do not agree, please do not use the site.
           </p>
         </section>
@@ -31,7 +31,7 @@ export default function TermsPage() {
         <section>
           <h2 className="text-xl font-bold text-slate-900">Description of service</h2>
           <p className="mt-3 leading-relaxed">
-            OCR Text Extractor provides a free web tool to extract text from images using optical
+            ImgToText provides a free web tool to extract text from images using optical
             character recognition (OCR). Extraction uses cloud AI OCR first (Google Gemini). If that
             request fails, the tool falls back to browser-based Tesseract.js OCR. The service is
             provided &quot;as is&quot; for personal and commercial use, subject to the limitations
@@ -86,7 +86,7 @@ export default function TermsPage() {
         <section>
           <h2 className="text-xl font-bold text-slate-900">Fees, payments, and refunds</h2>
           <p className="mt-3 leading-relaxed">
-            OCR Text Extractor is offered as a free web utility. There are no paid plans, subscriptions,
+            ImgToText is offered as a free web utility. There are no paid plans, subscriptions,
             or in-app purchases on {SITE_DOMAIN} at this time. Because no payments are collected for
             the OCR tool itself, refunds do not apply. If that model changes in the future, purchase
             terms and refund rules will be published before any paid product is offered.
@@ -106,7 +106,7 @@ export default function TermsPage() {
         <section>
           <h2 className="text-xl font-bold text-slate-900">Limitation of liability</h2>
           <p className="mt-3 leading-relaxed">
-            To the fullest extent permitted by law, OCR Text Extractor and its operator shall not be
+            To the fullest extent permitted by law, ImgToText and its operator shall not be
             liable for any indirect, incidental, special, or consequential damages arising from
             your use of the site, including loss of data, loss of profits, or reliance on OCR
             output.

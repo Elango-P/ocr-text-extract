@@ -31,18 +31,20 @@ export const metadata = {
   applicationName: SITE_NAME,
   category: "OCR, image to text, productivity",
   title: {
-    default: "Image to Text (Free & Instant) – 100% Private Online OCR",
+    default: "Image to Text Converter - Free Online OCR | ImgToText",
     template: `%s | ${SITE_NAME}`,
   },
   description:
-    "Convert images to editable text online for free. 100% private in-browser OCR with Gemini AI fallback. Extract text from JPG, PNG, screenshots, notes, and PDFs instantly.",
+    "Extract text from images online with ImgToText. Upload a photo or screenshot, convert it to editable text, and copy or download your results.",
   keywords: [
     "OCR",
     "image to text",
+    "image to text converter",
     "free OCR online",
     "extract text from image",
     "screenshot to text",
     "handwriting to text",
+    "tamil image to text",
     "hindi image to text",
     "receipt ocr",
     "pdf to text",
@@ -53,9 +55,9 @@ export const metadata = {
   creator: OPERATOR_NAME,
   publisher: OPERATOR_NAME,
   openGraph: {
-    title: "Image to Text (Free & Instant) – 100% Private Online OCR",
+    title: "Image to Text Converter - Free Online OCR | ImgToText",
     description:
-      "Convert images to editable text online for free. 100% private in-browser OCR with Gemini AI fallback. Extract text from JPG, PNG, screenshots, notes, and PDFs instantly.",
+      "Extract text from images online with ImgToText. Upload a photo or screenshot, convert it to editable text, and copy or download your results.",
     type: "website",
     siteName: SITE_NAME,
     locale: "en_US",
@@ -64,15 +66,15 @@ export const metadata = {
         url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "OCR Text Extractor — Free Image to Text Online",
+        alt: "ImgToText — Free Image to Text Online",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Image to Text (Free & Instant) – 100% Private Online OCR",
+    title: "Image to Text Converter - Free Online OCR | ImgToText",
     description:
-      "Convert images to editable text online for free. 100% private in-browser OCR with Gemini AI fallback. Extract text from JPG, PNG, screenshots, notes, and PDFs instantly.",
+      "Extract text from images online with ImgToText. Upload a photo or screenshot, convert it to editable text, and copy or download your results.",
     creator: "@elango_dev",
     images: ["/opengraph-image"],
   },

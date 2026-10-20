@@ -42,7 +42,7 @@ export default function SiteHeader() {
           </span>
           <span className="min-w-0">
             <span className="block truncate text-sm font-black tracking-tight sm:text-base">
-              OCR Text Extractor
+              ImgToText
             </span>
             <span className="hidden text-xs font-medium text-slate-500 sm:block">
               Free image to text online

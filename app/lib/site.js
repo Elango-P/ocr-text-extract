@@ -1,6 +1,6 @@
 /** Canonical production site config for imgtotext.in */
 export const SITE_URL = "https://imgtotext.in";
-export const SITE_NAME = "OCR Text Extractor";
+export const SITE_NAME = "ImgToText";
 export const SITE_DOMAIN = "imgtotext.in";
 export const CONTACT_EMAIL = "admin@elangodev.com";
 export const OPERATOR_NAME = "Elango P";

@@ -3,9 +3,9 @@ import { SITE_URL, CONTACT_EMAIL, OPERATOR_NAME, OPERATOR_URL, SITE_NAME, SITE_D
 import { buildPageMetadata } from "../lib/seo";
 
 export const metadata = buildPageMetadata({
-  title: "About OCR Text Extractor – Free Image to Text Tool",
+  title: "About ImgToText – Free Image to Text Tool",
   description:
-    "Learn about OCR Text Extractor at imgtotext.in — free image-to-text with AI OCR, Tesseract.js browser fallback, and no signup. Built by Elango P.",
+    "Learn about ImgToText at imgtotext.in — free image-to-text with AI OCR, Tesseract.js browser fallback, and no signup. Built by Elango P.",
   path: "/about",
 });
 
@@ -14,11 +14,11 @@ export default function AboutPage() {
     <article className="mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-14">
       <p className="text-xs font-bold uppercase tracking-[0.2em] text-cyan-800">About</p>
       <h1 className="mt-3 text-3xl font-black tracking-tight text-slate-900 sm:text-4xl">
-        About OCR Text Extractor
+        About ImgToText
       </h1>
       <div className="mt-8 space-y-6 text-slate-600">
         <p className="text-lg leading-relaxed">
-          OCR Text Extractor is a free online tool that helps you convert images into editable
+          ImgToText is a free online tool that helps you convert images into editable
           text. Whether you have a screenshot, a photo of a document, or a scanned receipt, you
           can extract the text in seconds using AI OCR, with a browser fallback if AI is
           unavailable. The site runs at{" "}
@@ -35,7 +35,7 @@ export default function AboutPage() {
             a black-box service they cannot understand.
           </p>
           <p className="mt-3 leading-relaxed">
-            OCR Text Extractor tries cloud AI OCR for high-accuracy extraction first. If that
+            ImgToText tries cloud AI OCR for high-accuracy extraction first. If that
             request fails or the daily AI quota is reached, it falls back to Tesseract.js running
             in your browser so the tool still works without relying only on the cloud.
           </p>
@@ -144,7 +144,7 @@ export default function AboutPage() {
         <section>
           <h2 className="text-xl font-bold text-slate-900">Limitations</h2>
           <p className="mt-3 leading-relaxed">
-            OCR Text Extractor is a free everyday utility, not an enterprise document platform.
+            ImgToText is a free everyday utility, not an enterprise document platform.
             Honest limits today:
           </p>
           <ul className="mt-3 list-disc space-y-2 pl-5 leading-relaxed">

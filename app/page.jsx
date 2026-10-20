@@ -10,12 +10,12 @@ export const metadata = {
     absolute: "Free Image to Text Converter – Picture to Text OCR",
   },
   description:
-    "Free image to text converter: turn any picture, photo or screenshot into editable text online. Upload JPG or PNG, run OCR in seconds — no signup, no watermark.",
+    "Free image to text converter: turn any picture, photo or screenshot into editable text online. 100% private OCR with AI fallback — no signup, no watermark.",
   alternates: { canonical: SITE_URL },
   openGraph: {
     title: "Free Image to Text Converter – Picture to Text OCR",
     description:
-      "Convert images to editable text online. Free OCR for JPG, PNG, screenshots, and scans — no signup required.",
+      "Free image to text converter: turn any picture, photo or screenshot into editable text online. 100% private OCR with AI fallback — no signup, no watermark.",
     url: SITE_URL,
     type: "website",
   },
@@ -23,7 +23,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "Free Image to Text Converter – Picture to Text OCR",
     description:
-      "Convert images to editable text online. Free OCR for JPG, PNG, screenshots, and scans — no signup required.",
+      "Free image to text converter: turn any picture, photo or screenshot into editable text online. 100% private OCR with AI fallback — no signup, no watermark.",
   },
 };
 

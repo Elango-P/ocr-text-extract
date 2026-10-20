@@ -4,9 +4,11 @@ export const imageToWord = {
   slug: "image-to-word",
   path: "/image-to-word",
   title: "Image to Word — Turn Pictures of Text Into an Editable .docx",
-  metaTitle: "Image to Word – Convert Pictures to Editable DOCX",
+  metaTitle: "Image to Word Converter – Free JPG & PNG to DOCX",
   description:
-    "Convert an image of text into an editable Word document online. Free OCR plus DOCX export — what formatting is preserved and how to rebuild layouts in Word.",
+    "Convert pictures of text into an editable Word document online for free. Clean OCR with instant .docx export — no signup or software needed.",
+  directAnswer:
+    "Image to Word Converter performs OCR on document photos and exports the extracted text directly as an editable Microsoft Word (.docx) file ready for editing.",
   h1: "Image to Word Converter",
   lead:
     "Extract the text from a picture and download it as a .docx you can open in Word, Google Docs, LibreOffice, or Pages. What you get is the words as clean editable paragraphs — not a pixel-for-pixel recreation of the original page — and knowing that difference up front saves a lot of frustration.",

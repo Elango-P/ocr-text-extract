@@ -34,8 +34,11 @@ export default function ToolLanding({ tool }) {
     "@type": "SoftwareApplication",
     name: `${tool.h1} — ${SITE_NAME}`,
     url: `${SITE_URL}${tool.path}`,
-    applicationCategory: "UtilityApplication",
-    operatingSystem: "Any",
+    applicationCategory: "BusinessApplication, UtilitiesApplication",
+    applicationSubCategory: "OCR Converter",
+    operatingSystem: "Windows, macOS, Linux, iOS, Android, ChromeOS",
+    browserRequirements: "Requires JavaScript and modern browser with WebAssembly",
+    inLanguage: ["en", "hi", "es", "fr", "de", "ar", "zh", "ja"],
     offers: {
       "@type": "Offer",
       price: "0",
@@ -101,6 +104,28 @@ export default function ToolLanding({ tool }) {
             {tool.h1}
           </h1>
           <p className="mt-4 text-lg leading-relaxed text-slate-600">{tool.lead}</p>
+
+          <div
+            id="direct-answer"
+            className="aeo-answer mt-5 rounded-2xl border border-cyan-100 bg-cyan-50/70 p-4 text-sm text-slate-700"
+          >
+            <div className="flex flex-wrap items-center gap-2 font-semibold text-cyan-900">
+              <span className="inline-flex items-center rounded-md bg-cyan-600 px-2 py-0.5 text-xs text-white">
+                Direct Answer
+              </span>
+              <span>{tool.h1} Summary</span>
+            </div>
+            <p className="mt-2 text-slate-700 leading-relaxed">
+              {tool.directAnswer || tool.lead}
+            </p>
+            <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-xs text-slate-600 font-medium">
+              <span>✓ 100% Free (No Sign-Up)</span>
+              <span>✓ Private In-Browser OCR</span>
+              <span>✓ Gemini AI Fallback</span>
+              <span>✓ English, Hindi & 10+ Languages</span>
+              <span>✓ Export TXT, DOCX & PDF</span>
+            </div>
+          </div>
         </header>
       </div>
 

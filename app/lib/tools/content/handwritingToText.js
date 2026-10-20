@@ -6,7 +6,9 @@ export const handwritingToText = {
   title: "Handwriting to Text — Free Handwriting OCR",
   metaTitle: "Convert Handwriting to Text Online – Free Handwriting OCR",
   description:
-    "Convert handwriting to text online from photos of notes, whiteboards, and notebooks. Free handwriting OCR with realistic expectations — AI plus browser fallback.",
+    "Convert handwriting to text online from photos of student notes, whiteboards, and notebooks. AI OCR with browser fallback — free, private, no signup.",
+  directAnswer:
+    "Handwriting to Text OCR converts handwritten study notes, whiteboard photos, and memos into digital text using vision AI with browser fallback. Ideal for students, researchers, and office notes.",
   h1: "Handwriting to Text Converter",
   lead:
     "Convert handwriting to text online when you need a first draft from notebooks, sticky notes, or whiteboard markers — including image handwriting to text from phone photos. Handwriting OCR is harder than print; plan to proofread.",

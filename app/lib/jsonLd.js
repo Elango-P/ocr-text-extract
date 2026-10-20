@@ -29,7 +29,12 @@ export function buildSiteJsonLd() {
         description:
           "Free online OCR tool to convert images, screenshots, JPG, PNG, and scanned documents into editable text.",
         publisher: { "@id": `${SITE_URL}/#organization` },
-        inLanguage: "en",
+        inLanguage: ["en", "hi", "es", "fr", "de", "ar", "zh", "ja"],
+        potentialAction: {
+          "@type": "UseAction",
+          target: `${SITE_URL}/image-to-text`,
+          name: "Extract Text from Image",
+        },
       },
       {
         "@type": "Organization",
@@ -54,19 +59,26 @@ export function buildSiteJsonLd() {
         "@id": `${SITE_URL}/#app`,
         name: SITE_NAME,
         url: SITE_URL,
-        applicationCategory: "UtilityApplication",
-        operatingSystem: "Any",
-        browserRequirements: "Requires JavaScript",
+        applicationCategory: "BusinessApplication, UtilitiesApplication",
+        applicationSubCategory: "OCR Converter",
+        operatingSystem: "Windows, macOS, Linux, iOS, Android, ChromeOS",
+        browserRequirements: "Requires JavaScript and modern browser with WebAssembly",
+        inLanguage: ["en", "hi", "es", "fr", "de", "ar", "zh", "ja"],
         featureList: [
           "Image to text conversion",
           "Screenshot to text extraction",
-          "JPG and PNG OCR",
+          "Handwriting OCR notes extraction",
+          "Receipt and invoice OCR",
           "Scanned document OCR",
-          "Multi-language text recognition",
-          "AI OCR with browser fallback",
+          "PDF to text extraction",
+          "Image to Word DOCX converter",
+          "Image to searchable PDF converter",
+          "Multi-language text recognition including Hindi and English",
+          "100% private in-browser WebAssembly OCR",
+          "Gemini AI OCR fallback",
         ],
         description:
-          "Free online OCR tool to extract text from screenshots, photos, scanned documents, JPG, PNG, WEBP, and GIF files.",
+          "Free online OCR tool to extract text from screenshots, photos, scanned documents, JPG, PNG, WEBP, and GIF files with browser and AI fallback.",
         offers: {
           "@type": "Offer",
           price: "0",
@@ -122,9 +134,38 @@ export function buildHomePageJsonLd() {
         ],
       },
       {
+        "@type": "WebPage",
+        "@id": `${SITE_URL}/#webpage`,
+        url: SITE_URL,
+        name: "Image to Text – Free Online OCR",
+        description:
+          "Convert images to editable text online for free. AI OCR with browser fallback for JPG, PNG, screenshots, and scans.",
+        isPartOf: { "@id": `${SITE_URL}/#website` },
+        speakable: {
+          "@type": "SpeakableSpecification",
+          cssSelector: ["h1", "#hero-lead", "#direct-answer", ".aeo-answer"],
+        },
+      },
+      {
         "@type": "FAQPage",
         "@id": `${SITE_URL}/#homepage-faq`,
         mainEntity: [
+          {
+            "@type": "Question",
+            name: "How do I extract text from an image for free without software?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "You can extract text directly in your web browser on imgtotext.in. Simply drag and drop your JPG, PNG, or screenshot, select the language (English, Hindi, and 10+ others), and click Extract Text. The tool converts pixels into editable text with zero sign-up and no installation.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Can I convert handwriting from a photo into text?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Yes. You can upload clear photographs of handwritten notes, whiteboards, or notebooks to the Handwriting to Text tool on imgtotext.in. Multimodal AI OCR processes the handwriting strokes and outputs editable text that you can copy or export as DOCX, TXT, or PDF.",
+            },
+          },
           {
             "@type": "Question",
             name: "Is OCR Text Extractor free?",
@@ -146,7 +187,7 @@ export function buildHomePageJsonLd() {
             name: "What formats can I upload?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "PNG, JPG, JPEG, WEBP, and GIF. For scanned PDFs, export each page as an image first.",
+              text: "PNG, JPG, JPEG, WEBP, and GIF. For scanned PDFs, export each page as an image or use our PDF to Text tool.",
             },
           },
           {

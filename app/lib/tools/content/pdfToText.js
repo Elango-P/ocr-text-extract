@@ -4,9 +4,11 @@ export const pdfToText = {
   slug: "pdf-to-text",
   path: "/pdf-to-text",
   title: "PDF to Text Converter — Extract Text from Scanned PDFs",
-  metaTitle: "PDF to Text Converter – Extract Text from Scanned PDFs",
+  metaTitle: "PDF to Text – Extract Text from Scanned PDFs Free",
   description:
-    "Upload a scanned PDF and extract editable text from its pages using OCR. Review, copy and download the result online.",
+    "Upload a scanned PDF and extract editable text from its pages using OCR. Free online conversion with page-by-page review and download.",
+  directAnswer:
+    "PDF to Text extracts characters from scanned or image-only PDF documents page-by-page using OCR, allowing instant text copying and export without software installation.",
   h1: "PDF to Text Converter",
   lead:
     "Upload a scanned PDF directly, choose all pages or a range, and review the OCR result page by page. Born-digital PDFs may already contain selectable text; this workflow is for pages that are images.",

@@ -7,6 +7,8 @@ export const imageToText = {
   metaTitle: "Convert Image to Text Online – Extract Text from JPG, PNG",
   description:
     "Convert image to text online: extract text from JPG, PNG and screenshots with free OCR. Copy or download editable text instantly — no signup required.",
+  directAnswer:
+    "An Image to Text converter extracts editable text from photos, scans, and screenshots using Optical Character Recognition (OCR). On imgtotext.in, extraction is 100% free with no sign-up, supporting English, Hindi, and 10+ languages.",
   h1: "Image to Text Converter",
   lead:
     "Turn pictures that contain writing into text you can copy, edit, search, and paste — whether you are extracting text from a picture, converting JPG into text, or capturing text from an image you already have.",

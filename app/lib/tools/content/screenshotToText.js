@@ -4,9 +4,11 @@ export const screenshotToText = {
   slug: "screenshot-to-text",
   path: "/screenshot-to-text",
   title: "Screenshot to Text — Copy Text From Any Screenshot",
-  metaTitle: "Screenshot to Text – Extract Screenshot Text Online",
+  metaTitle: "Screenshot to Text – Instant Copy from UI & Chats (Free)",
   description:
-    "Turn screenshot text into copyable wording online. Free OCR for PNG and JPG captures — paste error dialogs, chat snippets, and UI labels in seconds.",
+    "Turn screenshot text into copyable wording online for free. Extract text from WhatsApp chats, error dialogs, and UI snaps in seconds — no signup required.",
+  directAnswer:
+    "Screenshot to Text extracts typed characters from computer and phone screen grabs, including WhatsApp messages, dialog popups, and spreadsheets. Crops run client-side with 99%+ accuracy and no login.",
   h1: "Screenshot to Text Converter",
   lead:
     "Screenshots are the cleanest input OCR ever gets — the pixels came straight from a display, so there is no focus, lighting, or shadow to fight. That changes what goes wrong, and this page is about those specific failures rather than generic photo advice.",

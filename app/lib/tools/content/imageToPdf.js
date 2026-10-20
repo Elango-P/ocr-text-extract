@@ -4,9 +4,11 @@ export const imageToPdf = {
   slug: "image-to-pdf",
   path: "/image-to-pdf",
   title: "Image to PDF Converter — Convert JPG and PNG to PDF",
-  metaTitle: "Image to PDF Converter – Convert JPG and PNG to PDF",
+  metaTitle: "Image to PDF Converter – Turn Photos into Searchable PDF",
   description:
-    "Convert JPG, PNG and WEBP images into a PDF online. Reorder images, choose page settings and download your PDF.",
+    "Convert JPG, PNG, and WEBP images into a clean PDF online for free. Reorder images, customize page sizes, and download your PDF instantly.",
+  directAnswer:
+    "Image to PDF Converter packages JPG, PNG, and camera photos into clean, standardized PDF documents with customizable page sizing, margins, and page reordering.",
   h1: "Image to PDF Converter",
   lead:
     "Convert one or more JPG, JPEG, PNG, or WEBP images into a PDF that preserves the original pictures. Reorder pages, choose A4, Letter, or fit-to-image sizing, set margins, and download it in your browser.",

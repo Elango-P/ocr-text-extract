@@ -31,26 +31,31 @@ export const metadata = {
   applicationName: SITE_NAME,
   category: "OCR, image to text, productivity",
   title: {
-    default: "Image to Text – Extract Text from Images Online",
+    default: "Image to Text (Free & Instant) – 100% Private Online OCR",
     template: `%s | ${SITE_NAME}`,
   },
   description:
-    "Convert images to editable text online with our free Image to Text OCR tool. Upload JPG, PNG or screenshots and extract text instantly — AI OCR with browser fallback.",
+    "Convert images to editable text online for free. 100% private in-browser OCR with Gemini AI fallback. Extract text from JPG, PNG, screenshots, notes, and PDFs instantly.",
   keywords: [
     "OCR",
     "image to text",
     "free OCR online",
     "extract text from image",
     "screenshot to text",
+    "handwriting to text",
+    "hindi image to text",
+    "receipt ocr",
+    "pdf to text",
+    "convert image to word",
     "online OCR converter",
   ],
   authors: [{ name: OPERATOR_NAME, url: OPERATOR_URL }],
   creator: OPERATOR_NAME,
   publisher: OPERATOR_NAME,
   openGraph: {
-    title: "Image to Text – Extract Text from Images Online",
+    title: "Image to Text (Free & Instant) – 100% Private Online OCR",
     description:
-      "Convert images to editable text online. Free OCR for JPG, PNG, screenshots, and scans — AI extraction with browser fallback.",
+      "Convert images to editable text online for free. 100% private in-browser OCR with Gemini AI fallback. Extract text from JPG, PNG, screenshots, notes, and PDFs instantly.",
     type: "website",
     siteName: SITE_NAME,
     locale: "en_US",
@@ -65,9 +70,9 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Image to Text – Extract Text from Images Online",
+    title: "Image to Text (Free & Instant) – 100% Private Online OCR",
     description:
-      "Convert images to editable text online. Free OCR for JPG, PNG, screenshots, and scans — AI extraction with browser fallback.",
+      "Convert images to editable text online for free. 100% private in-browser OCR with Gemini AI fallback. Extract text from JPG, PNG, screenshots, notes, and PDFs instantly.",
     creator: "@elango_dev",
     images: ["/opengraph-image"],
   },

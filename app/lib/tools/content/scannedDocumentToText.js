@@ -4,9 +4,11 @@ export const scannedDocumentToText = {
   slug: "scanned-document-to-text",
   path: "/scanned-document-to-text",
   title: "Scanned Document to Text — OCR for Scanned Pages",
-  metaTitle: "Scan to Text Converter – OCR Scanned Pages Online",
+  metaTitle: "Scan to Text Converter – Multi-Page Paper OCR Online",
   description:
-    "Free scan to text converter for flatbed and phone scans. Get editable text from scanned pages — DPI settings, bleed-through fixes, and batch tips.",
+    "Free scan to text converter for flatbed and mobile phone scans. Get editable text from scanned pages, book sheets, and documents with zero watermark.",
+  directAnswer:
+    "Scan to Text Converter transforms flatbed scanner images and mobile document photos into clean editable text, removing skew and shadows across multi-page batches.",
   h1: "Scan to Text Converter",
   lead:
     "Use this scan to text converter when you have page images from a flatbed scanner or scan app — fixed lighting, a flat page, and a resolution you choose beat camera photos for OCR accuracy.",

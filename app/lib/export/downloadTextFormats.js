@@ -9,6 +9,13 @@ function triggerDownload(blob, filename) {
   URL.revokeObjectURL(url);
 }
 
+export function sanitizeFilename(name, fallback = "extracted-text") {
+  if (!name || typeof name !== "string") return fallback;
+  const withoutExt = name.replace(/\.[^/.]+$/, "");
+  const clean = withoutExt.replace(/[^a-zA-Z0-9_\- ]/g, "").trim().replace(/\s+/g, "-");
+  return clean || fallback;
+}
+
 export function downloadTxt(text, filename = "extracted-text.txt") {
   const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
   triggerDownload(blob, filename);
@@ -163,6 +170,14 @@ export function downloadDocx(text, filename = "extracted-text.docx") {
 
   const blob = new Blob([bytes], {
     type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+  });
+  triggerDownload(blob, filename);
+}
+
+export function downloadZip(files, filename = "extracted-texts.zip") {
+  const bytes = zipStore(files);
+  const blob = new Blob([bytes], {
+    type: "application/zip",
   });
   triggerDownload(blob, filename);
 }

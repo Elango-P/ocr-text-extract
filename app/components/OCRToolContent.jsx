@@ -23,8 +23,10 @@ import {
     OCR_LANGUAGES,
 } from "../lib/ocr/toolOptions";
 import { requestCloudOcr } from "../lib/ocr/extractText";
+import SmartOcrEditor from "./editor/SmartOcrEditor";
 
 export default function OCRTool({ initialFiles = null } = {}) {
+    const [viewMode, setViewMode] = useState("upload"); // 'upload' | 'editor'
     const [queue, setQueue] = useState([]);
     const [activeId, setActiveId] = useState(null);
     const [extractedText, setExtractedText] = useState("");
@@ -847,12 +849,23 @@ export default function OCRTool({ initialFiles = null } = {}) {
         if (!sized.length) return;
 
         const entries = await Promise.all(
-            sized.slice(0, MAX_BATCH_IMAGES).map(async (file) => ({
-                id: `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`,
-                file,
-                name: file.name || "image",
-                preview: await readFileAsDataUrl(file),
-            }))
+            sized.slice(0, MAX_BATCH_IMAGES).map(async (file) => {
+                const dataUrl = await readFileAsDataUrl(file);
+                return {
+                    id: `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`,
+                    file,
+                    name: file.name || "image",
+                    originalPreview: dataUrl,
+                    preview: dataUrl,
+                    status: "idle",
+                    text: "",
+                    originalOcrText: "",
+                    confidence: null,
+                    engine: null,
+                    words: null,
+                    dismissedFlags: [],
+                };
+            })
         );
 
         setQueue((prev) => {
@@ -919,11 +932,19 @@ export default function OCRTool({ initialFiles = null } = {}) {
     const removeQueueItem = (id) => {
         setQueue((prev) => {
             const next = prev.filter((q) => q.id !== id);
-            if (activeId === id) setActiveId(next[0]?.id || null);
+            if (activeId === id) {
+                const nextActive = next[0] || null;
+                setActiveId(nextActive?.id || null);
+                setExtractedText(nextActive?.text || "");
+                setConfidence(nextActive?.confidence || null);
+            }
+            if (next.length === 0) {
+                setViewMode("upload");
+                setExtractedText("");
+                setConfidence(null);
+            }
             return next;
         });
-        setExtractedText("");
-        setConfidence(null);
     };
 
     /* ---------------- OCR ---------------- */
@@ -1109,22 +1130,30 @@ export default function OCRTool({ initialFiles = null } = {}) {
           finalText = normalizeText(bestData.text || "");
         }
 
+        const words = (bestData?.words || []).map((w) => ({
+          text: w.text,
+          confidence: w.confidence,
+          bbox: w.bbox,
+        }));
+
         return {
           text: finalText,
           confidence: finalText.trim() ? Math.round(metrics.score) : null,
+          words,
         };
     };
 
     const extractSinglePreview = async (previewDataUrl) => {
         if (localOnly) {
-            const { text, confidence: score } = await extractWithTesseract(previewDataUrl);
-            return { text, confidence: score, engine: "browser" };
+            const { text, confidence: score, words } = await extractWithTesseract(previewDataUrl);
+            return { text, confidence: score, words, engine: "browser" };
         }
         try {
             const geminiResult = await tryGeminiOcr(previewDataUrl);
             return {
                 text: geminiResult.text,
                 confidence: null,
+                words: null,
                 engine: "ai",
                 remaining: geminiResult.remaining,
                 limit: geminiResult.limit,
@@ -1137,9 +1166,108 @@ export default function OCRTool({ initialFiles = null } = {}) {
             if (geminiErr?.code === "RATE_LIMITED") {
                 toast("AI OCR daily limit reached (10/day) — using browser OCR…");
             }
-            const { text, confidence: score } = await extractWithTesseract(previewDataUrl);
-            return { text, confidence: score, engine: "browser" };
+            const { text, confidence: score, words } = await extractWithTesseract(previewDataUrl);
+            return { text, confidence: score, words, engine: "browser" };
         }
+    };
+
+    const reRunOcr = async (itemId) => {
+        const item = queue.find((q) => q.id === itemId);
+        if (!item || !item.preview) return;
+
+        setIsProcessing(true);
+        setProgress(20);
+        setStatusMessage(`Re-running OCR on ${item.name}…`);
+        try {
+            const result = await extractSinglePreview(item.preview);
+            setProgress(100);
+            setQueue((prev) =>
+                prev.map((q) =>
+                    q.id === itemId
+                        ? {
+                              ...q,
+                              status: "completed",
+                              text: result.text,
+                              originalOcrText: result.text,
+                              confidence: result.confidence,
+                              engine: result.engine,
+                              words: result.words || null,
+                          }
+                        : q
+                )
+            );
+            if (activeId === itemId) {
+                setExtractedText(result.text);
+                setConfidence(result.confidence);
+            }
+            toast.success("OCR completed for modified image!");
+            setStatusMessage("OCR updated.");
+        } catch (err) {
+            console.error("Re-run OCR error:", err);
+            toast.error("Re-run OCR failed");
+            setStatusMessage("Re-run OCR failed.");
+        } finally {
+            setIsProcessing(false);
+        }
+    };
+
+    const handleUpdateImagePreview = (itemId, newPreview) => {
+        setQueue((prev) =>
+            prev.map((item) =>
+                item.id === itemId
+                    ? { ...item, preview: newPreview }
+                    : item
+            )
+        );
+    };
+
+    const handleResetToOriginal = (itemId) => {
+        setQueue((prev) =>
+            prev.map((item) =>
+                item.id === itemId
+                    ? { ...item, preview: item.originalPreview || item.preview }
+                    : item
+            )
+        );
+        toast.success("Restored original image");
+    };
+
+    const handleUpdateText = (itemId, newText) => {
+        setQueue((prev) =>
+            prev.map((item) =>
+                item.id === itemId ? { ...item, text: newText } : item
+            )
+        );
+        if (activeId === itemId) {
+            setExtractedText(newText);
+        }
+    };
+
+    const handleClearText = (itemId) => {
+        setQueue((prev) =>
+            prev.map((item) =>
+                item.id === itemId ? { ...item, text: "" } : item
+            )
+        );
+        if (activeId === itemId) {
+            setExtractedText("");
+        }
+        toast("Text cleared");
+    };
+
+    const handleRestoreOriginalOcr = (itemId) => {
+        const target = queue.find((q) => q.id === itemId);
+        if (!target) return;
+        const restored = target.originalOcrText || "";
+        setQueue((prev) =>
+            prev.map((item) =>
+                item.id === itemId ? { ...item, text: restored } : item
+            )
+        );
+        if (activeId === itemId) {
+            setExtractedText(restored);
+        }
+        toast.success("Restored initial unedited OCR output");
     };
 
     const extractText = async () => {
@@ -1163,6 +1291,7 @@ export default function OCRTool({ initialFiles = null } = {}) {
             const parts = [];
             let lastConfidence = null;
             let usedAi = false;
+            let runningQueue = [...queue];
 
             for (let i = 0; i < queue.length; i++) {
                 if (cancelRequestedRef.current) {
@@ -1178,9 +1307,31 @@ export default function OCRTool({ initialFiles = null } = {}) {
                           ? "Recognizing text in your browser…"
                           : "Recognizing text…"
                 );
+
+                runningQueue = runningQueue.map((q, idx) =>
+                    idx === i ? { ...q, status: "processing" } : q
+                );
+                setQueue(runningQueue);
+
                 const result = await extractSinglePreview(item.preview);
                 if (result.engine === "ai") usedAi = true;
                 if (result.confidence != null) lastConfidence = result.confidence;
+
+                runningQueue = runningQueue.map((q, idx) =>
+                    idx === i
+                        ? {
+                              ...q,
+                              status: "completed",
+                              text: result.text,
+                              originalOcrText: result.text,
+                              confidence: result.confidence,
+                              engine: result.engine,
+                              words: result.words || null,
+                          }
+                        : q
+                );
+                setQueue(runningQueue);
+
                 const header =
                     queue.length > 1
                         ? `----- ${item.name || `Image ${i + 1}`} -----\n`
@@ -1192,6 +1343,10 @@ export default function OCRTool({ initialFiles = null } = {}) {
             setExtractedText(combined);
             setConfidence(queue.length === 1 ? lastConfidence : null);
             setProgress(100);
+
+            if (combined.trim()) {
+                setViewMode("editor");
+            }
 
             if (!combined.trim()) {
                 setStatusMessage("No text detected. Try a clearer image or another language.");
@@ -1305,7 +1460,49 @@ export default function OCRTool({ initialFiles = null } = {}) {
         <section id="ocr-tool" className="mx-auto max-w-6xl px-4 pb-8 pt-6 sm:px-6 sm:pb-10 sm:pt-8">
             <h2 className="sr-only">OCR tool</h2>
             <div className="ocr-tool-shell p-4 sm:p-6 lg:p-8">
-            <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-8">
+            {viewMode === "editor" && hasImages ? (
+                <SmartOcrEditor
+                    queue={queue}
+                    activeId={activeId}
+                    onSelectImage={(id) => {
+                        setActiveId(id);
+                        const sel = queue.find((q) => q.id === id);
+                        if (sel) {
+                            setExtractedText(sel.text || "");
+                            setConfidence(sel.confidence);
+                        }
+                    }}
+                    onRemoveImage={removeQueueItem}
+                    onAddFiles={loadImageFiles}
+                    onUpdateImagePreview={handleUpdateImagePreview}
+                    onResetToOriginal={handleResetToOriginal}
+                    onUpdateText={handleUpdateText}
+                    onClearText={handleClearText}
+                    onRestoreOriginalOcr={handleRestoreOriginalOcr}
+                    onReRunOcr={reRunOcr}
+                    onNewScan={() => setViewMode("upload")}
+                    isProcessing={isProcessing}
+                    fileInputRef={fileInputRef}
+                />
+            ) : (
+                <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-8">
+                    {queue.some((q) => q.text) && (
+                        <div className="col-span-full flex items-center justify-between rounded-2xl border border-cyan-200 bg-cyan-50/80 p-4 text-xs text-cyan-900 shadow-xs">
+                            <div className="flex items-center gap-2">
+                                <span className="flex h-2 w-2 rounded-full bg-teal-500 animate-pulse" />
+                                <span className="font-bold">
+                                    Smart OCR Editor is ready with your extracted text!
+                                </span>
+                            </div>
+                            <button
+                                type="button"
+                                onClick={() => setViewMode("editor")}
+                                className="rounded-xl bg-gradient-to-r from-cyan-600 to-teal-600 px-4 py-2 text-xs font-bold text-white shadow-xs hover:brightness-110 transition"
+                            >
+                                Open Smart OCR Editor →
+                            </button>
+                        </div>
+                    )}
                     {/* LEFT — drops below the results on small screens once there is text to read */}
                     <div
                         className={`space-y-4 ${extractedText ? "order-2" : "order-1"} lg:order-1`}
@@ -1625,7 +1822,14 @@ export default function OCRTool({ initialFiles = null } = {}) {
                                 )}
                             </div>
                             {extractedText && (
-                                <div className="flex flex-wrap gap-1">
+                                <div className="flex flex-wrap gap-1 items-center">
+                                    <button
+                                        type="button"
+                                        onClick={() => setViewMode("editor")}
+                                        className="rounded-lg bg-cyan-50 border border-cyan-200 px-2.5 py-1 text-xs font-bold text-cyan-700 hover:bg-cyan-100 transition mr-1"
+                                    >
+                                        Open Smart Editor
+                                    </button>
                                     <button
                                         type="button"
                                         onClick={copyToClipboard}
@@ -1672,13 +1876,14 @@ export default function OCRTool({ initialFiles = null } = {}) {
                         <textarea
                             id="extracted-text-output"
                             value={extractedText}
-                            readOnly
+                            onChange={(e) => handleUpdateText(activeId, e.target.value)}
                             aria-label="Extracted text output"
                             className="min-h-[220px] w-full flex-1 resize-none rounded-xl border border-slate-200 bg-slate-50 p-4 font-mono text-sm text-slate-900 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 sm:min-h-[420px]"
                             placeholder="Your extracted text will appear here after processing..."
                         />
                     </div>
                 </div>
+            )}
             </div>
         </section>
         </>
